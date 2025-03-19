@@ -38,10 +38,11 @@ public class ViewAppointmentsPage extends UiBase {
        ListView listView = (ListView) parentView;
         appointments = Globals.appointmentController.getAppointments()
                 .stream()
-                .filter(x->x.getAppointmentStatus() != AppointmentStatus.COMPLETED)
+                .filter(x->x.getAppointmentStatus() != AppointmentStatus.COMPLETED
+                        && x.getAppointmentStatus() != AppointmentStatus.EMERGENCY)
                 .toList();
 
-       // filter the appointments list and only show the appointments that are completed.
+       // filter the appointments list and only show the appointments that are not completed or non-emergency.
        listView.attachUserInput("Select Patient index", str-> selectAppointmentPrompt(appointments));
        refreshUi();
     }

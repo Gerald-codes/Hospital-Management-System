@@ -7,107 +7,110 @@
       "allergies": [],
       "current_medications": [
         {
-          "medication_name": "Aspirin",
-          "guideline_id": "C002",
-          "medication_id": "M002",
-          "dosage": "325mg, Once a Week",
-          "side_effects": "Bleeding, Stomach Pain",
-          "brand_name": "Bayer",
-          "dosage_strength": 325,
-          "frequency": "Once a Day",
-          "maximum_daily_dosage": "6969mg",
-          "stock_available": 80,
+          "medication_name": "Ibuprofen",
+          "guideline_id": "C008",
+          "medication_id": "M008",
+          "dosage": "200mg, Every 6 Hours",
+          "side_effects": "Stomach Pain, Heartburn",
+          "brand_name": "Advil",
+          "stock_available": 150,
           "controlled_substance": false,
-          "manufacture_name": "Bayer Pharmaceuticals",
-          "batch_number": "B002",
-          "manufacture_date": "12-12-2025",
-          "expiry_date": "04-04-2026",
-          "medication_price": 13.1
+          "manufacture_name": "Pfizer",
+          "batch_number": "B005",
+          "manufacture_date": "01-03-2024",
+          "expiry_date": "02-07-2026",
+          "medication_price": 6.49
         },
         {
-          "medication_name": "Paracetamol",
-          "guideline_id": "C001",
-          "medication_id": "M001",
-          "dosage": "325mg, Once a Week",
-          "side_effects": "Drowsiness, Nausea",
-          "brand_name": "Tylenol",
-          "dosage_strength": 325,
-          "frequency": "Once a Day",
-          "maximum_daily_dosage": "6969mg",
+          "medication_name": "Diphenhydramine",
+          "guideline_id": "C004",
+          "medication_id": "M004",
+          "dosage": "200mg, Once a Week",
+          "side_effects": "Drowsiness, Sleepiness",
+          "brand_name": "HealthA2Z Sleep Aid",
           "stock_available": 80,
           "controlled_substance": false,
           "manufacture_name": "Bayer Pharmaceuticals",
           "batch_number": "B002",
           "manufacture_date": "12-12-2025",
           "expiry_date": "04-04-2026",
-          "medication_price": 23.1
+          "medication_price": 14.69
         },
         {
-          "medication_name": "Loperamide",
-          "guideline_id": "C005",
-          "medication_id": "M005",
-          "dosage": "325mg, Once a Week",
-          "side_effects": "Bleeding Cock",
-          "brand_name": "Bayer",
-          "dosage_strength": 325,
-          "frequency": "Twice a Day",
-          "maximum_daily_dosage": "6969mg",
-          "stock_available": 80,
+          "medication_name": "Amoxicillin",
+          "guideline_id": "C006",
+          "medication_id": "M006",
+          "dosage": "500mg, Twice a Day",
+          "side_effects": "Nausea, Diarrhea",
+          "brand_name": "Amoxil",
+          "stock_available": 100,
           "controlled_substance": false,
-          "manufacture_name": "Bayer Pharmaceuticals",
-          "batch_number": "B002",
-          "manufacture_date": "12-12-2025",
-          "expiry_date": "04-04-2026",
-          "medication_price": 53.1
+          "manufacture_name": "GlaxoSmithKline",
+          "batch_number": "B003",
+          "manufacture_date": "15-08-2024",
+          "expiry_date": "20-12-2025",
+          "medication_price": 8.99
         }
       ],
       "medical_history": [
         "Hypertension",
-        "Arthritis",
-        "Obesity"
+        "Asthma",
+        "Obesity",
+        "Arthritis"
       ],
       "vital_signs": {
-        "temperature": 37.2,
-        "heart_rate": 75,
-        "blood_pressure_systolic": 114,
-        "blood_pressure_diastolic": 80,
-        "respiratory_rate": 14
+        "temperature": 36.2,
+        "heart_rate": 96,
+        "blood_pressure_systolic": 107,
+        "blood_pressure_diastolic": 79,
+        "respiratory_rate": 16
       },
       "lab_results": [
         "CBC: Normal",
-        "Blood Glucose: High",
-        "Hemoglobin: Low"
+        "Hemoglobin: Low",
+        "Lipid Panel: Elevated"
       ],
       "imaging_records": [
-        "CT Scan"
+        "Ultrasound"
       ],
-      "clinical_notes": "Follow-up needed in 2 weeks.",
+      "clinical_notes": "Patient complains of headache.",
       "symptoms": [
         {
-          "symptom_name": "fever, chills, body aches",
-          "symptom_id": "SYM-001",
-          "severity": 6,
-          "duration": 5,
-          "doctor_notes": "Patient has flu-like symptoms, monitor temperature."
+          "symptom_name": "chronic cough",
+          "symptom_id": "SYM-006",
+          "severity": 5,
+          "duration": 10,
+          "doctor_notes": "Check for tuberculosis or bronchitis."
         },
         {
-          "symptom_name": "sore throat",
-          "symptom_id": "SYM-002",
+          "symptom_name": "loss of taste and smell",
+          "symptom_id": "SYM-016",
           "severity": 4,
-          "duration": 3,
-          "doctor_notes": "Recommend warm fluids and throat lozenges."
+          "duration": 14,
+          "doctor_notes": "Check for COVID-19 infection."
+        },
+        {
+          "symptom_name": "joint pain and swelling",
+          "symptom_id": "SYM-019",
+          "severity": 6,
+          "duration": 5,
+          "doctor_notes": "Possible arthritis or autoimmune disorder."
         }
       ],
       "diagnosis": "Nil",
       "outcome_monitoring_records": [],
       "past_surgeries": [
+        "Gallbladder Removal",
+        "Appendectomy",
         "Cataract Surgery",
-        "Gallbladder Removal"
+        "Hernia Repair",
+        "Knee Replacement"
       ],
       "vaccination_record": [
-        "Influenza Vaccine",
+        "COVID-19 Vaccine",
         "Hepatitis B Vaccine",
-        "COVID-19 Vaccine"
+        "Measles, Mumps, Rubella (MMR) Vaccine",
+        "Influenza Vaccine"
       ]
     },
     "patient_specific_factor": "Diabetic",
@@ -139,104 +142,88 @@
     "date_of_birth": "15-08-1990",
     "electronic_health_record": {
       "allergies": [
-        "Gluten",
-        "Latex"
+        "Shellfish",
+        "Latex",
+        "Penicillin",
+        "Peanuts",
+        "Gluten"
       ],
       "current_medications": [
         {
-          "medication_name": "Aspirin",
-          "guideline_id": "C002",
-          "medication_id": "M002",
-          "dosage": "325mg, Once a Week",
-          "side_effects": "Bleeding, Stomach Pain",
-          "brand_name": "Bayer",
-          "dosage_strength": 325,
-          "frequency": "Once a Day",
-          "maximum_daily_dosage": "6969mg",
+          "medication_name": "Diphenhydramine",
+          "guideline_id": "C004",
+          "medication_id": "M004",
+          "dosage": "200mg, Once a Week",
+          "side_effects": "Drowsiness, Sleepiness",
+          "brand_name": "HealthA2Z Sleep Aid",
           "stock_available": 80,
           "controlled_substance": false,
           "manufacture_name": "Bayer Pharmaceuticals",
           "batch_number": "B002",
           "manufacture_date": "12-12-2025",
           "expiry_date": "04-04-2026",
-          "medication_price": 13.1
+          "medication_price": 14.69
         },
         {
-          "medication_name": "Paracetamol",
-          "guideline_id": "C001",
-          "medication_id": "M001",
-          "dosage": "325mg, Once a Week",
-          "side_effects": "Drowsiness, Nausea",
-          "brand_name": "Tylenol",
-          "dosage_strength": 325,
-          "frequency": "Once a Day",
-          "maximum_daily_dosage": "6969mg",
-          "stock_available": 80,
+          "medication_name": "Amoxicillin",
+          "guideline_id": "C006",
+          "medication_id": "M006",
+          "dosage": "500mg, Twice a Day",
+          "side_effects": "Nausea, Diarrhea",
+          "brand_name": "Amoxil",
+          "stock_available": 100,
           "controlled_substance": false,
-          "manufacture_name": "Bayer Pharmaceuticals",
-          "batch_number": "B002",
-          "manufacture_date": "12-12-2025",
-          "expiry_date": "04-04-2026",
-          "medication_price": 23.1
-        },
-        {
-          "medication_name": "Furosemide",
-          "guideline_id": "C003",
-          "medication_id": "M003",
-          "dosage": "325mg, Once a Week",
-          "side_effects": "Bleeding Cock",
-          "brand_name": "Lasix",
-          "dosage_strength": 325,
-          "frequency": "Once a Day",
-          "maximum_daily_dosage": "6969mg",
-          "stock_available": 80,
-          "controlled_substance": true,
-          "manufacture_name": "Sanofi",
-          "batch_number": "B002",
-          "manufacture_date": "12-12-2025",
-          "expiry_date": "04-04-2026",
-          "medication_price": 10.1
+          "manufacture_name": "GlaxoSmithKline",
+          "batch_number": "B003",
+          "manufacture_date": "15-08-2024",
+          "expiry_date": "20-12-2025",
+          "medication_price": 8.99
         }
       ],
       "medical_history": [
-        "Obesity",
+        "Asthma",
         "Hypertension"
       ],
       "vital_signs": {
-        "temperature": 37.3,
-        "heart_rate": 60,
-        "blood_pressure_systolic": 140,
-        "blood_pressure_diastolic": 64,
-        "respiratory_rate": 16
+        "temperature": 37.2,
+        "heart_rate": 96,
+        "blood_pressure_systolic": 130,
+        "blood_pressure_diastolic": 71,
+        "respiratory_rate": 19
       },
-      "lab_results": [
-        "Hemoglobin: Low",
-        "Blood Glucose: High",
-        "Lipid Panel: Elevated"
-      ],
+      "lab_results": [],
       "imaging_records": [
-        "Ultrasound"
+        "Ultrasound",
+        "PET Scan",
+        "X-Ray"
       ],
-      "clinical_notes": "Patient complains of headache.",
+      "clinical_notes": "Follow-up needed in 2 weeks.",
       "symptoms": [
         {
-          "symptom_name": "fever, chills, body aches",
-          "symptom_id": "SYM-021",
-          "severity": 6,
-          "duration": 5,
-          "doctor_notes": "Patient has flu-like symptoms, monitor temperature."
+          "symptom_name": "chronic cough",
+          "symptom_id": "SYM-026",
+          "severity": 5,
+          "duration": 10,
+          "doctor_notes": "Check for tuberculosis or bronchitis."
+        },
+        {
+          "symptom_name": "loss of taste and smell",
+          "symptom_id": "SYM-036",
+          "severity": 4,
+          "duration": 14,
+          "doctor_notes": "Check for COVID-19 infection."
         }
       ],
       "diagnosis": "Nil",
       "outcome_monitoring_records": [],
       "past_surgeries": [
-        "Hernia Repair",
-        "Appendectomy",
+        "Knee Replacement",
         "Cataract Surgery",
         "Gallbladder Removal",
-        "Knee Replacement"
+        "Hernia Repair"
       ],
       "vaccination_record": [
+        "Influenza Vaccine",
         "Tetanus Booster"
       ]
     },
@@ -269,64 +256,122 @@
     "date_of_birth": "15-08-1990",
     "electronic_health_record": {
       "allergies": [
+        "Latex",
+        "Pollen",
+        "Gluten",
+        "Dust",
+        "Shellfish",
         "Penicillin",
-        "Pollen"
+        "Peanuts"
       ],
       "current_medications": [
         {
-          "medication_name": "Diphenhydramine",
-          "guideline_id": "C004",
-          "medication_id": "M004",
-          "dosage": "200mg, Once a Week",
-          "side_effects": "Bleeding Cock",
-          "brand_name": "Bayer",
-          "dosage_strength": 200,
-          "frequency": "Thrice a Day",
-          "maximum_daily_dosage": "6969mg",
+          "medication_name": "Loperamide",
+          "guideline_id": "C005",
+          "medication_id": "M005",
+          "dosage": "325mg, Once a Week",
+          "side_effects": "Constipation, Dry Mouth",
+          "brand_name": "Imodium",
           "stock_available": 80,
           "controlled_substance": false,
           "manufacture_name": "Bayer Pharmaceuticals",
           "batch_number": "B002",
           "manufacture_date": "12-12-2025",
           "expiry_date": "04-04-2026",
-          "medication_price": 100.1
+          "medication_price": 3.33
+        },
+        {
+          "medication_name": "Diphenhydramine",
+          "guideline_id": "C004",
+          "medication_id": "M004",
+          "dosage": "200mg, Once a Week",
+          "side_effects": "Drowsiness, Sleepiness",
+          "brand_name": "HealthA2Z Sleep Aid",
+          "stock_available": 80,
+          "controlled_substance": false,
+          "manufacture_name": "Bayer Pharmaceuticals",
+          "batch_number": "B002",
+          "manufacture_date": "12-12-2025",
+          "expiry_date": "04-04-2026",
+          "medication_price": 14.69
+        },
+        {
+          "medication_name": "Furosemide",
+          "guideline_id": "C003",
+          "medication_id": "M003",
+          "dosage": "325mg, Once a Week",
+          "side_effects": "Frequent Urination",
+          "brand_name": "Lasix",
+          "stock_available": 80,
+          "controlled_substance": true,
+          "manufacture_name": "Sanofi",
+          "batch_number": "B002",
+          "manufacture_date": "12-12-2025",
+          "expiry_date": "04-04-2026",
+          "medication_price": 10.1
         }
       ],
       "medical_history": [
-        "Arthritis"
+        "Obesity",
+        "Asthma",
+        "Arthritis",
+        "Diabetes",
+        "Hypertension"
       ],
       "vital_signs": {
-        "temperature": 36.7,
-        "heart_rate": 73,
+        "temperature": 36.5,
+        "heart_rate": 68,
         "blood_pressure_systolic": 104,
-        "blood_pressure_diastolic": 67,
+        "blood_pressure_diastolic": 87,
         "respiratory_rate": 14
       },
       "lab_results": [
-        "Lipid Panel: Elevated",
+        "Hemoglobin: Low",
+        "Blood Glucose: High",
         "CBC: Normal",
-        "Thyroid: Normal"
+        "Thyroid: Normal",
+        "Lipid Panel: Elevated"
       ],
       "imaging_records": [
-        "Ultrasound"
+        "PET Scan",
+        "X-Ray"
       ],
-      "clinical_notes": "Patient is recovering well.",
+      "clinical_notes": "No significant issues.",
       "symptoms": [
         {
-          "symptom_name": "fever, chills, body aches",
-          "symptom_id": "SYM-041",
+          "symptom_name": "nausea and vomiting",
+          "symptom_id": "SYM-050",
+          "severity": 5,
+          "duration": 1,
+          "doctor_notes": "Check for food poisoning or stomach flu."
+        },
+        {
+          "symptom_name": "dizziness, light headedness",
+          "symptom_id": "SYM-048",
+          "severity": 6,
+          "duration": 1,
+          "doctor_notes": "Check for dehydration or inner ear issues."
+        },
+        {
+          "symptom_name": "swelling in legs and ankles",
+          "symptom_id": "SYM-054",
           "severity": 6,
           "duration": 5,
-          "doctor_notes": "Patient has flu-like symptoms, monitor temperature."
+          "doctor_notes": "Check for heart failure or kidney disease."
         }
       ],
       "diagnosis": "Nil",
       "outcome_monitoring_records": [],
       "past_surgeries": [
-        "Hernia Repair",
-        "Gallbladder Removal"
+        "Cataract Surgery",
+        "Appendectomy",
+        "Knee Replacement",
+        "Gallbladder Removal",
+        "Hernia Repair"
       ],
-      "vaccination_record": []
+      "vaccination_record": [
+        "COVID-19 Vaccine"
+      ]
     },
     "patient_specific_factor": "Asthmatic",
     "assigned_nurse": "N002",
@@ -356,68 +401,83 @@
     "patient_i_d": "P004",
     "date_of_birth": "15-08-1990",
     "electronic_health_record": {
-      "allergies": [
-        "Gluten"
-      ],
+      "allergies": [],
       "current_medications": [
         {
           "medication_name": "Loperamide",
           "guideline_id": "C005",
           "medication_id": "M005",
           "dosage": "325mg, Once a Week",
-          "side_effects": "Bleeding Cock",
-          "brand_name": "Bayer",
-          "dosage_strength": 325,
-          "frequency": "Twice a Day",
-          "maximum_daily_dosage": "6969mg",
+          "side_effects": "Constipation, Dry Mouth",
+          "brand_name": "Imodium",
           "stock_available": 80,
           "controlled_substance": false,
           "manufacture_name": "Bayer Pharmaceuticals",
           "batch_number": "B002",
           "manufacture_date": "12-12-2025",
           "expiry_date": "04-04-2026",
-          "medication_price": 53.1
+          "medication_price": 3.33
+        },
+        {
+          "medication_name": "Diphenhydramine",
+          "guideline_id": "C004",
+          "medication_id": "M004",
+          "dosage": "200mg, Once a Week",
+          "side_effects": "Drowsiness, Sleepiness",
+          "brand_name": "HealthA2Z Sleep Aid",
+          "stock_available": 80,
+          "controlled_substance": false,
+          "manufacture_name": "Bayer Pharmaceuticals",
+          "batch_number": "B002",
+          "manufacture_date": "12-12-2025",
+          "expiry_date": "04-04-2026",
+          "medication_price": 14.69
         }
       ],
       "medical_history": [
-        "Hypertension",
-        "Diabetes"
+        "Arthritis",
+        "Obesity",
+        "Hypertension"
       ],
       "vital_signs": {
-        "temperature": 36.0,
-        "heart_rate": 95,
-        "blood_pressure_systolic": 91,
-        "blood_pressure_diastolic": 71,
-        "respiratory_rate": 18
+        "temperature": 37.5,
+        "heart_rate": 80,
+        "blood_pressure_systolic": 98,
+        "blood_pressure_diastolic": 70,
+        "respiratory_rate": 12
       },
-      "lab_results": [],
-      "imaging_records": [],
-      "clinical_notes": "Follow-up needed in 2 weeks.",
+      "lab_results": [
+        "Lipid Panel: Elevated"
+      ],
+      "imaging_records": [
+        "Ultrasound",
+        "X-Ray",
+        "PET Scan",
+        "CT Scan",
+        "MRI"
+      ],
+      "clinical_notes": "Monitor blood pressure closely.",
       "symptoms": [
         {
-          "symptom_name": "fever, chills, body aches",
-          "symptom_id": "SYM-061",
-          "severity": 6,
-          "duration": 5,
-          "doctor_notes": "Patient has flu-like symptoms, monitor temperature."
+          "symptom_name": "nausea and vomiting",
+          "symptom_id": "SYM-070",
+          "severity": 5,
+          "duration": 1,
+          "doctor_notes": "Check for food poisoning or stomach flu."
         },
         {
-          "symptom_name": "sore throat",
-          "symptom_id": "SYM-062",
-          "severity": 4,
-          "duration": 3,
-          "doctor_notes": "Recommend warm fluids and throat lozenges."
+          "symptom_name": "dizziness, light headedness",
+          "symptom_id": "SYM-068",
+          "severity": 6,
+          "duration": 1,
+          "doctor_notes": "Check for dehydration or inner ear issues."
         }
       ],
       "diagnosis": "Nil",
       "outcome_monitoring_records": [],
-      "past_surgeries": [
-        "Appendectomy"
-      ],
+      "past_surgeries": [],
       "vaccination_record": [
-        "Tetanus Booster",
-        "Hepatitis B Vaccine",
-        "Influenza Vaccine"
+        "Hepatitis B Vaccine"
       ]
     },
     "patient_specific_factor": "Asthmatic",
@@ -448,95 +508,83 @@
     "patient_i_d": "P005",
     "date_of_birth": "15-08-1990",
     "electronic_health_record": {
-      "allergies": [],
+      "allergies": [
+        "Latex",
+        "Shellfish",
+        "Peanuts",
+        "Gluten",
+        "Dust"
+      ],
       "current_medications": [
         {
-          "medication_name": "Aspirin",
-          "guideline_id": "C002",
-          "medication_id": "M002",
-          "dosage": "325mg, Once a Week",
-          "side_effects": "Bleeding, Stomach Pain",
-          "brand_name": "Bayer",
-          "dosage_strength": 325,
-          "frequency": "Once a Day",
-          "maximum_daily_dosage": "6969mg",
-          "stock_available": 80,
+          "medication_name": "Metformin",
+          "guideline_id": "C007",
+          "medication_id": "M007",
+          "dosage": "850mg, Once Daily",
+          "side_effects": "Stomach Upset, Lactic Acidosis (Rare)",
+          "brand_name": "Glucophage",
+          "stock_available": 120,
           "controlled_substance": false,
-          "manufacture_name": "Bayer Pharmaceuticals",
-          "batch_number": "B002",
-          "manufacture_date": "12-12-2025",
-          "expiry_date": "04-04-2026",
-          "medication_price": 13.1
+          "manufacture_name": "Merck",
+          "batch_number": "B004",
+          "manufacture_date": "10-09-2023",
+          "expiry_date": "11-11-2025",
+          "medication_price": 5.75
         },
         {
-          "medication_name": "Paracetamol",
-          "guideline_id": "C001",
-          "medication_id": "M001",
-          "dosage": "325mg, Once a Week",
-          "side_effects": "Drowsiness, Nausea",
-          "brand_name": "Tylenol",
-          "dosage_strength": 325,
-          "frequency": "Once a Day",
-          "maximum_daily_dosage": "6969mg",
-          "stock_available": 80,
+          "medication_name": "Ibuprofen",
+          "guideline_id": "C008",
+          "medication_id": "M008",
+          "dosage": "200mg, Every 6 Hours",
+          "side_effects": "Stomach Pain, Heartburn",
+          "brand_name": "Advil",
+          "stock_available": 150,
           "controlled_substance": false,
-          "manufacture_name": "Bayer Pharmaceuticals",
-          "batch_number": "B002",
-          "manufacture_date": "12-12-2025",
-          "expiry_date": "04-04-2026",
-          "medication_price": 23.1
+          "manufacture_name": "Pfizer",
+          "batch_number": "B005",
+          "manufacture_date": "01-03-2024",
+          "expiry_date": "02-07-2026",
+          "medication_price": 6.49
         },
         {
-          "medication_name": "Diphenhydramine",
-          "guideline_id": "C004",
-          "medication_id": "M004",
-          "dosage": "200mg, Once a Week",
-          "side_effects": "Bleeding Cock",
-          "brand_name": "Bayer",
-          "dosage_strength": 200,
-          "frequency": "Thrice a Day",
-          "maximum_daily_dosage": "6969mg",
+          "medication_name": "Furosemide",
+          "guideline_id": "C003",
+          "medication_id": "M003",
+          "dosage": "325mg, Once a Week",
+          "side_effects": "Frequent Urination",
+          "brand_name": "Lasix",
           "stock_available": 80,
-          "controlled_substance": false,
-          "manufacture_name": "Bayer Pharmaceuticals",
+          "controlled_substance": true,
+          "manufacture_name": "Sanofi",
           "batch_number": "B002",
           "manufacture_date": "12-12-2025",
           "expiry_date": "04-04-2026",
-          "medication_price": 100.1
+          "medication_price": 10.1
         }
       ],
       "medical_history": [
-        "Hypertension",
-        "Obesity"
+        "Asthma"
       ],
       "vital_signs": {
-        "temperature": 36.0,
-        "heart_rate": 64,
-        "blood_pressure_systolic": 111,
-        "blood_pressure_diastolic": 82,
-        "respiratory_rate": 21
+        "temperature": 36.3,
+        "heart_rate": 60,
+        "blood_pressure_systolic": 104,
+        "blood_pressure_diastolic": 76,
+        "respiratory_rate": 15
       },
       "lab_results": [
-        "Hemoglobin: Low",
         "Thyroid: Normal",
-        "Blood Glucose: High",
-        "Lipid Panel: Elevated"
+        "Blood Glucose: High"
       ],
-      "imaging_records": [
-        "Ultrasound",
-        "MRI",
-        "CT Scan",
-        "X-Ray",
-        "PET Scan"
-      ],
+      "imaging_records": [],
       "clinical_notes": "Patient complains of headache.",
       "symptoms": [
         {
-          "symptom_name": "fever, chills, body aches",
-          "symptom_id": "SYM-081",
-          "severity": 6,
-          "duration": 5,
-          "doctor_notes": "Patient has flu-like symptoms, monitor temperature."
+          "symptom_name": "severe abdominal pain",
+          "symptom_id": "SYM-091",
+          "severity": 9,
+          "duration": 2,
+          "doctor_notes": "Possible appendicitis or pancreatitis."
         },
         {
           "symptom_name": "sore throat",
@@ -544,14 +592,23 @@
           "severity": 4,
           "duration": 3,
           "doctor_notes": "Recommend warm fluids and throat lozenges."
+        },
+        {
+          "symptom_name": "difficulty breathing",
+          "symptom_id": "SYM-085",
+          "severity": 9,
+          "duration": 1,
+          "doctor_notes": "Emergency! Consider asthma attack, pneumonia, or COVID-19."
         }
       ],
       "diagnosis": "Nil",
       "outcome_monitoring_records": [],
-      "past_surgeries": [],
+      "past_surgeries": [
+        "Hernia Repair"
+      ],
       "vaccination_record": [
+        "Influenza Vaccine",
         "COVID-19 Vaccine",
-        "Tetanus Booster",
         "Measles, Mumps, Rubella (MMR) Vaccine"
       ]
     },
@@ -584,38 +641,37 @@
     "date_of_birth": "15-08-1990",
     "electronic_health_record": {
       "allergies": [
+        "Gluten",
+        "Penicillin",
+        "Shellfish",
         "Pollen",
-        "Latex"
+        "Latex",
+        "Dust",
+        "Peanuts"
       ],
       "current_medications": [
         {
-          "medication_name": "Paracetamol",
-          "guideline_id": "C001",
-          "medication_id": "M001",
-          "dosage": "325mg, Once a Week",
-          "side_effects": "Drowsiness, Nausea",
-          "brand_name": "Tylenol",
-          "dosage_strength": 325,
-          "frequency": "Once a Day",
-          "maximum_daily_dosage": "6969mg",
-          "stock_available": 80,
+          "medication_name": "Ibuprofen",
+          "guideline_id": "C008",
+          "medication_id": "M008",
+          "dosage": "200mg, Every 6 Hours",
+          "side_effects": "Stomach Pain, Heartburn",
+          "brand_name": "Advil",
+          "stock_available": 150,
           "controlled_substance": false,
-          "manufacture_name": "Bayer Pharmaceuticals",
-          "batch_number": "B002",
-          "manufacture_date": "12-12-2025",
-          "expiry_date": "04-04-2026",
-          "medication_price": 23.1
+          "manufacture_name": "Pfizer",
+          "batch_number": "B005",
+          "manufacture_date": "01-03-2024",
+          "expiry_date": "02-07-2026",
+          "medication_price": 6.49
         },
         {
           "medication_name": "Furosemide",
           "guideline_id": "C003",
           "medication_id": "M003",
           "dosage": "325mg, Once a Week",
-          "side_effects": "Bleeding Cock",
+          "side_effects": "Frequent Urination",
           "brand_name": "Lasix",
-          "dosage_strength": 325,
-          "frequency": "Once a Day",
-          "maximum_daily_dosage": "6969mg",
           "stock_available": 80,
           "controlled_substance": true,
           "manufacture_name": "Sanofi",
@@ -623,31 +679,52 @@
           "manufacture_date": "12-12-2025",
           "expiry_date": "04-04-2026",
           "medication_price": 10.1
+        },
+        {
+          "medication_name": "Diphenhydramine",
+          "guideline_id": "C004",
+          "medication_id": "M004",
+          "dosage": "200mg, Once a Week",
+          "side_effects": "Drowsiness, Sleepiness",
+          "brand_name": "HealthA2Z Sleep Aid",
+          "stock_available": 80,
+          "controlled_substance": false,
+          "manufacture_name": "Bayer Pharmaceuticals",
+          "batch_number": "B002",
+          "manufacture_date": "12-12-2025",
+          "expiry_date": "04-04-2026",
+          "medication_price": 14.69
         }
       ],
-      "medical_history": [],
+      "medical_history": [
+        "Hypertension",
+        "Diabetes"
+      ],
       "vital_signs": {
-        "temperature": 37.5,
-        "heart_rate": 85,
-        "blood_pressure_systolic": 107,
-        "blood_pressure_diastolic": 68,
-        "respiratory_rate": 21
+        "temperature": 37.3,
+        "heart_rate": 70,
+        "blood_pressure_systolic": 90,
+        "blood_pressure_diastolic": 87,
+        "respiratory_rate": 12
       },
       "lab_results": [
+        "Lipid Panel: Elevated",
+        "Thyroid: Normal",
+        "Hemoglobin: Low",
         "Blood Glucose: High",
         "CBC: Normal"
       ],
       "imaging_records": [
-        "CT Scan"
+        "MRI"
       ],
-      "clinical_notes": "Follow-up needed in 2 weeks.",
+      "clinical_notes": "Patient is recovering well.",
       "symptoms": [
         {
-          "symptom_name": "fever, chills, body aches",
-          "symptom_id": "SYM-101",
-          "severity": 6,
-          "duration": 5,
-          "doctor_notes": "Patient has flu-like symptoms, monitor temperature."
+          "symptom_name": "severe abdominal pain",
+          "symptom_id": "SYM-111",
+          "severity": 9,
+          "duration": 2,
+          "doctor_notes": "Possible appendicitis or pancreatitis."
         },
         {
           "symptom_name": "sore throat",
@@ -660,10 +737,18 @@
       "diagnosis": "Nil",
       "outcome_monitoring_records": [],
       "past_surgeries": [
-        "Hernia Repair",
-        "Gallbladder Removal"
+        "Appendectomy",
+        "Gallbladder Removal",
+        "Knee Replacement",
+        "Cataract Surgery",
+        "Hernia Repair"
       ],
-      "vaccination_record": []
+      "vaccination_record": [
+        "Hepatitis B Vaccine",
+        "COVID-19 Vaccine",
+        "Tetanus Booster",
+        "Measles, Mumps, Rubella (MMR) Vaccine"
+      ]
     },
     "patient_specific_factor": "Pregnant",
     "assigned_nurse": "N003",
@@ -694,6 +779,9 @@
     "date_of_birth": "15-08-1990",
     "electronic_health_record": {
       "allergies": [
+        "Peanuts",
+        "Pollen",
+        "Latex",
         "Shellfish",
         "Dust",
         "Penicillin",
@@ -701,87 +789,79 @@
       ],
       "current_medications": [
         {
-          "medication_name": "Aspirin",
-          "guideline_id": "C002",
-          "medication_id": "M002",
-          "dosage": "325mg, Once a Week",
-          "side_effects": "Bleeding, Stomach Pain",
-          "brand_name": "Bayer",
-          "dosage_strength": 325,
-          "frequency": "Once a Day",
-          "maximum_daily_dosage": "6969mg",
-          "stock_available": 80,
+          "medication_name": "Metformin",
+          "guideline_id": "C007",
+          "medication_id": "M007",
+          "dosage": "850mg, Once Daily",
+          "side_effects": "Stomach Upset, Lactic Acidosis (Rare)",
+          "brand_name": "Glucophage",
+          "stock_available": 120,
           "controlled_substance": false,
-          "manufacture_name": "Bayer Pharmaceuticals",
-          "batch_number": "B002",
-          "manufacture_date": "12-12-2025",
-          "expiry_date": "04-04-2026",
-          "medication_price": 13.1
+          "manufacture_name": "Merck",
+          "batch_number": "B004",
+          "manufacture_date": "10-09-2023",
+          "expiry_date": "11-11-2025",
+          "medication_price": 5.75
         },
         {
-          "medication_name": "Paracetamol",
-          "guideline_id": "C001",
-          "medication_id": "M001",
-          "dosage": "325mg, Once a Week",
-          "side_effects": "Drowsiness, Nausea",
-          "brand_name": "Tylenol",
-          "dosage_strength": 325,
-          "frequency": "Once a Day",
-          "maximum_daily_dosage": "6969mg",
-          "stock_available": 80,
+          "medication_name": "Ibuprofen",
+          "guideline_id": "C008",
+          "medication_id": "M008",
+          "dosage": "200mg, Every 6 Hours",
+          "side_effects": "Stomach Pain, Heartburn",
+          "brand_name": "Advil",
+          "stock_available": 150,
           "controlled_substance": false,
-          "manufacture_name": "Bayer Pharmaceuticals",
-          "batch_number": "B002",
-          "manufacture_date": "12-12-2025",
-          "expiry_date": "04-04-2026",
-          "medication_price": 23.1
+          "manufacture_name": "Pfizer",
+          "batch_number": "B005",
+          "manufacture_date": "01-03-2024",
+          "expiry_date": "02-07-2026",
+          "medication_price": 6.49
         },
         {
-          "medication_name": "Loperamide",
-          "guideline_id": "C005",
-          "medication_id": "M005",
+          "medication_name": "Furosemide",
+          "guideline_id": "C003",
+          "medication_id": "M003",
           "dosage": "325mg, Once a Week",
-          "side_effects": "Bleeding Cock",
-          "brand_name": "Bayer",
-          "dosage_strength": 325,
-          "frequency": "Twice a Day",
-          "maximum_daily_dosage": "6969mg",
+          "side_effects": "Frequent Urination",
+          "brand_name": "Lasix",
           "stock_available": 80,
-          "controlled_substance": false,
-          "manufacture_name": "Bayer Pharmaceuticals",
+          "controlled_substance": true,
+          "manufacture_name": "Sanofi",
           "batch_number": "B002",
           "manufacture_date": "12-12-2025",
           "expiry_date": "04-04-2026",
-          "medication_price": 53.1
+          "medication_price": 10.1
         }
       ],
-      "medical_history": [],
+      "medical_history": [
+        "Hypertension"
+      ],
       "vital_signs": {
-        "temperature": 36.2,
-        "heart_rate": 79,
-        "blood_pressure_systolic": 119,
-        "blood_pressure_diastolic": 76,
-        "respiratory_rate": 13
+        "temperature": 36.1,
+        "heart_rate": 71,
+        "blood_pressure_systolic": 114,
+        "blood_pressure_diastolic": 78,
+        "respiratory_rate": 14
       },
       "lab_results": [
+        "Blood Glucose: High",
+        "Hemoglobin: Low",
         "CBC: Normal",
-        "Thyroid: Normal",
         "Lipid Panel: Elevated"
       ],
       "imaging_records": [
-        "PET Scan",
-        "CT Scan",
-        "MRI",
-        "Ultrasound"
+        "X-Ray",
+        "MRI"
       ],
       "clinical_notes": "Patient complains of headache.",
       "symptoms": [
         {
-          "symptom_name": "fever, chills, body aches",
-          "symptom_id": "SYM-121",
-          "severity": 6,
-          "duration": 5,
-          "doctor_notes": "Patient has flu-like symptoms, monitor temperature."
+          "symptom_name": "severe abdominal pain",
+          "symptom_id": "SYM-131",
+          "severity": 9,
+          "duration": 2,
+          "doctor_notes": "Possible appendicitis or pancreatitis."
         },
         {
           "symptom_name": "sore throat",
@@ -789,19 +869,26 @@
           "severity": 4,
           "duration": 3,
           "doctor_notes": "Recommend warm fluids and throat lozenges."
+        },
+        {
+          "symptom_name": "difficulty breathing",
+          "symptom_id": "SYM-125",
+          "severity": 9,
+          "duration": 1,
+          "doctor_notes": "Emergency! Consider asthma attack, pneumonia, or COVID-19."
         }
       ],
       "diagnosis": "Nil",
       "outcome_monitoring_records": [],
       "past_surgeries": [
-        "Hernia Repair",
+        "Appendectomy",
         "Gallbladder Removal",
-        "Cataract Surgery",
-        "Appendectomy"
+        "Knee Replacement",
+        "Hernia Repair"
       ],
       "vaccination_record": [
-        "Hepatitis B Vaccine",
-        "Tetanus Booster"
+        "Tetanus Booster",
+        "Measles, Mumps, Rubella (MMR) Vaccine"
       ]
     },
     "patient_specific_factor": "Pregnant",
@@ -833,58 +920,115 @@
     "date_of_birth": "15-08-1990",
     "electronic_health_record": {
       "allergies": [
-        "Penicillin",
-        "Latex"
+        "Dust",
+        "Pollen",
+        "Peanuts"
       ],
       "current_medications": [
         {
-          "medication_name": "Diphenhydramine",
-          "guideline_id": "C004",
-          "medication_id": "M004",
-          "dosage": "200mg, Once a Week",
-          "side_effects": "Bleeding Cock",
-          "brand_name": "Bayer",
-          "dosage_strength": 200,
-          "frequency": "Thrice a Day",
-          "maximum_daily_dosage": "6969mg",
-          "stock_available": 80,
+          "medication_name": "Metformin",
+          "guideline_id": "C007",
+          "medication_id": "M007",
+          "dosage": "850mg, Once Daily",
+          "side_effects": "Stomach Upset, Lactic Acidosis (Rare)",
+          "brand_name": "Glucophage",
+          "stock_available": 120,
           "controlled_substance": false,
-          "manufacture_name": "Bayer Pharmaceuticals",
+          "manufacture_name": "Merck",
+          "batch_number": "B004",
+          "manufacture_date": "10-09-2023",
+          "expiry_date": "11-11-2025",
+          "medication_price": 5.75
+        },
+        {
+          "medication_name": "Ibuprofen",
+          "guideline_id": "C008",
+          "medication_id": "M008",
+          "dosage": "200mg, Every 6 Hours",
+          "side_effects": "Stomach Pain, Heartburn",
+          "brand_name": "Advil",
+          "stock_available": 150,
+          "controlled_substance": false,
+          "manufacture_name": "Pfizer",
+          "batch_number": "B005",
+          "manufacture_date": "01-03-2024",
+          "expiry_date": "02-07-2026",
+          "medication_price": 6.49
+        },
+        {
+          "medication_name": "Furosemide",
+          "guideline_id": "C003",
+          "medication_id": "M003",
+          "dosage": "325mg, Once a Week",
+          "side_effects": "Frequent Urination",
+          "brand_name": "Lasix",
+          "stock_available": 80,
+          "controlled_substance": true,
+          "manufacture_name": "Sanofi",
           "batch_number": "B002",
           "manufacture_date": "12-12-2025",
           "expiry_date": "04-04-2026",
-          "medication_price": 100.1
+          "medication_price": 10.1
         }
       ],
-      "medical_history": [],
-      "vital_signs": {
-        "temperature": 36.9,
-        "heart_rate": 67,
-        "blood_pressure_systolic": 102,
-        "blood_pressure_diastolic": 66,
-        "respiratory_rate": 18
-      },
-      "lab_results": [],
-      "imaging_records": [
-        "Ultrasound"
+      "medical_history": [
+        "Obesity",
+        "Arthritis"
       ],
-      "clinical_notes": "Patient complains of headache.",
+      "vital_signs": {
+        "temperature": 37.3,
+        "heart_rate": 77,
+        "blood_pressure_systolic": 132,
+        "blood_pressure_diastolic": 67,
+        "respiratory_rate": 17
+      },
+      "lab_results": [
+        "Blood Glucose: High",
+        "Thyroid: Normal",
+        "Hemoglobin: Low",
+        "CBC: Normal"
+      ],
+      "imaging_records": [
+        "PET Scan"
+      ],
+      "clinical_notes": "No significant issues.",
       "symptoms": [
         {
-          "symptom_name": "fever, chills, body aches",
-          "symptom_id": "SYM-141",
-          "severity": 6,
-          "duration": 5,
-          "doctor_notes": "Patient has flu-like symptoms, monitor temperature."
+          "symptom_name": "severe abdominal pain",
+          "symptom_id": "SYM-151",
+          "severity": 9,
+          "duration": 2,
+          "doctor_notes": "Possible appendicitis or pancreatitis."
+        },
+        {
+          "symptom_name": "sore throat",
+          "symptom_id": "SYM-142",
+          "severity": 4,
+          "duration": 3,
+          "doctor_notes": "Recommend warm fluids and throat lozenges."
+        },
+        {
+          "symptom_name": "difficulty breathing",
+          "symptom_id": "SYM-145",
+          "severity": 9,
+          "duration": 1,
+          "doctor_notes": "Emergency! Consider asthma attack, pneumonia, or COVID-19."
         }
       ],
       "diagnosis": "Nil",
       "outcome_monitoring_records": [],
       "past_surgeries": [
-        "Cataract Surgery"
+        "Gallbladder Removal",
+        "Appendectomy",
+        "Knee Replacement",
+        "Cataract Surgery",
+        "Hernia Repair"
       ],
       "vaccination_record": [
-        "Influenza Vaccine"
+        "Influenza Vaccine",
+        "Measles, Mumps, Rubella (MMR) Vaccine",
+        "Tetanus Booster",
+        "COVID-19 Vaccine"
       ]
     },
     "patient_specific_factor": "Pregnant",
@@ -916,73 +1060,107 @@
     "date_of_birth": "15-08-1990",
     "electronic_health_record": {
       "allergies": [
-        "Peanuts"
+        "Pollen",
+        "Latex",
+        "Dust",
+        "Shellfish",
+        "Gluten"
       ],
       "current_medications": [
+        {
+          "medication_name": "Ibuprofen",
+          "guideline_id": "C008",
+          "medication_id": "M008",
+          "dosage": "200mg, Every 6 Hours",
+          "side_effects": "Stomach Pain, Heartburn",
+          "brand_name": "Advil",
+          "stock_available": 150,
+          "controlled_substance": false,
+          "manufacture_name": "Pfizer",
+          "batch_number": "B005",
+          "manufacture_date": "01-03-2024",
+          "expiry_date": "02-07-2026",
+          "medication_price": 6.49
+        },
+        {
+          "medication_name": "Furosemide",
+          "guideline_id": "C003",
+          "medication_id": "M003",
+          "dosage": "325mg, Once a Week",
+          "side_effects": "Frequent Urination",
+          "brand_name": "Lasix",
+          "stock_available": 80,
+          "controlled_substance": true,
+          "manufacture_name": "Sanofi",
+          "batch_number": "B002",
+          "manufacture_date": "12-12-2025",
+          "expiry_date": "04-04-2026",
+          "medication_price": 10.1
+        },
         {
           "medication_name": "Diphenhydramine",
           "guideline_id": "C004",
           "medication_id": "M004",
           "dosage": "200mg, Once a Week",
-          "side_effects": "Bleeding Cock",
-          "brand_name": "Bayer",
-          "dosage_strength": 200,
-          "frequency": "Thrice a Day",
-          "maximum_daily_dosage": "6969mg",
+          "side_effects": "Drowsiness, Sleepiness",
+          "brand_name": "HealthA2Z Sleep Aid",
           "stock_available": 80,
           "controlled_substance": false,
           "manufacture_name": "Bayer Pharmaceuticals",
           "batch_number": "B002",
           "manufacture_date": "12-12-2025",
           "expiry_date": "04-04-2026",
-          "medication_price": 100.1
+          "medication_price": 14.69
         }
       ],
       "medical_history": [
-        "Asthma",
+        "Hypertension",
         "Diabetes",
-        "Arthritis"
+        "Obesity",
+        "Asthma"
       ],
       "vital_signs": {
-        "temperature": 37.1,
-        "heart_rate": 82,
-        "blood_pressure_systolic": 129,
-        "blood_pressure_diastolic": 60,
-        "respiratory_rate": 12
+        "temperature": 36.0,
+        "heart_rate": 100,
+        "blood_pressure_systolic": 116,
+        "blood_pressure_diastolic": 82,
+        "respiratory_rate": 16
       },
       "lab_results": [
-        "CBC: Normal",
-        "Blood Glucose: High",
-        "Thyroid: Normal",
         "Lipid Panel: Elevated"
       ],
       "imaging_records": [
-        "CT Scan",
-        "Ultrasound"
+        "Ultrasound",
+        "MRI",
+        "PET Scan"
       ],
-      "clinical_notes": "No significant issues.",
+      "clinical_notes": "Monitor blood pressure closely.",
       "symptoms": [
         {
-          "symptom_name": "fever, chills, body aches",
-          "symptom_id": "SYM-161",
-          "severity": 6,
-          "duration": 5,
-          "doctor_notes": "Patient has flu-like symptoms, monitor temperature."
+          "symptom_name": "severe abdominal pain",
+          "symptom_id": "SYM-171",
+          "severity": 9,
+          "duration": 2,
+          "doctor_notes": "Possible appendicitis or pancreatitis."
+        },
+        {
+          "symptom_name": "sore throat",
+          "symptom_id": "SYM-162",
+          "severity": 4,
+          "duration": 3,
+          "doctor_notes": "Recommend warm fluids and throat lozenges."
         }
       ],
       "diagnosis": "Nil",
       "outcome_monitoring_records": [],
       "past_surgeries": [
-        "Gallbladder Removal",
-        "Appendectomy",
-        "Cataract Surgery",
-        "Hernia Repair"
+        "Cataract Surgery"
       ],
       "vaccination_record": [
-        "Hepatitis B Vaccine",
-        "Measles, Mumps, Rubella (MMR) Vaccine",
         "Influenza Vaccine",
-        "Tetanus Booster"
+        "Tetanus Booster",
+        "Measles, Mumps, Rubella (MMR) Vaccine",
+        "COVID-19 Vaccine"
       ]
     },
     "patient_specific_factor": "Pregnant",

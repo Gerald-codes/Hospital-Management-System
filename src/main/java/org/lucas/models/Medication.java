@@ -30,9 +30,9 @@ public class Medication {
     private String dosage;                 // Dosage amount in mg
     private String sideEffects;            // Potential side effects of the medication
     private String brandName;              // Brand name of the medication
-    private int dosageStrength;            // Strength of the dosage in mg
-    private String frequency;              // Frequency of administration (e.g., once daily)
-    private String maximumDailyDosage;     // Maximum allowed daily dosage
+    //private int dosageStrength;            // Strength of the dosage in mg
+    //private String frequency;              // Frequency of administration (e.g., once daily)
+    //private String maximumDailyDosage;     // Maximum allowed daily dosage
     private int stockAvailable;            // Available stock in units
     private boolean controlledSubstance;   // Indicates if the medication is a controlled substance
     private String manufactureName;        // Name of the manufacturer
@@ -42,23 +42,23 @@ public class Medication {
     private double medicationPrice;
 
      //Default constructor initializing all fields to default values
-    public Medication() {
-        this.medicationName = "";
-        this.guidelineId = "";
-        this.medicationId = "";
-        this.dosage = "";
-        this.sideEffects = "";
-        this.brandName = "";
-        this.dosageStrength = 0;
-        this.frequency = "";
-        this.maximumDailyDosage = "";
-        this.stockAvailable = 0;
-        this.controlledSubstance = false;
-        this.manufactureName = "";
-        this.batchNumber = "";
-        this.manufactureDate = null;
-        this.expiryDate = null;
-    }
+//    public Medication() {
+//        this.medicationName = "";
+//        this.guidelineId = "";
+//        this.medicationId = "";
+//        this.dosage = "";
+//        this.sideEffects = "";
+//        this.brandName = "";
+//        this.dosageStrength = 0;
+//        this.frequency = "";
+//        this.maximumDailyDosage = "";
+//        this.stockAvailable = 0;
+//        this.controlledSubstance = false;
+//        this.manufactureName = "";
+//        this.batchNumber = "";
+//        this.manufactureDate = null;
+//        this.expiryDate = null;
+//    }
 
     /**
      * Parameterized constructor for the medications class.
@@ -83,8 +83,7 @@ public class Medication {
      */
     // Parameterized constructor to initialize Medication object with provided values
     public Medication(String medicationName, String guidelineId, String medicationId, String dosage,
-                      String sideEffects, String brandName, int dosageStrength, String frequency,
-                      String maximumDailyDosage, int stockAvailable, boolean controlledSubstance,
+                      String sideEffects, String brandName,int stockAvailable, boolean controlledSubstance,
                       String manufactureName, String batchNumber, String manufactureDate, String expiryDate, double medicationPrice) {
         this.medicationName = medicationName;
         this.guidelineId = guidelineId;
@@ -92,9 +91,9 @@ public class Medication {
         this.dosage = dosage;
         this.sideEffects = sideEffects;
         this.brandName = brandName;
-        this.dosageStrength = dosageStrength;
-        this.frequency = frequency;
-        this.maximumDailyDosage = maximumDailyDosage;
+        //this.dosageStrength = dosageStrength;
+        //this.frequency = frequency;
+        //this.maximumDailyDosage = maximumDailyDosage;
         this.stockAvailable = stockAvailable;
         this.controlledSubstance = controlledSubstance;
         this.manufactureName = manufactureName;
@@ -216,60 +215,6 @@ public class Medication {
      */
     public void setBrandName(String brandName) {
         this.brandName = brandName;
-    }
-
-    /**
-     * Retrieves the strength of the dosage in milligrams (mg).
-     *
-     * @return The dosage strength in mg.
-     */
-    public int getDosageStrength() {
-        return dosageStrength;
-    }
-
-    /**
-     * Sets the strength of the dosage in milligrams (mg).
-     *
-     * @param dosageStrength The dosage strength to set.
-     */
-    public void setDosageStrength(int dosageStrength) {
-        this.dosageStrength = dosageStrength;
-    }
-
-    /**
-     * Retrieves the frequency of administration (e.g., once daily).
-     *
-     * @return The frequency of administration.
-     */
-    public String getFrequency() {
-        return frequency;
-    }
-
-    /**
-     * Sets the frequency of administration (e.g., once daily).
-     *
-     * @param frequency The frequency to set.
-     */
-    public void setFrequency(String frequency) {
-        this.frequency = frequency;
-    }
-
-    /**
-     * Retrieves the maximum allowed daily dosage.
-     *
-     * @return The maximum daily dosage.
-     */
-    public String getMaximumDailyDosage() {
-        return maximumDailyDosage;
-    }
-
-    /**
-     * Sets the maximum allowed daily dosage.
-     *
-     * @param maximumDailyDosage The maximum daily dosage to set.
-     */
-    public void setMaximumDailyDosage(String maximumDailyDosage) {
-        this.maximumDailyDosage = maximumDailyDosage;
     }
 
     /**

@@ -22,19 +22,18 @@ public class Main {
         //Initializations
         // Initialize Medicine: This line needs to stay uncommented
         MedicationController.getAvailableMedications();
-
         // Uncomment these to generate dummy users
         //MedicationController.getAvailableMedications();
         //UserController.getAvailablePatients();
         //UserController.generateDummyUsers();
 
         //MedicationController.populateExampleMedication();
-
         //UserController.generateDummyUsers();
         //UserController.getAvailablePatients();
         //UserController.printAllPatients();
         //UserController.getAvailableNurses();
         //UserController.generateDummyNurses();
+        //Globals.appointmentController.generateRandomAppointmentData(12);
         applicationContext.startApplication(Globals.landingPage);
     }
 }

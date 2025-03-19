@@ -79,9 +79,6 @@ public class MedicationPage extends UiBase{
         lv.addItem(new TextView(this.canvas, "Dosage: " + medication.getDosage(), Color.BLUE));
         lv.addItem(new TextView(this.canvas, "Side Effects: " + medication.getDosage(), Color.BLUE));
         lv.addItem(new TextView(this.canvas, "Brand Name: " + medication.getBrandName(), Color.BLUE));
-        lv.addItem(new TextView(this.canvas, "Dosage Strength: " + medication.getDosageStrength(), Color.BLUE));
-        lv.addItem(new TextView(this.canvas, "Frequency: " + medication.getFrequency(), Color.BLUE));
-        lv.addItem(new TextView(this.canvas, "Max Daily Dosage: " + medication.getMaximumDailyDosage(), Color.BLUE));
         lv.addItem(new TextView(this.canvas, "Stock Available: " + medication.getStockAvailable(), Color.BLUE));
         lv.addItem(new TextView(this.canvas, "Controlled Substance: " + medication.isControlledSubstance(), Color.BLUE));
         lv.addItem(new TextView(this.canvas, "Manufacturer: " + medication.getManufactureName(), Color.BLUE));
