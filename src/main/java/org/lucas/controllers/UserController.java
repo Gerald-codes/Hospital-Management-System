@@ -31,10 +31,13 @@ public class UserController {
     private static List<Patient> generatePatients = new ArrayList<>();
     private static List<Nurse> generateNurses = new ArrayList<>();
     private static List<Doctor> allDoctors = new ArrayList<>();
-    private static List<Doctor> allNurses = new ArrayList<>();
+    private static List<Nurse> allNurses = new ArrayList<>();
+    private static List<Admin> allAdmin = new ArrayList<>();
     private static final String doctorFileName = "doctor_data.txt";
     private static final String patientFileName = "patient_data.txt";
     private static final String nurseFileName = "nurse_data.txt";
+    private static final String adminFileName = "admin_data.txt";
+
     /**
      * the active doctor that is currently logged in.
      */
@@ -47,10 +50,15 @@ public class UserController {
      * Placeholder patient, for the scope of this project, not required. Handle this case gracefully
      */
     private static Patient activePatient;
+
+    private static Admin activeAdmin;
+
     /**
      * Specifies the user type to avoid excessive instanceof or null checks
      */
+
     private static UserType activeUserType;
+
 
     /**
      * Loads users (Patients and Doctors) from files specified by patientFileName and doctorFileName.
@@ -108,6 +116,22 @@ public class UserController {
         }
     }
 
+    private static void loadAdminsFromFile() {
+        allAdmin.clear();
+        StringBuilder sb = new StringBuilder();
+        try (BufferedReader br = Files.newBufferedReader(Paths.get(adminFileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+            Type listType = new TypeToken<List<Nurse>>() {
+            }.getType();
+            allAdmin = Util.fromJsonString(sb.toString(), listType);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static List<Patient> getAvailablePatients() {
         if (allpatients.isEmpty()) {
             loadPatientsFromFile();
@@ -120,7 +144,7 @@ public class UserController {
         }
         return new ArrayList<>(allDoctors); // Return a *copy*
     }
-    public static List<Doctor> getAvailableNurses() {
+    public static List<Nurse> getAvailableNurses() {
         if (allNurses.isEmpty()) {
             loadNursesFromFile();
         }
@@ -194,6 +218,27 @@ public class UserController {
                 sb.append(line);
             }
             Type listType = new TypeToken<List<Nurse>>() {}.getType();
+            users.addAll(Util.fromJsonString(sb.toString(), listType));
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        //then load the Admins
+        sb = new StringBuilder();
+        String adminBasePath = "";
+        try {
+            basePath = JarLocation.getJarDirectory();
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        try (BufferedReader br = Files.newBufferedReader(Paths.get(adminBasePath, adminFileName))) {
+            String line;
+
+            while((line = br.readLine()) != null){
+                sb.append(line);
+            }
+            Type listType = new TypeToken<List<Admin>>() {}.getType();
             users.addAll(Util.fromJsonString(sb.toString(), listType));
         }catch (IOException e){
             e.printStackTrace();
@@ -312,6 +357,12 @@ public class UserController {
             auditManager.logAction(activePatient.getPatientID(), "LOGIN", "System", "SUCCESS", "PATIENT");
             return UserType.PATIENT;
         }
+        if(authenticated.getFirst() instanceof Admin){
+            activeAdmin = (Admin)authenticated.getFirst();
+            activeUserType = UserType.ADMIN;
+            auditManager.logAction(activeAdmin.getId(), "LOGIN", "System", "SUCCESS", "ADMIN");
+            return UserType.ADMIN;
+        }
         auditManager.logAction("NIL", "LOGIN", "System", "FAILED","");
         return UserType.ERROR;
     }
@@ -365,6 +416,9 @@ public class UserController {
      * @return the active {@link Nurse}, or null if no nurse is active.*/
     public static Nurse getActiveNurse() {
         return activeNurse;
+    }
+    public static Admin getActiveAdmin() {
+        return activeAdmin;
     }
 
     /**Gets the active patient.
