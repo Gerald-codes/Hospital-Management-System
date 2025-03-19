@@ -3,6 +3,7 @@ package org.lucas.pages.nurse;
 import org.lucas.Globals;
 import org.lucas.audit.AuditManager;
 import org.lucas.controllers.MedicationController;
+import org.lucas.controllers.UserController;
 import org.lucas.core.*;
 import org.lucas.models.*;
 import org.lucas.pages.doctor.PatientInfoPage;
@@ -23,7 +24,6 @@ import java.util.Scanner;
 public class NursePatientActionsPage extends UiBase {
     private static Patient patient;
     private ListView listView;
-    private static Nurse nurse;
     private static List<ClinicalGuideline> clinicalGuidelines = List.copyOf(ClinicalGuideline.generateClinicalGuideLine());
     final private static List<Alert> alertList = List.copyOf(Alert.generateAlert());
     private AuditManager auditManager = new AuditManager();
@@ -41,7 +41,7 @@ public class NursePatientActionsPage extends UiBase {
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView;
         displayPatientInfo(lv);
-
+        Nurse nurse = UserController.getActiveNurse();
         // Attach user input handlers for each action
         lv.attachUserInput("Administer Medication", str -> {
             showPatientMedicationHistory(nurse, patient, clinicalGuidelines, alertList, auditManager);
