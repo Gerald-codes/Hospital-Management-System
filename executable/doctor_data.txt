@@ -1,0 +1,26 @@
+[
+  {
+    "specialisation": "GP",
+    "type": "GENERAL_PRACTICE",
+    "license_number": "L12345",
+    "id": "D001",
+    "login_name": "limtzekai",
+    "name": "Dr. Lim Tze Kai",
+    "password": "docpass",
+    "email": "limtzekai@clinic.com",
+    "gender": "Male",
+    "phone_number": "9876 5432"
+  },
+  {
+    "specialisation": "Cardiology",
+    "type": "SPECIALIST",
+    "license_number": "L67890",
+    "id": "D002",
+    "login_name": "kieransim",
+    "name": "Dr. Kieran Sim",
+    "password": "securedoc",
+    "email": "kieransim@clinic.com",
+    "gender": "Male",
+    "phone_number": "8345 6789"
+  }
+]

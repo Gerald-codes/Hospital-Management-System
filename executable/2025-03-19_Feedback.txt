@@ -1,0 +1,12 @@
+Guideline ID: C005
+Guideline: Strep Throat (Bacterial Pharyngitis)
+Feedback: This is very well written thanks
+====================================
+Guideline ID: C006
+Guideline: Tonsillitis
+Feedback: Meow
+====================================
+Guideline ID: C001
+Guideline: Administer Paracetamol with food
+Feedback: Very good
+====================================

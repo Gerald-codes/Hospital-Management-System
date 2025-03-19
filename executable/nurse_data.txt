@@ -1,0 +1,47 @@
+[
+  {
+    "department": "Pediatrics",
+    "role": "Pediatric Nurse",
+    "assigned_ward": "Ward A",
+    "can_administer_medication": true,
+    "nursing_license_number": "RN-2023-00123",
+    "alert_list": [],
+    "id": "N001",
+    "login_name": "emily",
+    "name": "Emily Carter",
+    "password": "password123",
+    "email": "emilycarter@gmail",
+    "gender": "Female",
+    "phone_number": "87654321"
+  },
+  {
+    "department": "Emergency",
+    "role": "Emergency Nurse",
+    "assigned_ward": "ER",
+    "can_administer_medication": true,
+    "nursing_license_number": "RN-2020-00567",
+    "alert_list": [],
+    "id": "N002",
+    "login_name": "michael",
+    "name": "Michael Roberts",
+    "password": "password123",
+    "email": "MichaelRoberts@gmail",
+    "gender": "Male",
+    "phone_number": "87654221"
+  },
+  {
+    "department": "Oncology Nurse",
+    "role": "Oncology",
+    "assigned_ward": "Ward B",
+    "can_administer_medication": false,
+    "nursing_license_number": "RN-2021-00345",
+    "alert_list": [],
+    "id": "N003",
+    "login_name": "daniel",
+    "name": "Daniel lee",
+    "password": "password123",
+    "email": "daniellee@gmail.com",
+    "gender": "Male",
+    "phone_number": "81237111"
+  }
+]

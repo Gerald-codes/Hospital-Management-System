@@ -1,0 +1,1286 @@
+[
+  {
+    "patient": {
+      "alert_history": [],
+      "patient_i_d": "P003",
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [],
+        "current_medications": [
+          {
+            "medication_name": "diphenhydramine",
+            "guideline_id": "C004",
+            "medication_id": "M004",
+            "dosage": "200mg, Once a Week",
+            "side_effects": "Bleeding Cock",
+            "brand_name": "Bayer",
+            "dosage_strength": 200,
+            "frequency": "Thrice a Day",
+            "maximum_daily_dosage": "6969mg",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 100.1
+          }
+        ],
+        "medical_history": [
+          "Obesity",
+          "Arthritis",
+          "Hypertension",
+          "Asthma"
+        ],
+        "vital_signs": {
+          "temperature": 36.4,
+          "heart_rate": 95,
+          "blood_pressure_systolic": 115,
+          "blood_pressure_diastolic": 76,
+          "respiratory_rate": 21
+        },
+        "lab_results": [
+          "Thyroid: Normal",
+          "Hemoglobin: Low",
+          "Lipid Panel: Elevated",
+          "Blood Glucose: High"
+        ],
+        "imaging_records": [
+          "Ultrasound",
+          "CT Scan"
+        ],
+        "clinical_notes": "Patient complains of headache.",
+        "symptoms": [
+          {
+            "symptom_name": "fever, chills, body aches",
+            "symptom_id": "SYM-041",
+            "severity": 6,
+            "duration": 5,
+            "doctor_notes": "Patient has flu-like symptoms, monitor temperature."
+          }
+        ],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [
+          "Appendectomy",
+          "Gallbladder Removal",
+          "Knee Replacement",
+          "Hernia Repair",
+          "Cataract Surgery"
+        ],
+        "vaccination_record": [
+          "Influenza Vaccine",
+          "Measles, Mumps, Rubella (MMR) Vaccine",
+          "Tetanus Booster"
+        ]
+      },
+      "patient_specific_factor": "Asthmatic",
+      "assigned_nurse": "N002",
+      "assigned_doctor": "D002",
+      "height": 158.0,
+      "weight": 55.0,
+      "blood_type": "B+",
+      "house_address": "789 Pine St, TX",
+      "emergency_contact_number": 76543210,
+      "occupation": "Nurse",
+      "ethnicity": "Hispanic",
+      "healthcare_department": "Pulmonology",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P003",
+      "login_name": "BobBrown",
+      "name": "Bob Brown",
+      "password": "password123",
+      "email": "BobBrown@example.com",
+      "gender": "Male",
+      "phone_number": "87654321"
+    },
+    "reason": "fever, chills, body aches",
+    "appointment_time": "2025-03-18T02:48:38.3197293",
+    "doctor": {
+      "specialisation": "GP",
+      "type": "GENERAL_PRACTICE",
+      "license_number": "L12345",
+      "id": "D001",
+      "login_name": "limtzekai",
+      "name": "Dr. Lim Tze Kai",
+      "password": "docpass",
+      "email": "limtzekai@clinic.com",
+      "gender": "Male",
+      "phone_number": "9876 5432"
+    },
+    "appointment_status": "ACCEPTED",
+    "session": {
+      "id": "d60195e9-e685-4560-951d-6ca4bdf00704",
+      "start_time": "2025-03-18T18:32:45.9501715",
+      "zoom_link": "https://us05web.zoom.us/j/85754406079?pwd\u003dEwfjQnMISqsBuQB941WQU068HPapSW.1",
+      "session_status": "ONGOING"
+    },
+    "billing": {
+      "bill_amount": 20.0,
+      "billing_i_d": "74876fb1-fe8f-4210-a5a8-df6631767295",
+      "is_paid": false,
+      "is_re_calculate_bill_amount": true,
+      "prescription": {
+        "prescription_i_d": "8f4cd896-43cc-4b7a-84d2-65134bdb1063",
+        "medication": []
+      }
+    },
+    "diagnosis": "Fever"
+  },
+  {
+    "patient": {
+      "alert_history": [],
+      "patient_i_d": "P006",
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [
+          "Dust",
+          "Shellfish",
+          "Pollen",
+          "Latex"
+        ],
+        "current_medications": [
+          {
+            "medication_name": "Loperamide",
+            "guideline_id": "C005",
+            "medication_id": "M005",
+            "dosage": "325mg, Once a Week",
+            "side_effects": "Bleeding Cock",
+            "brand_name": "Bayer",
+            "dosage_strength": 325,
+            "frequency": "Twice a Day",
+            "maximum_daily_dosage": "6969mg",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 53.1
+          }
+        ],
+        "medical_history": [
+          "Diabetes",
+          "Asthma",
+          "Hypertension",
+          "Arthritis",
+          "Obesity"
+        ],
+        "vital_signs": {
+          "temperature": 36.7,
+          "heart_rate": 71,
+          "blood_pressure_systolic": 137,
+          "blood_pressure_diastolic": 74,
+          "respiratory_rate": 22
+        },
+        "lab_results": [
+          "Hemoglobin: Low",
+          "CBC: Normal",
+          "Lipid Panel: Elevated",
+          "Blood Glucose: High"
+        ],
+        "imaging_records": [
+          "Ultrasound",
+          "X-Ray",
+          "CT Scan",
+          "PET Scan"
+        ],
+        "clinical_notes": "No significant issues.",
+        "symptoms": [
+          {
+            "symptom_name": "fever, chills, body aches",
+            "symptom_id": "SYM-101",
+            "severity": 6,
+            "duration": 5,
+            "doctor_notes": "Patient has flu-like symptoms, monitor temperature."
+          },
+          {
+            "symptom_name": "sore throat",
+            "symptom_id": "SYM-102",
+            "severity": 4,
+            "duration": 3,
+            "doctor_notes": "Recommend warm fluids and throat lozenges."
+          }
+        ],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [
+          "Knee Replacement",
+          "Cataract Surgery",
+          "Hernia Repair",
+          "Appendectomy",
+          "Gallbladder Removal"
+        ],
+        "vaccination_record": [
+          "Measles, Mumps, Rubella (MMR) Vaccine"
+        ]
+      },
+      "patient_specific_factor": "Pregnant",
+      "assigned_nurse": "N003",
+      "assigned_doctor": "D002",
+      "height": 160.0,
+      "weight": 58.0,
+      "blood_type": "A+",
+      "house_address": "753 Cedar St, WA",
+      "emergency_contact_number": 43210987,
+      "occupation": "Artist",
+      "ethnicity": "Asian",
+      "healthcare_department": "Obstetrics",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P006",
+      "login_name": "DianaEvans",
+      "name": "Diana Evans",
+      "password": "password123",
+      "email": "dianae@example.com",
+      "gender": "Female",
+      "phone_number": "81234567"
+    },
+    "reason": "fever, chills, body aches, sore throat",
+    "appointment_time": "2025-03-18T07:08:38.3197293",
+    "doctor": {
+      "specialisation": "GP",
+      "type": "GENERAL_PRACTICE",
+      "license_number": "L12345",
+      "id": "D001",
+      "login_name": "limtzekai",
+      "name": "Dr. Lim Tze Kai",
+      "password": "docpass",
+      "email": "limtzekai@clinic.com",
+      "gender": "Male",
+      "phone_number": "9876 5432"
+    },
+    "appointment_status": "COMPLETED",
+    "session": {
+      "id": "96166602-756b-4bdc-9a35-6d4405853c20",
+      "start_time": "2025-03-18T18:36:10.0746821",
+      "end_time": "2025-03-19T13:11:06.7165148",
+      "zoom_link": "https://us05web.zoom.us/j/87990782046?pwd\u003d54obmF3JrX1dOHzlyumfVOBqQb3Vjh.1",
+      "session_status": "COMPLETED"
+    },
+    "billing": {
+      "bill_amount": 20.0,
+      "billing_i_d": "c5f681d0-c73a-42be-8d6d-8394b8d25ac2",
+      "is_paid": false,
+      "is_re_calculate_bill_amount": true,
+      "prescription": {
+        "prescription_i_d": "269daf40-6ac9-4b87-9144-942e13641abf",
+        "medication": []
+      }
+    },
+    "diagnosis": "Strep Throat (Bacterial Pharyngitis)"
+  },
+  {
+    "patient": {
+      "alert_history": [],
+      "patient_i_d": "P007",
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [
+          "Peanuts"
+        ],
+        "current_medications": [
+          {
+            "medication_name": "acetaminophen",
+            "guideline_id": "C002",
+            "medication_id": "M002",
+            "dosage": "325mg, Once a Week",
+            "side_effects": "Bleeding Cock",
+            "brand_name": "Bayer",
+            "dosage_strength": 325,
+            "frequency": "Once a Day",
+            "maximum_daily_dosage": "6969mg",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 13.1
+          }
+        ],
+        "medical_history": [
+          "Arthritis",
+          "Asthma",
+          "Obesity",
+          "Diabetes",
+          "Hypertension"
+        ],
+        "vital_signs": {
+          "temperature": 37.0,
+          "heart_rate": 85,
+          "blood_pressure_systolic": 107,
+          "blood_pressure_diastolic": 86,
+          "respiratory_rate": 21
+        },
+        "lab_results": [
+          "Thyroid: Normal"
+        ],
+        "imaging_records": [
+          "CT Scan",
+          "PET Scan",
+          "Ultrasound",
+          "MRI"
+        ],
+        "clinical_notes": "Follow-up needed in 2 weeks.",
+        "symptoms": [
+          {
+            "symptom_name": "fever, chills, body aches",
+            "symptom_id": "SYM-121",
+            "severity": 6,
+            "duration": 5,
+            "doctor_notes": "Patient has flu-like symptoms, monitor temperature."
+          }
+        ],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [
+          "Knee Replacement",
+          "Hernia Repair"
+        ],
+        "vaccination_record": [
+          "Measles, Mumps, Rubella (MMR) Vaccine",
+          "Influenza Vaccine",
+          "Tetanus Booster"
+        ]
+      },
+      "patient_specific_factor": "Pregnant",
+      "assigned_nurse": "N003",
+      "assigned_doctor": "D002",
+      "height": 160.0,
+      "weight": 58.0,
+      "blood_type": "A-",
+      "house_address": "357 Birch St, CO",
+      "emergency_contact_number": 43210987,
+      "occupation": "Artist",
+      "ethnicity": "Caucasian",
+      "healthcare_department": "Nephrology",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P007",
+      "login_name": "EdwardHarris",
+      "name": "Edward Harris",
+      "password": "password123",
+      "email": "edwardh@example.com",
+      "gender": "Male",
+      "phone_number": "81234567"
+    },
+    "reason": "fever, chills, body aches",
+    "appointment_time": "2025-03-18T14:17:38.3197293",
+    "doctor": {
+      "specialisation": "GP",
+      "type": "GENERAL_PRACTICE",
+      "license_number": "L12345",
+      "id": "D001",
+      "login_name": "limtzekai",
+      "name": "Dr. Lim Tze Kai",
+      "password": "docpass",
+      "email": "limtzekai@clinic.com",
+      "gender": "Male",
+      "phone_number": "9876 5432"
+    },
+    "appointment_status": "ACCEPTED",
+    "session": {
+      "id": "5278d5c1-0b03-47ec-8112-ea867b0ca9d4",
+      "start_time": "2025-03-19T13:51:35.0993049",
+      "zoom_link": "https://us05web.zoom.us/j/89500332210?pwd\u003dLoNO6gNrAM3yqmCJvK1OAHjbC3hV8a.1",
+      "session_status": "ONGOING"
+    },
+    "billing": {
+      "bill_amount": 20.0,
+      "billing_i_d": "b56427d7-df35-4db0-b288-ac25a4c8c50b",
+      "is_paid": false,
+      "is_re_calculate_bill_amount": true,
+      "prescription": {
+        "prescription_i_d": "6d96fcc3-3c7f-451e-8762-1892b7f2c081",
+        "medication": []
+      }
+    },
+    "diagnosis": ""
+  },
+  {
+    "patient": {
+      "alert_history": [],
+      "patient_i_d": "P005",
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [
+          "Peanuts",
+          "Dust",
+          "Penicillin",
+          "Latex",
+          "Shellfish",
+          "Gluten"
+        ],
+        "current_medications": [
+          {
+            "medication_name": "diphenhydramine",
+            "guideline_id": "C004",
+            "medication_id": "M004",
+            "dosage": "200mg, Once a Week",
+            "side_effects": "Bleeding Cock",
+            "brand_name": "Bayer",
+            "dosage_strength": 200,
+            "frequency": "Thrice a Day",
+            "maximum_daily_dosage": "6969mg",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 100.1
+          }
+        ],
+        "medical_history": [
+          "Asthma"
+        ],
+        "vital_signs": {
+          "temperature": 36.6,
+          "heart_rate": 77,
+          "blood_pressure_systolic": 95,
+          "blood_pressure_diastolic": 77,
+          "respiratory_rate": 18
+        },
+        "lab_results": [
+          "Lipid Panel: Elevated",
+          "CBC: Normal"
+        ],
+        "imaging_records": [
+          "CT Scan"
+        ],
+        "clinical_notes": "Follow-up needed in 2 weeks.",
+        "symptoms": [
+          {
+            "symptom_name": "fever, chills, body aches",
+            "symptom_id": "SYM-081",
+            "severity": 6,
+            "duration": 5,
+            "doctor_notes": "Patient has flu-like symptoms, monitor temperature."
+          }
+        ],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [
+          "Hernia Repair",
+          "Gallbladder Removal",
+          "Knee Replacement",
+          "Appendectomy"
+        ],
+        "vaccination_record": [
+          "Hepatitis B Vaccine",
+          "COVID-19 Vaccine",
+          "Measles, Mumps, Rubella (MMR) Vaccine",
+          "Tetanus Booster"
+        ]
+      },
+      "patient_specific_factor": "Asthmatic",
+      "assigned_nurse": "N003",
+      "assigned_doctor": "D003",
+      "height": 170.0,
+      "weight": 58.0,
+      "blood_type": "B+",
+      "house_address": "159 Maple St, AZ",
+      "emergency_contact_number": 76543210,
+      "occupation": "Nurse",
+      "ethnicity": "Hispanic",
+      "healthcare_department": "Pulmonology",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P005",
+      "login_name": "HannahLee",
+      "name": "Hannah Lee",
+      "password": "password123",
+      "email": "hannahl@example.com",
+      "gender": "Female",
+      "phone_number": "87654321"
+    },
+    "reason": "fever, chills, body aches",
+    "appointment_time": "2025-03-18T14:47:38.3197293",
+    "doctor": {
+      "specialisation": "Cardiology",
+      "type": "SPECIALIST",
+      "license_number": "L67890",
+      "id": "D002",
+      "login_name": "kieransim",
+      "name": "Dr. Kieran Sim",
+      "password": "securedoc",
+      "email": "kieransim@clinic.com",
+      "gender": "Male",
+      "phone_number": "8345 6789"
+    },
+    "appointment_status": "PENDING",
+    "diagnosis": ""
+  },
+  {
+    "patient": {
+      "alert_history": [],
+      "patient_i_d": "P004",
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [
+          "Latex"
+        ],
+        "current_medications": [
+          {
+            "medication_name": "Loperamide",
+            "guideline_id": "C005",
+            "medication_id": "M005",
+            "dosage": "325mg, Once a Week",
+            "side_effects": "Bleeding Cock",
+            "brand_name": "Bayer",
+            "dosage_strength": 325,
+            "frequency": "Twice a Day",
+            "maximum_daily_dosage": "6969mg",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 53.1
+          }
+        ],
+        "medical_history": [
+          "Diabetes",
+          "Arthritis",
+          "Asthma"
+        ],
+        "vital_signs": {
+          "temperature": 36.0,
+          "heart_rate": 75,
+          "blood_pressure_systolic": 107,
+          "blood_pressure_diastolic": 67,
+          "respiratory_rate": 16
+        },
+        "lab_results": [],
+        "imaging_records": [
+          "MRI",
+          "Ultrasound",
+          "PET Scan"
+        ],
+        "clinical_notes": "Patient is recovering well.",
+        "symptoms": [
+          {
+            "symptom_name": "fever, chills, body aches",
+            "symptom_id": "SYM-061",
+            "severity": 6,
+            "duration": 5,
+            "doctor_notes": "Noob"
+          },
+          {
+            "symptom_name": "sore throat",
+            "symptom_id": "SYM-062",
+            "severity": 4,
+            "duration": 3,
+            "doctor_notes": ""
+          }
+        ],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [
+          "Cataract Surgery",
+          "Gallbladder Removal",
+          "Knee Replacement",
+          "Hernia Repair"
+        ],
+        "vaccination_record": []
+      },
+      "patient_specific_factor": "Asthmatic",
+      "assigned_nurse": "N002",
+      "assigned_doctor": "D002",
+      "height": 170.0,
+      "weight": 58.0,
+      "blood_type": "B+",
+      "house_address": "159 Maple St, AZ",
+      "emergency_contact_number": 76543210,
+      "occupation": "Nurse",
+      "ethnicity": "Hispanic",
+      "healthcare_department": "Pulmonology",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P004",
+      "login_name": "CharlieDavis",
+      "name": "Charlie Davis",
+      "password": "password123",
+      "email": "charlied@example.com",
+      "gender": "Male",
+      "phone_number": "87654321"
+    },
+    "reason": "fever, chills, body aches, sore throat",
+    "appointment_time": "2025-03-18T18:44:38.3197293",
+    "doctor": {
+      "specialisation": "GP",
+      "type": "GENERAL_PRACTICE",
+      "license_number": "L12345",
+      "id": "D001",
+      "login_name": "limtzekai",
+      "name": "Dr. Lim Tze Kai",
+      "password": "docpass",
+      "email": "limtzekai@clinic.com",
+      "gender": "Male",
+      "phone_number": "9876 5432"
+    },
+    "appointment_status": "COMPLETED",
+    "session": {
+      "id": "6ed65e81-90a1-44bc-a1b4-5e4edfa6c858",
+      "start_time": "2025-03-18T18:02:54.6023067",
+      "end_time": "2025-03-18T18:09:14.7058541",
+      "zoom_link": "https://us05web.zoom.us/j/81508979667?pwd\u003dimUqL92s12YSSDQJTC9beLVszmD4Lg.1",
+      "session_status": "COMPLETED"
+    },
+    "doctor_notes": "Noob",
+    "billing": {
+      "bill_amount": 20.0,
+      "billing_i_d": "e7f85ae8-b845-4587-b535-8118827fc648",
+      "is_paid": false,
+      "is_re_calculate_bill_amount": true,
+      "prescription": {
+        "prescription_i_d": "734503f4-3787-4d81-8e0e-d118d509d6ee",
+        "medication": [
+          {
+            "medication_name": "LOPERAMIDE",
+            "guideline_id": "",
+            "medication_id": "",
+            "dosage": "325mg, Once a Week",
+            "side_effects": "",
+            "brand_name": "",
+            "dosage_strength": 0,
+            "frequency": "",
+            "maximum_daily_dosage": "",
+            "stock_available": 2,
+            "controlled_substance": false,
+            "manufacture_name": "",
+            "batch_number": "",
+            "medication_price": 53.1
+          },
+          {
+            "medication_name": "TESTING0",
+            "guideline_id": "",
+            "medication_id": "",
+            "dosage": "200g Once a day",
+            "side_effects": "",
+            "brand_name": "",
+            "dosage_strength": 0,
+            "frequency": "",
+            "maximum_daily_dosage": "",
+            "stock_available": 2,
+            "controlled_substance": false,
+            "manufacture_name": "",
+            "batch_number": "",
+            "medication_price": 0.0
+          }
+        ]
+      }
+    },
+    "diagnosis": "Patient Dead"
+  },
+  {
+    "patient": {
+      "alert_history": [],
+      "patient_i_d": "P007",
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [
+          "Peanuts",
+          "Gluten",
+          "Latex",
+          "Dust",
+          "Penicillin",
+          "Shellfish"
+        ],
+        "current_medications": [
+          {
+            "medication_name": "acetaminophen",
+            "guideline_id": "C002",
+            "medication_id": "M002",
+            "dosage": "325mg, Once a Week",
+            "side_effects": "Bleeding Cock",
+            "brand_name": "Bayer",
+            "dosage_strength": 325,
+            "frequency": "Once a Day",
+            "maximum_daily_dosage": "6969mg",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 13.1
+          }
+        ],
+        "medical_history": [],
+        "vital_signs": {
+          "temperature": 36.1,
+          "heart_rate": 92,
+          "blood_pressure_systolic": 122,
+          "blood_pressure_diastolic": 89,
+          "respiratory_rate": 16
+        },
+        "lab_results": [
+          "Thyroid: Normal"
+        ],
+        "imaging_records": [
+          "CT Scan",
+          "PET Scan",
+          "MRI"
+        ],
+        "clinical_notes": "Monitor blood pressure closely.",
+        "symptoms": [
+          {
+            "symptom_name": "fever, chills, body aches",
+            "symptom_id": "SYM-141",
+            "severity": 6,
+            "duration": 5,
+            "doctor_notes": "Patient has flu-like symptoms, monitor temperature."
+          },
+          {
+            "symptom_name": "sore throat",
+            "symptom_id": "SYM-142",
+            "severity": 4,
+            "duration": 3,
+            "doctor_notes": "Recommend warm fluids and throat lozenges."
+          }
+        ],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [
+          "Hernia Repair",
+          "Appendectomy",
+          "Cataract Surgery",
+          "Knee Replacement"
+        ],
+        "vaccination_record": [
+          "Tetanus Booster",
+          "Measles, Mumps, Rubella (MMR) Vaccine"
+        ]
+      },
+      "patient_specific_factor": "Pregnant",
+      "assigned_nurse": "N003",
+      "assigned_doctor": "D002",
+      "height": 160.0,
+      "weight": 58.0,
+      "blood_type": "A+",
+      "house_address": "951 Spruce St, NV",
+      "emergency_contact_number": 43210987,
+      "occupation": "Chef",
+      "ethnicity": "Hispanic",
+      "healthcare_department": "Hematology",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P008",
+      "login_name": "FionaGreen",
+      "name": "Fiona Green",
+      "password": "password123",
+      "email": "edwardh@example.com",
+      "gender": "Male",
+      "phone_number": "81234567"
+    },
+    "reason": "fever, chills, body aches, sore throat",
+    "appointment_time": "2025-03-18T20:21:38.3197293",
+    "doctor": {
+      "specialisation": "GP",
+      "type": "GENERAL_PRACTICE",
+      "license_number": "L12345",
+      "id": "D001",
+      "login_name": "limtzekai",
+      "name": "Dr. Lim Tze Kai",
+      "password": "docpass",
+      "email": "limtzekai@clinic.com",
+      "gender": "Male",
+      "phone_number": "9876 5432"
+    },
+    "appointment_status": "ACCEPTED",
+    "session": {
+      "id": "0425cc44-cba0-424c-a598-bc59c3e75692",
+      "start_time": "2025-03-18T18:36:19.9626715",
+      "zoom_link": "https://us05web.zoom.us/j/81441657208?pwd\u003dDHnIdiUx4XzmYk7LSQC99G5GCW4fPt.1",
+      "session_status": "ONGOING"
+    },
+    "billing": {
+      "bill_amount": 20.0,
+      "billing_i_d": "cb0b025a-4fb4-4e64-a4ae-e29b5ed5fd5e",
+      "is_paid": false,
+      "is_re_calculate_bill_amount": true,
+      "prescription": {
+        "prescription_i_d": "e5c6b31f-25d5-444c-ab94-028f38b03682",
+        "medication": []
+      }
+    },
+    "diagnosis": ""
+  },
+  {
+    "patient": {
+      "alert_history": [],
+      "patient_i_d": "P002",
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [
+          "Latex"
+        ],
+        "current_medications": [
+          {
+            "medication_name": "Loperamide",
+            "guideline_id": "C005",
+            "medication_id": "M005",
+            "dosage": "325mg, Once a Week",
+            "side_effects": "Bleeding Cock",
+            "brand_name": "Bayer",
+            "dosage_strength": 325,
+            "frequency": "Twice a Day",
+            "maximum_daily_dosage": "6969mg",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 53.1
+          }
+        ],
+        "medical_history": [
+          "Hypertension"
+        ],
+        "vital_signs": {
+          "temperature": 37.4,
+          "heart_rate": 71,
+          "blood_pressure_systolic": 97,
+          "blood_pressure_diastolic": 89,
+          "respiratory_rate": 14
+        },
+        "lab_results": [],
+        "imaging_records": [],
+        "clinical_notes": "Patient is recovering well.",
+        "symptoms": [
+          {
+            "symptom_name": "fever, chills, body aches",
+            "symptom_id": "SYM-021",
+            "severity": 6,
+            "duration": 5,
+            "doctor_notes": "Patient has flu-like symptoms, monitor temperature."
+          },
+          {
+            "symptom_name": "sore throat",
+            "symptom_id": "SYM-022",
+            "severity": 4,
+            "duration": 3,
+            "doctor_notes": "Recommend warm fluids and throat lozenges."
+          }
+        ],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [
+          "Appendectomy",
+          "Gallbladder Removal",
+          "Hernia Repair"
+        ],
+        "vaccination_record": [
+          "Influenza Vaccine",
+          "COVID-19 Vaccine"
+        ]
+      },
+      "patient_specific_factor": "Diabetic",
+      "assigned_nurse": "N001",
+      "assigned_doctor": "D003",
+      "height": 180.0,
+      "weight": 75.0,
+      "blood_type": "O+",
+      "house_address": "123 CDSS.Main.Main.CDSS.Main.Main St, NY",
+      "emergency_contact_number": 98765432,
+      "occupation": "Engineer",
+      "ethnicity": "Asian",
+      "healthcare_department": "Neurology",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P002",
+      "login_name": "JaneSmith",
+      "name": "Jane Smith",
+      "password": "password123",
+      "email": "janesmith@example.com",
+      "gender": "Female",
+      "phone_number": "81234567"
+    },
+    "reason": "fever, chills, body aches, sore throat",
+    "appointment_time": "2025-03-18T20:25:38.3197293",
+    "doctor": {
+      "specialisation": "GP",
+      "type": "GENERAL_PRACTICE",
+      "license_number": "L12345",
+      "id": "D001",
+      "login_name": "limtzekai",
+      "name": "Dr. Lim Tze Kai",
+      "password": "docpass",
+      "email": "limtzekai@clinic.com",
+      "gender": "Male",
+      "phone_number": "9876 5432"
+    },
+    "appointment_status": "COMPLETED",
+    "session": {
+      "id": "f258913c-f187-4fd1-9ece-c37dcbd0d141",
+      "start_time": "2025-03-18T00:35:38.8921126",
+      "end_time": "2025-03-18T01:34:39.7968833",
+      "zoom_link": "https://us05web.zoom.us/j/85118702297?pwd\u003db9wMFpDGyJQQLdI0D8EINrU6IypQrJ.1",
+      "session_status": "COMPLETED"
+    },
+    "billing": {
+      "bill_amount": 20.0,
+      "billing_i_d": "2b2be801-ba5a-46ca-a540-e50cee2348ce",
+      "is_paid": false,
+      "is_re_calculate_bill_amount": true,
+      "prescription": {
+        "prescription_i_d": "3d3eb887-6cb0-4ad8-9e77-ce6c290f08d3",
+        "medication": []
+      }
+    },
+    "diagnosis": "Strep Throat (Bacterial Pharyngitis)"
+  },
+  {
+    "patient": {
+      "alert_history": [],
+      "patient_i_d": "P001",
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [],
+        "current_medications": [
+          {
+            "medication_name": "Loperamide",
+            "guideline_id": "C005",
+            "medication_id": "M005",
+            "dosage": "325mg, Once a Week",
+            "side_effects": "Bleeding Cock",
+            "brand_name": "Bayer",
+            "dosage_strength": 325,
+            "frequency": "Twice a Day",
+            "maximum_daily_dosage": "6969mg",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 53.1
+          }
+        ],
+        "medical_history": [
+          "Asthma"
+        ],
+        "vital_signs": {
+          "temperature": 37.3,
+          "heart_rate": 68,
+          "blood_pressure_systolic": 140,
+          "blood_pressure_diastolic": 84,
+          "respiratory_rate": 22
+        },
+        "lab_results": [
+          "Blood Glucose: High",
+          "CBC: Normal",
+          "Lipid Panel: Elevated",
+          "Thyroid: Normal"
+        ],
+        "imaging_records": [
+          "Ultrasound"
+        ],
+        "clinical_notes": "Patient is recovering well.",
+        "symptoms": [
+          {
+            "symptom_name": "fever, chills, body aches",
+            "symptom_id": "SYM-001",
+            "severity": 6,
+            "duration": 5,
+            "doctor_notes": "Patient has flu-like symptoms, monitor temperature."
+          }
+        ],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [
+          "Hernia Repair",
+          "Cataract Surgery",
+          "Knee Replacement",
+          "Gallbladder Removal",
+          "Appendectomy"
+        ],
+        "vaccination_record": [
+          "Influenza Vaccine"
+        ]
+      },
+      "patient_specific_factor": "Diabetic",
+      "assigned_nurse": "N001",
+      "assigned_doctor": "D003",
+      "height": 180.0,
+      "weight": 75.0,
+      "blood_type": "O+",
+      "house_address": "123 CDSS.Main.Main.CDSS.Main.Main St, NY",
+      "emergency_contact_number": 98765432,
+      "occupation": "Engineer",
+      "ethnicity": "Asian",
+      "healthcare_department": "Cardiology",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P001",
+      "login_name": "JohnDoe",
+      "name": "John Doe",
+      "password": "password123",
+      "email": "John Doe@example.com",
+      "gender": "Male",
+      "phone_number": "81234567"
+    },
+    "reason": "fever, chills, body aches",
+    "appointment_time": "2025-03-18T21:58:38.3197293",
+    "doctor": {
+      "specialisation": "GP",
+      "type": "GENERAL_PRACTICE",
+      "license_number": "L12345",
+      "id": "D001",
+      "login_name": "limtzekai",
+      "name": "Dr. Lim Tze Kai",
+      "password": "docpass",
+      "email": "limtzekai@clinic.com",
+      "gender": "Male",
+      "phone_number": "9876 5432"
+    },
+    "appointment_status": "COMPLETED",
+    "session": {
+      "id": "bb9e5226-dd1f-4319-9da5-7c2efdb3f15e",
+      "start_time": "2025-03-18T00:32:04.064081",
+      "end_time": "2025-03-18T18:30:47.5778435",
+      "zoom_link": "https://us05web.zoom.us/j/89192895866?pwd\u003dKb5FYv8pboFrPSKUirgppWWhzyLFzD.1",
+      "session_status": "COMPLETED"
+    },
+    "billing": {
+      "bill_amount": 20.0,
+      "billing_i_d": "9072a958-ef77-444f-8de7-a5f921409d47",
+      "is_paid": false,
+      "is_re_calculate_bill_amount": true,
+      "prescription": {
+        "prescription_i_d": "9e9d53c7-4746-45b7-8a2f-1c48f635c3da",
+        "medication": [
+          {
+            "medication_name": "IBUPROFEN",
+            "guideline_id": "",
+            "medication_id": "",
+            "dosage": "200mg Once a week",
+            "side_effects": "",
+            "brand_name": "",
+            "dosage_strength": 0,
+            "frequency": "",
+            "maximum_daily_dosage": "",
+            "stock_available": 2,
+            "controlled_substance": false,
+            "manufacture_name": "",
+            "batch_number": "",
+            "medication_price": 0.0
+          },
+          {
+            "medication_name": "LOPERAMIDE",
+            "guideline_id": "",
+            "medication_id": "",
+            "dosage": "325mg, Once a Week",
+            "side_effects": "",
+            "brand_name": "",
+            "dosage_strength": 0,
+            "frequency": "",
+            "maximum_daily_dosage": "",
+            "stock_available": 2,
+            "controlled_substance": false,
+            "manufacture_name": "",
+            "batch_number": "",
+            "medication_price": 53.1
+          }
+        ]
+      }
+    },
+    "mc": {
+      "id": "7539dd25-f86e-4422-9d83-6a68fa7bff8f",
+      "start_date": "2025-03-18T00:00:00",
+      "end_date": "2025-03-19T23:59:00",
+      "remarks": "nil"
+    },
+    "diagnosis": "Diagnosis Unclear - Further Tests Required"
+  },
+  {
+    "patient": {
+      "alert_history": [],
+      "patient_i_d": "P001",
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [],
+        "current_medications": [
+          {
+            "medication_name": "Aspirin",
+            "guideline_id": "C002",
+            "medication_id": "M002",
+            "dosage": "325mg, Once a Week",
+            "side_effects": "Bleeding, Stomach Pain",
+            "brand_name": "Bayer",
+            "dosage_strength": 325,
+            "frequency": "Once a Day",
+            "maximum_daily_dosage": "6969mg",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 13.1
+          },
+          {
+            "medication_name": "Paracetamol",
+            "guideline_id": "C001",
+            "medication_id": "M001",
+            "dosage": "325mg, Once a Week",
+            "side_effects": "Drowsiness, Nausea",
+            "brand_name": "Tylenol",
+            "dosage_strength": 325,
+            "frequency": "Once a Day",
+            "maximum_daily_dosage": "6969mg",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 23.1
+          },
+          {
+            "medication_name": "Loperamide",
+            "guideline_id": "C005",
+            "medication_id": "M005",
+            "dosage": "325mg, Once a Week",
+            "side_effects": "Bleeding Cock",
+            "brand_name": "Bayer",
+            "dosage_strength": 325,
+            "frequency": "Twice a Day",
+            "maximum_daily_dosage": "6969mg",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 53.1
+          }
+        ],
+        "medical_history": [
+          "Hypertension",
+          "Arthritis",
+          "Obesity"
+        ],
+        "vital_signs": {
+          "temperature": 37.2,
+          "heart_rate": 75,
+          "blood_pressure_systolic": 114,
+          "blood_pressure_diastolic": 80,
+          "respiratory_rate": 14
+        },
+        "lab_results": [
+          "CBC: Normal",
+          "Blood Glucose: High",
+          "Hemoglobin: Low"
+        ],
+        "imaging_records": [
+          "CT Scan"
+        ],
+        "clinical_notes": "Follow-up needed in 2 weeks.",
+        "symptoms": [
+          {
+            "symptom_name": "fever, chills, body aches",
+            "symptom_id": "SYM-001",
+            "severity": 6,
+            "duration": 5,
+            "doctor_notes": "Patient has flu-like symptoms, monitor temperature."
+          },
+          {
+            "symptom_name": "sore throat",
+            "symptom_id": "SYM-002",
+            "severity": 4,
+            "duration": 3,
+            "doctor_notes": "Recommend warm fluids and throat lozenges."
+          }
+        ],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [
+          "Cataract Surgery",
+          "Gallbladder Removal"
+        ],
+        "vaccination_record": [
+          "Influenza Vaccine",
+          "Hepatitis B Vaccine",
+          "COVID-19 Vaccine"
+        ]
+      },
+      "patient_specific_factor": "Diabetic",
+      "assigned_nurse": "N001",
+      "assigned_doctor": "D003",
+      "height": 180.0,
+      "weight": 75.0,
+      "blood_type": "O+",
+      "house_address": "123 CDSS.Main.Main.CDSS.Main.Main St, NY",
+      "emergency_contact_number": 98765432,
+      "occupation": "Engineer",
+      "ethnicity": "Asian",
+      "healthcare_department": "Cardiology",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P001",
+      "login_name": "JohnDoe",
+      "name": "John Doe",
+      "password": "password123",
+      "email": "John Doe@example.com",
+      "gender": "Male",
+      "phone_number": "81234567"
+    },
+    "reason": "Fever",
+    "history": "No",
+    "appointment_time": "2025-03-19T15:00:00",
+    "doctor": {
+      "specialisation": "GP",
+      "type": "GENERAL_PRACTICE",
+      "license_number": "L12345",
+      "id": "D001",
+      "login_name": "limtzekai",
+      "name": "Dr. Lim Tze Kai",
+      "password": "docpass",
+      "email": "limtzekai@clinic.com",
+      "gender": "Male",
+      "phone_number": "9876 5432"
+    },
+    "appointment_status": "ACCEPTED",
+    "session": {
+      "id": "38e1358c-0d10-44c8-925d-fac6e9d3ffcd",
+      "start_time": "2025-03-19T13:50:25.1767563",
+      "zoom_link": "https://us05web.zoom.us/j/87667577660?pwd\u003dgCL9YeUdL7CnAlhn4LbFDpOneRpWxC.1",
+      "session_status": "ONGOING"
+    },
+    "billing": {
+      "bill_amount": 20.0,
+      "billing_i_d": "5a0075ea-b250-4927-8e72-d9ce8a2cfda2",
+      "is_paid": false,
+      "is_re_calculate_bill_amount": true,
+      "prescription": {
+        "prescription_i_d": "52ad0222-9981-4229-b0c2-f59d57537589",
+        "medication": []
+      }
+    },
+    "diagnosis": "Tonsillitis"
+  }
+]

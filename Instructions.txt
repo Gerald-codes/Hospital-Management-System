@@ -1,0 +1,6 @@
+team_j1_java> .\gradlew.bat jar //This command will build the project and create a jar file in the build/libs directory.
+Copy the jar file generated in the following directory: team_j1_java\build\my-jar
+Paste in the following directory: team_j1_java\executable
+cd into the executable directory in terminal: team_j1_java\executable
+Run the following command: java -jar out.jar
+
