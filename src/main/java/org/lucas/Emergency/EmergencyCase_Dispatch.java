@@ -1,6 +1,8 @@
 package org.lucas.Emergency;
 
 import org.lucas.models.Patient;
+import org.lucas.controllers.UserController;
+import org.lucas.util.InputValidator;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -172,10 +174,11 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
     }
 
 
-
     private static void createNewDispatch() {
         EmergencySystem ECsystem = new EmergencySystem();
         Scanner scanner = new Scanner(System.in);
+        List<Patient> allPatients = UserController.loadPatientsFromFile();
+
         // Use EmergencyCase_Dispatch class
         // Record: DispatchID, AmbulanceID, CrewMembers, Equipment
         // system.addEmergencyCaseDispatch(newDispatchCase);
@@ -190,32 +193,30 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
         // repeating until the user type in the correct data type.
         // If the user existing id, they can use if they want to use the existing id or
         // type unused id value
-        int patientId = 0;
+        String patientId;
         do {
             System.out.print("Enter patient ID: ");
-            while (!scanner.hasNextInt()) {
+            while (!scanner.hasNext()) {
                 System.out.println("Invalid input! Please enter a valid patient ID.");
                 scanner.next(); // Clear incorrect input
             }
-            int enteredPatientID = scanner.nextInt();
+            String enteredPatientID = scanner.next();
             scanner.nextLine(); // Clears leftover \n from nextInt()
             // Check if patient ID already exists
-            if (allPatients.stream().anyMatch(p -> p.getPatientID() == enteredPatientID)) {
-                for (Patient patientX : allPatients) {
-                    if (patientX.getPatientID() == enteredPatientID) {
-                        existPatientName = patientX.getPatientName();
-                        break;
-                    }
-                }
-
-                System.out.println("Patient ID already exists.\nExisting patient found --> [ ID: " + enteredPatientID
-                        + " | Name: " + existPatientName + " ]");
-                System.out.println("Please select to use the existing patient or enter a new patient ID.");
-                System.out.print("1. Use existing patient\n2. Enter new patient ID \nChoice: ");
-                int choice = getValidInput(1, 2);
-                if (choice == 1) { // Use existing patient
-                    patientId = enteredPatientID;
-                    continueChecking = false;
+            if (allPatients.stream().anyMatch(patient -> patient.getPatientID().equals(enteredPatientID))) {
+//                for (Patient patientX : allPatients) {
+//                    if (enteredPatientID.equals(patientX.getPatientID())) {
+//                        existPatientName = patientX.getPatientName();
+//                        break;
+//                    }
+//                }
+            System.out.println("Patient ID already exists.\nExisting patient found --> [ ID: " + enteredPatientID);
+            System.out.println("Please select to use the existing patient or enter a new patient ID.");
+            System.out.print("1. Use existing patient\n2. Enter new patient ID \n");
+            int choice = InputValidator.getValidIntInput("Choice: ");
+            if (choice == 1) { // Use existing patient
+                patientId = enteredPatientID;
+                continueChecking = false;
                     useExistingPatient = true;
                 } // Else continue checking for new patient ID
             } else { // No existing patient found
@@ -248,8 +249,8 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
 
         // Set the arrival mode based on the valid input range.
         System.out.print(
-                "___- Select dispatch vehicle -___\n (1. Ambulance) \n (2. Helicopter) \nChoice (enter integer value): ");
-        int choice = getValidInput(1, 2);
+                "___- Select dispatch vehicle -___\n (1. Ambulance) \n (2. Helicopter) \n");
+        int choice = InputValidator.getValidIntInput("Choice (enter integer value): ");
         String arrivalMode;
 
         switch (choice) {
@@ -302,8 +303,8 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
 
         while (addMoreStaff) {
             System.out
-                    .print("___- Select Option -___\n (1. Add more member)\n (2. End)\nChoice (enter integer value): ");
-            choice = getValidInput(1, 2);
+                    .print("___- Select Option -___\n (1. Add more member)\n (2. End)\n ");
+            choice = InputValidator.getValidIntInput("Choice (enter integer value): ");
 
             if (choice == 2)
                 addMoreStaff = false;
@@ -329,8 +330,8 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
         }
 
         System.out.print(
-                "___- Select Option -___\n (1. Add special equipment)\n (2. End)\nChoice (enter integer value): ");
-        choice = getValidInput(1, 2);
+                "___- Select Option -___\n (1. Add special equipment)\n (2. End)\n ");
+        choice = InputValidator.getValidIntInput("Choice (enter integer value): ");
 
         List<String> equipmentList = new ArrayList<String>();
         boolean addEquipment = false;
@@ -350,8 +351,8 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
             equipmentList.add(equipment);
 
             System.out.print(
-                    "___- Select Option -___\n (1. Add special equipment)\n (2. End)\nChoice (enter integer value): ");
-            choice = getValidInput(1, 2);
+                    "___- Select Option -___\n (1. Add special equipment)\n (2. End)\n ");
+            choice = InputValidator.getValidIntInput("Choice (enter integer value): ");
 
             if (choice == 2)
                 addEquipment = false;
