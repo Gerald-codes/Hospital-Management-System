@@ -36,10 +36,12 @@ public class LandingPage extends UiBase {
         lv.setTitleHeader("Welcome to our application"); // Set the title header of the list view
         lv.addItem(new TextView(this.canvas, "1. Pharmacy", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "2. Teleconsultation", Color.GREEN));
-        //lv.addItem(new TextView(this.canvas, "3. CDSS -  ", Color.GREEN));
-        //lv.addItem(new TextView(this.canvas, "4. Emergency Services -  ", Color.GREEN));
-        lv.attachUserInput("Pharmacy", str -> ToPage(new PharmacyPage()));
+        lv.addItem(new TextView(this.canvas, "3. CDSS ", Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "4. Emergency Services ", Color.GREEN));
+        lv.attachUserInput("Pharmacy", str -> ToPage(new LoginPage()));
         lv.attachUserInput("Teleconsultation", str -> ToPage(new LoginPage()));
+        lv.attachUserInput("CDSS", str -> ToPage(new LoginPage()));
+        lv.attachUserInput("Emergency Services", str -> ToPage(new LoginPage()));
         canvas.setRequireRedraw(true);
     }
 }
