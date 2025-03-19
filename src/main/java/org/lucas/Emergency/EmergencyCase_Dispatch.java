@@ -1,12 +1,13 @@
 package org.lucas.Emergency;
 
-import CDSS.Core.DispatchInfo;
-import CDSS.Core.EmergencyCase;
-import CDSS.Patient.Patient;
+import org.lucas.models.Patient;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * A class that inherits from base EmergencyCase class.
@@ -164,17 +165,217 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
     }
 
     /**
-     * Get function for reponseTime tied to the dispatch case.
+     * Get function for responseTime tied to the dispatch case.
      */
-    public Duration getReponseTime(){
+    public Duration getResponseTime(){
         return reponseTime;
     }
 
 
-    /**
-     * Main Function of EmergencyCase_Dispatch class. Only used for initial testing purposes.
-     * The main function to run is in the Main class.
-     */
+
+    private static void createNewDispatch() {
+        EmergencySystem ECsystem = new EmergencySystem();
+        Scanner scanner = new Scanner(System.in);
+        // Use EmergencyCase_Dispatch class
+        // Record: DispatchID, AmbulanceID, CrewMembers, Equipment
+        // system.addEmergencyCaseDispatch(newDispatchCase);
+        System.out.println("\n___- Register New Dispatch Case -___");
+        int caseId = ECsystem.setCaseID();
+
+        boolean continueChecking = true;
+        boolean useExistingPatient = false;
+        String existPatientName = "";
+
+        // Get user input and if the user set the wrong value type, the system will keep
+        // repeating until the user type in the correct data type.
+        // If the user existing id, they can use if they want to use the existing id or
+        // type unused id value
+        int patientId = 0;
+        do {
+            System.out.print("Enter patient ID: ");
+            while (!scanner.hasNextInt()) {
+                System.out.println("Invalid input! Please enter a valid patient ID.");
+                scanner.next(); // Clear incorrect input
+            }
+            int enteredPatientID = scanner.nextInt();
+            scanner.nextLine(); // Clears leftover \n from nextInt()
+            // Check if patient ID already exists
+            if (allPatients.stream().anyMatch(p -> p.getPatientID() == enteredPatientID)) {
+                for (Patient patientX : allPatients) {
+                    if (patientX.getPatientID() == enteredPatientID) {
+                        existPatientName = patientX.getPatientName();
+                        break;
+                    }
+                }
+
+                System.out.println("Patient ID already exists.\nExisting patient found --> [ ID: " + enteredPatientID
+                        + " | Name: " + existPatientName + " ]");
+                System.out.println("Please select to use the existing patient or enter a new patient ID.");
+                System.out.print("1. Use existing patient\n2. Enter new patient ID \nChoice: ");
+                int choice = getValidInput(1, 2);
+                if (choice == 1) { // Use existing patient
+                    patientId = enteredPatientID;
+                    continueChecking = false;
+                    useExistingPatient = true;
+                } // Else continue checking for new patient ID
+            } else { // No existing patient found
+                patientId = enteredPatientID; // Set patient ID
+                continueChecking = false;
+            }
+        } while (continueChecking);
+
+        // Check if the patient name if its valid. If empty or contains numbers, the
+        // input will be invalid.
+        String patientName = "";
+        if (useExistingPatient) {
+            patientName = existPatientName;
+            System.out.println("Using existing patient: " + patientName);
+        } else {
+            System.out.print("Enter patient name: ");
+            patientName = scanner.nextLine().trim();
+            while (!patientName.matches("[a-zA-Z ]+") || patientName.isBlank()) {
+                System.out.println("Patient name cannot be empty. Please enter a valid name.");
+                System.out.print("Enter patient name: ");
+                patientName = scanner.nextLine().trim();
+            }
+        }
+
+        String chiefComplaint = "";
+        while (chiefComplaint.isBlank()) {
+            System.out.print("Enter reason of patient's call (Chief Complaint): ");
+            chiefComplaint = scanner.nextLine().trim();
+        }
+
+        // Set the arrival mode based on the valid input range.
+        System.out.print(
+                "___- Select dispatch vehicle -___\n (1. Ambulance) \n (2. Helicopter) \nChoice (enter integer value): ");
+        int choice = getValidInput(1, 2);
+        String arrivalMode;
+
+        switch (choice) {
+            case 1:
+                arrivalMode = "Ambulance";
+                break;
+            case 2:
+                arrivalMode = "Helicopter";
+                break;
+            default:
+                arrivalMode = "Error";
+                break;
+        }
+
+        EmergencyCase.PatientStatus patientStatus = EmergencyCase.PatientStatus.ONDISPATCHED;
+
+        // Set Dispatch Info
+        System.out.print("Enter Vehicle ID: ");
+        while (!scanner.hasNextInt()) {
+            System.out.println("Invalid input! Please enter a valid vehicle ID");
+            scanner.next();
+        }
+
+        int ambulanceId = scanner.nextInt();
+
+        List<StaffMember> dispatchMembers = new ArrayList<StaffMember>();
+
+        System.out.print("Enter dispatched medivac member staff ID: ");
+        boolean validStaffID = false;
+        int inputStaffId = 0;
+
+        while (!validStaffID) {
+            if (scanner.hasNextInt()) {
+                inputStaffId = scanner.nextInt();
+                if (StaffMember.checkIfStaffExist(inputStaffId)) {
+                    validStaffID = true;
+                    break;
+                } else {
+                    System.out.println("Invalid staff ID. Please enter a valid ID");
+                }
+            } else {
+                System.out.println("Invalid staff ID. Please enter a valid ID");
+                scanner.next();
+            }
+        }
+
+        dispatchMembers.add(StaffMember.getStaffMember(inputStaffId));
+
+        boolean addMoreStaff = true;
+
+        while (addMoreStaff) {
+            System.out
+                    .print("___- Select Option -___\n (1. Add more member)\n (2. End)\nChoice (enter integer value): ");
+            choice = getValidInput(1, 2);
+
+            if (choice == 2)
+                addMoreStaff = false;
+            else {
+                System.out.print("Enter dispatched medivac member staff ID: ");
+                validStaffID = false;
+                while (!validStaffID) {
+                    if (scanner.hasNextInt()) {
+                        inputStaffId = scanner.nextInt();
+                        if (StaffMember.checkIfStaffExist(inputStaffId)) {
+                            validStaffID = true;
+                            break;
+                        } else {
+                            System.out.println("Invalid staff ID. Please enter a valid ID");
+                        }
+                    } else {
+                        System.out.println("Invalid staff ID. Please enter a valid ID");
+                        scanner.next();
+                    }
+                }
+                dispatchMembers.add(StaffMember.getStaffMember(inputStaffId));
+            }
+        }
+
+        System.out.print(
+                "___- Select Option -___\n (1. Add special equipment)\n (2. End)\nChoice (enter integer value): ");
+        choice = getValidInput(1, 2);
+
+        List<String> equipmentList = new ArrayList<String>();
+        boolean addEquipment = false;
+        if (choice == 1)
+            addEquipment = true;
+
+        while (addEquipment) {
+            System.out.print("Enter special equipment: ");
+            String equipment = scanner.nextLine().trim();
+
+            while (equipment.isBlank()) {
+                System.out.println("Equipment name cannot be empty. Please enter a valid name");
+                System.out.print("Enter special equipment: ");
+                equipment = scanner.nextLine().trim();
+            }
+
+            equipmentList.add(equipment);
+
+            System.out.print(
+                    "___- Select Option -___\n (1. Add special equipment)\n (2. End)\nChoice (enter integer value): ");
+            choice = getValidInput(1, 2);
+
+            if (choice == 2)
+                addEquipment = false;
+        }
+
+        // creates a patient object based on the value inserted by the user
+        Patient patient = Patient.checkOrCreatePatient(allPatients, patientId, patientName, new ArrayList<>());
+
+        // create a dispatch info object based on the value inserted by the user
+        DispatchInfo dispatchInfo = new DispatchInfo(ambulanceId, dispatchMembers, equipmentList);
+
+        // create the emergency case dispatch object from all the above variables and
+        // add to the existing list of emergency case dispatch in the system
+        EmergencyCase_Dispatch newDispatchCase = new EmergencyCase_Dispatch(caseId, patient, chiefComplaint,
+                arrivalMode, patientStatus, dispatchInfo);
+        ECsystem.addEmergencyCaseDispatch(newDispatchCase);
+        ECsystem.saveAllCases();
+        System.out.println(
+                "______________________________________________________________________________________________");
+        System.out.println("New Dispatch Case | Case ID: " + caseId + " | Patient Name: " + patientName
+                + " | Registered successfully!\n");
+        System.out.println("<--- Back");
+    }
+
     // For testing
 //    public static void main(String[] args) {
 //        Patient testPatient = new Patient(2222, "Adli");

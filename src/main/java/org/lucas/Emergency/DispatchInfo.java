@@ -1,6 +1,5 @@
 package org.lucas.Emergency;
 
-import CDSS.User.HealthcareProfessional;
 
 import java.util.List;
 
