@@ -4,8 +4,9 @@ import org.lucas.models.Nurse;
 import org.lucas.models.Patient;
 import org.lucas.controllers.UserController;
 import org.lucas.util.InputValidator;
-import org.lucas.Emergency.enums.*;
+import org.lucas.Emergency.enums.PatientStatus;
 import org.lucas.models.Patient;
+import org.lucas.Emergency.EmergencyCase;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -68,12 +69,26 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
         allNurses = UserController.getAvailableNurses();
     }
 
+    public static void printAllNurses() {
+        // Print the header
+        System.out.printf("%-5s | %-20s | %-10s | %-10s\n", "No.", "Name", "ID", "Role");
+        System.out.println("-----------------------------------------------");
+
+        // Print each nurse's information
+        int counter = 1;
+        for (Nurse nurse : allNurses) {
+            System.out.printf("%-5d | %-20s | %-10s | %-10s\n", counter, nurse.getName(), nurse.getId(), nurse.getRole());
+            counter++;
+        }
+    }
+
     /**
      * Updates the dispatch case state to have the medivac team arrive to patient's location.
      * This function should be called to update the case state from initial state to medivac arrival state.
      * Calling this function also updates the responseTime to store the duration between timeOfCall and dispatchArrivalTime.
      * @param dispatchArrivalTime set the case's medivac arrival time to this value. Most of the time will set the value to LocalDateTime.now()
      */
+
     public void setDispatchTeamArrivalTime(LocalDateTime dispatchArrivalTime){
         this.dispatchArrivalTime = dispatchArrivalTime;
         this.responseTime = Duration.between(timeOfCall, dispatchArrivalTime);
@@ -291,7 +306,9 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
                 break;
         }
 
-//        EmergencyCase.PatientStatus patientStatus = EmergencyCase.PatientStatus.ONDISPATCHED;
+        PatientStatus patientStatus = PatientStatus.ONDISPATCHED;
+
+
 
         // Set Dispatch Info
         System.out.print("Enter Vehicle ID: ");
@@ -409,7 +426,161 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
 
 
 
+    private static void updateDispatchStatus() {
+        // TODO: Implement dispatch status updates
+        // Update dispatch status and location
+        System.out.println("\n___- Update Dispatch Case Status -___");
+        System.out.print("Enter case ID: ");
+        while (!scanner.hasNextInt()) {
+            System.out.println("Invalid input! Please enter a valid case ID.");
+            scanner.next();
+        }
 
+        int caseID = scanner.nextInt();
+        scanner.nextLine();
+        boolean caseFound = false;
+
+        // Get the referenced dispatch case from the existing cases
+        for (EmergencyCase_Dispatch dispatchCase : ECsystem.getEmergencyCaseDispatch()) {
+            if (dispatchCase.getCaseID() == caseID) {
+                int choice;
+                // If the patient status is waiting, run the same sequence from emergency case
+                // If the patient status is ondispatched, run the sequence for cases that are
+                // currently in dispatch
+                switch (dispatchCase.getPatientStatus()) {
+                    case PatientStatus.WAITING: /**dependent on registerNewEmergencyCases
+                        in EmergencyCase.java to create a new EmergencyCase obj**/
+                        System.out.println("Select new triage level:");
+                        String[] triageLevels = EmergencyCase_Dispatch.getTriageLevels();
+
+                        for (int i = 0; i < triageLevels.length; i++) {
+                            System.out.println((i + 1) + "," + triageLevels[i]);
+                        }
+
+                        do {
+                            System.out.print("Enter choice (1-" + triageLevels.length + "): ");
+                            while (!scanner.hasNextInt()) {
+                                System.out.println(
+                                        "Invalid input! Please enter a valid choice (1-" + triageLevels.length + ").");
+                                scanner.next();
+                            }
+                            choice = scanner.nextInt();
+                        } while (choice < 1 || choice > triageLevels.length);
+
+                        String selectedTriageLevel = triageLevels[choice - 1];
+
+                        // Staff member selection
+                        System.out.println("\nDo you want to:");
+                        System.out.println("1. Select existing nurse");
+//                        System.out.println("2. Add new nurse");
+//                        System.out.print("Enter your choice (1-2): ");
+
+                        int staffChoice = InputValidator.getValidIntInput("Enter your choice (1-2): ");
+                        Nurse nurses = null;
+
+                        if (staffChoice == 1) {
+                            // Display all available nurses and select nurse
+                            System.out.println("\nAvailable Nurses:");
+                            printAllNurses();
+
+                            System.out.print("\nEnter the nurse's ID: ");
+                            int nurseID = scanner.nextInt();
+                            scanner.nextLine(); // Clear buffer
+
+                            // Find the selected nurse
+                            for (Nurse nurse : allNurses) {
+                                if (nurse.getId().equals(nurseID)) {
+                                    nurses = nurse;
+                                    break;
+                                }
+                            }
+
+                            if (nurses == null) {
+                                System.out.println("Invalid nurse ID or staff member is not a nurse.");
+                                return;
+                            }
+                            // I don't think should add new nurses, but only can select from existing
+//                        } else {
+//                            // Add new nurse
+//                            System.out.print("Enter staff member ID: ");
+//                            int staffID = scanner.nextInt();
+//                            scanner.nextLine();
+//
+//                            System.out.print("Enter staff member name: ");
+//                            String staffName = scanner.nextLine().trim();
+//
+//                            staffMember = new StaffMember(staffName, staffID, "Nurse");
+//                            StaffMember.getStaff().add(staffMember);
+//                            StaffMember.saveStaff();
+                        }
+
+                        System.out.print("Enter patient's vital signs: ");
+                        String vitalSigns = scanner.nextLine().trim();
+
+                        dispatchCase.updateInitialScreening(nurses, selectedTriageLevel, vitalSigns);
+
+//                        ECsystem.saveAllCases();
+//                        StaffMember.saveStaff();
+                        System.out.println("Dispatch case updated successfully!");
+                        break;
+
+                    // if the case is on dispatched, if the dispatch response time is currently
+                    // zero, check if user want to update the case for the dispatch team to be
+                    // arrival to patient location
+                    case PatientStatus.ONDISPATCHED:
+                        if (dispatchCase.getResponseTime() == Duration.ZERO) {
+                            System.out.println("Dispatch Team is in progress. Select Option");
+                            System.out.print(
+                                    "___- Select Option -___\n (1. Set Dispatch Team status to arrived to location)\n (2. Back)\n");
+                            choice = InputValidator.getValidIntInput("Choice (enter integer value): ");
+
+                            if (choice == 1) {
+                                System.out.println("Dispatch team has been set to arrived to patient location");
+                                dispatchCase.setDispatchTeamArrivalTime(LocalDateTime.now());
+//                                ECsystem.saveAllCases();
+                            } else {
+                                System.out.println("<--- Back");
+                                break;
+                            }
+                        }
+
+                        // Check if the user want to udpate the case for the dispatch team to arrived
+                        // back to the hospital with the patient
+                        if (dispatchCase.getResponseTime() != Duration.ZERO) {
+                            System.out.println("Dispatch Team is in progress. Select Option");
+                            System.out.print(
+                                    "___- Select Option -___\n (1. Set Dispatch Team status to arrived to hospital)\n (2. Back)\n");
+                            choice = InputValidator.getValidIntInput("Choice (enter integer value): ");
+
+                            if (choice == 1) {
+                                System.out.println("Dispatch team has been set to arrive back to hospital");
+                                dispatchCase.setPatientStatusToArrived();
+                                System.out.println(dispatchCase.getResponseDetails());
+//                                ECsystem.saveAllCases();
+                            } else {
+                                System.out.println("<--- Back");
+                                break;
+                            }
+                        }
+
+                        System.out.println("Dispatch case has been updated successfully!");
+                        break;
+
+                    default:
+                        System.out.println("Dispatch case has already been resolved.");
+                        break;
+                }
+
+
+                caseFound = true;
+                break;
+            }
+        }
+
+        if (!caseFound)
+            System.out.println("No Dispatch case found. Exiting");
+
+    }
 
 
 

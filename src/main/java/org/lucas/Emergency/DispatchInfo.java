@@ -17,10 +17,10 @@ import java.util.List;
 public class DispatchInfo {
 
     private int vehicleId;
-    private List<User> medivacMembers;
+    private List<Nurse> medivacMembers;
     private List<String> equipment;
 
-    public DispatchInfo(int ambulanceId, List<User> dispatchMembersList, List<String> equipmentList) {
+    public DispatchInfo(int ambulanceId, List<Nurse> dispatchMembersList, List<String> equipmentList) {
         this.vehicleId = ambulanceId;
         this.medivacMembers = dispatchMembersList;
         this.equipment = equipmentList;
@@ -36,12 +36,12 @@ public class DispatchInfo {
         this.vehicleId = ambulanceId;
     }
 
-    public List<User> getMedivacMembers() {
+    public List<Nurse> getMedivacMembers() {
         return medivacMembers;
     }
 
 
-    public void setMedivacMembers(List<User> medivacMembers) {
+    public void setMedivacMembers(List<Nurse> medivacMembers) {
         this.medivacMembers = medivacMembers;
     }
 

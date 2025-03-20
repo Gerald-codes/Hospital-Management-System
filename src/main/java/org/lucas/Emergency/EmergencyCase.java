@@ -16,6 +16,9 @@ import java.util.List;
 
 public class EmergencyCase {
 
+
+
+
     private int caseID;
     private Patient patient; // storing a single Patient
     private String chiefComplaint;
@@ -27,6 +30,7 @@ public class EmergencyCase {
 
     private Doctor assignedDoctor;
     private String location; // Current location of the patient (e.g., Waiting Room, Treatment Room)
+
     private PatientStatus patientStatus; // Admitted, Discharged, etc.
     private CaseType caseType; // Admitted, Discharged, etc.
     private List<String> emergencyProcedures; // List of emergency procedures done on patient
