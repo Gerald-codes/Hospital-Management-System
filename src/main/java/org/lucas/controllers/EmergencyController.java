@@ -75,7 +75,7 @@ public class EmergencyController {
         }
     }
 
-    public void saveAppointmentsToFile() {
+    public void saveEmergencyCasesToFile() {
         String basePath = "";
 
         // get the jar location
@@ -95,9 +95,5 @@ public class EmergencyController {
         }
     }
 
-    public void addEmergencyCases(EmergencyCase emergencyCase){
-        emergencyCases.add(emergencyCase);
-        sortEmergencyCase();
-    }
 
 }
