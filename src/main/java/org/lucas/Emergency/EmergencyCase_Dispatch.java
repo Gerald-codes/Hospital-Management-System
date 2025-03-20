@@ -1,5 +1,6 @@
 package org.lucas.Emergency;
 
+import org.lucas.models.Nurse;
 import org.lucas.models.Patient;
 import org.lucas.controllers.UserController;
 import org.lucas.util.InputValidator;
@@ -178,6 +179,7 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
         EmergencySystem ECsystem = new EmergencySystem();
         Scanner scanner = new Scanner(System.in);
         List<Patient> allPatients = UserController.loadPatientsFromFile();
+        List <Nurse> allNurses = UserController.loadNursesFromFile();
 
         // Use EmergencyCase_Dispatch class
         // Record: DispatchID, AmbulanceID, CrewMembers, Equipment
@@ -203,13 +205,13 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
             String enteredPatientID = scanner.next();
             scanner.nextLine(); // Clears leftover \n from nextInt()
             // Check if patient ID already exists
-            if (allPatients.stream().anyMatch(patient -> patient.getPatientID().equals(enteredPatientID))) {
-//                for (Patient patientX : allPatients) {
-//                    if (enteredPatientID.equals(patientX.getPatientID())) {
-//                        existPatientName = patientX.getPatientName();
-//                        break;
-//                    }
-//                }
+            if (allPatients.stream().anyMatch(patient -> patient.getId().equals(enteredPatientID))) {
+                for (Patient patientX : allPatients) {
+                    if (enteredPatientID.equals(patientX.getPatientID())) {
+                        existPatientName = patientX.getName();
+                        break;
+                    }
+                }
             System.out.println("Patient ID already exists.\nExisting patient found --> [ ID: " + enteredPatientID);
             System.out.println("Please select to use the existing patient or enter a new patient ID.");
             System.out.print("1. Use existing patient\n2. Enter new patient ID \n");
@@ -276,8 +278,8 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
 
         int ambulanceId = scanner.nextInt();
 
-        List<StaffMember> dispatchMembers = new ArrayList<StaffMember>();
-
+        List<Nurse> dispatchMembers = new ArrayList<Nurse>();
+//
         System.out.print("Enter dispatched medivac member staff ID: ");
         boolean validStaffID = false;
         int inputStaffId = 0;
@@ -285,19 +287,21 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
         while (!validStaffID) {
             if (scanner.hasNextInt()) {
                 inputStaffId = scanner.nextInt();
-                if (StaffMember.checkIfStaffExist(inputStaffId)) {
-                    validStaffID = true;
-                    break;
-                } else {
-                    System.out.println("Invalid staff ID. Please enter a valid ID");
-                }
-            } else {
+                for (Nurse nurses : allNurses) {
+                    if (nurses.getId().equals(inputStaffId)) {
+                        validStaffID = true;
+                        dispatchMembers.add(nurses);
+                        break;
+                    }
+
+            else{
                 System.out.println("Invalid staff ID. Please enter a valid ID");
                 scanner.next();
+                    }
+                }
             }
         }
-
-        dispatchMembers.add(StaffMember.getStaffMember(inputStaffId));
+//        dispatchMembers.add(StaffMember.getStaffMember(inputStaffId));
 
         boolean addMoreStaff = true;
 
@@ -314,18 +318,20 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
                 while (!validStaffID) {
                     if (scanner.hasNextInt()) {
                         inputStaffId = scanner.nextInt();
-                        if (StaffMember.checkIfStaffExist(inputStaffId)) {
-                            validStaffID = true;
-                            break;
-                        } else {
-                            System.out.println("Invalid staff ID. Please enter a valid ID");
+                        for (Nurse nurses : allNurses) {
+                            if (nurses.getId().equals(inputStaffId)) {
+                                validStaffID = true;
+                                dispatchMembers.add(nurses);
+                                break;
+                            }
+
+                            else{
+                                System.out.println("Invalid staff ID. Please enter a valid ID");
+                                scanner.next();
+                            }
                         }
-                    } else {
-                        System.out.println("Invalid staff ID. Please enter a valid ID");
-                        scanner.next();
                     }
                 }
-                dispatchMembers.add(StaffMember.getStaffMember(inputStaffId));
             }
         }
 
@@ -376,6 +382,16 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
                 + " | Registered successfully!\n");
         System.out.println("<--- Back");
     }
+
+
+
+
+
+
+
+
+
+
 
     // For testing
 //    public static void main(String[] args) {
