@@ -31,10 +31,12 @@ public class UserController {
     private static List<Patient> generatePatients = new ArrayList<>();
     private static List<Nurse> generateNurses = new ArrayList<>();
     private static List<Doctor> allDoctors = new ArrayList<>();
-    private static List<Doctor> allNurses = new ArrayList<>();
+    private static List<Nurse> allNurses = new ArrayList<>();
+    private static List<Admin> allAdmin = new ArrayList<>();
     private static final String doctorFileName = "doctor_data.txt";
     private static final String patientFileName = "patient_data.txt";
     private static final String nurseFileName = "nurse_data.txt";
+    private static final String adminFileName = "admin_data.txt";
     /**
      * the active doctor that is currently logged in.
      */
@@ -50,6 +52,9 @@ public class UserController {
     /**
      * Specifies the user type to avoid excessive instanceof or null checks
      */
+
+    private static Admin activeAdmin;
+
     private static UserType activeUserType;
 
     /**
@@ -108,6 +113,22 @@ public class UserController {
         }
     }
 
+    private static void loadAdminsFromFile() {
+        allAdmin.clear();
+        StringBuilder sb = new StringBuilder();
+        try (BufferedReader br = Files.newBufferedReader(Paths.get(adminFileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+            Type listType = new TypeToken<List<Nurse>>() {
+            }.getType();
+            allAdmin = Util.fromJsonString(sb.toString(), listType);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static List<Patient> getAvailablePatients() {
         if (allpatients.isEmpty()) {
             loadPatientsFromFile();
@@ -120,7 +141,7 @@ public class UserController {
         }
         return new ArrayList<>(allDoctors); // Return a *copy*
     }
-    public static List<Doctor> getAvailableNurses() {
+    public static List<Nurse> getAvailableNurses() {
         if (allNurses.isEmpty()) {
             loadNursesFromFile();
         }
@@ -194,6 +215,27 @@ public class UserController {
                 sb.append(line);
             }
             Type listType = new TypeToken<List<Nurse>>() {}.getType();
+            users.addAll(Util.fromJsonString(sb.toString(), listType));
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        //then load the nurses
+        sb = new StringBuilder();
+        String adminBasePath = "";
+        try {
+            basePath = JarLocation.getJarDirectory();
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        try (BufferedReader br = Files.newBufferedReader(Paths.get(adminBasePath, adminFileName))) {
+            String line;
+
+            while((line = br.readLine()) != null){
+                sb.append(line);
+            }
+            Type listType = new TypeToken<List<Admin>>() {}.getType();
             users.addAll(Util.fromJsonString(sb.toString(), listType));
         }catch (IOException e){
             e.printStackTrace();
@@ -288,7 +330,7 @@ public class UserController {
         List<User> authenticated = users.stream().filter(usr->
             usr.getLoginName().equals(username) && usr.checkPassword(password)
         ).toList();
-        System.out.println(authenticated);
+        System.out.println("HEY" + authenticated);
 
         if(authenticated.isEmpty()){
             auditManager.logAction("NIL", "LOGIN", "System", "FAILED","");
@@ -309,8 +351,14 @@ public class UserController {
         if(authenticated.getFirst() instanceof Patient){
             activePatient = (Patient)authenticated.getFirst();
             activeUserType = UserType.PATIENT;
-            auditManager.logAction(activePatient.getPatientID(), "LOGIN", "System", "SUCCESS", "PATIENT");
+            auditManager.logAction(activePatient.getId(), "LOGIN", "System", "SUCCESS", "PATIENT");
             return UserType.PATIENT;
+        }
+        if(authenticated.getFirst() instanceof Admin){
+            activeAdmin = (Admin)authenticated.getFirst();
+            activeUserType = UserType.ADMIN;
+            auditManager.logAction(activeAdmin.getId(), "LOGIN", "System", "SUCCESS", "ADMIN");
+            return UserType.ADMIN;
         }
         auditManager.logAction("NIL", "LOGIN", "System", "FAILED","");
         return UserType.ERROR;
@@ -367,6 +415,10 @@ public class UserController {
         return activeNurse;
     }
 
+    public static Admin getActiveAdmin() {
+        return activeAdmin;
+    }
+
     /**Gets the active patient.
      * @return the active {@link Patient}, or null if no patient is active.*/
     public static Patient getActivePatient() {
@@ -409,32 +461,32 @@ public class UserController {
     public static void generateDummyUsers() {
 
         List<Patient> dummyPatients = new ArrayList<>();
-        dummyPatients.add(new Patient("P001", "JohnDoe", "John Doe", "password123", "John Doe@example.com", "Male","81234567","P001", "15-08-1990","Diabetic", "N001", "D003",
-                null,180, 75, "O+", "123 CDSS.Main.Main.CDSS.Main.Main St, NY", 98765432, "Engineer", "Asian", "Cardiology"));
-
-        dummyPatients.add(new Patient("P002", "JaneSmith", "Jane Smith", "password123", "janesmith@example.com", "Female","81234567","P002", "15-08-1990","Diabetic", "N001", "D003",
-                null,180, 75, "O+", "123 CDSS.Main.Main.CDSS.Main.Main St, NY", 98765432, "Engineer", "Asian", "Neurology"));
-
-        dummyPatients.add(new Patient("P003", "BobBrown", "Bob Brown", "password123", "BobBrown@example.com","Male","87654321","P003", "15-08-1990",  "Asthmatic", "N002", "D002",
-                null,158, 55, "B+", "789 Pine St, TX", 76543210, "Nurse", "Hispanic",  "Pulmonology"));
-
-        dummyPatients.add(new Patient("P004", "CharlieDavis", "Charlie Davis", "password123", "charlied@example.com","Male","87654321","P004", "15-08-1990",  "Asthmatic", "N002", "D002",
-                null,170, 58, "B+", "159 Maple St, AZ", 76543210, "Nurse", "Hispanic",  "Pulmonology"));
-
-        dummyPatients.add(new Patient("P005", "HannahLee", "Hannah Lee", "password123", "hannahl@example.com","Female","87654321","P005", "15-08-1990",  "Asthmatic", "N003", "D003",
-                null,170, 58, "B+", "159 Maple St, AZ", 76543210, "Nurse", "Hispanic",  "Pulmonology"));
-
-        dummyPatients.add(new Patient("P006", "DianaEvans", "Diana Evans","password123","dianae@example.com","Female","81234567","P006","15-08-1990","Pregnant", "N003", "D002",
-                null,160, 58, "A+", "753 Cedar St, WA", 43210987, "Artist", "Asian", "Obstetrics"));
-
-        dummyPatients.add(new Patient("P007", "EdwardHarris", "Edward Harris","password123","edwardh@example.com","Male","81234567","P007","15-08-1990","Pregnant", "N003", "D002",
-                null,160, 58, "A-", "357 Birch St, CO", 43210987, "Artist", "Caucasian", "Nephrology"));
-
-        dummyPatients.add(new Patient("P008", "FionaGreen", "Fiona Green","password123","edwardh@example.com","Male","81234567","P007","15-08-1990","Pregnant", "N003", "D002",
-                null,160, 58, "A+", "951 Spruce St, NV", 43210987, "Chef", "Hispanic", "Hematology"));
-
-        dummyPatients.add(new Patient("P009", "GeorgeKing", "George King","password123","georgek@example.com","Male","81234567","P008","15-08-1990","Pregnant", "N003", "D002",
-                null,160, 58, "A+", "951 Spruce St, NV", 43210987, "Chef", "Hispanic", "Hematology"));
+//        dummyPatients.add(new Patient("P001", "JohnDoe", "John Doe", "password123", "John Doe@example.com", "Male","81234567","P001", "15-08-1990","Diabetic", "N001", "D003",
+//                null,180, 75, "O+", "123 CDSS.Main.Main.CDSS.Main.Main St, NY", 98765432, "Engineer", "Asian", "Cardiology"));
+//
+//        dummyPatients.add(new Patient("P002", "JaneSmith", "Jane Smith", "password123", "janesmith@example.com", "Female","81234567","P002", "15-08-1990","Diabetic", "N001", "D003",
+//                null,180, 75, "O+", "123 CDSS.Main.Main.CDSS.Main.Main St, NY", 98765432, "Engineer", "Asian", "Neurology"));
+//
+//        dummyPatients.add(new Patient("P003", "BobBrown", "Bob Brown", "password123", "BobBrown@example.com","Male","87654321","P003", "15-08-1990",  "Asthmatic", "N002", "D002",
+//                null,158, 55, "B+", "789 Pine St, TX", 76543210, "Nurse", "Hispanic",  "Pulmonology"));
+//
+//        dummyPatients.add(new Patient("P004", "CharlieDavis", "Charlie Davis", "password123", "charlied@example.com","Male","87654321","P004", "15-08-1990",  "Asthmatic", "N002", "D002",
+//                null,170, 58, "B+", "159 Maple St, AZ", 76543210, "Nurse", "Hispanic",  "Pulmonology"));
+//
+//        dummyPatients.add(new Patient("P005", "HannahLee", "Hannah Lee", "password123", "hannahl@example.com","Female","87654321","P005", "15-08-1990",  "Asthmatic", "N003", "D003",
+//                null,170, 58, "B+", "159 Maple St, AZ", 76543210, "Nurse", "Hispanic",  "Pulmonology"));
+//
+//        dummyPatients.add(new Patient("P006", "DianaEvans", "Diana Evans","password123","dianae@example.com","Female","81234567","P006","15-08-1990","Pregnant", "N003", "D002",
+//                null,160, 58, "A+", "753 Cedar St, WA", 43210987, "Artist", "Asian", "Obstetrics"));
+//
+//        dummyPatients.add(new Patient("P007", "EdwardHarris", "Edward Harris","password123","edwardh@example.com","Male","81234567","P007","15-08-1990","Pregnant", "N003", "D002",
+//                null,160, 58, "A-", "357 Birch St, CO", 43210987, "Artist", "Caucasian", "Nephrology"));
+//
+//        dummyPatients.add(new Patient("P008", "FionaGreen", "Fiona Green","password123","edwardh@example.com","Male","81234567","P007","15-08-1990","Pregnant", "N003", "D002",
+//                null,160, 58, "A+", "951 Spruce St, NV", 43210987, "Chef", "Hispanic", "Hematology"));
+//
+//        dummyPatients.add(new Patient("P009", "GeorgeKing", "George King","password123","georgek@example.com","Male","81234567","P008","15-08-1990","Pregnant", "N003", "D002",
+//                null,160, 58, "A+", "951 Spruce St, NV", 43210987, "Chef", "Hispanic", "Hematology"));
 
         generatePatients.add(dummyPatients.get(0));
         generatePatients.add(dummyPatients.get(1));
@@ -547,7 +599,7 @@ public class UserController {
             System.out.println("=======================================");
             System.out.println("          PATIENT INFORMATION          ");
             System.out.println("=======================================");
-            System.out.printf("%-20s: %s%n", "Patient ID", patient.getPatientID());
+            System.out.printf("%-20s: %s%n", "Patient ID", patient.getId());
             System.out.printf("%-20s: %s%n", "Name", patient.getName());
             System.out.printf("%-20s: %s%n", "Gender", patient.getGender());
             System.out.printf("%-20s: %s%n", "Date of Birth", patient.getDateOfBirth());

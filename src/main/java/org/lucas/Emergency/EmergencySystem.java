@@ -1,196 +1,197 @@
 package org.lucas.Emergency;
 
-//emergencySystem code
+
+import org.lucas.controllers.ESController;
+import org.lucas.models.User;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**javadoc
  * EmergencySystem class to manage emergency cases and dispatches
  * Stores emergency cases and dispatches in lists
  */
 public class EmergencySystem {
-//    private List<EmergencyCase> emergencyCases; // list of emergency cases
-////    private List<EmergencyCase_Dispatch> emergencyCaseDispatch; // list of emergency case dispatch
-//
-//    /**
-//     * Constructor for EmergencySystem
-//     * Initializes the list of emergency cases and emergency case dispatch
-//     * @param emergencyCases list of emergency cases
-//     * @param emergencyCaseDispatch list of emergency case dispatch
-//     */
-//    public EmergencySystem() {
-//        emergencyCases = new ArrayList<>(); // initialize the list of emergency cases
-//        emergencyCaseDispatch = new ArrayList<>(); // initialize the list of emergency case dispatch
-//    }
-//
-//    /**
-//     * Getter for emergency cases
-//     * return list of emergency cases
-//     */
-//    public List<EmergencyCase> getEmergencyCases() {
-//        return emergencyCases; // return the list of emergency cases
-//    }
-//
-//    /**
-//     * Getter for emergency case dispatch
-//     * return list of emergency case dispatch
-//     */
-//    public List<EmergencyCase_Dispatch> getEmergencyCaseDispatch() {
-//        return emergencyCaseDispatch; // return the list of emergency case dispatch
-//    }
-//
-//    /**
-//     * Helper method to check if a case exists
-//     * @param caseId case ID to check
-//     * return true if case exists, false otherwise
-//     */
-//    public boolean caseExists(int caseId) {
-//        return emergencyCases.stream().anyMatch(c -> c.getCaseID() == caseId); // check if the case exists
-//    }
-//
-//    /**
-//     * Helper method to set the case ID and return the next available ID
-//     * return next available case ID
-//     */
-//    public int setCaseID () { // Finds the largest existing case ID and returns the next available ID
-//        int highestID = 0; // initialize the highest ID
-//
-//        if (!emergencyCases.isEmpty()) {
-//            for (EmergencyCase x : emergencyCases) {
-//                if (x.getCaseID() > highestID)
-//                    highestID = x.getCaseID(); // update the highest ID
-//            }
-//        }
-//
-//        if (!emergencyCaseDispatch.isEmpty()) {
-//            for (EmergencyCase_Dispatch x : emergencyCaseDispatch) {
-//                if (x.getCaseID() > highestID)
-//                    highestID = x.getCaseID(); // update the highest ID
-//            }
-//        }
-//        return highestID + 1; // return the next available ID
-//    }
-//
-//    /**
-//     * Add a new emergency case
-//     * @param newCase new emergency case to add
-//     * Saves the cases immediately after adding
-//     * Prints an error message if the case already exists
-//     */
-//    public void addEmergencyCase(EmergencyCase newCase) {
-//        if (!caseExists(newCase.getCaseID())) {
-//            emergencyCases.add(newCase); // add the new case
-//            saveAllCases(); // Save immediately after adding
-//        } else {
-//            System.out.println("Case with ID " + newCase.getCaseID() + " already exists!"); // print the error message
-//            // if the case already
-//            // exists
-//        }
-//    }
-//
-//    /**
-//     * Add a new emergency case dispatch
-//     * @param newCase_Dispatch new emergency case dispatch to add
-//     * Saves the cases immediately after adding
-//     * Prints an error message if the case dispatch already exists
-//     */
-//    public void addEmergencyCaseDispatch(EmergencyCase_Dispatch newCase_Dispatch) {
-//        if (!emergencyCaseDispatch.contains(newCase_Dispatch)) {
-//            emergencyCaseDispatch.add(newCase_Dispatch); // add the new case dispatch
-//        } else {
-//            System.out.println("Duplicate emergency case dispatch-not added: " + newCase_Dispatch); // print the error
-//            // message if the
-//            // case dispatch
-//            // already exists
-//        }
-//
-//    }
-//
-//    /**
-//     * Print case information for a specific case
-//     * @param caseID case ID to print
-//     * @param emergencyType emergency type to print
-//     * Prints an error message if the case is not found
-//     */
-//    public void printCaseInfo(int caseID, String emergencyType) {
-//        boolean found = false; /* initialize the found flag */
-//        if (emergencyType == "Walk-In") {
-//            for (EmergencyCase ec : emergencyCases) {
-//                if (ec.getCaseID() == caseID) {
-//                    System.out.println("Emergency case found: " + ec.printIncidentReport()); /*
-//                     * print the case info if
-//                     * found
-//                     */
-//                    found = true;
-//                    break; /* Exit the loop once we find the case */
-//                }
-//            }
-//        }
-//        if (emergencyType == "Dispatch") {
-//            for (EmergencyCase_Dispatch ec : emergencyCaseDispatch) {
-//                if (ec.getCaseID() == caseID) {
-//                    System.out.println("Emergency Dispatch Case found: " + ec.printIncidentReport()); /*
-//                     * print the
-//                     * dispatch case
-//                     * info if found
-//                     */
-//                    found = true;
-//                    break; /* Exit the loop once we find the dispatch case */
-//                }
-//            }
-//        }
-//        if (!found && emergencyType == "Walk-In") {
-//            System.out.println("Emergency case with ID " + caseID + " not found."); /*
-//             * print the error message if the
-//             * case is not found
-//             */
-//        } else if (!found && emergencyType == "Dispatch") {
-//            System.out.println("Emergency Dispatch Case with ID " + caseID + " not found."); /*
-//             * print the error message
-//             * if the dispatch case is
-//             * not found
-//             */
-//        }
-//
-//    }
-//
-//    /**
-//     * Print all case information for a specific emergency type
-//     * @param emergencyType emergency type to print
-//     * Prints an error message if there are no cases
-//     */
-//    public void printAllCaseInfo(String emergencyType) {
-//        if (emergencyType == "Walk-In") {
-//            if (emergencyCases.isEmpty()) {
-//                System.out.println("No emergency cases in the system."); /*
-//                 * print the error message if there are no
-//                 * emergency cases
-//                 */
-//                return;
-//            }
-//            for (EmergencyCase c : emergencyCases) {
-//                System.out.println("=== Case Details ===");
-//                System.out.println(c.printIncidentReport()); /* print the case info */
-//            }
-//        } else if (emergencyType == "Dispatch") {
-//            if (emergencyCaseDispatch.isEmpty()) {
-//                System.out.println("No emergency dispatch cases in the system."); /*
-//                 * print the error message if there
-//                 * are no emergency dispatch cases
-//                 */
-//                return;
-//            }
-//            for (EmergencyCase_Dispatch c : emergencyCaseDispatch) {
-//                System.out.println("=== Case Details ===");
-//                System.out.println(c.printIncidentReport()); /* print the case info */
-//            }
-//        }
-//
-//    }
-//
-//    /**
-//     * Save all cases to a txt file
-//     * Prints an error message if the cases are not saved
-//     * Uses a BufferedWriter and FileWriter to write to the file
-//     */
+    private List<EmergencyCase> emergencyCases; // list of emergency cases
+    private List<EmergencyCase_Dispatch> emergencyCaseDispatch; // list of emergency case dispatch
+
+    public EmergencySystem() {
+        emergencyCases = new ArrayList<>(); // initialize the list of emergency cases
+        emergencyCaseDispatch = new ArrayList<>(); // initialize the list of emergency case dispatch
+    }
+
+    /**
+     * Getter for emergency cases
+     * return list of emergency cases
+     */
+    public List<EmergencyCase> getEmergencyCases() {
+        return emergencyCases; // return the list of emergency cases
+    }
+
+    /**
+     * Getter for emergency case dispatch
+     * return list of emergency case dispatch
+     */
+    public List<EmergencyCase_Dispatch> getEmergencyCaseDispatch() {
+        return emergencyCaseDispatch; // return the list of emergency case dispatch
+    }
+
+    /**
+     * Helper method to check if a case exists
+     * @param caseId case ID to check
+     * return true if case exists, false otherwise
+     */
+    public boolean caseExists(int caseId) {
+        return emergencyCases.stream().anyMatch(c -> c.getCaseID() == caseId); // check if the case exists
+    }
+
+    /**
+     * Helper method to set the case ID and return the next available ID
+     * return next available case ID
+     */
+    public int setCaseID () { // Finds the largest existing case ID and returns the next available ID
+        int highestID = 0; // initialize the highest ID
+
+        if (!emergencyCases.isEmpty()) {
+            for (EmergencyCase x : emergencyCases) {
+                if (x.getCaseID() > highestID)
+                    highestID = x.getCaseID(); // update the highest ID
+            }
+        }
+
+        if (!emergencyCaseDispatch.isEmpty()) {
+            for (EmergencyCase_Dispatch x : emergencyCaseDispatch) {
+                if (x.getCaseID() > highestID)
+                    highestID = x.getCaseID(); // update the highest ID
+            }
+        }
+        return highestID + 1; // return the next available ID
+    }
+
+    /**
+     * Add a new emergency case
+     * @param newCase new emergency case to add
+     * Saves the cases immediately after adding
+     * Prints an error message if the case already exists
+     */
+    public void addEmergencyCase(EmergencyCase newCase) {
+        if (!caseExists(newCase.getCaseID())) {
+            emergencyCases.add(newCase); // add the new case
+            ESController.saveCasesToFile(); // Save immediately after adding
+        } else {
+            System.out.println("Case with ID " + newCase.getCaseID() + " already exists!"); // print the error message
+            // if the case already
+            // exists
+        }
+    }
+
+    /**
+     * Add a new emergency case dispatch
+     * @param newCase_Dispatch new emergency case dispatch to add
+     * Saves the cases immediately after adding
+     * Prints an error message if the case dispatch already exists
+     */
+    public void addEmergencyCaseDispatch(EmergencyCase_Dispatch newCase_Dispatch) {
+        if (!emergencyCaseDispatch.contains(newCase_Dispatch)) {
+            emergencyCaseDispatch.add(newCase_Dispatch); // add the new case dispatch
+        } else {
+            System.out.println("Duplicate emergency case dispatch-not added: " + newCase_Dispatch); // print the error
+            // message if the
+            // case dispatch
+            // already exists
+        }
+
+    }
+
+    /**
+     * Print case information for a specific case
+     * @param caseID case ID to print
+     * @param emergencyType emergency type to print
+     * Prints an error message if the case is not found
+     */
+    public void printCaseInfo(int caseID, String emergencyType) {
+        boolean found = false; /* initialize the found flag */
+        if (emergencyType == "Walk-In") {
+            for (EmergencyCase ec : emergencyCases) {
+                if (ec.getCaseID() == caseID) {
+//                    System.out.println("Emergency case found: " + ec.printIncidentReport());
+                    /*
+                     * print the case info if
+                     * found
+                     */
+                    found = true;
+                    break; /* Exit the loop once we find the case */
+                }
+            }
+        }
+        if (emergencyType == "Dispatch") {
+            for (EmergencyCase_Dispatch ec : emergencyCaseDispatch) {
+                if (ec.getCaseID() == caseID) {
+                    System.out.println("Emergency Dispatch Case found: " + ec.printIncidentReport()); /*
+                     * print the
+                     * dispatch case
+                     * info if found
+                     */
+                    found = true;
+                    break; /* Exit the loop once we find the dispatch case */
+                }
+            }
+        }
+        if (!found && emergencyType == "Walk-In") {
+            System.out.println("Emergency case with ID " + caseID + " not found."); /*
+             * print the error message if the
+             * case is not found
+             */
+        } else if (!found && emergencyType == "Dispatch") {
+            System.out.println("Emergency Dispatch Case with ID " + caseID + " not found."); /*
+             * print the error message
+             * if the dispatch case is
+             * not found
+             */
+        }
+
+    }
+
+    /**
+     * Print all case information for a specific emergency type
+     * @param emergencyType emergency type to print
+     * Prints an error message if there are no cases
+     */
+    public void printAllCaseInfo(String emergencyType) {
+        if (emergencyType == "Walk-In") {
+            if (emergencyCases.isEmpty()) {
+                System.out.println("No emergency cases in the system."); /*
+                 * print the error message if there are no
+                 * emergency cases
+                 */
+                return;
+            }
+            for (EmergencyCase c : emergencyCases) {
+                System.out.println("=== Case Details ===");
+                System.out.println(c.printIncidentReport()); /* print the case info */
+            }
+        } else if (emergencyType == "Dispatch") {
+            if (emergencyCaseDispatch.isEmpty()) {
+                System.out.println("No emergency dispatch cases in the system."); /*
+                 * print the error message if there
+                 * are no emergency dispatch cases
+                 */
+                return;
+            }
+            for (EmergencyCase_Dispatch c : emergencyCaseDispatch) {
+                System.out.println("=== Case Details ===");
+                System.out.println(c.printIncidentReport()); /* print the case info */
+            }
+        }
+
+    }
+
+    /**
+     * Save all cases to a txt file
+     * Prints an error message if the cases are not saved
+     * Uses a BufferedWriter and FileWriter to write to the file
+     */
 //    public void saveAllCases() {
 //        try (BufferedWriter writer = new BufferedWriter(
 //                new FileWriter("data/emergency_cases_and_dispatch.txt"))) { // save the cases to a file
@@ -210,14 +211,14 @@ public class EmergencySystem {
 //            System.out.println("Error saving cases: " + e.getMessage()); // print the error message
 //        }
 //    }
-//
-//    /**
-//     * Load all cases from a txt file
-//     * Prints an error message if the cases are not loaded
-//     * Uses a BufferedReader and FileReader to read from the file
-//     * Uses stringToEmergencyCase and stringToDispatchCase to convert the data to cases
-//     * Uses a try-with-resources to handle the file reading
-//     */
+
+    /**
+     * Load all cases from a txt file
+     * Prints an error message if the cases are not loaded
+     * Uses a BufferedReader and FileReader to read from the file
+     * Uses stringToEmergencyCase and stringToDispatchCase to convert the data to cases
+     * Uses a try-with-resources to handle the file reading
+     */
 //    public void loadAllCases() {
 //        emergencyCases = new ArrayList<>(); // initialize the list of emergency cases
 //        File file = new File("data/emergency_cases_and_dispatch.txt"); // load the cases from a file
@@ -299,21 +300,21 @@ public class EmergencySystem {
 //            System.out.println("Error loading cases: " + e.getMessage()); // print the error message if the cases are not loaded
 //        }
 //    }
-//
-//    /**
-//     * Convert an emergency case to a CSV string
-//     * @param emergencyCase emergency case to convert
-//     * return CSV string of the emergency case
-//     * Handles nurse details, vital signs, doctor details, procedures, and patient status
-//     * Uses String.format to format the string with proper ordering
-//     */
+
+    /**
+     * Convert an emergency case to a CSV string
+     * @param emergencyCase emergency case to convert
+     * return CSV string of the emergency case
+     * Handles nurse details, vital signs, doctor details, procedures, and patient status
+     * Uses String.format to format the string with proper ordering
+     */
 //    private String emergencyCaseToString(EmergencyCase emergencyCase) {
 //        // Handle nurse details
-//        List<StaffMember> nurses = emergencyCase.getInitialScreeningNurses(); // get the initial screening nurses
+//        List<User> nurses = emergencyCase.getInitialScreeningNurses(); // get the initial screening nurses
 //        String nurseDetails = (nurses != null && !nurses.isEmpty())
-//                ? nurses.get(0).getStaffName() + "," +
-//                nurses.get(0).getStaffID() + "," +
-//                nurses.get(0).getJobScope()
+//                ? nurses.get(0).getName() + "," +
+//                nurses.get(0).getId() + "," +
+//                nurses.get(0).get()
 //                : "No staff assigned";
 //
 //        // Get vital signs
@@ -353,14 +354,14 @@ public class EmergencySystem {
 //                proceduresStr,
 //                emergencyCase.getPatientStatus().toString());
 //    }
-//
-//
-//    /**
-//     * Converts an EmergencyCase_Dispatch object to a string value.
-//     * Mainly used to save the emergency case dispatch cases to a text value in saveAllCases() function.
-//     * Returns a string that contains all the information of the EmergencyCase_Dispatch object.
-//     * @param dispatchCase object to reference from
-//     */
+
+
+    /**
+     * Converts an EmergencyCase_Dispatch object to a string value.
+     * Mainly used to save the emergency case dispatch cases to a text value in saveAllCases() function.
+     * Returns a string that contains all the information of the EmergencyCase_Dispatch object.
+     * @param dispatchCase object to reference from
+     */
 //    private String dispatchCaseToString(EmergencyCase_Dispatch dispatchCase) {
 //
 //        // Get the nurse information to save to nurseDetails string
@@ -460,14 +461,14 @@ public class EmergencySystem {
 //                dispatchCase.getTimeOfCall().format(dateFormat),
 //                dispatchTeamArrivalTime);
 //    }
-//
-//
-//    /**
-//     * Convert a CSV string back to an EmergencyCase
-//     * @param line CSV string to convert
-//     * return EmergencyCase object
-//     * Handles nurse details, vital signs, doctor details, procedures, and patient status
-//     */
+
+
+    /**
+     * Convert a CSV string back to an EmergencyCase
+     * @param line CSV string to convert
+     * return EmergencyCase object
+     * Handles nurse details, vital signs, doctor details, procedures, and patient status
+     */
 //    private EmergencyCase stringToEmergencyCase(String line) {
 //        try {
 //            String[] parts = line.split(","); // split the line into parts
@@ -592,13 +593,13 @@ public class EmergencySystem {
 //            return null; // return null
 //        }
 //    }
-//
-//    /**
-//     * Converts a string line to an EmergencyCase_Dispatch object.
-//     * Used in loading EmergencyCase_Dispatch objects from a text file in loadAllCases().
-//     * Returns a EmergencyCase_Dispatch object if the string line can be successfully converted into the object
-//     * @param line used as the string content and convert it into an EmergencyCase_Dispatch object
-//     */
+
+    /**
+     * Converts a string line to an EmergencyCase_Dispatch object.
+     * Used in loading EmergencyCase_Dispatch objects from a text file in loadAllCases().
+     * Returns a EmergencyCase_Dispatch object if the string line can be successfully converted into the object
+     * @param line used as the string content and convert it into an EmergencyCase_Dispatch object
+     */
 //    private EmergencyCase_Dispatch stringToDispatchCase(String line) {
 //        try {
 //            String[] parts = line.split(","); // split the line into parts
@@ -817,7 +818,7 @@ public class EmergencySystem {
 //        }
 //
 //    }
-//
+
 //    public static void main(String[] args) {
 //        // Create a new emergency system
 //        EmergencySystem system = new EmergencySystem();

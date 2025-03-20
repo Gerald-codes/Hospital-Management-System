@@ -1,0 +1,10 @@
+[
+     {
+      "id": "A001",
+      "login_name": "admin",
+      "name": "Limpeh Admin",
+      "password": "admin",
+      "email": "admin@clinic.com",
+      "phone_number": "91234567"
+    }
+  ]

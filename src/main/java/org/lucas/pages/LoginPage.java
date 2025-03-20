@@ -2,6 +2,7 @@ package org.lucas.pages;
 
 import org.lucas.controllers.UserController;
 import org.lucas.models.enums.UserType;
+import org.lucas.pages.admin.AdminPage;
 import org.lucas.pages.doctor.DoctorMainPage;
 import org.lucas.pages.nurse.NurseMenuPage;
 import org.lucas.pages.patient.PatientMainPage;
@@ -10,6 +11,7 @@ import org.lucas.ui.framework.UiBase;
 import org.lucas.ui.framework.View;
 import org.lucas.ui.framework.views.ListView;
 import org.lucas.ui.framework.views.TextView;
+import org.lucas.util.InputValidator;
 
 import java.util.Scanner;
 
@@ -47,23 +49,22 @@ public class LoginPage extends UiBase { // This is the class that represents the
         lv.addItem(new TextView(this.canvas, "To use our system, please kindly login by pressing 1", Color.GREEN)); // Create a new text view with the message
 
         lv.attachUserInput("Login ", x -> { // Attach the user input to the list view
-            Scanner scanner = new Scanner(System.in); // Create a new scanner object
-            System.out.println("Enter your username: ");
-            String username = scanner.nextLine(); // Get the username from the user
-            System.out.println("Enter your password: ");
-            String password = scanner.nextLine(); // Get the password from the user
+            String username = InputValidator.getValidStringInput("Enter your username: ");
+            String password = InputValidator.getValidStringInput("Enter your password: ");
 
-             //Check credential for Doctors / Patient
+            //Check credential for Doctors / Patient
             if (UserType.DOCTOR == userController.authenticate(username, password)) {
                 System.out.println("Login successful!");
                 ToPage(new DoctorMainPage());
             } else if (UserType.NURSE == userController.authenticate(username, password)) {
                 System.out.println("Login successful!");
                 ToPage(new NurseMenuPage());
-
             } else if (UserType.PATIENT == userController.authenticate(username, password)) {
                 System.out.println("Login successful!");
                 ToPage(new PatientMainPage());
+            } else if (UserType.ADMIN == userController.authenticate(username, password)) {
+                System.out.println("Login successful!");
+                ToPage(new AdminPage());
             } else { System.out.println("Invalid username or password!"); }
 
             canvas.setRequireRedraw(true);

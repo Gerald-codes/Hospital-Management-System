@@ -64,7 +64,7 @@ public class BillingPage extends UiBase {
         // If appointments is null, retrieve the concluded appointments for the active patient
         appointments = Globals.appointmentController.getAppointments()
                 .stream()
-                .filter(appointment -> appointment.getPatient().getPatientID().equals(UserController.getActivePatient().getPatientID()))
+                .filter(appointment -> appointment.getPatient().getId().equals(UserController.getActivePatient().getId()))
                 .filter(appointment -> appointment.getAppointmentStatus() == AppointmentStatus.COMPLETED)
                 .toList();
 

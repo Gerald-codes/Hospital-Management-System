@@ -4,6 +4,8 @@ import org.lucas.models.Nurse;
 import org.lucas.models.Patient;
 import org.lucas.controllers.UserController;
 import org.lucas.util.InputValidator;
+import org.lucas.Emergency.enums.*;
+import org.lucas.models.Patient;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -17,6 +19,18 @@ import java.util.Scanner;
  * Used for creating emergency cases that requires a medivac team to be dispatched to a patient's location.
  */
 public class EmergencyCase_Dispatch extends EmergencyCase {
+    /**
+     * Constructor for EmergencyCase
+     *
+     * @param caseID          - unique identifier for the case
+     * @param patient         - patient object
+     * @param chiefComplaint  - reason for patient's visit
+     * @param arrivalMode     - mode of arrival (e.g., Ambulance, Helicopter, Walk-in)
+     * @param arrivalDateTime - date and time of arrival
+     */
+    public EmergencyCase_Dispatch(int caseID, Patient patient, String chiefComplaint, String arrivalMode, LocalDateTime arrivalDateTime) {
+        super(caseID, patient, chiefComplaint, arrivalMode, arrivalDateTime);
+    }
 
     // Variable to store the dispatch info
     private DispatchInfo dispatchInfo;
@@ -159,7 +173,7 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
      */
     @Override public String printIncidentReport(){
         String report = "\n----------Incident Report----------\n";
-        report += super.printIncidentReport();
+//        report += super.printIncidentReport();
         report += "\n----------Dispatch Info----------\n";
         report += dispatchInfo.getInfo();
         report += "\n----------Response Info----------\n";
@@ -178,8 +192,8 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
     private static void createNewDispatch() {
         EmergencySystem ECsystem = new EmergencySystem();
         Scanner scanner = new Scanner(System.in);
-        List<Patient> allPatients = UserController.loadPatientsFromFile();
-        List <Nurse> allNurses = UserController.loadNursesFromFile();
+        List<Patient> allPatients = UserController.getAvailablePatients();
+        List <Nurse> allNurses = UserController.getAvailableNurses();
 
         // Use EmergencyCase_Dispatch class
         // Record: DispatchID, AmbulanceID, CrewMembers, Equipment
@@ -207,7 +221,7 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
             // Check if patient ID already exists
             if (allPatients.stream().anyMatch(patient -> patient.getId().equals(enteredPatientID))) {
                 for (Patient patientX : allPatients) {
-                    if (enteredPatientID.equals(patientX.getPatientID())) {
+                    if (enteredPatientID.equals(patientX.getId())) {
                         existPatientName = patientX.getName();
                         break;
                     }
@@ -267,7 +281,7 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
                 break;
         }
 
-        EmergencyCase.PatientStatus patientStatus = EmergencyCase.PatientStatus.ONDISPATCHED;
+//        EmergencyCase.PatientStatus patientStatus = EmergencyCase.PatientStatus.ONDISPATCHED;
 
         // Set Dispatch Info
         System.out.print("Enter Vehicle ID: ");
@@ -365,17 +379,17 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
         }
 
         // creates a patient object based on the value inserted by the user
-        Patient patient = Patient.checkOrCreatePatient(allPatients, patientId, patientName, new ArrayList<>());
+//        Patient patient = Patient.checkOrCreatePatient(allPatients, patientId, patientName, new ArrayList<>());
 
         // create a dispatch info object based on the value inserted by the user
-        DispatchInfo dispatchInfo = new DispatchInfo(ambulanceId, dispatchMembers, equipmentList);
+//        DispatchInfo dispatchInfo = new DispatchInfo(ambulanceId, dispatchMembers, equipmentList);
 
         // create the emergency case dispatch object from all the above variables and
         // add to the existing list of emergency case dispatch in the system
-        EmergencyCase_Dispatch newDispatchCase = new EmergencyCase_Dispatch(caseId, patient, chiefComplaint,
-                arrivalMode, patientStatus, dispatchInfo);
-        ECsystem.addEmergencyCaseDispatch(newDispatchCase);
-        ECsystem.saveAllCases();
+//        EmergencyCase_Dispatch newDispatchCase = new EmergencyCase_Dispatch(caseId, patient, chiefComplaint,
+//                arrivalMode, patientStatus, dispatchInfo);
+//        ECsystem.addEmergencyCaseDispatch(newDispatchCase);
+//        ECsystem.saveAllCases();
         System.out.println(
                 "______________________________________________________________________________________________");
         System.out.println("New Dispatch Case | Case ID: " + caseId + " | Patient Name: " + patientName

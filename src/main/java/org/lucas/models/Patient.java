@@ -2,6 +2,7 @@ package org.lucas.models;
 
 
 import org.lucas.core.Alert;
+import org.lucas.util.InputValidator;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -16,10 +17,7 @@ import java.util.List;
 public class Patient extends User{
     // Private fields for storing patient information
     private List<Alert> alertHistory;              // List of alerts related to the patient
-    private String patientID;                     // Unique identifier for the patient
-    //private String patientName;                   // Full name of the patient
     private String dateOfBirth;                // Date of birth of the patient
-    //private String gender;                          // Gender of the patient
     private ElectronicHealthRecord ElectronicHealthRecord; // Electronic Health Record of the patient
     private String patientSpecificFactor;         // Specific factors like allergies or conditions
     private String assignedNurse;                 // Name of the assigned nurse
@@ -31,14 +29,12 @@ public class Patient extends User{
     private int emergencyContactNumber;           // Emergency contact number
     private String occupation;                    // Patient's occupation
     private String ethnicity;                     // Ethnicity of the patient
-    //private String email;                         // Email address of the patient
     private String healthcareDepartment;          // Healthcare department handling the patient
     private PatientConsent patientConsent;
 
     /**
      * Constructor to initialize a Patient object with all attributes, including alert history.
      *
-     * @param patientID              The unique identifier for the patient.
      * @param userName               The full name of the patient.
      * @param dateOfBirth            The date of birth of the patient.
      * @param gender                 The gender of the patient.
@@ -56,12 +52,11 @@ public class Patient extends User{
      * @param email                  The email address of the patient.
      * @param healthcareDepartment   The healthcare department handling the patient.
      */
-    public Patient(String userID, String userName, String name, String password, String email, String gender, String phoneNumber, String patientID, String dateOfBirth, String patientSpecificFactor,
+    public Patient(String userID, String userName, String name, String password, String email, String gender, String phoneNumber, String dateOfBirth, String patientSpecificFactor,
                    String assignedNurse, String assignedDoctor, List<Alert> alertHistory, double height,
                    double weight, String bloodType, String houseAddress, int emergencyContactNumber,
                    String occupation, String ethnicity, String healthcareDepartment) {
         super(userID, userName, name, password, email, gender, phoneNumber);
-        this.patientID = patientID;
         this.dateOfBirth = dateOfBirth;
         this.ElectronicHealthRecord = new ElectronicHealthRecord();
         this.patientSpecificFactor = patientSpecificFactor;
@@ -93,22 +88,21 @@ public class Patient extends User{
     /**
      *  Constructor to initialize a Patient object without alert history.
      *
-     * @param patientID              The unique identifier for the patient.
-     * @param patientName            The full name of the patient.
-     * @param dateOfBirth            The date of birth of the patient.
-     * @param gender                 The gender of the patient.
-     * @param patientSpecificFactor  Specific factors like allergies or conditions.
-     * @param assignedNurse          The name of the assigned nurse.
-     * @param assignedDoctor         The name of the assigned doctor.
-     * @param height                 The height of the patient in cm.
-     * @param weight                 The weight of the patient in kg.
-     * @param bloodType              The blood type of the patient.
-     * @param houseAddress           The home address of the patient.
-     * @param emergencyContactNumber The emergency contact number.
-     * @param occupation             The patient's occupation.
-     * @param ethnicity              The ethnicity of the patient.
-     * @param email                  The email address of the patient.
-     * @param healthcareDepartment   The healthcare department handling the patient.
+//     * @param patientID              The unique identifier for the patient.
+//     * @param patientName            The full name of the patient.
+//     * @param dateOfBirth            The date of birth of the patient.
+//     * @param patientSpecificFactor  Specific factors like allergies or conditions.
+//     * @param assignedNurse          The name of the assigned nurse.
+//     * @param assignedDoctor         The name of the assigned doctor.
+//     * @param height                 The height of the patient in cm.
+//     * @param weight                 The weight of the patient in kg.
+//     * @param bloodType              The blood type of the patient.
+//     * @param houseAddress           The home address of the patient.
+//     * @param emergencyContactNumber The emergency contact number.
+//     * @param occupation             The patient's occupation.
+//     * @param ethnicity              The ethnicity of the patient.
+//     * @param email                  The email address of the patient.
+//     * @param healthcareDepartment   The healthcare department handling the patient.
      */
 //    public Patient(String patientID, String patientName, LocalDate dateOfBirth, char gender, String patientSpecificFactor,
 //                   String assignedNurse, String assignedDoctor, double height,
@@ -213,18 +207,6 @@ public class Patient extends User{
     public void setEHR(ElectronicHealthRecord ElectronicHealthRecord) { this.ElectronicHealthRecord = ElectronicHealthRecord; }
 
     /**
-     * Retrieves the unique identifier of the patient.
-     *
-     * @return the patient ID as a String.
-     */
-    public String getPatientID() { return this.patientID; }
-
-    /**
-     * Sets the unique identifier for the patient.
-     *
-     * @param patientID the patient ID to be set.
-     */
-    public void setPatientID(String patientID) { this.patientID = patientID; }
 
     /**
      * Retrieves the date of birth of the patient.
@@ -300,7 +282,7 @@ public class Patient extends User{
         System.out.println("=======================================");
         System.out.println("          PATIENT INFORMATION          ");
         System.out.println("=======================================");
-        System.out.printf("%-20s: %s%n", "Patient ID", this.patientID);
+        System.out.printf("%-20s: %s%n", "Patient ID", this.getId());
         System.out.printf("%-20s: %s%n", "Name", patient.getName());
         System.out.printf("%-20s: %s%n", "Gender", patient.getGender());
         System.out.printf("%-20s: %s%n", "Date of Birth", this.dateOfBirth);
@@ -400,5 +382,61 @@ public class Patient extends User{
 
     public void setPatientConsent(PatientConsent patientConsent) {
         PatientConsent patientconsent = new PatientConsent(true,"");
+    }
+
+    public static Patient checkOrCreatePatient(List<Patient> allPatients, String patientID) {
+        for (Patient p : allPatients) {
+            if (p.getId().equals(patientID)) {
+                System.out.println("\nExisting patient found: " + p.getName());
+                return p;
+            }
+        }
+        // If patient does not exist, create a new one
+
+        Patient newPatient = createPatient(patientID);
+        allPatients.add(newPatient);
+        System.out.println("New patient created: " + newPatient.getName());
+//        savePatientDataToFile(allPatients);
+        return newPatient;
+    }
+    private static Patient createPatient (String patientID) {
+
+        // Collect user input for each field
+        String userName = InputValidator.getValidStringInput("Enter username: ");
+        String name = InputValidator.getValidStringInput("Enter name: ");
+        String password = InputValidator.getValidStringInput("Enter password: ");
+        String gender = InputValidator.getValidStringInput("Enter gender: ");
+        String phoneNumber = InputValidator.getValidStringInput("Enter phone number: ");
+        String dateOfBirth = InputValidator.getValidStringInput("Enter date of birth: ");
+        String patientSpecificFactor = InputValidator.getValidStringInput("Enter patient-specific factor: ");
+        String bloodType = InputValidator.getValidStringInput("Enter blood type: ");
+        String assignedNurse = InputValidator.getValidStringInput("Enter assigned Nurse Id: ");
+        String assignedDoctor = InputValidator.getValidStringInput("Enter assigned Doctor Id: ");
+
+        // Validate numeric inputs for height, weight, and emergency contact
+        double height = InputValidator.getValidDoubleInput("Enter height: ");
+        double weight = InputValidator.getValidDoubleInput("Enter weight: ");
+
+        // Additional string inputs
+        String houseAddress = InputValidator.getValidStringInput("Enter house address: ");
+        String occupation = InputValidator.getValidStringInput("Enter occupation: ");
+        String ethnicity = InputValidator.getValidStringInput("Enter ethnicity: ");
+        String healthcareDepartment = InputValidator.getValidStringInput("Enter healthcare department: ");
+
+        // Validate emergency contact number (assuming it's an integer)
+        int emergencyContactNumber = InputValidator.getValidIntInput("Enter emergency contact number: ");
+
+        // Create an empty list for alert history
+        List<Alert> alertHistory = new ArrayList<>();
+
+        // Create a new Patient object with the collected data
+        Patient newPatient = new Patient(patientID, userName, name, password, "", gender, phoneNumber, dateOfBirth, patientSpecificFactor,
+                assignedNurse, assignedDoctor, alertHistory, height, weight, bloodType, houseAddress, emergencyContactNumber,
+                occupation, ethnicity, healthcareDepartment);
+
+        // Output confirmation or the new patient info (you can display the patient info here as needed)
+        System.out.println("New patient created: " + newPatient);
+
+        return newPatient;
     }
 }

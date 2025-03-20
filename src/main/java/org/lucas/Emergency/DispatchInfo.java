@@ -1,6 +1,8 @@
 package org.lucas.Emergency;
 
 
+import org.lucas.models.User;
+
 import java.util.List;
 
 /**
@@ -14,19 +16,10 @@ import java.util.List;
 public class DispatchInfo {
 
     private int vehicleId;
-    private List<HealthcareProfessional> medivacMembers;
+    private List<User> medivacMembers;
     private List<String> equipment;
 
-    /**
-     * Constructor for DispatchInfo class
-     *
-     * @param vehicleId: vehicle number
-     *
-     * @param dispatchMembersList: list of staff members in dispatch team
-     *
-     * @param equipmentList: list of special or extra equipments taken
-     */
-    public DispatchInfo(int ambulanceId, List<HealthcareProfessional> disapatchMembersList, List<String> equipmentList) {
+    public DispatchInfo(int ambulanceId, List<User> disapatchMembersList, List<String> equipmentList) {
         this.vehicleId = ambulanceId;
         this.medivacMembers = disapatchMembersList;
         this.equipment = equipmentList;
@@ -42,12 +35,12 @@ public class DispatchInfo {
         this.vehicleId = ambulanceId;
     }
 
-    public List<HealthcareProfessional> getMedivacMembers() {
+    public List<User> getMedivacMembers() {
         return medivacMembers;
     }
 
 
-    public void setMedivacMembers(List<HealthcareProfessional> medivacMembers) {
+    public void setMedivacMembers(List<User> medivacMembers) {
         this.medivacMembers = medivacMembers;
     }
 
@@ -69,7 +62,7 @@ public class DispatchInfo {
     public String getInfo() {
         String output = "Vehicle ID: " + this.getVehicleId() + "\n";
         output += "List of Dispatch Members:\n";
-        for (HealthcareProfessional healthcareProfessional : medivacMembers)
+        for (User healthcareProfessional : medivacMembers)
             output += healthcareProfessional.getId() + "\n";
         output += "List of Equipments: " + this.getEquipment() + "\n";
 

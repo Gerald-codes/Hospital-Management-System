@@ -1,8 +1,7 @@
 package org.lucas.Emergency;
 
-import CDSS.Patient.Patient;
-import CDSS.User.HealthcareProfessional;
-
+import org.lucas.models.*;
+import org.lucas.Emergency.enums.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -16,37 +15,29 @@ import java.util.List;
  */
 
 public class EmergencyCase {
-    // Enum to track the current status of a patient in the emergency system
-    public enum PatientStatus {
-        DISCHARGED,
-        ADMITTED,
-        TRANSFERRED,
-        WAITING,
-        ONDISPATCHED; // Added WAITING as initial status
-    }
 
-    // attributes;
     private int caseID;
     private Patient patient; // storing a single Patient
     private String chiefComplaint;
     private String arrivalMode; // Ambulance, Helicopter, Walk-in
     private LocalDateTime arrivalDateTime;
     private String triageLevel; // Enum or String based on severity
-    private List<HealthcareProfessional> initialScreeningNurse; // list of either nurse, doctor, paramedic etc // Connect to staff
-    // class - store
-    private List<HealthcareProfessional> screeningdoctor; // staff member ID
-    private LocalDateTime dateAndTimeOfScreening;
+    private List<User> initialScreeningNurse; // list of either nurse, doctor, paramedic etc // Connect to staff
+    private List<User> screeningdoctor; // staff member ID
+
+    private Doctor assignedDoctor;
     private String location; // Current location of the patient (e.g., Waiting Room, Treatment Room)
     private PatientStatus patientStatus; // Admitted, Discharged, etc.
-    private boolean isUrgentTreatment; // True False
+    private CaseType caseType; // Admitted, Discharged, etc.
     private List<String> emergencyProcedures; // List of emergency procedures done on patient
-
+    private LocalDateTime dateAndTimeOfScreening;
+    private boolean isUrgentTreatment;
     // standard triage levels used in the emergency department
     private static final String[] TRIAGE_LEVELS = {
-            "PRIORITY 1: CRITICALLY-ILL", // Life-threatening
-            "PRIORITY 2: MAJOR EMERGENCIES (NON-AMBULANT)", // Urgent but not immediately life-threatening
-            "PRIORITY 3: MINOR EMERGENCIES (AMBULANT)", // Minor emergencies
-            "PRIORITY 4: NON-EMERGENCY" // Not serious
+            "PRIORITY 1: CRITICAL (LIFE-THREATENING", // For life-threatening situations requiring immediate intervention
+            "PRIORITY 2: MAJOR EMERGENCIES (NON-AMBULATORY)", // For serious conditions that are not immediately life-threatening but require urgent care
+            "PRIORITY 3: MINOR EMERGENCIES (AMBULATORY)", // For non-life-threatening conditions that can be managed with less urgency
+            "PRIORITY 4: NON-EMERGENCY (ROUTINE)" //  For cases that are not urgent and can be attended to at a later time
     };
 
     // helper method to check if the triage level is valid
@@ -66,11 +57,9 @@ public class EmergencyCase {
      * @param arrivalMode - mode of arrival (e.g., Ambulance, Helicopter, Walk-in)
      * @param arrivalDateTime - date and time of arrival
      */
-    // Constructor //registration
     public EmergencyCase(int caseID, Patient patient, String chiefComplaint, String arrivalMode,
                          LocalDateTime arrivalDateTime) {
         this.caseID = caseID;
-        // this.patient = patient;
         this.patient = patient;
         this.chiefComplaint = chiefComplaint; // reason for patient's visit
         this.arrivalMode = arrivalMode;
@@ -80,10 +69,9 @@ public class EmergencyCase {
 
         this.emergencyProcedures = new ArrayList<>();
         this.patientStatus = PatientStatus.WAITING;
-        this.location = "Emergency room - Waiting Room"; // Set default location
-        this.isUrgentTreatment = false; // Default to non-urgent
+        this.location = PatientLocation.EMERGENCY_ROOM_WAITING_ROOM.name(); // Set default location
         this.triageLevel = TRIAGE_LEVELS[3]; // Default triage level
-
+        this.isUrgentTreatment = false;
     }
     /**
      * Constructor for EmergencyCase
@@ -93,7 +81,7 @@ public class EmergencyCase {
      * @param arrivalMode - mode of arrival (e.g., Ambulance, Helicopter, Walk-in)
      * @param patientStatus - current status of the patient
      */
-    // Dont want the set arrivaldateTime to be in the constructor
+    // Dont want the set ArrivalTimeDate to be in the constructor
     public EmergencyCase(int caseID, Patient patient, String chiefComplaint, String arrivalMode,
                          PatientStatus patientStatus) {
         this.caseID = caseID;
@@ -107,8 +95,9 @@ public class EmergencyCase {
             this.location = "Dispatch In Progress";
 
         this.emergencyProcedures = new ArrayList<>();
-        this.isUrgentTreatment = false;
         this.triageLevel = TRIAGE_LEVELS[3];
+        this.isUrgentTreatment = false;
+
     }
     /**
      * Set Method to set the arrival date time for the patient
@@ -146,13 +135,20 @@ public class EmergencyCase {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    public LocalDateTime getScreeningTime() {
+        return this.dateAndTimeOfScreening;
+    }
+
+
     /**
      * Set method for the triage level for the patient and update the patient's location
      * and urgency status based on the triage level
      * @param triageLevelInput
      */
+
     public void setTriageLevel(String triageLevelInput) {
-        // check if the triage level is valid
+//         check if the triage level is valid
         if (isValidTriageLevel(triageLevelInput)) {
             this.triageLevel = triageLevelInput;
             // For Priority 1 (Critically-ill) or Priority 2 (Major emergencies)
@@ -178,13 +174,7 @@ public class EmergencyCase {
             throw new IllegalArgumentException(
                     "Invalid triage level. Valid levels are: " + String.join(", ", TRIAGE_LEVELS));
         }
-    }
-
-    /**
-     * Get method for the date and time of the screening
-     */
-    public LocalDateTime getScreeningTime() {
-        return this.dateAndTimeOfScreening;
+        this.triageLevel = triageLevelInput;
     }
 
     /**
@@ -197,7 +187,11 @@ public class EmergencyCase {
     /**
      * Get method for the location of the patient
      */
-    public String getCurrentLocation() {
+    public String getLocation() {
+        return this.location;
+    }
+
+    public String setLocation() {
         return this.location;
     }
 
@@ -243,7 +237,7 @@ public class EmergencyCase {
      * @param staffMember - staff member object
      * @param procedures - emergency procedures performed on the patient
      */
-    public void setTreatment(boolean isUrgent, HealthcareProfessional staffMember, String procedures) {
+    public void setTreatment(boolean isUrgent, User staffMember, String procedures) {
         this.isUrgentTreatment = isUrgent;
         if (isUrgent) { // true
             location = "Emergency room - Trauma Room"; // update patient location
@@ -292,7 +286,7 @@ public class EmergencyCase {
      * @param vitalSigns - vital signs of the patient
      * @throws IllegalArgumentException if the triage level is invalid
      */
-    public void updateInitialScreening(HealthcareProfessional staffMember, String triageLevel, String vitalSigns) {
+    public void updateInitialScreening(User staffMember, String triageLevel, String vitalSigns) {
         if (!isValidTriageLevel(triageLevel)) {
             throw new IllegalArgumentException(
                     "Invalid triage level. Valid levels are: " + String.join(", ", TRIAGE_LEVELS));
@@ -312,15 +306,8 @@ public class EmergencyCase {
         System.out.println("Patient Location: " + location);
     }
 
-//    /**
-//     * Update the initial screening of the patient by a staff member
-//     * @param HealthcareProfessional - staff member object
-//     * @param triageLevel - triage level of the patient
-//     * @param vitalSigns - vital signs of the patient
-//     * @param location - location of the patient
-//     * @throws IllegalArgumentException if the triage level is invalid
-//     */
-    public void setInitialScreeningNurses(List<HealthcareProfessional> nurses) {
+
+    public void setInitialScreeningNurses(List<User> nurses) {
         this.initialScreeningNurse = nurses;
     }
 
@@ -328,7 +315,7 @@ public class EmergencyCase {
      * Get the initial screening nurses
      * @return a list of staff members who performed the initial screening
      */
-    public List<HealthcareProfessional> getInitialScreeningNurses() {
+    public List<User> getInitialScreeningNurses() {
         return this.initialScreeningNurse;
     }
 
@@ -336,14 +323,14 @@ public class EmergencyCase {
      * Set the screening doctors
      * @param doctors
      */
-    public void setScreeningDoctors(List<HealthcareProfessional> doctors) {
+    public void setScreeningDoctors(List<User> doctors) {
         this.screeningdoctor = doctors;
     }
     /**
      * Get the screening doctors
      * @return a list of staff members who performed the screening
      */
-    public List<HealthcareProfessional> getScreeningDoctors() {
+    public List<User> getScreeningDoctors() {
         return this.screeningdoctor;
     }
 
@@ -368,7 +355,7 @@ public class EmergencyCase {
      * @param doctor - staff member object
      * @param updatedLocation - updated location of the patient
      */
-    public void updateDoctorScreening(HealthcareProfessional doctor, String updatedLocation) {
+    public void updateDoctorScreening(User doctor, String updatedLocation) {
         this.screeningdoctor = new ArrayList<>(); //initialize a new list for screening doctor
         this.screeningdoctor.add(doctor); //add the doctor to the list
         this.location = updatedLocation; //update the location
@@ -435,8 +422,8 @@ public class EmergencyCase {
      * Print the emergency procedures performed on the patient
      */
     public void printPatientInfo() {
-        String output = "Patient ID: " + patient.getPatientID() + "\n";
-        output += "Patient Name: " + patient.getPatientName() + "\n";
+        String output = "Patient ID: " + patient.getId() + "\n";
+        output += "Patient Name: " + patient.getName() + "\n";
         // output += "Patient Age: " + patient.getPatientAge() + "\n";
         System.out.println(output);
 
@@ -450,8 +437,8 @@ public class EmergencyCase {
         StringBuilder report = new StringBuilder();
         report.append("\n=== Emergency Case Report ===\n"); // print the header
         report.append("Case ID: ").append(caseID).append("\n"); // print the case ID
-        report.append("Patient ID: ").append(patient.getPatientID()).append("\n"); // print the patient ID
-        report.append("Patient Name: ").append(patient.getPatientName()).append("\n"); // print the patient name
+        report.append("Patient ID: ").append(patient.getId()).append("\n"); // print the patient ID
+        report.append("Patient Name: ").append(patient.getName()).append("\n"); // print the patient name
         if (arrivalDateTime != null)
             report.append("Date and Time of Incident: ").append(arrivalDateTime.format(
                     DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"))).append("\n"); // print the date and time of incident
@@ -466,7 +453,7 @@ public class EmergencyCase {
          * If the initial screening nurse is not null and not empty, print the nurse's name and ID
          */
         if (initialScreeningNurse != null && !initialScreeningNurse.isEmpty()) {
-            HealthcareProfessional nurse = initialScreeningNurse.get(0);
+            User nurse = initialScreeningNurse.get(0);
             report.append("Initial Screening Nurse: ")
                     .append(nurse.getName())
                     .append(" (ID: ").append(nurse.getId()).append(")\n"); // print the initial screening nurse
@@ -496,7 +483,7 @@ public class EmergencyCase {
          * If the screening doctor is not null and not empty, print the doctor's name and ID
          */
         if (screeningdoctor != null && !screeningdoctor.isEmpty()) {
-            HealthcareProfessional doctor = screeningdoctor.get(0);
+            User doctor = screeningdoctor.get(0);
             report.append("Attending Doctor: ")
                     .append(doctor.getName())
                     .append(" (ID: ").append(doctor.getId()).append(")\n"); // print the attending doctor
@@ -582,5 +569,4 @@ public class EmergencyCase {
 //            System.out.println("Caught expected exception: " + e.getMessage());
 //        }
 //    }
-
 }
