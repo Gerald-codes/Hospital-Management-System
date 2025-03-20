@@ -1,6 +1,7 @@
 package org.lucas.Emergency;
 
 
+import org.lucas.models.Nurse;
 import org.lucas.models.User;
 
 import java.util.List;
@@ -19,9 +20,9 @@ public class DispatchInfo {
     private List<User> medivacMembers;
     private List<String> equipment;
 
-    public DispatchInfo(int ambulanceId, List<User> disapatchMembersList, List<String> equipmentList) {
+    public DispatchInfo(int ambulanceId, List<User> dispatchMembersList, List<String> equipmentList) {
         this.vehicleId = ambulanceId;
-        this.medivacMembers = disapatchMembersList;
+        this.medivacMembers = dispatchMembersList;
         this.equipment = equipmentList;
     }
 

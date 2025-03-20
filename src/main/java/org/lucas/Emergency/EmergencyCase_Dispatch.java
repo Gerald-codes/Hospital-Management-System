@@ -28,6 +28,11 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
      * @param arrivalMode     - mode of arrival (e.g., Ambulance, Helicopter, Walk-in)
      * @param arrivalDateTime - date and time of arrival
      */
+    private static EmergencySystem ECsystem;
+    private static Scanner scanner;
+    private static List<Patient> allPatients;
+    private static List<Nurse> allNurses;
+
     public EmergencyCase_Dispatch(int caseID, Patient patient, String chiefComplaint, String arrivalMode, LocalDateTime arrivalDateTime) {
         super(caseID, patient, chiefComplaint, arrivalMode, arrivalDateTime);
     }
@@ -39,7 +44,7 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
     // Variable to store the time when the call happened
     private LocalDateTime timeOfCall;
     // Variable to store the time taken for dispatch team to arrive to the patient location
-    private Duration reponseTime = Duration.ZERO;
+    private Duration responseTime = Duration.ZERO;
 
 
     /**
@@ -57,6 +62,10 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
 
         this.dispatchInfo = dispatchInfo;
         this.timeOfCall = LocalDateTime.now(); // Set the time of call be the current time
+        ECsystem = new EmergencySystem();
+        scanner = new Scanner(System.in);
+        allPatients = UserController.getAvailablePatients();
+        allNurses = UserController.getAvailableNurses();
     }
 
     /**
@@ -67,7 +76,7 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
      */
     public void setDispatchTeamArrivalTime(LocalDateTime dispatchArrivalTime){
         this.dispatchArrivalTime = dispatchArrivalTime;
-        this.reponseTime = Duration.between(timeOfCall, dispatchArrivalTime);
+        this.responseTime = Duration.between(timeOfCall, dispatchArrivalTime);
     }
 
     /**
@@ -98,8 +107,8 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
      * Used in initialising from reading a saved text file.
      */
     public void calculateResponseTime(){
-        if (reponseTime == Duration.ZERO && dispatchArrivalTime != null)
-            reponseTime = Duration.between(timeOfCall, dispatchArrivalTime);
+        if (responseTime == Duration.ZERO && dispatchArrivalTime != null)
+            responseTime = Duration.between(timeOfCall, dispatchArrivalTime);
         else System.out.println("Dispatch ArrivalTime is not yet set.");
     }
 
@@ -126,15 +135,15 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
 
         // If responseTime is not zero, get the function to return information of the responseTime, timeOfCall and dispatchArrivalTime
         // Else, simply return inforamtion on the timeOfCall with dispatchArrivalTime displayed as in progress.
-        if(reponseTime != Duration.ZERO){
-            if (reponseTime.isPositive()) {
+        if(responseTime != Duration.ZERO){
+            if (responseTime.isPositive()) {
                 DateTimeFormatter displayFormat = DateTimeFormatter.ofPattern(("dd-MM-yyyy HH:mm:ss"));
 
                 responseDetails = String.format("Time of Distress Call: %s\nTime of Dispatch Team Arrival: %s",
                         timeOfCall.format(displayFormat), dispatchArrivalTime.format(displayFormat));
 
                 String reponseTimeString = String.format("Reponse Time: %d Days %d Hours %d Mins %d Seconds",
-                        reponseTime.toDaysPart(), reponseTime.toHoursPart(), reponseTime.toMinutesPart(), reponseTime.toSecondsPart());
+                        responseTime.toDaysPart(), responseTime.toHoursPart(), responseTime.toMinutesPart(), responseTime.toSecondsPart());
 
                 responseDetails += reponseTimeString;
             }
@@ -185,15 +194,15 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
      * Get function for responseTime tied to the dispatch case.
      */
     public Duration getResponseTime(){
-        return reponseTime;
+        return responseTime;
     }
 
 
     private static void createNewDispatch() {
-        EmergencySystem ECsystem = new EmergencySystem();
-        Scanner scanner = new Scanner(System.in);
-        List<Patient> allPatients = UserController.getAvailablePatients();
-        List <Nurse> allNurses = UserController.getAvailableNurses();
+//        EmergencySystem ECsystem = new EmergencySystem();
+//        Scanner scanner = new Scanner(System.in);
+//        List<Patient> allPatients = UserController.getAvailablePatients();
+//        List <Nurse> allNurses = UserController.getAvailableNurses();
 
         // Use EmergencyCase_Dispatch class
         // Record: DispatchID, AmbulanceID, CrewMembers, Equipment
@@ -239,7 +248,8 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
                 patientId = enteredPatientID; // Set patient ID
                 continueChecking = false;
             }
-        } while (continueChecking);
+        }
+        while (continueChecking);
 
         // Check if the patient name if its valid. If empty or contains numbers, the
         // input will be invalid.
@@ -293,7 +303,7 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
         int ambulanceId = scanner.nextInt();
 
         List<Nurse> dispatchMembers = new ArrayList<Nurse>();
-//
+
         System.out.print("Enter dispatched medivac member staff ID: ");
         boolean validStaffID = false;
         int inputStaffId = 0;
@@ -378,14 +388,14 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
                 addEquipment = false;
         }
 
-        // creates a patient object based on the value inserted by the user
-//        Patient patient = Patient.checkOrCreatePatient(allPatients, patientId, patientName, new ArrayList<>());
-
-        // create a dispatch info object based on the value inserted by the user
+//        // creates a patient object based on the value inserted by the user
+//        Patient patient = Patient.checkOrCreatePatient(allPatients, patientId);
+//
+//        // create a dispatch info object based on the value inserted by the user
 //        DispatchInfo dispatchInfo = new DispatchInfo(ambulanceId, dispatchMembers, equipmentList);
-
-        // create the emergency case dispatch object from all the above variables and
-        // add to the existing list of emergency case dispatch in the system
+//
+//        // create the emergency case dispatch object from all the above variables and
+//        // add to the existing list of emergency case dispatch in the system
 //        EmergencyCase_Dispatch newDispatchCase = new EmergencyCase_Dispatch(caseId, patient, chiefComplaint,
 //                arrivalMode, patientStatus, dispatchInfo);
 //        ECsystem.addEmergencyCaseDispatch(newDispatchCase);

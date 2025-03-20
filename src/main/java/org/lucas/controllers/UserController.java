@@ -65,7 +65,7 @@ public class UserController {
      * If a file does not exist or an error occurs during reading or parsing, an error message is logged, and loading from that file is skipped.
      * Note: This method replaces the entire existing list of users.*/
     //Debugging
-    private static void loadPatientsFromFile() {
+    public static void loadPatientsFromFile() {
         allpatients.clear();
         StringBuilder sb = new StringBuilder();
         try (BufferedReader br = Files.newBufferedReader(Paths.get(patientFileName))) {
@@ -97,7 +97,7 @@ public class UserController {
         }
     }
 
-    private static void loadNursesFromFile() {
+    public static void loadNursesFromFile() {
         allNurses.clear();
         StringBuilder sb = new StringBuilder();
         try (BufferedReader br = Files.newBufferedReader(Paths.get(nurseFileName))) {
