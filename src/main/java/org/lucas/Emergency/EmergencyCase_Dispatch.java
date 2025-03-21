@@ -3,6 +3,7 @@ package org.lucas.Emergency;
 import org.lucas.models.Nurse;
 import org.lucas.models.Patient;
 import org.lucas.controllers.UserController;
+import org.lucas.models.enums.TriageLevel;
 import org.lucas.util.InputValidator;
 import org.lucas.Emergency.enums.PatientStatus;
 import org.lucas.models.Patient;
@@ -34,8 +35,8 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
     private static List<Patient> allPatients;
     private static List<Nurse> allNurses;
 
-    public EmergencyCase_Dispatch(int caseID, Patient patient, String chiefComplaint, String arrivalMode, LocalDateTime arrivalDateTime) {
-        super(caseID, patient, chiefComplaint, arrivalMode, arrivalDateTime);
+    public EmergencyCase_Dispatch(int caseID, Patient patient, String chiefComplaint, String arrivalMode, LocalDateTime arrivalDateTime, boolean isUrgent) {
+        super(caseID, patient, chiefComplaint, arrivalMode, arrivalDateTime,isUrgent );
     }
 
     // Variable to store the dispatch info
@@ -58,8 +59,8 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
      * @param patientStatus initialize the state of the patient. Dispatch should use ONDISPATCHED status
      * @param dispatchInfo use as reference for the medivac staff members that are deployed for the emergency dispatch. Contains vehicle id, medivac staff members and special equipment brought
      */
-    public EmergencyCase_Dispatch(int caseID, Patient patientInfo, String chiefComplaint, String arrivalMode, PatientStatus patientStatus, DispatchInfo dispatchInfo){
-        super(caseID, patientInfo, chiefComplaint, arrivalMode, patientStatus);
+    public EmergencyCase_Dispatch(int caseID, Patient patientInfo, String chiefComplaint, String arrivalMode, PatientStatus patientStatus, DispatchInfo dispatchInfo, boolean isUrgent){
+        super(caseID, patientInfo, chiefComplaint, arrivalMode, patientStatus,isUrgent);
 
         this.dispatchInfo = dispatchInfo;
         this.timeOfCall = LocalDateTime.now(); // Set the time of call be the current time
@@ -137,7 +138,7 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
     // Set the patient arrival time to be now and update the patient status to be from OnDispatch to Waiting.
     public void setPatientStatusToArrived(){
         SetArrivalDateTime(LocalDateTime.now());
-        updatePatientStatus(PatientStatus.WAITING);
+        setPatientStatus(PatientStatus.WAITING);
     }
 
     /**
@@ -451,23 +452,23 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
                     case PatientStatus.WAITING: /**dependent on registerNewEmergencyCases
                         in EmergencyCase.java to create a new EmergencyCase obj**/
                         System.out.println("Select new triage level:");
-                        String[] triageLevels = EmergencyCase_Dispatch.getTriageLevels();
-
-                        for (int i = 0; i < triageLevels.length; i++) {
-                            System.out.println((i + 1) + "," + triageLevels[i]);
+                        int count = 1;
+                        for (TriageLevel level : TriageLevel.values()) {
+                            System.out.println(count + level.name() + " - " + level.getDescription());
+                            count++;
                         }
 
-                        do {
-                            System.out.print("Enter choice (1-" + triageLevels.length + "): ");
-                            while (!scanner.hasNextInt()) {
-                                System.out.println(
-                                        "Invalid input! Please enter a valid choice (1-" + triageLevels.length + ").");
-                                scanner.next();
-                            }
-                            choice = scanner.nextInt();
-                        } while (choice < 1 || choice > triageLevels.length);
-
-                        String selectedTriageLevel = triageLevels[choice - 1];
+//                        do {
+//                            System.out.print("Enter choice (1-" + triageLevels.length + "): ");
+//                            while (!scanner.hasNextInt()) {
+//                                System.out.println(
+//                                        "Invalid input! Please enter a valid choice (1-" + triageLevels.length + ").");
+//                                scanner.next();
+//                            }
+//                            choice = scanner.nextInt();
+//                        } while (choice < 1 || choice > triageLevels.length);
+//
+//                        String selectedTriageLevel = triageLevels[choice - 1];
 
                         // Staff member selection
                         System.out.println("\nDo you want to:");
@@ -517,7 +518,7 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
                         System.out.print("Enter patient's vital signs: ");
                         String vitalSigns = scanner.nextLine().trim();
 
-                        dispatchCase.updateInitialScreening(nurses, selectedTriageLevel, vitalSigns);
+//                        dispatchCase.updateInitialScreening(nurses, selectedTriageLevel, vitalSigns);
 
 //                        ECsystem.saveAllCases();
 //                        StaffMember.saveStaff();

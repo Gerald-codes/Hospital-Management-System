@@ -2,6 +2,8 @@ package org.lucas.Emergency;
 
 import org.lucas.models.*;
 import org.lucas.Emergency.enums.*;
+import org.lucas.models.enums.TriageLevel;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -16,43 +18,33 @@ import java.util.List;
 
 public class EmergencyCase {
 
-
-
-
     private int caseID;
     private Patient patient; // storing a single Patient
     private String chiefComplaint;
     private String arrivalMode; // Ambulance, Helicopter, Walk-in
     private LocalDateTime arrivalDateTime;
-    private String triageLevel; // Enum or String based on severity
+    private TriageLevel triageLevel; // Enum or String based on severity
     private List<User> initialScreeningNurse; // list of either nurse, doctor, paramedic etc // Connect to staff
     private List<User> screeningdoctor; // staff member ID
 
     private Doctor assignedDoctor;
-    private String location; // Current location of the patient (e.g., Waiting Room, Treatment Room)
+    private PatientLocation location; // Current location of the patient (e.g., Waiting Room, Treatment Room)
 
     private PatientStatus patientStatus; // Admitted, Discharged, etc.
-    private CaseType caseType; // Admitted, Discharged, etc.
     private List<String> emergencyProcedures; // List of emergency procedures done on patient
     private LocalDateTime dateAndTimeOfScreening;
-    private boolean isUrgentTreatment;
+    private boolean isUrgent;
     // standard triage levels used in the emergency department
-    private static final String[] TRIAGE_LEVELS = {
-            "PRIORITY 1: CRITICAL (LIFE-THREATENING", // For life-threatening situations requiring immediate intervention
-            "PRIORITY 2: MAJOR EMERGENCIES (NON-AMBULATORY)", // For serious conditions that are not immediately life-threatening but require urgent care
-            "PRIORITY 3: MINOR EMERGENCIES (AMBULATORY)", // For non-life-threatening conditions that can be managed with less urgency
-            "PRIORITY 4: NON-EMERGENCY (ROUTINE)" //  For cases that are not urgent and can be attended to at a later time
-    };
 
     // helper method to check if the triage level is valid
-    public static boolean isValidTriageLevel(String triageLevel) {
-        for (String validLevel : TRIAGE_LEVELS) {
-            if (validLevel.equals(triageLevel)) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    public static boolean isValidTriageLevel(String triageLevel) {
+//        for (String validLevel : TRIAGE_LEVELS) {
+//            if (validLevel.equals(triageLevel)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
     /**
      * Constructor for EmergencyCase
      * @param caseID - unique identifier for the case
@@ -61,8 +53,9 @@ public class EmergencyCase {
      * @param arrivalMode - mode of arrival (e.g., Ambulance, Helicopter, Walk-in)
      * @param arrivalDateTime - date and time of arrival
      */
+
     public EmergencyCase(int caseID, Patient patient, String chiefComplaint, String arrivalMode,
-                         LocalDateTime arrivalDateTime) {
+                         LocalDateTime arrivalDateTime,boolean isUrgent) {
         this.caseID = caseID;
         this.patient = patient;
         this.chiefComplaint = chiefComplaint; // reason for patient's visit
@@ -70,12 +63,11 @@ public class EmergencyCase {
         // Only set to now if arrivalDateTime is null (e.g., for new cases, not loaded
         // ones)
         this.arrivalDateTime = (arrivalDateTime == null) ? LocalDateTime.now() : arrivalDateTime;
-
         this.emergencyProcedures = new ArrayList<>();
         this.patientStatus = PatientStatus.WAITING;
-        this.location = PatientLocation.EMERGENCY_ROOM_WAITING_ROOM.name(); // Set default location
-        this.triageLevel = TRIAGE_LEVELS[3]; // Default triage level
-        this.isUrgentTreatment = false;
+        this.location = isUrgent ? PatientLocation.EMERGENCY_ROOM_TRAUMA_ROOM : PatientLocation.EMERGENCY_ROOM_WAITING_ROOM ; // Set default location
+        this.triageLevel = isUrgent ? TriageLevel.PRIORITY_1_CRITICAL : TriageLevel.PRIORITY_4_NON_EMERGENCY;
+        this.isUrgent = isUrgent;
     }
     /**
      * Constructor for EmergencyCase
@@ -85,9 +77,11 @@ public class EmergencyCase {
      * @param arrivalMode - mode of arrival (e.g., Ambulance, Helicopter, Walk-in)
      * @param patientStatus - current status of the patient
      */
+
     // Dont want the set ArrivalTimeDate to be in the constructor
+    // FOR DISPATCH
     public EmergencyCase(int caseID, Patient patient, String chiefComplaint, String arrivalMode,
-                         PatientStatus patientStatus) {
+                         PatientStatus patientStatus, boolean isUrgent) {
         this.caseID = caseID;
         // this.patient = patient;
         this.patient = patient;
@@ -95,12 +89,12 @@ public class EmergencyCase {
         this.arrivalMode = arrivalMode;
         this.patientStatus = patientStatus;
 
-        if (patientStatus == PatientStatus.ONDISPATCHED)
-            this.location = "Dispatch In Progress";
+//        if (patientStatus == PatientStatus.ONDISPATCHED)
+//            this.location = "Dispatch In Progress";
 
         this.emergencyProcedures = new ArrayList<>();
-        this.triageLevel = TRIAGE_LEVELS[3];
-        this.isUrgentTreatment = false;
+        this.triageLevel = isUrgent ? TriageLevel.PRIORITY_1_CRITICAL : TriageLevel.PRIORITY_4_NON_EMERGENCY;
+        this.isUrgent = isUrgent;
 
     }
     /**
@@ -118,6 +112,10 @@ public class EmergencyCase {
         return arrivalDateTime;
     }
 
+    public void setPatientStatus(PatientStatus patientStatus){
+        this.patientStatus = patientStatus;
+    }
+
     /**
      * Get Method to get the case ID for the patient
      */
@@ -125,20 +123,6 @@ public class EmergencyCase {
         return caseID;
     }
 
-    /**
-     * Get Method to get the triage level for the patient
-     */
-    public String getTriageLevel() {
-        return this.triageLevel;
-    }
-
-    /**
-     * Set Method to set the location of the patient
-     * @param location
-     */
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     public LocalDateTime getScreeningTime() {
         return this.dateAndTimeOfScreening;
@@ -151,35 +135,35 @@ public class EmergencyCase {
      * @param triageLevelInput
      */
 
-    public void setTriageLevel(String triageLevelInput) {
-//         check if the triage level is valid
-        if (isValidTriageLevel(triageLevelInput)) {
-            this.triageLevel = triageLevelInput;
-            // For Priority 1 (Critically-ill) or Priority 2 (Major emergencies)
-            if (triageLevel == TRIAGE_LEVELS[0] || triageLevel == TRIAGE_LEVELS[1]) {
-                // set location to trauma room
-                location = "Emergency room - Trauma Room";
-                // set isUrgentTreatment to true
-                isUrgentTreatment = true;
-
-            } else if (triageLevel == TRIAGE_LEVELS[2]) {
-                // set location to observation unit
-                location = "Emergency room - Observation Unit";
-                // set isUrgentTreatment to false
-                isUrgentTreatment = false;
-            } else {
-                // set location to waiting room
-                location = "Emergency room - Waiting Room";
-                // set isUrgentTreatment to false
-                isUrgentTreatment = false;
-            }
-        } else {
-            // if the triage level is not valid, throw an exception
-            throw new IllegalArgumentException(
-                    "Invalid triage level. Valid levels are: " + String.join(", ", TRIAGE_LEVELS));
-        }
-        this.triageLevel = triageLevelInput;
-    }
+//    public void setTriageLevel(String triageLevelInput) {
+////         check if the triage level is valid
+//        if (isValidTriageLevel(triageLevelInput)) {
+//            this.triageLevel = triageLevelInput;
+//            // For Priority 1 (Critically-ill) or Priority 2 (Major emergencies)
+//            if (triageLevel == TRIAGE_LEVELS[0] || triageLevel == TRIAGE_LEVELS[1]) {
+//                // set location to trauma room
+//                location = "Emergency room - Trauma Room";
+//                // set isUrgentTreatment to true
+//                isUrgentTreatment = true;
+//
+//            } else if (triageLevel == TRIAGE_LEVELS[2]) {
+//                // set location to observation unit
+//                location = "Emergency room - Observation Unit";
+//                // set isUrgentTreatment to false
+//                isUrgentTreatment = false;
+//            } else {
+//                // set location to waiting room
+//                location = "Emergency room - Waiting Room";
+//                // set isUrgentTreatment to false
+//                isUrgentTreatment = false;
+//            }
+//        } else {
+//            // if the triage level is not valid, throw an exception
+//            throw new IllegalArgumentException(
+//                    "Invalid triage level. Valid levels are: " + String.join(", ", TRIAGE_LEVELS));
+//        }
+//        this.triageLevel = triageLevelInput;
+//    }
 
     /**
      * Get method for the status (WAITING, DISCHARGE, etc) of the patient
@@ -191,13 +175,10 @@ public class EmergencyCase {
     /**
      * Get method for the location of the patient
      */
-    public String getLocation() {
+    public PatientLocation getLocation() {
         return this.location;
     }
 
-    public String setLocation() {
-        return this.location;
-    }
 
     /**
      * Get method for the emergency procedures performed on the patient
@@ -241,38 +222,30 @@ public class EmergencyCase {
      * @param staffMember - staff member object
      * @param procedures - emergency procedures performed on the patient
      */
-    public void setTreatment(boolean isUrgent, User staffMember, String procedures) {
-        this.isUrgentTreatment = isUrgent;
-        if (isUrgent) { // true
-            location = "Emergency room - Trauma Room"; // update patient location
-            screeningdoctor = new ArrayList<>(); // Initialize if null
-            screeningdoctor.add(staffMember);
-            triageLevel = TRIAGE_LEVELS[0]; // update triage level
-            emergencyProcedures.add(procedures); // add emergency procedures
-        } else {
-            location = "Emergency room - Observation Unit";
-            initialScreeningNurse = new ArrayList<>(); // Initialize if null
-            initialScreeningNurse.add(staffMember);
-            triageLevel = TRIAGE_LEVELS[3];
-            emergencyProcedures.add(procedures);
-        }
-        this.dateAndTimeOfScreening = LocalDateTime.now();
-    }
-
-    /**
-     * Get method for the triage levels used in the emergency department
-     * @return an array of triage levels
-     */
-    public static String[] getTriageLevels() {
-        return TRIAGE_LEVELS.clone(); // Return a copy to prevent modification
-    }
+//    public void setTreatment(boolean isUrgent, User staffMember, String procedures) {
+//        this.isUrgent = isUrgent;
+//        if (isUrgent) { // true
+//            location = "Emergency room - Trauma Room"; // update patient location
+//            screeningdoctor = new ArrayList<>(); // Initialize if null
+//            screeningdoctor.add(staffMember);
+////            triageLevel = TRIAGE_LEVELS[0]; // update triage level
+//            emergencyProcedures.add(procedures); // add emergency procedures
+//        } else {
+//            location = "Emergency room - Observation Unit";
+//            initialScreeningNurse = new ArrayList<>(); // Initialize if null
+//            initialScreeningNurse.add(staffMember);
+////            triageLevel = TRIAGE_LEVELS[3];
+//            emergencyProcedures.add(procedures);
+//        }
+//        this.dateAndTimeOfScreening = LocalDateTime.now();
+//    }
 
     /**
      * Get method for the urgency of the treatment
      * @return boolean value indicating if the treatment is urgent
      */
     public boolean isUrgent() {
-        return this.isUrgentTreatment;
+        return this.isUrgent;
     }
 
     /**
@@ -290,25 +263,25 @@ public class EmergencyCase {
      * @param vitalSigns - vital signs of the patient
      * @throws IllegalArgumentException if the triage level is invalid
      */
-    public void updateInitialScreening(User staffMember, String triageLevel, String vitalSigns) {
-        if (!isValidTriageLevel(triageLevel)) {
-            throw new IllegalArgumentException(
-                    "Invalid triage level. Valid levels are: " + String.join(", ", TRIAGE_LEVELS));
-        }
-        setTriageLevel(triageLevel); // This will automatically update location
-//        this.patient.setEHR(.vitalSigns);
-        ;
-        this.initialScreeningNurse = new ArrayList<>();
-        this.initialScreeningNurse.add(staffMember);
-        this.dateAndTimeOfScreening = LocalDateTime.now();
-        this.isUrgentTreatment = triageLevel.equals("PRIORITY 1: CRITICALLY-ILL");
-
-        System.out.println("Initial Screening Completed:");
-        System.out.println("Staff Member: " + staffMember.getName());
-        System.out.println("Triage Level: " + triageLevel);
-        System.out.println("Vital Signs: " + vitalSigns);
-        System.out.println("Patient Location: " + location);
-    }
+//    public void updateInitialScreening(User staffMember, String triageLevel, String vitalSigns) {
+//        if (!isValidTriageLevel(triageLevel)) {
+//            throw new IllegalArgumentException(
+//                    "Invalid triage level. Valid levels are: " + String.join(", ", TRIAGE_LEVELS));
+//        }
+//        setTriageLevel(triageLevel); // This will automatically update location
+////        this.patient.setEHR(.vitalSigns);
+//        ;
+//        this.initialScreeningNurse = new ArrayList<>();
+//        this.initialScreeningNurse.add(staffMember);
+//        this.dateAndTimeOfScreening = LocalDateTime.now();
+//        this.isUrgentTreatment = triageLevel.equals("PRIORITY 1: CRITICALLY-ILL");
+//
+//        System.out.println("Initial Screening Completed:");
+//        System.out.println("Staff Member: " + staffMember.getName());
+//        System.out.println("Triage Level: " + triageLevel);
+//        System.out.println("Vital Signs: " + vitalSigns);
+//        System.out.println("Patient Location: " + location);
+//    }
 
 
     public void setInitialScreeningNurses(List<User> nurses) {
@@ -362,11 +335,11 @@ public class EmergencyCase {
     public void updateDoctorScreening(User doctor, String updatedLocation) {
         this.screeningdoctor = new ArrayList<>(); //initialize a new list for screening doctor
         this.screeningdoctor.add(doctor); //add the doctor to the list
-        this.location = updatedLocation; //update the location
+//        this.location = updatedLocation; //update the location
         this.dateAndTimeOfScreening = LocalDateTime.now(); //update the date and time of screening
         // Set urgent treatment flag based on triage level
         // Only Priority 1 cases are marked as urgent
-        this.isUrgentTreatment = triageLevel.equals("PRIORITY 1: CRITICALLY-ILL");
+        this.isUrgent = triageLevel.equals("PRIORITY 1: CRITICALLY-ILL");
 
         // print the results
         System.out.println("Doctor Screening Completed:");
@@ -391,36 +364,36 @@ public class EmergencyCase {
      * Update the status of the patient and the location based on the current status
      * @param currentStatus - current status of the patient
      */
-    public void updatePatientStatus(PatientStatus currentStatus) {
-        // Avoid redundant updates (prevents multiple WAITING entries)
-        if (this.patientStatus == currentStatus) {
-            return; // No need to update if the status is already the same
-        }
-        // update the patient status
-        this.patientStatus = currentStatus;
-        // switch case to update the location based on the current status
-        switch (currentStatus) {
-            case DISCHARGED:
-                this.location = "Discharge Area"; // patient discharged
-                break;
-            case ADMITTED:
-                this.location = "Hospital Ward"; // patient admitted
-                break;
-            case TRANSFERRED:
-                this.location = "Transferred to Another Facility"; // patient transferred
-                break;
-            case ONDISPATCHED:
-                this.location = "Dispatch In Progress"; // patient on dispatched
-                break;
-            default:
-                this.location = "Emergency Department"; // default location
-                break;
-        }
-
-        // print the results
-        System.out.println("Patient Status Updated: " + patientStatus);
-        System.out.println("New Location: " + location);
-    }
+//    public void updatePatientStatus(PatientStatus currentStatus) {
+//        // Avoid redundant updates (prevents multiple WAITING entries)
+//        if (this.patientStatus == currentStatus) {
+//            return; // No need to update if the status is already the same
+//        }
+//        // update the patient status
+//        this.patientStatus = currentStatus;
+//        // switch case to update the location based on the current status
+//        switch (currentStatus) {
+//            case DISCHARGED:
+//                this.location = "Discharge Area"; // patient discharged
+//                break;
+//            case ADMITTED:
+//                this.location = "Hospital Ward"; // patient admitted
+//                break;
+//            case ONGOING:
+//                this.location = "Transferred to Another Facility"; // patient transferred
+//                break;
+//            case ONDISPATCHED:
+//                this.location = "Dispatch In Progress"; // patient on dispatched
+//                break;
+//            default:
+//                this.location = "Emergency Department"; // default location
+//                break;
+//        }
+//
+//        // print the results
+//        System.out.println("Patient Status Updated: " + patientStatus);
+//        System.out.println("New Location: " + location);
+//    }
 
     /**
      * Print the emergency procedures performed on the patient
@@ -573,4 +546,23 @@ public class EmergencyCase {
 //            System.out.println("Caught expected exception: " + e.getMessage());
 //        }
 //    }
+
+    public String toString() {
+        return "EmergencyCase{" +
+                "caseID=" + caseID +
+                ", patient=" + patient +
+                ", chiefComplaint='" + chiefComplaint + '\'' +
+                ", arrivalMode='" + arrivalMode + '\'' +
+                ", arrivalDateTime=" + arrivalDateTime +
+                ", triageLevel='" + triageLevel + '\'' +
+                ", initialScreeningNurse=" + initialScreeningNurse +
+                ", screeningdoctor=" + screeningdoctor +
+                ", assignedDoctor=" + assignedDoctor +
+                ", location='" + location + '\'' +
+                ", patientStatus=" + patientStatus +
+                ", emergencyProcedures=" + emergencyProcedures +
+                ", dateAndTimeOfScreening=" + dateAndTimeOfScreening +
+                ", isUrgentTreatment=" + isUrgent +
+                '}';
+    }
 }

@@ -35,6 +35,4 @@ public enum UserType {
      * This type is used as a fallback or default when the user's type cannot be determined or if an error occurs during type assignment.
      */
     ERROR,
-
-    ADMIN
 }

@@ -392,59 +392,5 @@ public class Patient extends User{
         PatientConsent patientconsent = new PatientConsent(true,"");
     }
 
-    public static Patient checkOrCreatePatient(List<Patient> allPatients, String patientID) {
-        for (Patient p : allPatients) {
-            if (p.getId().equals(patientID)) {
-                System.out.println("\nExisting patient found: " + p.getName());
-                return p;
-            }
-        }
-        // If patient does not exist, create a new one
 
-        Patient newPatient = createPatient(patientID);
-        allPatients.add(newPatient);
-        System.out.println("New patient created: " + newPatient.getName());
-//        savePatientDataToFile(allPatients);
-        return newPatient;
-    }
-    private static Patient createPatient (String patientID) {
-
-        // Collect user input for each field
-        String userName = InputValidator.getValidStringInput("Enter username: ");
-        String name = InputValidator.getValidStringInput("Enter name: ");
-        String password = InputValidator.getValidStringInput("Enter password: ");
-        String gender = InputValidator.getValidStringInput("Enter gender: ");
-        String phoneNumber = InputValidator.getValidStringInput("Enter phone number: ");
-        String dateOfBirth = InputValidator.getValidStringInput("Enter date of birth: ");
-        String patientSpecificFactor = InputValidator.getValidStringInput("Enter patient-specific factor: ");
-        String bloodType = InputValidator.getValidStringInput("Enter blood type: ");
-        String assignedNurse = InputValidator.getValidStringInput("Enter assigned Nurse Id: ");
-        String assignedDoctor = InputValidator.getValidStringInput("Enter assigned Doctor Id: ");
-
-        // Validate numeric inputs for height, weight, and emergency contact
-        double height = InputValidator.getValidDoubleInput("Enter height: ");
-        double weight = InputValidator.getValidDoubleInput("Enter weight: ");
-
-        // Additional string inputs
-        String houseAddress = InputValidator.getValidStringInput("Enter house address: ");
-        String occupation = InputValidator.getValidStringInput("Enter occupation: ");
-        String ethnicity = InputValidator.getValidStringInput("Enter ethnicity: ");
-        String healthcareDepartment = InputValidator.getValidStringInput("Enter healthcare department: ");
-
-        // Validate emergency contact number (assuming it's an integer)
-        int emergencyContactNumber = InputValidator.getValidIntInput("Enter emergency contact number: ");
-
-        // Create an empty list for alert history
-        List<Alert> alertHistory = new ArrayList<>();
-
-        // Create a new Patient object with the collected data
-        Patient newPatient = new Patient(patientID, userName, name, password, "", gender, phoneNumber, dateOfBirth, patientSpecificFactor,
-                assignedNurse, assignedDoctor, alertHistory, height, weight, bloodType, houseAddress, emergencyContactNumber,
-                occupation, ethnicity, healthcareDepartment);
-
-        // Output confirmation or the new patient info (you can display the patient info here as needed)
-        System.out.println("New patient created: " + newPatient);
-
-        return newPatient;
-    }
 }

@@ -41,9 +41,12 @@ public class NurseMenuPage extends UiBase {
         lv.setTitleHeader("Welcome to Telemedicine Integration System | Welcome Back " + UserController.getActiveNurse().getName()); // Set the title header of the list view
         lv.addItem(new TextView(this.canvas, "1. View List of Patient - To view patient information ", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "2. Feedback Mechanism ", Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "3. Emergency ", Color.GREEN));
 
-        lv.attachUserInput("View List of Patient", str -> ToPage(new NurseMainPage()));
-        lv.attachUserInput("Feedback Mechanism", str -> ToPage(new FeedbackPage()));
+
+        lv.attachUserInput("View List of Patient\n", str -> ToPage(new NurseMainPage()));
+        lv.attachUserInput("Feedback Mechanism\n", str -> ToPage(new FeedbackPage()));
+        lv.attachUserInput("Emergency\n", str -> ToPage(new NurseEmergencyMenuPage()));
 
 
         canvas.setRequireRedraw(true);

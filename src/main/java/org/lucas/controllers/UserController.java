@@ -2,8 +2,10 @@ package org.lucas.controllers;
 import com.google.gson.reflect.TypeToken;
 import org.lucas.Globals;
 import org.lucas.audit.*;
+import org.lucas.core.Alert;
 import org.lucas.models.*;
 import org.lucas.models.enums.UserType;
+import org.lucas.util.InputValidator;
 import org.lucas.util.JarLocation;
 import org.lucas.util.Pair;
 import org.lucas.util.Util;
@@ -32,11 +34,9 @@ public class UserController {
     private static List<Nurse> generateNurses = new ArrayList<>();
     private static List<Doctor> allDoctors = new ArrayList<>();
     private static List<Nurse> allNurses = new ArrayList<>();
-    private static List<Admin> allAdmin = new ArrayList<>();
     private static final String doctorFileName = "doctor_data.txt";
     private static final String patientFileName = "patient_data.txt";
     private static final String nurseFileName = "nurse_data.txt";
-    private static final String adminFileName = "admin_data.txt";
     /**
      * the active doctor that is currently logged in.
      */
@@ -52,8 +52,6 @@ public class UserController {
     /**
      * Specifies the user type to avoid excessive instanceof or null checks
      */
-
-    private static Admin activeAdmin;
 
     private static UserType activeUserType;
 
@@ -108,22 +106,6 @@ public class UserController {
             Type listType = new TypeToken<List<Nurse>>() {
             }.getType();
             allNurses = Util.fromJsonString(sb.toString(), listType);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void loadAdminsFromFile() {
-        allAdmin.clear();
-        StringBuilder sb = new StringBuilder();
-        try (BufferedReader br = Files.newBufferedReader(Paths.get(adminFileName))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
-            }
-            Type listType = new TypeToken<List<Nurse>>() {
-            }.getType();
-            allAdmin = Util.fromJsonString(sb.toString(), listType);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -215,27 +197,6 @@ public class UserController {
                 sb.append(line);
             }
             Type listType = new TypeToken<List<Nurse>>() {}.getType();
-            users.addAll(Util.fromJsonString(sb.toString(), listType));
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
-        //then load the nurses
-        sb = new StringBuilder();
-        String adminBasePath = "";
-        try {
-            basePath = JarLocation.getJarDirectory();
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-        try (BufferedReader br = Files.newBufferedReader(Paths.get(adminBasePath, adminFileName))) {
-            String line;
-
-            while((line = br.readLine()) != null){
-                sb.append(line);
-            }
-            Type listType = new TypeToken<List<Admin>>() {}.getType();
             users.addAll(Util.fromJsonString(sb.toString(), listType));
         }catch (IOException e){
             e.printStackTrace();
@@ -354,12 +315,6 @@ public class UserController {
             auditManager.logAction(activePatient.getId(), "LOGIN", "System", "SUCCESS", "PATIENT");
             return UserType.PATIENT;
         }
-        if(authenticated.getFirst() instanceof Admin){
-            activeAdmin = (Admin)authenticated.getFirst();
-            activeUserType = UserType.ADMIN;
-            auditManager.logAction(activeAdmin.getId(), "LOGIN", "System", "SUCCESS", "ADMIN");
-            return UserType.ADMIN;
-        }
         auditManager.logAction("NIL", "LOGIN", "System", "FAILED","");
         return UserType.ERROR;
     }
@@ -413,10 +368,6 @@ public class UserController {
      * @return the active {@link Nurse}, or null if no nurse is active.*/
     public static Nurse getActiveNurse() {
         return activeNurse;
-    }
-
-    public static Admin getActiveAdmin() {
-        return activeAdmin;
     }
 
     /**Gets the active patient.
@@ -677,5 +628,77 @@ public class UserController {
 
     private static String formatList(List<String> list) {
         return list != null && !list.isEmpty() ? String.join(", ", list) : "None";
+    }
+
+
+    public static Patient checkOrCreatePatient(String patientID) {
+        List<Patient> allPatients = getAvailablePatients();
+        for (Patient p : allPatients) {
+            if (p.getId().equals(patientID)) {
+                System.out.println("\nExisting patient found: " + p.getName());
+                return p;
+            }
+        }
+        // If patient does not exist, create a new one
+        System.out.println("No existing patient found. Registering a new patient...");
+        Patient newPatient = createEmergencyPatient(patientID);
+//        savePatientDataToFile(allPatients);
+        return newPatient;
+    }
+    private static Patient createPatient (String patientID) {
+
+        // Collect user input for each field
+        String userName = InputValidator.getValidStringInput("Enter username: ");
+        String name = InputValidator.getValidStringInput("Enter name: ");
+        String password = InputValidator.getValidStringInput("Enter password: ");
+        String gender = InputValidator.getValidStringInput("Enter gender: ");
+        String phoneNumber = InputValidator.getValidStringInput("Enter phone number: ");
+        String dateOfBirth = InputValidator.getValidStringInput("Enter date of birth: ");
+        String patientSpecificFactor = InputValidator.getValidStringInput("Enter patient-specific factor: ");
+        String bloodType = InputValidator.getValidStringInput("Enter blood type: ");
+        String assignedNurse = InputValidator.getValidStringInput("Enter assigned Nurse Id: ");
+        String assignedDoctor = InputValidator.getValidStringInput("Enter assigned Doctor Id: ");
+
+        // Validate numeric inputs for height, weight, and emergency contact
+        double height = InputValidator.getValidDoubleInput("Enter height: ");
+        double weight = InputValidator.getValidDoubleInput("Enter weight: ");
+
+        // Additional string inputs
+        String houseAddress = InputValidator.getValidStringInput("Enter house address: ");
+        String occupation = InputValidator.getValidStringInput("Enter occupation: ");
+        String ethnicity = InputValidator.getValidStringInput("Enter ethnicity: ");
+        String healthcareDepartment = InputValidator.getValidStringInput("Enter healthcare department: ");
+
+        // Validate emergency contact number (assuming it's an integer)
+        int emergencyContactNumber = InputValidator.getValidIntInput("Enter emergency contact number: ");
+
+        // Create an empty list for alert history
+        List<Alert> alertHistory = new ArrayList<>();
+
+        // Create a new Patient object with the collected data
+        Patient newPatient = new Patient(patientID, userName, name, password, "", gender, phoneNumber, dateOfBirth, patientSpecificFactor,
+                assignedNurse, assignedDoctor, alertHistory, height, weight, bloodType, houseAddress, emergencyContactNumber,
+                occupation, ethnicity, healthcareDepartment);
+
+        // Output confirmation or the new patient info (you can display the patient info here as needed)
+        System.out.println("New patient created: " + newPatient);
+
+        return newPatient;
+    }
+
+    private static Patient createEmergencyPatient (String patientID) {
+
+        // Collect user input for each field
+        String name = InputValidator.getValidStringInput("Enter name: ");
+        String gender = InputValidator.getValidStringInput("Enter gender: ");
+        String phoneNumber = InputValidator.getValidStringInput("Enter phone number: ");
+
+        // Create a new Patient object with the collected data
+        Patient newPatient = new Patient( patientID, name, gender,  phoneNumber);
+
+        // Output confirmation or the new patient info (you can display the patient info here as needed)
+        System.out.println("New patient " + newPatient.getName() + " created!");
+
+        return newPatient;
     }
 }

@@ -4,7 +4,8 @@ package org.lucas.Emergency.enums;
 public enum PatientStatus {
     DISCHARGED,
     ADMITTED,
-    TRANSFERRED,
+    ONGOING,
     WAITING,
+    DONE,
     ONDISPATCHED; // Added WAITING as initial status
 }

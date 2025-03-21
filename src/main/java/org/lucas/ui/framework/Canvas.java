@@ -148,7 +148,7 @@ public class Canvas {
         canvasBackstack.push(v);
         if(v.getInputOptions().get(0) == null){
             // manually add input 0 to always be the back button
-            v.inputOptions.put(0, new UserInput("Go Back", str->{
+            v.inputOptions.put(0, new UserInput("Go Back\n", str->{
                 v.OnBackPressed();
                 this.previousPage();
             }));
@@ -235,7 +235,7 @@ public class Canvas {
         // draw the footer last
         String footer = v.getFooter();
         if(footer != null){
-            footer = footer + "| q: Quit App\nYour input: ";
+            footer = footer + " | q: Quit App\nYour input: ";
             drawText(footer, pageColor);
         }
 

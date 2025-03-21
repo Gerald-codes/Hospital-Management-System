@@ -42,6 +42,7 @@ public class DoctorMainPage extends UiBase {
         lv.attachUserInput("View List of Patient", str -> ToPage(new PatientInfoPage()));
         lv.attachUserInput("View Appointment", str -> ToPage(new ViewAppointmentsPage()));
         lv.attachUserInput("Feedback Mechanism", str -> ToPage(new FeedbackPage()));
+        lv.attachUserInput("Locations", str -> ToPage(new FeedbackPage()));
 
 
         canvas.setRequireRedraw(true);
