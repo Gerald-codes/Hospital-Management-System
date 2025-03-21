@@ -2,6 +2,7 @@ package org.lucas.models;
 
 
 import org.lucas.core.Alert;
+import org.lucas.models.enums.TriageLevel;
 import org.lucas.util.InputValidator;
 
 import java.time.LocalDate;
@@ -31,6 +32,7 @@ public class Patient extends User{
     private String ethnicity;                     // Ethnicity of the patient
     private String healthcareDepartment;          // Healthcare department handling the patient
     private PatientConsent patientConsent;
+    private TriageLevel triageLevel;
 
     /**
      * Constructor to initialize a Patient object with all attributes, including alert history.
@@ -73,6 +75,12 @@ public class Patient extends User{
         this.healthcareDepartment = healthcareDepartment;
         this.patientConsent = new PatientConsent(false,"");
     }
+
+    //Create Emergency Patient
+    public Patient(String UserID,String name,String gender, String phoneNumber){
+        super(UserID,name,gender,phoneNumber);
+    }
+
     public void setAlertHistory(List<Alert> alertHistory) {
         this.alertHistory = alertHistory;
     }

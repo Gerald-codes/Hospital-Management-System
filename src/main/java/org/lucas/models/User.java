@@ -51,6 +51,14 @@ public abstract class User implements ObjectBase {
         this.phoneNumber = phoneNumber;
     }
 
+    // For Emergency Patient
+    public User(String id, String name, String gender, String phoneNumber) {
+        this.id = id;
+        this.name = name;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+    }
+
     /**
      * @return The user's unique id.
      */
