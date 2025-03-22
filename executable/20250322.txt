@@ -16,3 +16,7 @@ Audit Log - [AuditID: 20250322130435397009, UserID: NIL, Action: LOGIN, Target: 
 Audit Log - [AuditID: 20250322130445638010, UserID: NIL, Action: LOGIN, Target: System, Timestamp: 2025-03-22T13:04:45.639627500, Outcome: FAILED, Device: PC1, Role: ]
 Audit Log - [AuditID: 20250322130445640011, UserID: NIL, Action: LOGIN, Target: System, Timestamp: 2025-03-22T13:04:45.640630200, Outcome: FAILED, Device: PC1, Role: ]
 Audit Log - [AuditID: 20250322130445640012, UserID: NIL, Action: LOGIN, Target: System, Timestamp: 2025-03-22T13:04:45.640630200, Outcome: FAILED, Device: PC1, Role: ]
+Audit Log - [AuditID: 20250322130621670001, UserID: N001, Action: LOGIN, Target: System, Timestamp: 2025-03-22T13:06:21.672926700, Outcome: SUCCESS, Device: PC1, Role: NURSE]
+Audit Log - [AuditID: 20250322130621677002, UserID: N001, Action: LOGIN, Target: System, Timestamp: 2025-03-22T13:06:21.677923800, Outcome: SUCCESS, Device: PC1, Role: NURSE]
+Audit Log - [AuditID: 20250322130911222001, UserID: N001, Action: LOGIN, Target: System, Timestamp: 2025-03-22T13:09:11.225375100, Outcome: SUCCESS, Device: PC1, Role: NURSE]
+Audit Log - [AuditID: 20250322130911231002, UserID: N001, Action: LOGIN, Target: System, Timestamp: 2025-03-22T13:09:11.231437600, Outcome: SUCCESS, Device: PC1, Role: NURSE]

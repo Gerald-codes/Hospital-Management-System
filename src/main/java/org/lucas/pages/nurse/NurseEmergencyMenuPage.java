@@ -1,8 +1,12 @@
 package org.lucas.pages.nurse;
 
+import org.lucas.Emergency.DispatchInfo;
 import org.lucas.Emergency.EmergencyCase;
+import org.lucas.Emergency.EmergencyCase_Dispatch;
 import org.lucas.Emergency.EmergencySystem;
+import org.lucas.Emergency.enums.PatientStatus;
 import org.lucas.controllers.UserController;
+import org.lucas.models.Nurse;
 import org.lucas.models.Patient;
 import org.lucas.models.User;
 import org.lucas.pages.doctor.FeedbackPage;
@@ -15,6 +19,7 @@ import org.lucas.ui.framework.views.TextView;
 import org.lucas.util.InputValidator;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -46,11 +51,9 @@ public class NurseEmergencyMenuPage extends UiBase {
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
         lv.setTitleHeader("Nurse Emergency Menu"); // Set the title header of the list view
         lv.attachUserInput("Create New Emergency Case\n", str -> createNewEmergencyCase());
-        lv.attachUserInput("Create New Emergency Dispatch Case\n", str -> ToPage(new FeedbackPage()));
-        lv.attachUserInput("Update Dispatch Case Status\n", str -> ToPage(new FeedbackPage()));
         lv.attachUserInput("Location\n", str -> ToPage(new FeedbackPage()));
         lv.attachUserInput("View All Emergency Cases\n", str -> ToPage(new FeedbackPage()));
-        lv.attachUserInput("View All Dispatch Cases\n", str -> ToPage(new FeedbackPage()));
+        lv.attachUserInput("View Dispatch Menu\n", str -> ToPage(new NurseDispatchMenuPage()));
 
         canvas.setRequireRedraw(true);
     }
@@ -87,5 +90,8 @@ public class NurseEmergencyMenuPage extends UiBase {
         System.out.println("\nNew Case Registered | Case ID: " + caseID + " | Patient: " + patient.getName());
         new NurseMainPage();
     }
+
+
+
 
 }

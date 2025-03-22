@@ -20,10 +20,13 @@ public class DispatchInfo {
     private List<Nurse> medivacMembers;
     private List<String> equipment;
 
-    public DispatchInfo(int ambulanceId, List<Nurse> dispatchMembersList, List<String> equipmentList) {
+    private String dispatchLocation;
+
+    public DispatchInfo(int ambulanceId, List<Nurse> dispatchMembersList, List<String> equipmentList, String dispatchLocation) {
         this.vehicleId = ambulanceId;
         this.medivacMembers = dispatchMembersList;
         this.equipment = equipmentList;
+        this.dispatchLocation = dispatchLocation;
     }
 
 
@@ -53,6 +56,14 @@ public class DispatchInfo {
 
     public void setEquipment(List<String> equipment) {
         this.equipment = equipment;
+    }
+
+    public String getDispatchLocation() {
+        return dispatchLocation;
+    }
+
+    public void setDispatchLocation(String dispatchLocation) {
+        this.dispatchLocation = dispatchLocation;
     }
 
     /**

@@ -645,6 +645,26 @@ public class UserController {
 //        savePatientDataToFile(allPatients);
         return newPatient;
     }
+
+    public static Nurse checkParamedicNurse(String nurseID) {
+        Scanner scanner = new Scanner(System.in);
+        Nurse foundNurse = null;
+        String role = "paramedic nurse";
+        List<Nurse> allNurse = getAvailableNurses();
+        while (foundNurse == null) {
+            for (Nurse n : allNurse) {
+                if (n.getId().equals(nurseID) && n.getRole().equalsIgnoreCase(role)) {
+                    System.out.println("\nExisting nurse found: " + n.getName());
+                    foundNurse = n;
+                    return n;
+                }
+            }
+            System.out.println("No existing paramedic nurse found. Please enter a valid paramedic nurse ID: ");
+            nurseID = scanner.nextLine();
+        }
+        return foundNurse;
+    }
+
     private static Patient createPatient (String patientID) {
 
         // Collect user input for each field
