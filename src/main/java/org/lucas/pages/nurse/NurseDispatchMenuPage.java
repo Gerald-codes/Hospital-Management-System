@@ -5,6 +5,7 @@ import org.lucas.Emergency.EmergencyCase_Dispatch;
 import org.lucas.Emergency.EmergencySystem;
 import org.lucas.Emergency.enums.PatientLocation;
 import org.lucas.Emergency.enums.PatientStatus;
+import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
 import org.lucas.models.ElectronicHealthRecord;
 import org.lucas.models.Nurse;
@@ -156,6 +157,7 @@ public class NurseDispatchMenuPage extends UiBase {
         ECsystem.addEmergencyCaseDispatch(newDispatchCase);
         System.out.println("New Dispatch Case | Case ID: " + caseID + " | Patient Name: " + patient.getName()
                 + " | Registered successfully!\n");
+        ESController.saveCasesToFile(ECsystem);
         new NurseDispatchMenuPage();
     }
 
@@ -206,6 +208,7 @@ public class NurseDispatchMenuPage extends UiBase {
         String input = InputValidator.getValidStringInput("Enter patient's allergies (separate by commas): ");
         List<String> allergies = Arrays.asList(input.split("\\s*,\\s*"));
         EHR.setAllergies(allergies);
+        //didnt include the staff member selection part because the paramedic nurse for each dispatch case is already a staff member
         dispatchCase.setPatientStatus(PatientStatus.ONDISPATCHED);
         //save the case
     }

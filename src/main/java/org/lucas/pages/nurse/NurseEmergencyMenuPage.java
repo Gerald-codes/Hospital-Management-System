@@ -5,6 +5,7 @@ import org.lucas.Emergency.EmergencyCase;
 import org.lucas.Emergency.EmergencyCase_Dispatch;
 import org.lucas.Emergency.EmergencySystem;
 import org.lucas.Emergency.enums.PatientStatus;
+import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
 import org.lucas.models.Nurse;
 import org.lucas.models.Patient;
@@ -88,6 +89,7 @@ public class NurseEmergencyMenuPage extends UiBase {
         ECsystem.addEmergencyCase(newCase);
 
         System.out.println("\nNew Case Registered | Case ID: " + caseID + " | Patient: " + patient.getName());
+        ESController.saveCasesToFile(ECsystem);
         new NurseMainPage();
     }
 

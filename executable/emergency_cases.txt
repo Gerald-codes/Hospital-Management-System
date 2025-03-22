@@ -1,1 +1,2 @@
-[]
+EmergencyCase{caseID=1, patient=User{id='P013', loginName='null', name='juny', password='null', email='null', gender='male'}, chiefComplaint='diarrhea', arrivalMode='Walk-In', arrivalDateTime=2025-03-22T20:38:21.574082, triageLevel='PRIORITY_4_NON_EMERGENCY', initialScreeningNurse=null, screeningdoctor=null, assignedDoctor=null, location='EMERGENCY_ROOM_WAITING_ROOM', patientStatus=WAITING, emergencyProcedures=[], dateAndTimeOfScreening=null, isUrgentTreatment=false}
+====================================

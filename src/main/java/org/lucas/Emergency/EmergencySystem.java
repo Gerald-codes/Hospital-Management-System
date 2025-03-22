@@ -78,7 +78,7 @@ public class EmergencySystem {
     public void addEmergencyCase(EmergencyCase newCase) {
         if (!caseExists(newCase.getCaseID())) {
             emergencyCases.add(newCase); // add the new case
-            ESController.saveCasesToFile(); // Save immediately after adding
+//            ESController.saveCasesToFile(); // Save immediately after adding
         } else {
             System.out.println("Case with ID " + newCase.getCaseID() + " already exists!"); // print the error message
             // if the case already
@@ -906,4 +906,5 @@ public class EmergencySystem {
 //        // system.loadAllCases();
 //        // system.emergencyCaseDispatch.getFirst().printIncidentReport();
 //    }
+
 }

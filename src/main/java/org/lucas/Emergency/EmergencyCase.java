@@ -4,6 +4,10 @@ import org.lucas.models.*;
 import org.lucas.Emergency.enums.*;
 import org.lucas.models.enums.TriageLevel;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -37,14 +41,16 @@ public class EmergencyCase {
     // standard triage levels used in the emergency department
 
     // helper method to check if the triage level is valid
-//    public static boolean isValidTriageLevel(String triageLevel) {
-//        for (String validLevel : TRIAGE_LEVELS) {
-//            if (validLevel.equals(triageLevel)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
+    public static boolean isValidTriageLevel(String triageLevel) {
+        for (TriageLevel level : TriageLevel.values()) {
+            // Compare using the enum's name or description as needed
+            if (level.name().equalsIgnoreCase(triageLevel) || level.getDescription().equalsIgnoreCase(triageLevel)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
     /**
@@ -70,6 +76,7 @@ public class EmergencyCase {
         this.location = isUrgent ? PatientLocation.EMERGENCY_ROOM_TRAUMA_ROOM : PatientLocation.EMERGENCY_ROOM_WAITING_ROOM ; // Set default location
         this.triageLevel = isUrgent ? TriageLevel.PRIORITY_1_CRITICAL : TriageLevel.PRIORITY_4_NON_EMERGENCY;
         this.isUrgent = isUrgent;
+
     }
     /**
      * Constructor for EmergencyCase
@@ -97,6 +104,7 @@ public class EmergencyCase {
         this.emergencyProcedures = new ArrayList<>();
         this.triageLevel = isUrgent ? TriageLevel.PRIORITY_1_CRITICAL : TriageLevel.PRIORITY_4_NON_EMERGENCY;
         this.isUrgent = isUrgent;
+
 
     }
     /**
@@ -287,11 +295,11 @@ public class EmergencyCase {
 //        System.out.println("Vital Signs: " + vitalSigns);
 //        System.out.println("Patient Location: " + location);
 //    }
-
-
-    public void setInitialScreeningNurses(List<User> nurses) {
-        this.initialScreeningNurse = nurses;
-    }
+//
+//
+//    public void setInitialScreeningNurses(List<User> nurses) {
+//        this.initialScreeningNurse = nurses;
+//    }
 
     /**
      * Get the initial screening nurses
@@ -570,4 +578,5 @@ public class EmergencyCase {
                 ", isUrgentTreatment=" + isUrgent +
                 '}';
     }
+
 }

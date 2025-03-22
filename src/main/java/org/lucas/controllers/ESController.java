@@ -2,6 +2,8 @@ package org.lucas.controllers;
 
 import com.google.gson.reflect.TypeToken;
 import org.lucas.Emergency.EmergencyCase;
+import org.lucas.Emergency.EmergencyCase_Dispatch;
+import org.lucas.Emergency.EmergencySystem;
 import org.lucas.Globals;
 import org.lucas.models.Appointment;
 import org.lucas.util.JarLocation;
@@ -20,6 +22,7 @@ import java.util.List;
 
 public class ESController {
     private static List<EmergencyCase> emergencyCases = new ArrayList<>();
+    private static List<EmergencyCase_Dispatch> emergencyCaseDispatch = new ArrayList<>();
     private static final String fileName = "emergency_cases.txt";
 
 
@@ -73,9 +76,10 @@ public class ESController {
     //    }
     //}
 
-    public static void saveCasesToFile() {
+    public static void saveCasesToFile(EmergencySystem emergencySystem) {
         String basePath = "";
-
+        List<EmergencyCase> emergencyCases = emergencySystem.getEmergencyCases();
+        List<EmergencyCase_Dispatch> emergencyCaseDispatch = emergencySystem.getEmergencyCaseDispatch();
         // get the jar location
         try {
             basePath = JarLocation.getJarDirectory();
@@ -84,13 +88,26 @@ public class ESController {
             throw new RuntimeException(e);
         }
         String path = Paths.get(basePath, fileName).toString();
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
-            String json = Globals.gsonPrettyPrint.toJson(emergencyCases);
-            writer.write(json);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, false))) { // false to overwrite
+            if (emergencyCases.isEmpty() && emergencyCaseDispatch.isEmpty()) {
+                writer.write("No emergency cases available.\n");
+            } else {
+                // Write each EmergencyCase using its toString() method
+                for (EmergencyCase ec : emergencyCases) {
+                    writer.write(ec.toString());
+                }
+                // Optionally, also write the dispatch cases if needed
+                for (EmergencyCase_Dispatch ecd : emergencyCaseDispatch) {
+                    writer.write(ecd.toString());
+
+                }
+            }
             System.out.println("Emergency Cases saved to " + fileName);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
     }
 
 
