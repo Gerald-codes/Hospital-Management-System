@@ -45,6 +45,8 @@ public class EmergencyCase {
 //        }
 //        return false;
 //    }
+
+
     /**
      * Constructor for EmergencyCase
      * @param caseID - unique identifier for the case
@@ -179,6 +181,9 @@ public class EmergencyCase {
         return this.location;
     }
 
+    public void setLocation(PatientLocation location) {
+        this.location = location;
+    }
 
     /**
      * Get method for the emergency procedures performed on the patient

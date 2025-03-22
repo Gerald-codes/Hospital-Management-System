@@ -803,21 +803,30 @@ public class EmergencySystem {
 //    }
 //
 //    // print active dispatch cases
-//    public void printActiveDispatch() {
-//
-//        if (emergencyCaseDispatch.isEmpty()) {
-//            System.out.println("No emergency dispatch cases in the system.");
-//            return;
-//        }
-//        for (EmergencyCase c : emergencyCaseDispatch) {
-//            if (c.getPatientStatus().toString() == "ONDISPATCHED") {
-//                System.out.println(c.printIncidentReport());
-//            } else {
-//                System.out.println("No active Dispatch Cases");
-//            }
-//        }
-//
-//    }
+    public void printActiveDispatch() {
+
+        if (emergencyCaseDispatch.isEmpty()) {
+            System.out.println("No emergency dispatch cases in the system.");
+            return;
+        }
+        for (EmergencyCase c : emergencyCaseDispatch) {
+            if (c.getPatientStatus().toString() == "ONDISPATCHED") {
+                System.out.println(c.printIncidentReport());
+            } else {
+                System.out.println("No active Dispatch Cases");
+            }
+        }
+
+    }
+    public void printAllDispatch(){
+        if (emergencyCaseDispatch.isEmpty()) {
+            System.out.println("No emergency dispatch cases in the system.");
+            return;
+        }
+        for (EmergencyCase c : emergencyCaseDispatch){
+            System.out.println(c.printIncidentReport());
+        }
+    }
 
 //    public static void main(String[] args) {
 //        // Create a new emergency system

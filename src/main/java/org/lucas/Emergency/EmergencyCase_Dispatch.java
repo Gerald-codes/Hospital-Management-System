@@ -138,7 +138,7 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
     // Set the patient arrival time to be now and update the patient status to be from OnDispatch to Waiting.
     public void setPatientStatusToArrived(){
         SetArrivalDateTime(LocalDateTime.now());
-        setPatientStatus(PatientStatus.WAITING);
+        setPatientStatus(PatientStatus.DONE);
     }
 
     /**

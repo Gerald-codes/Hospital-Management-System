@@ -712,9 +712,10 @@ public class UserController {
         String name = InputValidator.getValidStringInput("Enter name: ");
         String gender = InputValidator.getValidStringInput("Enter gender: ");
         String phoneNumber = InputValidator.getValidStringInput("Enter phone number: ");
+        ElectronicHealthRecord electronicHealthRecord = new ElectronicHealthRecord();
 
         // Create a new Patient object with the collected data
-        Patient newPatient = new Patient( patientID, name, gender,  phoneNumber);
+        Patient newPatient = new Patient( patientID, name, gender,  phoneNumber, electronicHealthRecord);
 
         // Output confirmation or the new patient info (you can display the patient info here as needed)
         System.out.println("New patient " + newPatient.getName() + " created!");

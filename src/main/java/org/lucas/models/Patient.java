@@ -77,7 +77,7 @@ public class Patient extends User{
     }
 
     //Create Emergency Patient
-    public Patient(String UserID,String name,String gender, String phoneNumber){
+    public Patient(String UserID,String name,String gender, String phoneNumber, ElectronicHealthRecord electronicHealthRecord){
         super(UserID,name,gender,phoneNumber);
     }
 
