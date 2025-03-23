@@ -3,10 +3,7 @@ package org.lucas.models;
 
 import org.lucas.core.Alert;
 import org.lucas.models.enums.TriageLevel;
-import org.lucas.util.InputValidator;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +16,7 @@ public class Patient extends User{
     // Private fields for storing patient information
     private List<Alert> alertHistory;              // List of alerts related to the patient
     private String dateOfBirth;                // Date of birth of the patient
-    private ElectronicHealthRecord ElectronicHealthRecord; // Electronic Health Record of the patient
+    private ElectronicHealthRecord electronicHealthRecord; // Electronic Health Record of the patient
     private String patientSpecificFactor;         // Specific factors like allergies or conditions
     private String assignedNurse;                 // Name of the assigned nurse
     private String assignedDoctor;                // Name of the assigned doctor
@@ -32,7 +29,6 @@ public class Patient extends User{
     private String ethnicity;                     // Ethnicity of the patient
     private String healthcareDepartment;          // Healthcare department handling the patient
     private PatientConsent patientConsent;
-    private TriageLevel triageLevel;
 
     /**
      * Constructor to initialize a Patient object with all attributes, including alert history.
@@ -60,7 +56,7 @@ public class Patient extends User{
                    String occupation, String ethnicity, String healthcareDepartment) {
         super(userID, userName, name, password, email, gender, phoneNumber);
         this.dateOfBirth = dateOfBirth;
-        this.ElectronicHealthRecord = new ElectronicHealthRecord();
+        this.electronicHealthRecord = new ElectronicHealthRecord();
         this.patientSpecificFactor = patientSpecificFactor;
         this.assignedDoctor = assignedDoctor;
         this.assignedNurse = assignedNurse;
@@ -77,8 +73,12 @@ public class Patient extends User{
     }
 
     //Create Emergency Patient
-    public Patient(String UserID,String name,String gender, String phoneNumber, ElectronicHealthRecord electronicHealthRecord){
+    public Patient(String UserID,String name,String gender, String phoneNumber, ElectronicHealthRecord electronicHealthRecord,
+                   PatientConsent patientConsent, List<Alert> alertHistory){
         super(UserID,name,gender,phoneNumber);
+        this.electronicHealthRecord = electronicHealthRecord;
+        this.patientConsent = patientConsent;
+        this.alertHistory = alertHistory;
     }
 
     public void setAlertHistory(List<Alert> alertHistory) {
@@ -86,11 +86,11 @@ public class Patient extends User{
     }
 
     public ElectronicHealthRecord getElectronicHealthRecord() {
-        return ElectronicHealthRecord;
+        return electronicHealthRecord;
     }
 
     public void setElectronicHealthRecord(ElectronicHealthRecord electronicHealthRecord) {
-        ElectronicHealthRecord = electronicHealthRecord;
+        this.electronicHealthRecord = electronicHealthRecord;
     }
 
     /**
@@ -205,14 +205,14 @@ public class Patient extends User{
      *
      * @return the ElectronicHealthRecord object associated with the patient.
      */
-    public ElectronicHealthRecord getEHR() { return this.ElectronicHealthRecord; }
+    public ElectronicHealthRecord getEHR() { return this.electronicHealthRecord; }
 
     /**
      * Sets the electronic health record (EHR) for the patient.
      *
      * @param ElectronicHealthRecord the ElectronicHealthRecord object to be set.
      */
-    public void setEHR(ElectronicHealthRecord ElectronicHealthRecord) { this.ElectronicHealthRecord = ElectronicHealthRecord; }
+    public void setEHR(ElectronicHealthRecord ElectronicHealthRecord) { this.electronicHealthRecord = ElectronicHealthRecord; }
 
     /**
 
@@ -285,14 +285,14 @@ public class Patient extends User{
     /**
      * Displays information about the patient
      */
-    public void displayPatientInfo(Patient patient) {
+    public void displayPatientInfo() {
 
         System.out.println("=======================================");
         System.out.println("          PATIENT INFORMATION          ");
         System.out.println("=======================================");
         System.out.printf("%-20s: %s%n", "Patient ID", this.getId());
-        System.out.printf("%-20s: %s%n", "Name", patient.getName());
-        System.out.printf("%-20s: %s%n", "Gender", patient.getGender());
+        System.out.printf("%-20s: %s%n", "Name", this.getName());
+        System.out.printf("%-20s: %s%n", "Gender", this.getGender());
         System.out.printf("%-20s: %s%n", "Date of Birth", this.dateOfBirth);
         System.out.printf("%-20s: %s%n", "Height", this.height + " cm");
         System.out.printf("%-20s: %s%n", "Weight", this.weight + " kg");
@@ -301,48 +301,48 @@ public class Patient extends User{
         System.out.printf("%-20s: %s%n", "Emergency Contact", this.emergencyContactNumber);
         System.out.printf("%-20s: %s%n", "Occupation", this.occupation);
         System.out.printf("%-20s: %s%n", "Ethnicity", this.ethnicity);
-        System.out.printf("%-20s: %s%n", "Email", patient.getEmail());
+        System.out.printf("%-20s: %s%n", "Email", this.getEmail());
         System.out.printf("%-20s: %s%n", "Healthcare Dept.", this.healthcareDepartment);
         System.out.printf("%-20s: %s%n", "Consent", this.patientConsent.isConsentGiven());
 
         System.out.println("\n---------------------------------------");
         System.out.println("          ELECTRONIC HEALTH RECORD     ");
         System.out.println("---------------------------------------");
-        System.out.printf("%-20s: %s%n", "Allergies", formatList(this.ElectronicHealthRecord.getAllergies()));
-        System.out.printf("%-20s: %s%n", "Medical History", formatList(this.ElectronicHealthRecord.getMedicalHistory()));
+        System.out.printf("%-20s: %s%n", "Allergies", formatList(this.electronicHealthRecord.getAllergies()));
+        System.out.printf("%-20s: %s%n", "Medical History", formatList(this.electronicHealthRecord.getMedicalHistory()));
 
         System.out.println("\nCurrent Medications:");
-        for (Medication med : this.ElectronicHealthRecord.getCurrentMedications()) {
+        for (Medication med : this.electronicHealthRecord.getCurrentMedications()) {
             System.out.println("  - " + med.getMedicationName());
         }
 
-        System.out.printf("%-20s: %s%n", "\nVital Signs", this.ElectronicHealthRecord.getVitalSigns());
+        System.out.printf("%-20s: %s%n", "\nVital Signs", this.electronicHealthRecord.getVitalSigns());
 
         System.out.println("\nPast Surgeries:");
-        for (String surgery : this.ElectronicHealthRecord.getPastSurgeries()) {
+        for (String surgery : this.electronicHealthRecord.getPastSurgeries()) {
             System.out.println("  - " + surgery);
         }
 
         System.out.println("\nVaccination Record:");
-        for (String vaccine : this.ElectronicHealthRecord.getVaccinationRecord()) {
+        for (String vaccine : this.electronicHealthRecord.getVaccinationRecord()) {
             System.out.println("  - " + vaccine);
         }
 
         System.out.println("\nLab Results:");
-        for (String result : this.ElectronicHealthRecord.getLabResults()) {
+        for (String result : this.electronicHealthRecord.getLabResults()) {
             System.out.println("  - " + result);
         }
 
         System.out.println("\nImaging Records:");
-        for (String image : this.ElectronicHealthRecord.getImagingRecords()) {
+        for (String image : this.electronicHealthRecord.getImagingRecords()) {
             System.out.println("  - " + image);
         }
 
-        if (this.ElectronicHealthRecord.getSymptoms().isEmpty()) {
+        if (this.electronicHealthRecord.getSymptoms().isEmpty()) {
             System.out.printf("%-20s: %s%n", "\nSymptoms", "Nil");
         } else {
             System.out.printf("%-20s:%n", "\nSymptoms"); // Print the label first
-            for (Symptoms symptom : this.ElectronicHealthRecord.getSymptoms()) {
+            for (Symptoms symptom : this.electronicHealthRecord.getSymptoms()) {
                 System.out.printf("  - %-18s: %s%n", "Symptom Name", symptom.getSymptomName());
                 System.out.printf("    %-18s: %s%n", "Symptom ID", symptom.getSymptomId());
                 System.out.printf("    %-18s: %d%n", "Severity Level", symptom.getSeverity());
@@ -352,8 +352,8 @@ public class Patient extends User{
             }
         }
 
-        System.out.printf("%-20s: %s%n", "Diagnosis", this.ElectronicHealthRecord.getDiagnosis());
-        System.out.printf("%-20s: %s%n", "Clinical Notes", this.ElectronicHealthRecord.getClinicalNotes());
+        System.out.printf("%-20s: %s%n", "Diagnosis", this.electronicHealthRecord.getDiagnosis());
+        System.out.printf("%-20s: %s%n", "Clinical Notes", this.electronicHealthRecord.getClinicalNotes());
 
         if (!this.getEHR().getOutcomeMonitoringRecords().isEmpty()) {
             System.out.println("\nOutcome Monitoring Records:");
@@ -371,7 +371,7 @@ public class Patient extends User{
      * @return A list of Medication objects for patient's current medications.
      */
     public List<Medication> getMedications() {
-        return this.ElectronicHealthRecord.getCurrentMedications();
+        return this.electronicHealthRecord.getCurrentMedications();
     }
 
     /**
@@ -392,5 +392,8 @@ public class Patient extends User{
         PatientConsent patientconsent = new PatientConsent(true,"");
     }
 
+    public void updatePatientVitalSigns(double temperature, int heartRate, int systolic, int diastolic, int respiratoryRate){
+        electronicHealthRecord.updateVitalSigns(temperature, heartRate, systolic, diastolic, respiratoryRate);
+    }
 
 }

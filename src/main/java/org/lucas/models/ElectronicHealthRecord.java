@@ -234,6 +234,15 @@ public class ElectronicHealthRecord {
         vitalSigns.setBloodPressureDiastolic(diastolic);
     }
 
+    public void updateVitalSigns(double temperature, int heartRate, int systolic, int diastolic, int respiratoryRate) {
+        VitalSigns VitalSigns = this.getVitalSigns();
+        VitalSigns.setTemperature(temperature);
+        VitalSigns.setHeartRate(heartRate);
+        VitalSigns.setBloodPressureSystolic(systolic);
+        VitalSigns.setBloodPressureDiastolic(diastolic);
+        VitalSigns.setRespiratoryRate(respiratoryRate);
+    }
+
     /**
      * Adds an outcome monitoring record for a medication.
      *

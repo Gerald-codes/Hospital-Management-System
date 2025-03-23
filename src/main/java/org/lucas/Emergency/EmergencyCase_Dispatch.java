@@ -213,13 +213,9 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
         return responseTime;
     }
 
-
-
-
-
-
-
-
+    public LocalDateTime getDispatchArrivalTime() {
+        return this.dispatchArrivalTime;
+    }
 
 
     // For testing

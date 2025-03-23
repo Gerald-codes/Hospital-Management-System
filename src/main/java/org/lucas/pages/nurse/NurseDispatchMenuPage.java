@@ -154,10 +154,10 @@ public class NurseDispatchMenuPage extends UiBase {
 
         DispatchInfo dispatchInfo = new DispatchInfo(ambulanceID, paramedicNurses, equipmentList, dispatchLocation);
         EmergencyCase_Dispatch newDispatchCase = new EmergencyCase_Dispatch(caseID, patient, chiefComplaint, arrivalMode, patientStatus, dispatchInfo, isUrgent);
-        ECsystem.addEmergencyCaseDispatch(newDispatchCase);
+        ESController.addEmergencyCaseDispatch(newDispatchCase);
         System.out.println("New Dispatch Case | Case ID: " + caseID + " | Patient Name: " + patient.getName()
                 + " | Registered successfully!\n");
-        ESController.saveCasesToFile(ECsystem);
+        ESController.saveEmergencyCasesToFile();
         new NurseDispatchMenuPage();
     }
 

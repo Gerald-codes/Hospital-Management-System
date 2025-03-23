@@ -4,6 +4,7 @@ import org.lucas.models.*;
 import org.lucas.Emergency.enums.*;
 import org.lucas.models.enums.TriageLevel;
 
+import javax.print.Doc;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -28,8 +29,8 @@ public class EmergencyCase {
     private String arrivalMode; // Ambulance, Helicopter, Walk-in
     private LocalDateTime arrivalDateTime;
     private TriageLevel triageLevel; // Enum or String based on severity
-    private List<User> initialScreeningNurse; // list of either nurse, doctor, paramedic etc // Connect to staff
-    private List<User> screeningdoctor; // staff member ID
+    private Nurse initialScreeningNurse; // list of either nurse, doctor, paramedic etc // Connect to staff
+    private Doctor screeningdoctor; // staff member ID
 
     private Doctor assignedDoctor;
     private PatientLocation location; // Current location of the patient (e.g., Waiting Room, Treatment Room)
@@ -138,42 +139,9 @@ public class EmergencyCase {
         return this.dateAndTimeOfScreening;
     }
 
-
-    /**
-     * Set method for the triage level for the patient and update the patient's location
-     * and urgency status based on the triage level
-     * @param triageLevelInput
-     */
-
-//    public void setTriageLevel(String triageLevelInput) {
-////         check if the triage level is valid
-//        if (isValidTriageLevel(triageLevelInput)) {
-//            this.triageLevel = triageLevelInput;
-//            // For Priority 1 (Critically-ill) or Priority 2 (Major emergencies)
-//            if (triageLevel == TRIAGE_LEVELS[0] || triageLevel == TRIAGE_LEVELS[1]) {
-//                // set location to trauma room
-//                location = "Emergency room - Trauma Room";
-//                // set isUrgentTreatment to true
-//                isUrgentTreatment = true;
-//
-//            } else if (triageLevel == TRIAGE_LEVELS[2]) {
-//                // set location to observation unit
-//                location = "Emergency room - Observation Unit";
-//                // set isUrgentTreatment to false
-//                isUrgentTreatment = false;
-//            } else {
-//                // set location to waiting room
-//                location = "Emergency room - Waiting Room";
-//                // set isUrgentTreatment to false
-//                isUrgentTreatment = false;
-//            }
-//        } else {
-//            // if the triage level is not valid, throw an exception
-//            throw new IllegalArgumentException(
-//                    "Invalid triage level. Valid levels are: " + String.join(", ", TRIAGE_LEVELS));
-//        }
-//        this.triageLevel = triageLevelInput;
-//    }
+    public void setTriageLevel(TriageLevel triageLevel){
+        this.triageLevel = triageLevel;
+    }
 
     /**
      * Get method for the status (WAITING, DISCHARGE, etc) of the patient
@@ -189,6 +157,9 @@ public class EmergencyCase {
         return this.location;
     }
 
+    public TriageLevel getTriageLevel(){
+        return this.triageLevel;
+    }
     public void setLocation(PatientLocation location) {
         this.location = location;
     }
@@ -305,22 +276,22 @@ public class EmergencyCase {
      * Get the initial screening nurses
      * @return a list of staff members who performed the initial screening
      */
-    public List<User> getInitialScreeningNurses() {
+    public Nurse getInitialScreeningNurses() {
         return this.initialScreeningNurse;
     }
 
-    /**
-     * Set the screening doctors
-     * @param doctors
-     */
-    public void setScreeningDoctors(List<User> doctors) {
-        this.screeningdoctor = doctors;
+    public void setInitialScreeningNurse(Nurse nurse) {
+        this.initialScreeningNurse = nurse;
+    }
+
+    public void setScreeningDoctor(Doctor doctor) {
+        this.screeningdoctor = doctor;
     }
     /**
      * Get the screening doctors
      * @return a list of staff members who performed the screening
      */
-    public List<User> getScreeningDoctors() {
+    public Doctor getScreeningDoctors() {
         return this.screeningdoctor;
     }
 
@@ -345,9 +316,8 @@ public class EmergencyCase {
      * @param doctor - staff member object
      * @param updatedLocation - updated location of the patient
      */
-    public void updateDoctorScreening(User doctor, String updatedLocation) {
-        this.screeningdoctor = new ArrayList<>(); //initialize a new list for screening doctor
-        this.screeningdoctor.add(doctor); //add the doctor to the list
+    public void updateDoctorScreening(Doctor doctor, String updatedLocation) {
+        setScreeningDoctor(doctor);
 //        this.location = updatedLocation; //update the location
         this.dateAndTimeOfScreening = LocalDateTime.now(); //update the date and time of screening
         // Set urgent treatment flag based on triage level
@@ -442,11 +412,10 @@ public class EmergencyCase {
          * Handle initial screening nurse
          * If the initial screening nurse is not null and not empty, print the nurse's name and ID
          */
-        if (initialScreeningNurse != null && !initialScreeningNurse.isEmpty()) {
-            User nurse = initialScreeningNurse.get(0);
+        if (initialScreeningNurse != null) {
             report.append("Initial Screening Nurse: ")
-                    .append(nurse.getName())
-                    .append(" (ID: ").append(nurse.getId()).append(")\n"); // print the initial screening nurse
+                    .append(initialScreeningNurse.getName())
+                    .append(" (ID: ").append(initialScreeningNurse.getId()).append(")\n"); // print the initial screening nurse
         }
 
         /**
@@ -472,11 +441,10 @@ public class EmergencyCase {
          * Handle screening doctor
          * If the screening doctor is not null and not empty, print the doctor's name and ID
          */
-        if (screeningdoctor != null && !screeningdoctor.isEmpty()) {
-            User doctor = screeningdoctor.get(0);
+        if (screeningdoctor != null ) {
             report.append("Attending Doctor: ")
-                    .append(doctor.getName())
-                    .append(" (ID: ").append(doctor.getId()).append(")\n"); // print the attending doctor
+                    .append(screeningdoctor.getName())
+                    .append(" (ID: ").append(screeningdoctor.getId()).append(")\n"); // print the attending doctor
         }
 
         /**
@@ -579,4 +547,41 @@ public class EmergencyCase {
                 '}';
     }
 
+    public void displayCase(){
+        System.out.println("---------------------------------");
+
+        // Print each emergency case's details in a readable format
+        System.out.printf("Case ID: %d\n", this.getCaseID());
+        System.out.printf("Patient Name: %s\n", this.getPatient().getName());
+        System.out.printf("Location: %s\n", this.getLocation());
+        System.out.printf("Chief Complaint: %s\n", this.getChiefComplaint());
+        System.out.printf("Arrival Mode: %s\n", this.getArrivalMode());
+        System.out.printf("Arrival Date & Time: %s\n", this.getArrivalDateTime());
+        System.out.printf("Triage Level: %s\n", this.getTriageLevel());
+        System.out.printf("Patient Status: %s\n", this.getPatientStatus());
+        System.out.printf("Urgent: %s\n", this.isUrgent() ? "YES" : "NO");
+
+        // If it's a dispatch case, print additional details
+        if (this instanceof EmergencyCase_Dispatch dispatchCase) {
+            // Print Dispatch Info
+            System.out.println("=== Dispatch Info ===");
+            System.out.printf("Vehicle ID: %d\n", dispatchCase.getDispatchInfo().getVehicleId());
+            System.out.println("Medivac Members:");
+            for (Nurse nurse : dispatchCase.getDispatchInfo().getMedivacMembers()) {
+                System.out.println("  - " + nurse.getName()); // Assuming Nurse has a getName() method
+            }
+
+            System.out.println("Equipment:");
+            for (String equipment : dispatchCase.getDispatchInfo().getEquipment()) {
+                System.out.println("  - " + equipment);
+            }
+
+            System.out.printf("Dispatch Location: %s\n", dispatchCase.getDispatchInfo().getDispatchLocation());
+            System.out.printf("Dispatch Arrival Time: %s\n", dispatchCase.getDispatchArrivalTime());
+            System.out.printf("Time of Call: %s\n", dispatchCase.getTimeOfCall());
+            System.out.printf("Response Time: %s\n", dispatchCase.getResponseTime().toMinutes() + " minutes");
+        }
+
+        System.out.println("---------------------------------");
+    }
 }

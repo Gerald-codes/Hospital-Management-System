@@ -301,13 +301,6 @@ public class EmergencySystem {
 //        }
 //    }
 
-    /**
-     * Convert an emergency case to a CSV string
-     * @param emergencyCase emergency case to convert
-     * return CSV string of the emergency case
-     * Handles nurse details, vital signs, doctor details, procedures, and patient status
-     * Uses String.format to format the string with proper ordering
-     */
 //    private String emergencyCaseToString(EmergencyCase emergencyCase) {
 //        // Handle nurse details
 //        List<User> nurses = emergencyCase.getInitialScreeningNurses(); // get the initial screening nurses
