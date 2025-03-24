@@ -20,6 +20,7 @@ import java.nio.file.Paths;
 import java.security.SecureRandom;
 import java.security.spec.KeySpec;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.lucas.controllers.MedicationController.generateRandomMedications;
 import static org.lucas.controllers.MedicationController.getAvailableMedications;
@@ -33,10 +34,12 @@ public class UserController {
     private static List<Patient> generatePatients = new ArrayList<>();
     private static List<Nurse> generateNurses = new ArrayList<>();
     private static List<Doctor> allDoctors = new ArrayList<>();
+    private static List<Medication> availableMedication = new ArrayList<>();
     private static List<Nurse> allNurses = new ArrayList<>();
     private static final String doctorFileName = "doctor_data.txt";
     private static final String patientFileName = "patient_data.txt";
     private static final String nurseFileName = "nurse_data.txt";
+
     /**
      * the active doctor that is currently logged in.
      */
@@ -291,7 +294,6 @@ public class UserController {
         List<User> authenticated = users.stream().filter(usr->
             usr.getLoginName().equals(username) && usr.checkPassword(password)
         ).toList();
-        System.out.println("HEY" + authenticated);
 
         if(authenticated.isEmpty()){
             auditManager.logAction("NIL", "LOGIN", "System", "FAILED","");
@@ -476,21 +478,18 @@ public class UserController {
         for (int i = 0; i < patients.size(); i++) {
             ElectronicHealthRecord electronicHealthRecord = new ElectronicHealthRecord();
             electronicHealthRecord.setAllergies(getRandomSublist(Arrays.asList(allergyOptions), random));
-            if (i != 9) {
-                electronicHealthRecord.setCurrentMedications(generateRandomMedications(getAvailableMedications()));
-            }
             electronicHealthRecord.setMedicalHistory(getRandomSublist(Arrays.asList(medicalHistoryOptions), random));
             electronicHealthRecord.setPastSurgeries(getRandomSublist(Arrays.asList(pastSurgeriesOptions), random));
             electronicHealthRecord.setVaccinationRecord(getRandomSublist(Arrays.asList(vaccinationOptions), random));
-
             electronicHealthRecord.setVitalSigns(generateRandomVitalSigns(random));
             electronicHealthRecord.setLabResults(getRandomSublist(Arrays.asList(labResultsOptions), random));
             electronicHealthRecord.setImagingRecords(getRandomSublist(Arrays.asList(imagingOptions), random));
             electronicHealthRecord.setClinicalNotes(clinicalNotesOptions[random.nextInt(clinicalNotesOptions.length)]);
 
-            int numSymptoms = new Random().nextInt(2) + 1; // Randomly select 1 or 2 symptoms
-
-            electronicHealthRecord.setSymptoms(generateSymptoms().subList(0, numSymptoms));
+            List<Symptoms> allSymptoms = generateSymptoms();
+            List<Symptoms> selectedSymptoms = getRandomSymptoms(allSymptoms);
+            electronicHealthRecord.setSymptoms(selectedSymptoms);
+            electronicHealthRecord.setCurrentMedications(getMedicationsForSymptom(selectedSymptoms));
             patients.get(i).setEHR(electronicHealthRecord);
         }
     }
@@ -503,6 +502,7 @@ public class UserController {
         int respiratoryRate = random.nextInt(11) + 12;
         return new VitalSigns(temperature, heartRate, systolic, diastolic, respiratoryRate);
     }
+
     public static List <Symptoms> generateSymptoms(){
         List<Symptoms> symptomsList = new ArrayList<>();
 
@@ -542,6 +542,87 @@ public class UserController {
 
         return symptomsList;
     }
+    // Add this method to generate unique symptoms for each user
+    public static List<Symptoms> getRandomSymptoms(List<Symptoms> allSymptoms) {
+        // Create a copy to avoid modifying the original list
+        List<Symptoms> copyOfSymptoms = new ArrayList<>(allSymptoms);
+
+        // Shuffle with a new Random instance each time
+        Collections.shuffle(copyOfSymptoms, new Random(System.currentTimeMillis()));
+
+        // Select 2-3 symptoms
+        int count = new Random().nextInt(2) + 2; // 2 or 3
+
+        // Make sure we don't exceed the list size
+        count = Math.min(count, copyOfSymptoms.size());
+
+        return copyOfSymptoms.subList(0, count);
+    }
+
+    private static Map<String, List<Medication>> symptomToMedications = new HashMap<>();
+    private static Map<String, List<Medication>> getSymptomToMedication() {
+        if (symptomToMedications.isEmpty()) {
+            List<Medication> availableMedication = getAvailableMedications();
+            // Make sure the list is not empty
+            if (availableMedication == null || availableMedication.isEmpty()) {
+                throw new IllegalStateException("Available medications list is empty");
+            }
+            symptomToMedications.put("Fever, chills, body aches", Arrays.asList(availableMedication.get(0), availableMedication.get(7))); // Paracetamol, Ibuprofen
+            symptomToMedications.put("Sore Throat", Arrays.asList(availableMedication.get(3), availableMedication.get(5))); // Diphenhydramine, Amoxicillin
+            symptomToMedications.put("Runny Nose, Nasal Congestion", Arrays.asList(availableMedication.get(3), availableMedication.get(4))); // Diphenhydramine, Loperamide
+            symptomToMedications.put("Chest Pain", Arrays.asList(availableMedication.get(2), availableMedication.get(1))); // Furosemide, Aspirin
+            symptomToMedications.put("Difficulty Breathing", Arrays.asList(availableMedication.get(6), availableMedication.get(2))); // Metformin, Furosemide
+            symptomToMedications.put("Chronic Cough", Arrays.asList(availableMedication.get(3), availableMedication.get(5))); // Diphenhydramine, Amoxicillin
+            symptomToMedications.put("Severe Headache", Arrays.asList(availableMedication.get(7), availableMedication.get(0))); // Ibuprofen, Paracetamol
+            symptomToMedications.put("Dizziness, Light headedness", Arrays.asList(availableMedication.get(3))); // Diphenhydramine
+            symptomToMedications.put("Loss of Consciousness", Arrays.asList(availableMedication.get(1))); // Aspirin
+            symptomToMedications.put("Nausea and Vomiting", Arrays.asList(availableMedication.get(3), availableMedication.get(4))); // Diphenhydramine, Loperamide
+            symptomToMedications.put("Severe Abdominal Pain", Arrays.asList(availableMedication.get(2), availableMedication.get(7))); // Furosemide, Ibuprofen
+            symptomToMedications.put("Constipation", Arrays.asList(availableMedication.get(4))); // Loperamide
+            symptomToMedications.put("Rapid or Irregular Heartbeat", Arrays.asList(availableMedication.get(6), availableMedication.get(8))); // Metformin, Atorvastatin
+            symptomToMedications.put("Swelling in Legs and Ankles", Arrays.asList(availableMedication.get(2))); // Furosemide
+            symptomToMedications.put("Extreme Fatigue", Arrays.asList(availableMedication.get(9))); // Levothyroxine
+            symptomToMedications.put("Loss of Taste and Smell", Arrays.asList(availableMedication.get(5))); // Amoxicillin
+            symptomToMedications.put("Persistent Dry Cough", Arrays.asList(availableMedication.get(3))); // Diphenhydramine
+            symptomToMedications.put("Skin Rash or Itching", Arrays.asList(availableMedication.get(3), availableMedication.get(8))); // Diphenhydramine, Atorvastatin
+            symptomToMedications.put("Joint Pain and Swelling", Arrays.asList(availableMedication.get(7))); // Ibuprofen
+            symptomToMedications.put("Muscle Weakness", Arrays.asList(availableMedication.get(6), availableMedication.get(9))); // Metformin, Levothyroxine
+            symptomToMedications.put("High Cholesterol", Arrays.asList(availableMedication.get(8))); // Atorvastatin
+            symptomToMedications.put("Thyroid Issues", Arrays.asList(availableMedication.get(9))); // Levothyroxine
+        }
+        return symptomToMedications;
+    }
+
+    public static List<Medication> getMedicationsForSymptom(List<Symptoms> symptoms) {
+        // Use a Set to automatically eliminate duplicates
+        if (symptomToMedications.isEmpty()) {
+            getSymptomToMedication();
+        }
+        Set<Medication> medicationSet = new HashSet<>();
+
+        for (Symptoms symptom : symptoms) {
+            String symptomName = symptom.getSymptomName();
+            // Try case-insensitive lookup
+            for (Map.Entry<String, List<Medication>> entry : symptomToMedications.entrySet()) {
+                String key = entry.getKey();
+
+                if (key.equalsIgnoreCase(symptomName)) {
+                    // Add all medications to the set (duplicates will be automatically eliminated)
+                    medicationSet.addAll(entry.getValue());
+                    break;
+                }
+            }
+        }
+        // Convert the set back to a list for return
+        List<Medication> medicationList = new ArrayList<>(medicationSet);
+
+        // Limit the list to a maximum of 3 medications
+        if (medicationList.size() > 3) {
+            medicationList = medicationList.subList(0, 3);
+        }
+        return medicationList;
+    }
+
     //debugging patients(console print version)
     private static List<Patient> allpatients = new ArrayList<>();
 

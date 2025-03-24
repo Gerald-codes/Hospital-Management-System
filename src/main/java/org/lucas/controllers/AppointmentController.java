@@ -200,6 +200,7 @@ public class AppointmentController {
             String json = Globals.gsonPrettyPrint.toJson(appointments);
             writer.write(json);
             System.out.println("Appointments saved to " + fileName);
+            System.out.println("Press 0 to continue");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -14,6 +14,7 @@ import org.lucas.util.ZoomOAuth;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import org.lucas.audit.*;
 
 public class ViewAppointmentsPage extends UiBase {
     ListView listView;
@@ -38,10 +39,11 @@ public class ViewAppointmentsPage extends UiBase {
        ListView listView = (ListView) parentView;
         appointments = Globals.appointmentController.getAppointments()
                 .stream()
-                .filter(x->x.getAppointmentStatus() != AppointmentStatus.COMPLETED)
+                .filter(x->x.getAppointmentStatus() != AppointmentStatus.COMPLETED
+                        && x.getAppointmentStatus() != AppointmentStatus.EMERGENCY)
                 .toList();
 
-       // filter the appointments list and only show the appointments that are completed.
+       // filter the appointments list and only show the appointments that are not completed or non-emergency.
        listView.attachUserInput("Select Patient index", str-> selectAppointmentPrompt(appointments));
        refreshUi();
     }
@@ -58,6 +60,8 @@ public class ViewAppointmentsPage extends UiBase {
                 System.out.println("1. Approve appointment | 2. Reject appointment | 3. View Patient Info");
                 selectedIndex1 = InputHelper.getValidIndex("Select An Option", 1, 3);
         }
+
+        AuditManager auditManager = new AuditManager();
 
         switch (selectedIndex1){
             case 1:
@@ -76,6 +80,7 @@ public class ViewAppointmentsPage extends UiBase {
                     );
                     selectedAppointment.approveAppointment(UserController.getActiveDoctor(), joinUrl);
                     Globals.appointmentController.saveAppointmentsToFile();
+                    auditManager.logAction(UserController.getActiveDoctor().getId(), "Appointment accepted by doctor","Patient " + UserController.getActivePatient().getPatientID(),"APPOINTMENT ACCEPTED", "DOCTOR");
                 }catch (IOException e){
                     System.out.println("Error generating zoom link");
                 }
@@ -83,6 +88,8 @@ public class ViewAppointmentsPage extends UiBase {
             case 2:
                 selectedAppointment.setAppointmentStatus(AppointmentStatus.DECLINED);
                 Globals.appointmentController.saveAppointmentsToFile();
+                auditManager.logAction(UserController.getActiveDoctor().getId(), "Appointment declined by doctor","Patient " + UserController.getActivePatient().getPatientID(),"APPOINTMENT DECLINED", "DOCTOR");
+
                 break;
             case 3:
                 PatientInfoPage.patient = selectedAppointment.getPatient();

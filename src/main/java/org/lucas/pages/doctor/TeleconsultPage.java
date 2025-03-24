@@ -126,6 +126,13 @@ public class TeleconsultPage extends UiBase {
             canvas.previousPage();
             this.OnBackPressed();
         });
+        lv.attachUserInput("Refer Patient to Emergency", str -> {
+            System.out.println("Refering...");
+            appointment.referEmergency(appointment.getDoctorNotes());
+            Globals.appointmentController.saveAppointmentsToFile();
+            canvas.previousPage();
+            this.OnBackPressed();
+        });
         refreshUi();
     }
 
@@ -309,7 +316,6 @@ public class TeleconsultPage extends UiBase {
                 }
             }
         }
-
         canvas.setRequireRedraw(true);
     }
 }
