@@ -188,6 +188,23 @@ public class MedicationController {
         saveMedicationToFile();
     }
 
+    /**
+     * Adds a new medication to the list of available medications and saves the updated list to file.
+     *
+     * @param medicationName      The name of the medication.
+     * @param guidelineId         The ID of the clinical guideline associated with the medication.
+     * @param medicationId        The unique ID of the medication.
+     * @param dosage              The dosage instructions for the medication.
+     * @param sideEffects         The potential side effects of the medication.
+     * @param brandName           The brand name of the medication.
+     * @param stockAvailable      The current stock level of the medication.
+     * @param controlledSubstance Indicates whether the medication is a controlled substance.
+     * @param manufactureName     The name of the medication's manufacturer.
+     * @param batchNumber         The batch number of the medication.
+     * @param manufactureDate     The manufacturing date of the medication.
+     * @param expiryDate          The expiry date of the medication.
+     * @param price               The price of the medication.
+     */
     //add to availableMedication list
     public static void addNewMedication(String medicationName, String guidelineId, String medicationId, String dosage, String sideEffects, String brandName, int stockAvailable, boolean controlledSubstance, String manufactureName, String batchNumber, String manufactureDate, String expiryDate, double price) {
         Medication newMedication = new Medication(medicationName, guidelineId, medicationId, dosage, sideEffects, brandName, stockAvailable, controlledSubstance, manufactureName, batchNumber, manufactureDate, expiryDate, price);
@@ -195,6 +212,11 @@ public class MedicationController {
         saveMedicationToFile();
     }
 
+    /**
+     * Retrieves the latest guideline ID from the list of available medications.
+     *
+     * @return The latest guideline ID.
+     */
     public static String getLatestGuidelineId() {
         if (availableMedication.isEmpty()) {
             loadMedicationFromFile();
@@ -208,6 +230,11 @@ public class MedicationController {
         return latestGuidelineId;
     }
 
+    /**
+     * Retrieves the latest batch number from the list of available medications.
+     *
+     * @return The latest batch number.
+     */
     public static String getLatestBatchNumber() {
         if (availableMedication.isEmpty()) {
             loadMedicationFromFile();
@@ -223,6 +250,9 @@ public class MedicationController {
         return latestBatchNumber;
     }
 
+    /**
+     * Collects user input for adding a new medication and adds it to the list of available medications.
+     */
     // Method to collect user input and add a new medication to the list of available medications
     public static void collectUserInputAndAddMedication() {
         Scanner scan = new Scanner(System.in);
@@ -269,6 +299,9 @@ public class MedicationController {
         addNewMedication(medicationName, guidelineId, medicationID, dosage, sideEffects, brandName, stockAvailable, controlledSubstance, manufactureName, batchNumber, manufactureDate, expiryDate, medicationPrice);
     }
 
+    /**
+     * Removes a specified amount of stock from a medication.
+     */
     //method to remove stock from total stock
     public static void removeStockfromMedication(){
         Scanner scan = new Scanner(System.in);
@@ -300,6 +333,10 @@ public class MedicationController {
 
 
 
+    /**
+     * Edits the details of a specific medication identified by its ID.
+     * Allows modification of various attributes such as name, dosage, side effects, etc.
+     */
     public static void editMedicineDetails(){
         Scanner scan = new Scanner(System.in);
 
@@ -390,6 +427,11 @@ public class MedicationController {
     }
 
 
+    /**
+     * Prints the details of a given medication in a formatted manner.
+     *
+     * @param medication The medication whose details are to be printed.
+     */
     private static void printMedicationDetails(Medication medication) {
         System.out.println("\n=======================================");
         System.out.println("          MEDICATION DETAILS           ");
@@ -409,9 +451,19 @@ public class MedicationController {
         System.out.println("=======================================\n");
     }
 
+    /**
+     * Retrieves the medication ID.
+     *
+     * @return The medication ID.
+     */
     public static String getMedicationID() {
         return medicationID;
     }
+    /**
+     * Retrieves the second medication ID.
+     *
+     * @return The second medication ID.
+     */
     public static String getMedicationID1() {
         return medicationID1;
     }

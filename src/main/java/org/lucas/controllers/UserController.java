@@ -59,10 +59,9 @@ public class UserController {
      * Loads users (Patients, Doctors and Nurses) from files specified by patientFileName and doctorFileName.
      * This method first clears the current list of users, then loads patients from the patientFileName
      * and subsequently loads doctors from the doctorFileName, adding them to the users list.
-     * The files are expected to contain JSON representations of lists of Patient and Doctor objects, respectively.
+     * The files are expected to contain JSON representations of lists of {@link Patient} and {@link Doctor} objects, respectively.
      * If a file does not exist or an error occurs during reading or parsing, an error message is logged, and loading from that file is skipped.
      * Note: This method replaces the entire existing list of users.*/
-
     public static void loadPatientsFromFile() {
         allpatients.clear();
         StringBuilder sb = new StringBuilder();
@@ -79,6 +78,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Loads doctor data from the specified file.
+     * This method clears the existing list of doctors and then attempts to read doctor data from the file
+     * specified by {@code doctorFileName}. It assumes the file contains a JSON representation of a list of
+     * {@link Doctor} objects.
+     */
     private static void loadDoctorsFromFile() {
         allDoctors.clear();
         StringBuilder sb = new StringBuilder();
@@ -95,6 +100,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Loads nurse data from the specified file.
+     * This method clears the existing list of nurses and then attempts to read nurse data from the file
+     * specified by {@code nurseFileName}. It assumes the file contains a JSON representation of a list of
+     * {@link Nurse} objects.
+     */
     public static void loadNursesFromFile() {
         allNurses.clear();
         StringBuilder sb = new StringBuilder();
@@ -110,6 +121,11 @@ public class UserController {
             e.printStackTrace();
         }
     }
+    /**
+     * Saves the list of generated patients to a file.
+     * This method serializes the {@code generatePatients} list to a JSON string using Gson's pretty printing feature
+     * and writes it to the file specified by {@code patientFileName}.
+     */
     public static void savePatientsToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(patientFileName))) {
             String json = Globals.gsonPrettyPrint.toJson(generatePatients);
@@ -120,6 +136,11 @@ public class UserController {
         }
     }
 
+    /**
+     * Saves the list of generated nurses to a file.
+     * This method serializes the {@code generateNurses} list to a JSON string using Gson's pretty printing feature
+     * and writes it to the file specified by {@code nurseFileName}.
+     */
     public static void saveNurseToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nurseFileName))) {
             String json = Globals.gsonPrettyPrint.toJson(generateNurses);
@@ -129,18 +150,39 @@ public class UserController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Retrieves a list of available patients.
+     * If the list of patients is empty, it attempts to load patients from file first.
+     *
+     * @return A list of {@link Patient} objects.
+     */
     public static List<Patient> getAvailablePatients() {
         if (allpatients.isEmpty()) {
             loadPatientsFromFile();
         }
         return new ArrayList<>(allpatients); // Return a *copy*
     }
+
+    /**
+     * Retrieves a list of available doctors.
+     * If the list of doctors is empty, it attempts to load doctors from file first.
+     *
+     * @return A list of {@link Doctor} objects.
+     */
     public static List<Doctor> getAvailableDoctors() {
         if (allDoctors.isEmpty()) {
             loadDoctorsFromFile();
         }
         return new ArrayList<>(allDoctors); // Return a *copy*
     }
+
+    /**
+     * Retrieves a list of available nurses.
+     * If the list of nurses is empty, it attempts to load nurses from file first.
+     *
+     * @return A list of {@link Nurse} objects.
+     */
     public static List<Nurse> getAvailableNurses() {
         if (allNurses.isEmpty()) {
             loadNursesFromFile();
@@ -224,6 +266,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Retrieves a list of all patients.
+     * If the user list is empty, it attempts to load users from files first.
+     *
+     * @return A list of {@link Patient} objects.
+     */
     public List<Patient> getPatients(){
         if(users.isEmpty()){
             loadUsersFromFile();
@@ -231,6 +279,7 @@ public class UserController {
         // get the users which are instanceof patient, then map and cast them all to Patients
         return users.stream().filter(usr->usr instanceof Patient).map(usr->(Patient)usr).toList();
     }
+    
     /**
      * Saves a list of users to a JSON file.
      * This method serializes the given list of users to JSON format using a pretty-printing Gson instance
@@ -319,7 +368,11 @@ public class UserController {
     /**
      * Static method that hashes the password, and automatically generates the hash
      * Reference : <a href="https://www.baeldung.com/java-password-hashing">...</a>
+    /**
+     * Static method that hashes the password, and automatically generates the hash
+     * Reference : <a href="https://www.baeldung.com/java-password-hashing">https://www.baeldung.com/java-password-hashing</a>
      * @param password The plaintext password
+     * @param salt The password salt
      * @return a Pair object (first is password hash) (second is password salt)
      */
     public static Pair<byte[], byte[]> hashPassword(String password, byte[] salt){
@@ -338,6 +391,11 @@ public class UserController {
         return new Pair<>(hash, salt);
     }
 
+    /**
+     * Generates a random salt value to be used for password hashing.
+     *
+     * @return A byte array representing the generated salt.
+     */
     public static byte[] generateRandomPasswordSalt(){
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];

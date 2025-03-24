@@ -34,7 +34,12 @@ public class AuditManager {
         this.auditLogs = new ArrayList<>();
     }
 
-    // Get the current day's log file name
+    /**
+     * Gets the current day's log file name.
+     * The file name is formatted as "yyyyMMdd.txt" based on the current date.
+     *
+     * @return The current day's log file name.
+     */
     private String getAuditLogFileName() {
         return LocalDateTime.now().format(FILE_DATE_FORMATTER) + ".txt";
     }
@@ -50,14 +55,28 @@ public class AuditManager {
         return instance;
     }
 
-    // Generate a unique audit ID based on the current timestamp and an incrementing counter
+    /**
+     * Generates a unique audit ID based on the current timestamp and an incrementing counter.
+     * The ID format is "yyyyMMddHHmmssSSSNNN", where NNN is a unique number padded with zeros.
+     *
+     * @return A unique audit ID.
+     */
     private String generateAuditId() {
         String timestamp = LocalDateTime.now().format(ID_FORMATTER);  // Get current timestamp in specified format
         int uniqueNumber = counter.incrementAndGet();  // Increment counter to ensure uniqueness
         return timestamp + String.format("%03d", uniqueNumber);  // Combine timestamp with counter, padded to 3 digits
     }
 
-    // Method to log an audit entry with specified details
+    /**
+     * Logs an action performed by a user. This method creates an audit log entry,
+     * adds it to the in-memory list, and saves it to a file.
+     *
+     * @param userId       The ID of the user performing the action.
+     * @param action       The action performed by the user.
+     * @param targetEntity The entity affected by the action.
+     * @param outcome      The outcome of the action.
+     * @param userRole     The role of the user performing the action.
+     */
     public void logAction(String userId, String action, String targetEntity, String outcome, String userRole) {
         String auditId = generateAuditId();  // Generate a unique ID for the audit
         Audit auditEntry = new Audit(auditId, userId, action, targetEntity, LocalDateTime.now(), outcome);  // Create new audit entry
@@ -66,7 +85,11 @@ public class AuditManager {
         saveToFile(auditEntry);  // Save the audit entry to the file
     }
 
-    // Save a single audit entry to the file
+    /**
+     * Saves a single audit entry to the log file. The file is named based on the current date.
+     *
+     * @param auditEntry The audit entry to be saved.
+     */
     private void saveToFile(Audit auditEntry) {
         String currentFileName = getAuditLogFileName();  // Get the current day's log file name
         try (FileWriter writer = new FileWriter(currentFileName, true)) {  // Open file in append mode
@@ -76,7 +99,11 @@ public class AuditManager {
         }
     }
 
-    // Retrieve all audit logs stored in memory
+    /**
+     * Retrieves all audit logs currently stored in memory.
+     *
+     * @return A list of {@link Audit} objects representing the audit logs.
+     */
     public List<Audit> getAuditLogs() {
         return auditLogs;
     }

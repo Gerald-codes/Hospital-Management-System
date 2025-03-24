@@ -9,6 +9,10 @@ import org.lucas.ui.framework.Canvas;
 
 public class Main {
 
+    /**
+     * Main method to start the application.
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
 
         //create a new canvas
