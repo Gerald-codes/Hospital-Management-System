@@ -132,7 +132,7 @@
     "arrival_mode": "Ambulance",
     "arrival_date_time": "2025-03-24T22:16:38.228541",
     "triage_level": "PRIORITY_4_NON_EMERGENCY",
-    "patient_status": "ONDISPATCHED",
+    "patient_status": "DONE",
     "emergency_procedures": [],
     "date_and_time_of_screening": "2025-03-24T22:16:38.228526",
     "is_urgent": false

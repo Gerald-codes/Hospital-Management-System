@@ -195,7 +195,7 @@
     "is_urgent": false
   },
   {
-    "case_i_d": 1,
+    "case_i_d": 2,
     "patient": {
       "alert_history": [],
       "electronic_health_record": {
@@ -224,62 +224,18 @@
       "patient_consent": {
         "consent_given": false
       },
-      "id": "123",
-      "name": "BOB",
-      "gender": "MALE",
-      "phone_number": "1239213"
+      "id": "p009",
+      "name": "june",
+      "gender": "female",
+      "phone_number": "1321"
     },
-    "chief_complaint": "DYING",
+    "chief_complaint": "sick",
     "arrival_mode": "Walk-In",
-    "arrival_date_time": "2025-03-25T02:04:18.663976",
-    "triage_level": "PRIORITY_1_CRITICAL",
-    "location": "EMERGENCY_ROOM_TRAUMA_ROOM",
+    "arrival_date_time": "2025-03-25T00:32:47.5993111",
+    "triage_level": "PRIORITY_4_NON_EMERGENCY",
+    "location": "EMERGENCY_ROOM_WAITING_ROOM",
     "patient_status": "WAITING",
     "emergency_procedures": [],
-    "is_urgent": true
-  },
-  {
-    "case_i_d": 1,
-    "patient": {
-      "alert_history": [],
-      "electronic_health_record": {
-        "allergies": [],
-        "current_medications": [],
-        "medical_history": [],
-        "vital_signs": {
-          "temperature": 0.0,
-          "heart_rate": 0,
-          "blood_pressure_systolic": 0,
-          "blood_pressure_diastolic": 0,
-          "respiratory_rate": 0
-        },
-        "lab_results": [],
-        "imaging_records": [],
-        "clinical_notes": "Nil",
-        "symptoms": [],
-        "diagnosis": "Nil",
-        "outcome_monitoring_records": [],
-        "past_surgeries": [],
-        "vaccination_record": []
-      },
-      "height": 0.0,
-      "weight": 0.0,
-      "emergency_contact_number": 0,
-      "patient_consent": {
-        "consent_given": false
-      },
-      "id": "ASD",
-      "name": "BOB",
-      "gender": "MALE",
-      "phone_number": "912312"
-    },
-    "chief_complaint": "DYIGN",
-    "arrival_mode": "Walk-In",
-    "arrival_date_time": "2025-03-25T02:07:39.570517",
-    "triage_level": "PRIORITY_1_CRITICAL",
-    "location": "EMERGENCY_ROOM_TRAUMA_ROOM",
-    "patient_status": "WAITING",
-    "emergency_procedures": [],
-    "is_urgent": true
+    "is_urgent": false
   }
 ]
