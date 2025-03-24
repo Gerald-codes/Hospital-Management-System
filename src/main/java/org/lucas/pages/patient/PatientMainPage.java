@@ -130,7 +130,7 @@ public class PatientMainPage extends UiBase {
         int selectedSlot = InputHelper.getValidIndex("Select your appointment timeslot", 1, dateTimeDictionary.size());
 
         LocalDateTime selectedDateTime = dateTimeDictionary.get(selectedSlot);
-
+        AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "REQUESTED APPOINTMENT", "SYSTEM", "SUCCESS", "PATIENT");
         System.out.println("You have requested for an appointment on " + formatter.format(selectedDateTime) + " at index " + selectedSlot);
         Appointment appointment = new Appointment(UserController.getActivePatient(), reason, selectedDateTime, AppointmentStatus.PENDING, "");
         // check if consent is already given before asking.
@@ -152,25 +152,22 @@ public class PatientMainPage extends UiBase {
                 String s = scanner.nextLine();
                 if (s.equalsIgnoreCase("Y")) {
                     validInput = true;
-
-                    AuditManager auditManager = new AuditManager();
-                    auditManager.logAction(UserController.getActivePatient().getId(), "Appointment Booked", "System", "Patient Appointment Booked", "Patient");
+                    AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "CONSENT ACCEPTED", "SYSTEM", "SUCCESS", "PATIENT");
 
                 } else if (s.equalsIgnoreCase("N")) {
                     System.out.println("Consent not recieved, terminating session. Your information will not be saved.");
+                    AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "CONSENT REJECTED", "SYSTEM", "FAILED", "PATIENT");
                     canvas.setRequireRedraw(true);
                     return;
                 }
             }
-
             // set the consent.
             appointment.getPatient().setPatientConsent(new PatientConsent(true, consentString));
         }
         appointment.setHistory(history);
         appointmentController.addAppointment(appointment);
+        AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "APPOINTMENT BOOKED", "SYSTEM", "SUCCESS", "PATIENT");
         appointmentController.saveAppointmentsToFile();
-
-
         canvas.setRequireRedraw(true);
     }
 }

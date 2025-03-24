@@ -99,7 +99,7 @@ public class ESController {
         }
     }
 
-    public static void loadEmergencyCaseFromFile() {
+    public static void  loadEmergencyCaseFromFile() {
         allCases.clear();
         StringBuilder sb = new StringBuilder();
         String basePath = "";
@@ -117,7 +117,7 @@ public class ESController {
                 sb.append(line);
             }
 
-            System.out.println("File contents: " + sb.toString());
+            //System.out.println("File contents: " + sb.toString());
 
             Type listType = new TypeToken<List<EmergencyCase>>() {
             }.getType();

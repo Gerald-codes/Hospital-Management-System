@@ -40,18 +40,18 @@ public class MedicationPage extends UiBase{
 
         lv.attachUserInput("Add New Medicine", str -> {
             MedicationController.collectUserInputAndAddMedication();
-            AuditManager.getInstance().logAction(UserController.getActiveNurse().getNurseID(), "NEW MEDICINE ADDED", "SYSTEM", "Medicine added", "NURSE");
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getNurseID(), "NEW MEDICINE ADDED", "SYSTEM", "MEDICINE ADDED", "NURSE");
             canvas.setRequireRedraw(true);
         });
         lv.attachUserInput("Remove Medicine from inventory", str -> {
             MedicationController.removeStockfromMedication();
-            AuditManager.getInstance().logAction(UserController.getActiveNurse().getNurseID(), "MEDICINE REMOVED FROM STOCK", "SYSTEM", "Inventory updated for " + MedicationController.getMedicationID() , "NURSE");
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getNurseID(), "MEDICINE REMOVED FROM STOCK", "SYSTEM", "INVENTORY UPDATED FOR " + MedicationController.getMedicationID() , "NURSE");
             canvas.setRequireRedraw(true);
         });
 
         lv.attachUserInput(" Search or Update an existing Medication", str -> {
             MedicationController.editMedicineDetails();
-            AuditManager.getInstance().logAction(UserController.getActiveNurse().getNurseID(), "MEDICINE DETAILS EDITED", "SYSTEM", "Details updated for: " + MedicationController.getMedicationID1() , "NURSE");
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getNurseID(), "MEDICINE DETAILS EDITED", "SYSTEM", "DETAILS UPDATED FOR: " + MedicationController.getMedicationID1() , "NURSE");
 
             canvas.setRequireRedraw(true);
 

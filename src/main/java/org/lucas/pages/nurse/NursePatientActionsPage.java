@@ -240,18 +240,20 @@ public class NursePatientActionsPage extends UiBase {
                 administerMedication(nurse, matchedAlert, matchedGuideline, patient);  // Administer medication
                 nurse.setPatientAlertHistory(patient, matchedAlert);  // Log the alert history
             }
-            askNurseMedicationConfirmation();  // Confirm medication administration
+            askNurseMedicationConfirmation(patient);  // Confirm medication administration
         }
     }
-    public static void askNurseMedicationConfirmation() {
+    public static void askNurseMedicationConfirmation(Patient patient) {
         while (true) {
             String response = InputValidator.getValidStringInput("\nHas this medication been administered? (yes/no): ");
             switch (response.toLowerCase()) {
                 case "yes" -> {
+                    AuditManager.getInstance().logAction(UserController.getActiveNurse().getNurseID(), "MEDICATION ADMINISTERED", patient.getId(),"SUCCESS", "NURSE");
                     System.out.println("✅ Medication has been administered.");
                     return;
                 }
                 case "no" -> {
+                    AuditManager.getInstance().logAction(UserController.getActiveNurse().getNurseID(), "MEDICATION NOT ADMINISTERED", patient.getId(),"FAILED", "NURSE");
                     System.out.println("❌ Medication not administered. Moving to the next one.");
                     return;
                 }

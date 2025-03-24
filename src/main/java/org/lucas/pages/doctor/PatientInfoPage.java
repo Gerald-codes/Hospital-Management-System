@@ -14,7 +14,7 @@ import org.lucas.ui.framework.views.TextView;
 import java.util.List;
 
 /**
- * Dual purpose page, can ask user to select multiple patients, or display a single patient
+ * Dual-purpose page, can ask user to select multiple patients, or display a single patient
  */
 public class PatientInfoPage extends UiBase {
     public static UserController userController = new UserController();

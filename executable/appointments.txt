@@ -439,21 +439,21 @@
             "symptom_id": "SYM-109",
             "severity": 10,
             "duration": 0,
-            "doctor_notes": "Medical emergency. Check for head trauma or stroke."
+            "doctor_notes": "Patient needs ample rest"
           },
           {
             "symptom_name": "nausea and vomiting",
             "symptom_id": "SYM-110",
             "severity": 5,
             "duration": 1,
-            "doctor_notes": "Check for food poisoning or stomach flu."
+            "doctor_notes": ""
           },
           {
             "symptom_name": "skin rash or itching",
             "symptom_id": "SYM-118",
             "severity": 4,
             "duration": 3,
-            "doctor_notes": "Could indicate allergic reaction or dermatitis."
+            "doctor_notes": ""
           }
         ],
         "diagnosis": "Nil",
@@ -496,19 +496,58 @@
     "reason": "loss of consciousness, nausea and vomiting, skin rash or itching",
     "appointment_time": "2025-03-20T04:44:12.0219671",
     "doctor": {
-      "specialisation": "Cardiology",
-      "type": "SPECIALIST",
-      "license_number": "L67890",
-      "id": "D002",
-      "login_name": "kieransim",
-      "name": "Dr. Kieran Sim",
-      "password": "securedoc",
-      "email": "kieransim@clinic.com",
+      "specialisation": "GP",
+      "type": "GENERAL_PRACTICE",
+      "license_number": "L12345",
+      "id": "D001",
+      "login_name": "limtzekai",
+      "name": "Dr. Lim Tze Kai",
+      "password": "docpass",
+      "email": "limtzekai@clinic.com",
       "gender": "Male",
-      "phone_number": "8345 6789"
+      "phone_number": "9876 5432"
     },
-    "appointment_status": "PENDING",
-    "diagnosis": ""
+    "appointment_status": "COMPLETED",
+    "session": {
+      "id": "78690346-fc26-4bab-bc01-2380e60db1d7",
+      "start_time": "2025-03-24T20:35:35.6877949",
+      "end_time": "2025-03-24T20:39:31.0817048",
+      "zoom_link": "https://us05web.zoom.us/j/88594075768?pwd\u003dm9ENkH3yoBkZjcxGL9cWmwbBdmv4tA.1",
+      "session_status": "COMPLETED"
+    },
+    "doctor_notes": "Patient needs ample rest",
+    "billing": {
+      "bill_amount": 20.0,
+      "billing_i_d": "e8db85c0-ad22-44cc-8810-99c191fa7576",
+      "is_paid": false,
+      "is_re_calculate_bill_amount": true,
+      "prescription": {
+        "prescription_i_d": "699306d5-be7f-46cf-9cbd-c57c28e7dcf8",
+        "medication": [
+          {
+            "medication_name": "PARACETAMOL",
+            "dosage": "325mg, Once a Week",
+            "stock_available": 2,
+            "controlled_substance": false,
+            "medication_price": 23.1
+          },
+          {
+            "medication_name": "ASPIRIN",
+            "dosage": "325mg, Once a Week",
+            "stock_available": 2,
+            "controlled_substance": false,
+            "medication_price": 13.1
+          }
+        ]
+      }
+    },
+    "mc": {
+      "id": "d797bacd-fedd-4b17-92c6-39b9d1c05340",
+      "start_date": "2025-03-24T00:00:00",
+      "end_date": "2025-03-28T23:59:00",
+      "remarks": "Nil"
+    },
+    "diagnosis": "Dermatitis"
   },
   {
     "patient": {
@@ -1281,21 +1320,21 @@
             "symptom_id": "SYM-050",
             "severity": 5,
             "duration": 1,
-            "doctor_notes": "Check for food poisoning or stomach flu."
+            "doctor_notes": "Patient Needs to Go hospital ASAP"
           },
           {
             "symptom_name": "fever, chills, body aches",
             "symptom_id": "SYM-041",
             "severity": 6,
             "duration": 5,
-            "doctor_notes": "Patient has flu-like symptoms, monitor temperature."
+            "doctor_notes": ""
           },
           {
             "symptom_name": "joint pain and swelling",
             "symptom_id": "SYM-059",
             "severity": 6,
             "duration": 5,
-            "doctor_notes": "Possible arthritis or autoimmune disorder."
+            "doctor_notes": ""
           }
         ],
         "diagnosis": "Nil",
@@ -1345,13 +1384,15 @@
       "gender": "Male",
       "phone_number": "9876 5432"
     },
-    "appointment_status": "ACCEPTED",
+    "appointment_status": "EMERGENCY",
     "session": {
       "id": "df8425e5-5166-4d4d-bcb5-d3445975d6e7",
       "start_time": "2025-03-24T09:23:30.0065606",
+      "end_time": "2025-03-24T20:51:07.2497816",
       "zoom_link": "https://us05web.zoom.us/j/84630282810?pwd\u003dZ9gZK3v9NqtPcYMAEj2xeJOyQYv9cA.1",
-      "session_status": "ONGOING"
+      "session_status": "COMPLETED"
     },
+    "doctor_notes": "Patient Needs to Go hospital ASAP",
     "billing": {
       "bill_amount": 20.0,
       "billing_i_d": "7183ea3c-1e54-4bee-ade3-0812e3783c8f",

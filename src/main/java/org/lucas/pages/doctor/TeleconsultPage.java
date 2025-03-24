@@ -255,6 +255,7 @@ public class TeleconsultPage extends UiBase {
         // Return possible Diagnosis
         return CDSSDiagnosis;
     }
+
     private void setDoctorNotes() {
         System.out.println("Enter Doctor Notes :");
         Scanner scanner = new Scanner(System.in);
