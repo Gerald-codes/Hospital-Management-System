@@ -2,8 +2,10 @@ package org.lucas.controllers;
 import com.google.gson.reflect.TypeToken;
 import org.lucas.Globals;
 import org.lucas.audit.*;
+import org.lucas.core.Alert;
 import org.lucas.models.*;
 import org.lucas.models.enums.UserType;
+import org.lucas.util.InputValidator;
 import org.lucas.util.JarLocation;
 import org.lucas.util.Pair;
 import org.lucas.util.Util;
@@ -32,8 +34,8 @@ public class UserController {
     private static List<Patient> generatePatients = new ArrayList<>();
     private static List<Nurse> generateNurses = new ArrayList<>();
     private static List<Doctor> allDoctors = new ArrayList<>();
-    private static List<Doctor> allNurses = new ArrayList<>();
     private static List<Medication> availableMedication = new ArrayList<>();
+    private static List<Nurse> allNurses = new ArrayList<>();
     private static final String doctorFileName = "doctor_data.txt";
     private static final String patientFileName = "patient_data.txt";
     private static final String nurseFileName = "nurse_data.txt";
@@ -53,6 +55,7 @@ public class UserController {
     /**
      * Specifies the user type to avoid excessive instanceof or null checks
      */
+
     private static UserType activeUserType;
 
     /**
@@ -63,7 +66,7 @@ public class UserController {
      * If a file does not exist or an error occurs during reading or parsing, an error message is logged, and loading from that file is skipped.
      * Note: This method replaces the entire existing list of users.*/
     //Debugging
-    private static void loadPatientsFromFile() {
+    public static void loadPatientsFromFile() {
         allpatients.clear();
         StringBuilder sb = new StringBuilder();
         try (BufferedReader br = Files.newBufferedReader(Paths.get(patientFileName))) {
@@ -95,7 +98,7 @@ public class UserController {
         }
     }
 
-    private static void loadNursesFromFile() {
+    public static void loadNursesFromFile() {
         allNurses.clear();
         StringBuilder sb = new StringBuilder();
         try (BufferedReader br = Files.newBufferedReader(Paths.get(nurseFileName))) {
@@ -123,7 +126,7 @@ public class UserController {
         }
         return new ArrayList<>(allDoctors); // Return a *copy*
     }
-    public static List<Doctor> getAvailableNurses() {
+    public static List<Nurse> getAvailableNurses() {
         if (allNurses.isEmpty()) {
             loadNursesFromFile();
         }
@@ -283,15 +286,14 @@ public class UserController {
      * @see UserType
      * @see #loadUsersFromFile()*/
 
-    public UserType authenticate(String username, String password){
+    public UserType authenticate(String username, String password, AuditManager auditManager){
         if(users.isEmpty()){
             loadUsersFromFile();
         }
-        AuditManager auditManager = new AuditManager();
+
         List<User> authenticated = users.stream().filter(usr->
             usr.getLoginName().equals(username) && usr.checkPassword(password)
         ).toList();
-        System.out.println(authenticated);
 
         if(authenticated.isEmpty()){
             auditManager.logAction("NIL", "LOGIN", "System", "FAILED","");
@@ -312,7 +314,7 @@ public class UserController {
         if(authenticated.getFirst() instanceof Patient){
             activePatient = (Patient)authenticated.getFirst();
             activeUserType = UserType.PATIENT;
-            auditManager.logAction(activePatient.getPatientID(), "LOGIN", "System", "SUCCESS", "PATIENT");
+            auditManager.logAction(activePatient.getId(), "LOGIN", "System", "SUCCESS", "PATIENT");
             return UserType.PATIENT;
         }
         auditManager.logAction("NIL", "LOGIN", "System", "FAILED","");
@@ -412,32 +414,32 @@ public class UserController {
     public static void generateDummyUsers() {
 
         List<Patient> dummyPatients = new ArrayList<>();
-        dummyPatients.add(new Patient("P001", "JohnDoe", "John Doe", "password123", "John Doe@example.com", "Male","81234567","P001", "15-08-1990","Diabetic", "N001", "D003",
-                null,180, 75, "O+", "123 CDSS.Main.Main.CDSS.Main.Main St, NY", 98765432, "Engineer", "Asian", "Cardiology"));
-
-        dummyPatients.add(new Patient("P002", "JaneSmith", "Jane Smith", "password123", "janesmith@example.com", "Female","81234567","P002", "15-08-1990","Diabetic", "N001", "D003",
-                null,180, 75, "O+", "123 CDSS.Main.Main.CDSS.Main.Main St, NY", 98765432, "Engineer", "Asian", "Neurology"));
-
-        dummyPatients.add(new Patient("P003", "BobBrown", "Bob Brown", "password123", "BobBrown@example.com","Male","87654321","P003", "15-08-1990",  "Asthmatic", "N002", "D002",
-                null,158, 55, "B+", "789 Pine St, TX", 76543210, "Nurse", "Hispanic",  "Pulmonology"));
-
-        dummyPatients.add(new Patient("P004", "CharlieDavis", "Charlie Davis", "password123", "charlied@example.com","Male","87654321","P004", "15-08-1990",  "Asthmatic", "N002", "D002",
-                null,170, 58, "B+", "159 Maple St, AZ", 76543210, "Nurse", "Hispanic",  "Pulmonology"));
-
-        dummyPatients.add(new Patient("P005", "HannahLee", "Hannah Lee", "password123", "hannahl@example.com","Female","87654321","P005", "15-08-1990",  "Asthmatic", "N003", "D003",
-                null,170, 58, "B+", "159 Maple St, AZ", 76543210, "Nurse", "Hispanic",  "Pulmonology"));
-
-        dummyPatients.add(new Patient("P006", "DianaEvans", "Diana Evans","password123","dianae@example.com","Female","81234567","P006","15-08-1990","Pregnant", "N003", "D002",
-                null,160, 58, "A+", "753 Cedar St, WA", 43210987, "Artist", "Asian", "Obstetrics"));
-
-        dummyPatients.add(new Patient("P007", "EdwardHarris", "Edward Harris","password123","edwardh@example.com","Male","81234567","P007","15-08-1990","Pregnant", "N003", "D002",
-                null,160, 58, "A-", "357 Birch St, CO", 43210987, "Artist", "Caucasian", "Nephrology"));
-
-        dummyPatients.add(new Patient("P008", "FionaGreen", "Fiona Green","password123","edwardh@example.com","Male","81234567","P007","15-08-1990","Pregnant", "N003", "D002",
-                null,160, 58, "A+", "951 Spruce St, NV", 43210987, "Chef", "Hispanic", "Hematology"));
-
-        dummyPatients.add(new Patient("P009", "GeorgeKing", "George King","password123","georgek@example.com","Male","81234567","P008","15-08-1990","Pregnant", "N003", "D002",
-                null,160, 58, "A+", "951 Spruce St, NV", 43210987, "Chef", "Hispanic", "Hematology"));
+//        dummyPatients.add(new Patient("P001", "JohnDoe", "John Doe", "password123", "John Doe@example.com", "Male","81234567","P001", "15-08-1990","Diabetic", "N001", "D003",
+//                null,180, 75, "O+", "123 CDSS.Main.Main.CDSS.Main.Main St, NY", 98765432, "Engineer", "Asian", "Cardiology"));
+//
+//        dummyPatients.add(new Patient("P002", "JaneSmith", "Jane Smith", "password123", "janesmith@example.com", "Female","81234567","P002", "15-08-1990","Diabetic", "N001", "D003",
+//                null,180, 75, "O+", "123 CDSS.Main.Main.CDSS.Main.Main St, NY", 98765432, "Engineer", "Asian", "Neurology"));
+//
+//        dummyPatients.add(new Patient("P003", "BobBrown", "Bob Brown", "password123", "BobBrown@example.com","Male","87654321","P003", "15-08-1990",  "Asthmatic", "N002", "D002",
+//                null,158, 55, "B+", "789 Pine St, TX", 76543210, "Nurse", "Hispanic",  "Pulmonology"));
+//
+//        dummyPatients.add(new Patient("P004", "CharlieDavis", "Charlie Davis", "password123", "charlied@example.com","Male","87654321","P004", "15-08-1990",  "Asthmatic", "N002", "D002",
+//                null,170, 58, "B+", "159 Maple St, AZ", 76543210, "Nurse", "Hispanic",  "Pulmonology"));
+//
+//        dummyPatients.add(new Patient("P005", "HannahLee", "Hannah Lee", "password123", "hannahl@example.com","Female","87654321","P005", "15-08-1990",  "Asthmatic", "N003", "D003",
+//                null,170, 58, "B+", "159 Maple St, AZ", 76543210, "Nurse", "Hispanic",  "Pulmonology"));
+//
+//        dummyPatients.add(new Patient("P006", "DianaEvans", "Diana Evans","password123","dianae@example.com","Female","81234567","P006","15-08-1990","Pregnant", "N003", "D002",
+//                null,160, 58, "A+", "753 Cedar St, WA", 43210987, "Artist", "Asian", "Obstetrics"));
+//
+//        dummyPatients.add(new Patient("P007", "EdwardHarris", "Edward Harris","password123","edwardh@example.com","Male","81234567","P007","15-08-1990","Pregnant", "N003", "D002",
+//                null,160, 58, "A-", "357 Birch St, CO", 43210987, "Artist", "Caucasian", "Nephrology"));
+//
+//        dummyPatients.add(new Patient("P008", "FionaGreen", "Fiona Green","password123","edwardh@example.com","Male","81234567","P007","15-08-1990","Pregnant", "N003", "D002",
+//                null,160, 58, "A+", "951 Spruce St, NV", 43210987, "Chef", "Hispanic", "Hematology"));
+//
+//        dummyPatients.add(new Patient("P009", "GeorgeKing", "George King","password123","georgek@example.com","Male","81234567","P008","15-08-1990","Pregnant", "N003", "D002",
+//                null,160, 58, "A+", "951 Spruce St, NV", 43210987, "Chef", "Hispanic", "Hematology"));
 
         generatePatients.add(dummyPatients.get(0));
         generatePatients.add(dummyPatients.get(1));
@@ -623,13 +625,14 @@ public class UserController {
 
     //debugging patients(console print version)
     private static List<Patient> allpatients = new ArrayList<>();
+
     public static void printAllPatients() {
         System.out.println("All Patients:");
         for (Patient patient : allpatients) {
             System.out.println("=======================================");
             System.out.println("          PATIENT INFORMATION          ");
             System.out.println("=======================================");
-            System.out.printf("%-20s: %s%n", "Patient ID", patient.getPatientID());
+            System.out.printf("%-20s: %s%n", "Patient ID", patient.getId());
             System.out.printf("%-20s: %s%n", "Name", patient.getName());
             System.out.printf("%-20s: %s%n", "Gender", patient.getGender());
             System.out.printf("%-20s: %s%n", "Date of Birth", patient.getDateOfBirth());
@@ -707,5 +710,99 @@ public class UserController {
 
     private static String formatList(List<String> list) {
         return list != null && !list.isEmpty() ? String.join(", ", list) : "None";
+    }
+
+    public static Patient checkOrCreatePatient(String patientID) {
+        List<Patient> allPatients = getAvailablePatients();
+        for (Patient p : allPatients) {
+            if (p.getId().equals(patientID)) {
+                System.out.println("\nExisting patient found: " + p.getName());
+                return p;
+            }
+        }
+        // If patient does not exist, create a new one
+        System.out.println("No existing patient found. Registering a new patient...");
+        Patient newPatient = createEmergencyPatient(patientID);
+//        savePatientDataToFile(allPatients);
+        return newPatient;
+    }
+
+    public static Nurse checkParamedicNurse(String nurseID) {
+        Scanner scanner = new Scanner(System.in);
+        Nurse foundNurse = null;
+        String role = "paramedic nurse";
+        List<Nurse> allNurse = getAvailableNurses();
+        while (foundNurse == null) {
+            for (Nurse n : allNurse) {
+                if (n.getId().equals(nurseID) && n.getRole().equalsIgnoreCase(role)) {
+                    System.out.println("\nExisting nurse found: " + n.getName());
+                    foundNurse = n;
+                    return n;
+                }
+            }
+            System.out.println("No existing paramedic nurse found. Please enter a valid paramedic nurse ID: ");
+            nurseID = scanner.nextLine();
+        }
+        return foundNurse;
+    }
+
+    private static Patient createPatient (String patientID) {
+
+        // Collect user input for each field
+        String userName = InputValidator.getValidStringInput("Enter username: ");
+        String name = InputValidator.getValidStringInput("Enter name: ");
+        String password = InputValidator.getValidStringInput("Enter password: ");
+        String gender = InputValidator.getValidStringInput("Enter gender: ");
+        String phoneNumber = InputValidator.getValidStringInput("Enter phone number: ");
+        String dateOfBirth = InputValidator.getValidStringInput("Enter date of birth: ");
+        String patientSpecificFactor = InputValidator.getValidStringInput("Enter patient-specific factor: ");
+        String bloodType = InputValidator.getValidStringInput("Enter blood type: ");
+        String assignedNurse = InputValidator.getValidStringInput("Enter assigned Nurse Id: ");
+        String assignedDoctor = InputValidator.getValidStringInput("Enter assigned Doctor Id: ");
+
+        // Validate numeric inputs for height, weight, and emergency contact
+        double height = InputValidator.getValidDoubleInput("Enter height: ");
+        double weight = InputValidator.getValidDoubleInput("Enter weight: ");
+
+        // Additional string inputs
+        String houseAddress = InputValidator.getValidStringInput("Enter house address: ");
+        String occupation = InputValidator.getValidStringInput("Enter occupation: ");
+        String ethnicity = InputValidator.getValidStringInput("Enter ethnicity: ");
+        String healthcareDepartment = InputValidator.getValidStringInput("Enter healthcare department: ");
+
+        // Validate emergency contact number (assuming it's an integer)
+        int emergencyContactNumber = InputValidator.getValidIntInput("Enter emergency contact number: ");
+
+        // Create an empty list for alert history
+        List<Alert> alertHistory = new ArrayList<>();
+
+        // Create a new Patient object with the collected data
+        Patient newPatient = new Patient(patientID, userName, name, password, "", gender, phoneNumber, dateOfBirth, patientSpecificFactor,
+                assignedNurse, assignedDoctor, alertHistory, height, weight, bloodType, houseAddress, emergencyContactNumber,
+                occupation, ethnicity, healthcareDepartment);
+
+        // Output confirmation or the new patient info (you can display the patient info here as needed)
+        System.out.println("New patient created: " + newPatient);
+
+        return newPatient;
+    }
+
+    private static Patient createEmergencyPatient (String patientID) {
+
+        // Collect user input for each field
+        String name = InputValidator.getValidStringInput("Enter name: ");
+        String gender = InputValidator.getValidStringInput("Enter gender: ");
+        String phoneNumber = InputValidator.getValidStringInput("Enter phone number: ");
+        ElectronicHealthRecord electronicHealthRecord = new ElectronicHealthRecord();
+        List<Alert> alertHistory = new ArrayList<>();
+        PatientConsent patientConsent = new PatientConsent();
+
+        // Create a new Patient object with the collected data
+        Patient newPatient = new Patient( patientID, name, gender,  phoneNumber, electronicHealthRecord,patientConsent,alertHistory);
+
+        // Output confirmation or the new patient info (you can display the patient info here as needed)
+        System.out.println("New patient " + newPatient.getName() + " created!");
+
+        return newPatient;
     }
 }

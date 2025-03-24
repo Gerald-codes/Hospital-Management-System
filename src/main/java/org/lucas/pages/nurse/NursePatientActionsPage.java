@@ -72,7 +72,7 @@ public class NursePatientActionsPage extends UiBase {
             return;
         }
 
-        lv.addItem(new TextView(this.canvas, "Patient ID: " + patient.getPatientID(), Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "Patient ID: " + patient.getId(), Color.GREEN));
         lv.addItem(new TextView(this.canvas, "Name: " + patient.getName(), Color.GREEN));
         lv.addItem(new TextView(this.canvas, "Gender: " + patient.getGender(), Color.GREEN));
         lv.addItem(new TextView(this.canvas, "Date of Birth: " + patient.getDateOfBirth(), Color.GREEN));
@@ -174,7 +174,7 @@ public class NursePatientActionsPage extends UiBase {
                                             AuditManager auditManager) {
         alert.displayAlertForPatient();  // Display any alerts before administration
         String outcomeResponse;
-        auditManager.logAction(nurse.getId(), "ADMINISTER MEDICATION", "Patient: " + patient.getPatientID(), "OVERRIDDEN", "NURSE");
+        auditManager.logAction(nurse.getId(), "ADMINISTER MEDICATION", "Patient: " + patient.getId(), "OVERRIDDEN", "NURSE");
         while (true) {
             int systolicBP = InputValidator.getValidIntInput("Please enter Systolic BP: ");
             if (systolicBP <= clinicalGuideline.getBloodPressureSystolicThreshHold()) {
@@ -217,15 +217,15 @@ public class NursePatientActionsPage extends UiBase {
                 "Enter patient's response after medication (e.g., Improved, Unchanged, Side Effects): ");
         nurse.updateOutcomeMonitoring(patient, selectedMedication.getMedicationName(), outcomeResponse);  // Update outcome
 
-        auditManager.logAction(nurse.getId(), "ENTER OUTCOME MONITORING", "Patient: " + patient.getPatientID() + "'s outcome monitoring", "SUCCESS", "NURSE");
-        auditManager.logAction(nurse.getId(), "USER ENTERED:" + outcomeResponse, "Patient: " + patient.getPatientID() + "'s outcome monitoring", "SUCCESS", "NURSE");
+        auditManager.logAction(nurse.getId(), "ENTER OUTCOME MONITORING", "Patient: " + patient.getId() + "'s outcome monitoring", "SUCCESS", "NURSE");
+        auditManager.logAction(nurse.getId(), "USER ENTERED:" + outcomeResponse, "Patient: " + patient.getId() + "'s outcome monitoring", "SUCCESS", "NURSE");
     }
 
     public static void showPatientMedicationHistory(Nurse nurse, Patient patient,
                                                     List<ClinicalGuideline> clinicalGuidelines, List<Alert> alerts,
                                                     AuditManager auditManager) {
         List<Medication> medicationHistory = patient.getMedications();  // Get medication history
-        auditManager.logAction(nurse.getId(), "VIEW MEDICATION HISTORY", "Patient: " + patient.getPatientID(), "SUCCESS", "NURSE");
+        auditManager.logAction(nurse.getId(), "VIEW MEDICATION HISTORY", "Patient: " + patient.getId(), "SUCCESS", "NURSE");
 
         for (Medication med : medicationHistory) {
             med.displayPatientMedication();  // Display each medication

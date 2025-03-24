@@ -88,7 +88,7 @@ public class NurseMainPage extends UiBase {
         lv.addItem(new TextView(this.canvas, "===========================================================================", Color.RED));
         lv.addItem(new TextView(this.canvas, "                               PATIENT INFORMATION                         ", Color.BLUE));
         lv.addItem(new TextView(this.canvas, "===========================================================================", Color.RED));
-        lv.addItem(new TextView(this.canvas, "Patient ID: " + patient.getPatientID(), Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "Patient ID: " + patient.getId(), Color.GREEN));
         lv.addItem(new TextView(this.canvas, "Name: " + patient.getName(), Color.GREEN));
         lv.addItem(new TextView(this.canvas, "Gender: " + patient.getGender(), Color.GREEN));
         lv.addItem(new TextView(this.canvas, "Date of Birth: " + patient.getDateOfBirth(), Color.GREEN));
@@ -177,4 +177,7 @@ public class NurseMainPage extends UiBase {
         }
         return String.join(", ", items);
     }
+
+
+
 }

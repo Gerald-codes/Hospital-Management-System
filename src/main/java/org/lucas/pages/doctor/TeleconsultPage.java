@@ -169,10 +169,10 @@ public class TeleconsultPage extends UiBase {
         if (MedicationController.findAvailableMedicationByName(medicationName) != null) {
             if (index == -1) {
                 prescription.addMedication(medicationName, medicineAmount, "");
-                auditManager.logAction(appointment.getDoctor().getId(), "DOCTOR PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + appointment.getPatient().getPatientID(), "SUCCESS", "DOCTOR");
+                auditManager.logAction(appointment.getDoctor().getId(), "DOCTOR PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
             } else {
                 prescription.setMedicationAtIndex(medicationName, medicineAmount, "", index);
-                auditManager.logAction(appointment.getDoctor().getId(), "DOCTOR PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + appointment.getPatient().getPatientID(), "SUCCESS", "DOCTOR");
+                auditManager.logAction(appointment.getDoctor().getId(), "DOCTOR PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
             }
         } else {
             System.out.println("Enter the dosage/instructions: ");
@@ -180,10 +180,10 @@ public class TeleconsultPage extends UiBase {
 
             if (index == -1) {
                 prescription.addMedication(medicationName, medicineAmount, dosage);
-                auditManager.logAction(appointment.getDoctor().getId(), "DOCTOR PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + appointment.getPatient().getPatientID(), "SUCCESS", "DOCTOR");
+                auditManager.logAction(appointment.getDoctor().getId(), "DOCTOR PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
             } else {
                 prescription.setMedicationAtIndex(medicationName, medicineAmount, dosage, index);
-                auditManager.logAction(appointment.getDoctor().getId(), "DOCTOR PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + appointment.getPatient().getPatientID(), "SUCCESS", "DOCTOR");
+                auditManager.logAction(appointment.getDoctor().getId(), "DOCTOR PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
             }
         }
 
