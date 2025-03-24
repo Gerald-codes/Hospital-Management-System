@@ -283,11 +283,11 @@ public class UserController {
      * @see UserType
      * @see #loadUsersFromFile()*/
 
-    public UserType authenticate(String username, String password){
+    public UserType authenticate(String username, String password, AuditManager auditManager){
         if(users.isEmpty()){
             loadUsersFromFile();
         }
-        AuditManager auditManager = new AuditManager();
+
         List<User> authenticated = users.stream().filter(usr->
             usr.getLoginName().equals(username) && usr.checkPassword(password)
         ).toList();
@@ -544,6 +544,7 @@ public class UserController {
     }
     //debugging patients(console print version)
     private static List<Patient> allpatients = new ArrayList<>();
+
     public static void printAllPatients() {
         System.out.println("All Patients:");
         for (Patient patient : allpatients) {
@@ -629,7 +630,6 @@ public class UserController {
     private static String formatList(List<String> list) {
         return list != null && !list.isEmpty() ? String.join(", ", list) : "None";
     }
-
 
     public static Patient checkOrCreatePatient(String patientID) {
         List<Patient> allPatients = getAvailablePatients();

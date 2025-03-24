@@ -24,7 +24,7 @@ public class NurseEmergencyMenuPage extends UiBase {
     public View OnCreateView() {
         ListView lv = new ListView(this.canvas, Color.GREEN);
         lv.setTitleHeader("NurseEmergencyMenuPage");
-//        ESController.loadEmergencyCaseFromFile();
+        ESController.loadEmergencyCaseFromFile();
         return lv;
     }
 
@@ -76,6 +76,7 @@ public class NurseEmergencyMenuPage extends UiBase {
 
     private void viewAllEmergencyCases(){
         ESController.printAllEmergencyCase();
+//        listView.addItem(new TextView(this.canvas, doctorNotes + "\n", Color.GREEN));
         ToPage(new NurseEmergencyMenuPage());
     }
 

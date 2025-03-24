@@ -8,11 +8,11 @@
         "current_medications": [],
         "medical_history": [],
         "vital_signs": {
-          "temperature": 40.0,
+          "temperature": 30.0,
           "heart_rate": 120,
           "blood_pressure_systolic": 120,
-          "blood_pressure_diastolic": 30,
-          "respiratory_rate": 30
+          "blood_pressure_diastolic": 20,
+          "respiratory_rate": 20
         },
         "lab_results": [],
         "imaging_records": [],
@@ -37,7 +37,7 @@
     "chief_complaint": "ALSKDLASKD",
     "arrival_mode": "Walk-In",
     "arrival_date_time": "2025-03-24T00:50:16.787406",
-    "triage_level": "PRIORITY_1_CRITICAL",
+    "triage_level": "PRIORITY_3_MINOR_EMERGENCIES",
     "initial_screening_nurse": {
       "department": "Pediatrics",
       "role": "Paramedic Nurse",
@@ -55,6 +55,50 @@
     },
     "location": "EMERGENCY_ROOM_TRIAGE_ROOM",
     "patient_status": "DONE",
+    "emergency_procedures": [],
+    "is_urgent": false
+  },
+  {
+    "case_i_d": 1,
+    "patient": {
+      "alert_history": [],
+      "electronic_health_record": {
+        "allergies": [],
+        "current_medications": [],
+        "medical_history": [],
+        "vital_signs": {
+          "temperature": 0.0,
+          "heart_rate": 0,
+          "blood_pressure_systolic": 0,
+          "blood_pressure_diastolic": 0,
+          "respiratory_rate": 0
+        },
+        "lab_results": [],
+        "imaging_records": [],
+        "clinical_notes": "Nil",
+        "symptoms": [],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [],
+        "vaccination_record": []
+      },
+      "height": 0.0,
+      "weight": 0.0,
+      "emergency_contact_number": 0,
+      "patient_consent": {
+        "consent_given": false
+      },
+      "id": "adasd",
+      "name": "Gerald",
+      "gender": "male",
+      "phone_number": "9123213"
+    },
+    "chief_complaint": "ASLDKLSKD",
+    "arrival_mode": "Walk-In",
+    "arrival_date_time": "2025-03-24T12:01:50.038781",
+    "triage_level": "PRIORITY_4_NON_EMERGENCY",
+    "location": "EMERGENCY_ROOM_WAITING_ROOM",
+    "patient_status": "WAITING",
     "emergency_procedures": [],
     "is_urgent": false
   }

@@ -6,13 +6,17 @@ import org.lucas.Emergency.EmergencyCase_Dispatch;
 import org.lucas.Emergency.enums.PatientLocation;
 import org.lucas.Emergency.enums.PatientStatus;
 import org.lucas.Globals;
+import org.lucas.audit.AuditManager;
+import org.lucas.models.Doctor;
 import org.lucas.models.Nurse;
 import org.lucas.models.Patient;
+import org.lucas.models.User;
 import org.lucas.models.enums.TriageLevel;
 import org.lucas.util.InputValidator;
 import org.lucas.util.JarLocation;
 import org.lucas.util.Util;
 
+import javax.print.Doc;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -95,30 +99,34 @@ public class ESController {
         }
     }
 
-//    public static void loadEmergencyCaseFromFile() {
-//        allCases.clear();
-//        StringBuilder sb = new StringBuilder();
-//        String basePath = "";
-//
-//        // get the jar location
-//        try {
-//            basePath = JarLocation.getJarDirectory();
-//        } catch (IOException | URISyntaxException e) {
-//            e.printStackTrace();
-//            throw new RuntimeException(e);
-//        }
-//        try (BufferedReader br = Files.newBufferedReader(Paths.get(basePath, fileName))) {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                sb.append(line);
-//            }
-//            Type listType = new TypeToken<List<EmergencyCase>>() {
-//            }.getType();
-//            allCases = Util.fromJsonString(sb.toString(), listType);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public static void loadEmergencyCaseFromFile() {
+        allCases.clear();
+        StringBuilder sb = new StringBuilder();
+        String basePath = "";
+
+        // get the jar location
+        try {
+            basePath = JarLocation.getJarDirectory();
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        try (BufferedReader br = Files.newBufferedReader(Paths.get(basePath, fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+
+            System.out.println("File contents: " + sb.toString());
+
+            Type listType = new TypeToken<List<EmergencyCase>>() {
+            }.getType();
+            allCases = Util.fromJsonString(sb.toString(), listType);
+        } catch (IOException e) {
+            e.printStackTrace();
+            e.getMessage();
+        }
+    }
 
     public static void saveEmergencyCasesToFile() {
         String basePath = "";
@@ -267,9 +275,69 @@ public class ESController {
         }
     }
 
-    public static void doctorScreening(EmergencyCase emergencyCase){
-        Patient patient =  emergencyCase.getPatient();
-        patient.displayPatientInfo();
+//    public static void doctorScreening(EmergencyCase emergencyCase){
+//        Patient patient =  emergencyCase.getPatient();
+//        Doctor doctor = emergencyCase.getScreeningDoctor();
+//        patient.setAssignedDoctor(doctor.getId());
+//        patient.displayPatientInfo();
+//        auditManager.logAction(doctor.getId(), "VIEW PATIENT RECORD",
+//                "Patient: " + selectedPatient.getPatientID(), "SUCCESS");
+//        while (true){
+//            showDoctorPatientOption();
+//            int doctorInput = InputValidator.getValidIntInput("Enter your choice: ");
+//
+//            switch (doctorInput) {
+//                case 0:
+//                    return;  // Go back to patient list
+//                case 1:
+//                    updatePatientVitalSigns(patient, doctor, auditManager);  // Update vital signs
+//                    continue;
+//                case 2:
+//                    updatePatientSymptoms(selectedPatient, doctor, auditManager);  // Update symptoms
+//                    continue;
+//                case 3:
+//                    diagnosePatient(selectedPatient, doctor, auditManager);  // Diagnose patient
+//                    continue;
+//                case 4:
+//                    prescribeMedications(selectedPatient, doctor, auditManager);  // Prescribe medications
+//                    continue;
+//                default:
+//                    System.out.println("Invalid choice! Please try again.");
+//            }
+//        }
+//    }
+
+    public static void showDoctorPatientOption(){
+        System.out.println("\n===== Doctor Options =====");
+        System.out.println("1. Update Patient Vital Signs");
+        System.out.println("2. Update Patient Symptoms");
+        System.out.println("3. Diagnose Patient");
+        System.out.println("4. Prescribe Medications");
+        System.out.println("0. Back");
+    }
+
+    public static void updatePatientVitalSigns(Patient patient, Doctor doctor, AuditManager auditManager) {
+//        System.out.println("========== Update Patient Vital Signs ==========");
+//        System.out.println("Printing " + patient.getPatientName() + "'s current vital signs...");
+//        System.out.println(patient.getEHR().getVitalSigns().toString());  // Display current vital signs
+//        auditManager.logAction(doctor.getId(), "UPDATE PATIENT RECORD", "Patient: " + patient.getPatientID(), "SUCCESS");
+//
+//        // Prompt for new vital sign values
+//        double temperature = InputValidator.getValidDoubleInput("Please enter the temperature: ");
+//        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ temperature, "Patient: " + patient.getPatientID() + "'s temperature", "SUCCESS");
+//        int hr = InputValidator.getValidIntInput("Please enter the heart rate: ");
+//        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ hr, "Patient: " + patient.getPatientID() + "'s heart rate", "SUCCESS");
+//        int sysBloodPressure = InputValidator.getValidIntInput("Please enter the systolic blood pressure: ");
+//        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ sysBloodPressure, "Patient: " + patient.getPatientID() + "'s systolic blood pressure", "SUCCESS");
+//        int diaBloodPressure = InputValidator.getValidIntInput("Please enter the diastolic blood pressure: ");
+//        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ diaBloodPressure, "Patient: " + patient.getPatientID() + "'s diastolic blood pressure", "SUCCESS");
+//        int respiratory = InputValidator.getValidIntInput("Please enter the respiratory rate: ");
+//        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ respiratory, "Patient: " + patient.getPatientID() + "'s respiratory rate", "SUCCESS");
+//
+//        // Update patient's vital signs
+//        patient.getEHR().setVitalSigns(new VitalSigns(temperature, hr, sysBloodPressure, diaBloodPressure, respiratory));
+//
+//        System.out.println(patient.getPatientName() + "'s vital signs have been updated.");
 
     }
 }
