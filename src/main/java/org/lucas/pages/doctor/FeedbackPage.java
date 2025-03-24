@@ -1,6 +1,7 @@
 package org.lucas.pages.doctor;
 
 import org.lucas.controllers.UserController;
+import org.lucas.models.enums.UserType;
 import org.lucas.ui.framework.Color;
 import org.lucas.ui.framework.TextStyle;
 import org.lucas.ui.framework.UiBase;
@@ -12,10 +13,13 @@ import org.lucas.core.SharedMethod;
 import org.lucas.util.InputValidator;
 import org.lucas.models.*;
 import org.lucas.util.TextSplitter;
+import org.lucas.audit.*;
 
 
 import java.util.List;
 
+
+import static org.lucas.controllers.UserController.getActiveDoctor;
 
 
 /** Represents the main page of the Telemedicine Integration System.
@@ -47,11 +51,34 @@ public class FeedbackPage extends UiBase {
         lv.setTitleHeader("Give your feedback  ");
 
         lv.attachUserInput("Give your feedback", str -> {
+
             createFeedbackMechanism(clinicalGuidelines);
         }); // Attach the user input to the list view
         canvas.setRequireRedraw(true);
     }
-    public static void createFeedbackMechanism(List<ClinicalGuideline> clinicalGuidelines) {
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    public void createFeedbackMechanism(List<ClinicalGuideline> clinicalGuidelines) {
+        AuditManager auditManager = new AuditManager();
+        String activeUserId;
+        String activeUserName;
+
+        if (UserController.getActiveUserType()== UserType.DOCTOR){
+            activeUserId = UserController.getActiveDoctor().getId();
+            activeUserName = UserController.getActiveDoctor().getName();
+        } else if (UserController.getActiveUserType()== UserType.NURSE) {
+            activeUserId = UserController.getActiveNurse().getId();
+            activeUserName = UserController.getActiveNurse().getName();
+        } else {
+            System.out.println("No active user found");
+            return;
+        }
+
+
         while (true) {
             ClinicalGuideline matchClinicalGuideline;
 
@@ -73,6 +100,8 @@ public class FeedbackPage extends UiBase {
                 matchClinicalGuideline.saveFeedbackToFile(feedback);
 
                 System.out.println("✅ Thank you for your feedback! It has been successfully recorded.");
+                auditManager.logAction(activeUserId, "Feedback given", "Guideline ID: " + selectedClinicalID, "Patient Feedback Administered", activeUserName);
+                ToPage(new DoctorMainPage());
                 break;  // Exit feedback loop after successful submission
             }
 

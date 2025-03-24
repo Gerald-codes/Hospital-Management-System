@@ -8,12 +8,11 @@ import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
 import org.lucas.pages.LandingPage;
 import org.lucas.pages.LoginPage;
-import org.lucas.pages.PharmacyPage;
+import org.lucas.pages.pharmacy.PharmacyPage;
 import org.lucas.pages.doctor.*;
 import org.lucas.pages.nurse.NurseMenuPage;
 import org.lucas.pages.nurse.NursePatientActionsPage;
 import org.lucas.pages.pharmacy.MedicationPage;
-import org.lucas.ui.framework.UiBase;
 import org.lucas.util.LocalDateTimeTypeAdapter;
 
 import java.time.LocalDateTime;

@@ -1,5 +1,6 @@
 package org.lucas.pages;
 
+import org.lucas.audit.AuditManager;
 import org.lucas.controllers.UserController;
 import org.lucas.models.enums.UserType;
 import org.lucas.pages.doctor.DoctorMainPage;
@@ -42,21 +43,21 @@ public class LoginPage extends UiBase { // This is the class that represents the
     public void OnViewCreated(View parentView) { // This is the method that is called when the view is created
 
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
-        lv.setTitleHeader("Welcome to Telemedicine Integration System "); // Set the title header of the list view
+        lv.setTitleHeader("Welcome to the Hospital Management System "); // Set the title header of the list view
         lv.addItem(new TextView(this.canvas, "To use our system, please kindly login by pressing 1", Color.GREEN)); // Create a new text view with the message
-
+        AuditManager auditManager = new AuditManager();
         lv.attachUserInput("Login ", x -> { // Attach the user input to the list view
             String username = InputValidator.getValidStringInput("Enter your username: ");
             String password = InputValidator.getValidStringInput("Enter your password: ");
 
             //Check credential for Doctors / Patient
-            if (UserType.DOCTOR == userController.authenticate(username, password)) {
+            if (UserType.DOCTOR == userController.authenticate(username, password,auditManager)) {
                 System.out.println("Login successful!");
                 ToPage(new DoctorMainPage());
-            } else if (UserType.NURSE == userController.authenticate(username, password)) {
+            } else if (UserType.NURSE == userController.authenticate(username, password,auditManager)) {
                 System.out.println("Login successful!");
                 ToPage(new NurseMenuPage());
-            } else if (UserType.PATIENT == userController.authenticate(username, password)) {
+            } else if (UserType.PATIENT == userController.authenticate(username, password,auditManager)) {
                 System.out.println("Login successful!");
                 ToPage(new PatientMainPage());
             } else { System.out.println("Invalid username or password!"); }

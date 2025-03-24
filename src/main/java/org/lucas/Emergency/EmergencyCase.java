@@ -291,7 +291,7 @@ public class EmergencyCase {
      * Get the screening doctors
      * @return a list of staff members who performed the screening
      */
-    public Doctor getScreeningDoctors() {
+    public Doctor getScreeningDoctor() {
         return this.screeningdoctor;
     }
 

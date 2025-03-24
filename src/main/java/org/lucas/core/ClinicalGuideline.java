@@ -237,9 +237,94 @@ public class ClinicalGuideline {
                 "www.placeholder-url.com/furosemide-guideline", "05-19-2023",
                 "Monitor electrolyte levels every 48 hours in high-risk patients.", "HIGH"
         ));
+        // Clinical Guideline for Diphenhydramine
+        clinicalGuidelines.add(new ClinicalGuideline(
+                "C004", "Administer Diphenhydramine for Allergies or Sleep Aid",
+                "Diphenhydramine is an antihistamine commonly used to treat allergies, motion sickness, and as a short-term sleep aid. "
+                        + "It may cause drowsiness, dry mouth, or dizziness in some individuals. Caution when driving or operating machinery.",
+                70, "Medication", "American Academy of Allergy, Asthma, and Immunology (AAAAI)",
+                "www.placeholder-url.com/diphenhydramine-guideline", "06-15-2023",
+                "Avoid use with alcohol and sedatives. Monitor elderly patients for confusion or falls.", "MEDIUM"
+        ));
+        // Clinical Guideline for Loperamide
+        clinicalGuidelines.add(new ClinicalGuideline(
+                "C005", "Administer Loperamide for Diarrhea",
+                "Loperamide is used to reduce the frequency of diarrhea by slowing intestinal motility. It should not be used for infections causing diarrhea or in children under 2 years old. "
+                        + "It may cause constipation, bloating, and abdominal discomfort. In rare cases, high doses can lead to serious heart conditions.",
+                85, "Medication", "World Health Organization (WHO)",
+                "www.placeholder-url.com/loperamide-guideline", "07-22-2023",
+                "Monitor for signs of dehydration and avoid prolonged use. If diarrhea persists, seek further medical evaluation.", "HIGH"
+        ));
+        // New Clinical Guidelines for Added Medications
+        clinicalGuidelines.add(new ClinicalGuideline(
+                "C006", "Prescribe Amoxicillin based on confirmed bacterial infection",
+                "Amoxicillin is an antibiotic used for bacterial infections. "
+                        + "Ensure proper diagnosis before prescribing to prevent antibiotic resistance.",
+                0, "Medication", "Infectious Diseases Society of America (IDSA)",
+                "www.placeholder-url.com/amoxicillin-guideline", "06-10-2023",
+                "Use for confirmed bacterial infections; avoid unnecessary use.", "MEDIUM"));
+
+        clinicalGuidelines.add(new ClinicalGuideline(
+                "C007", "Metformin for Diabetes Management",
+                "Metformin is the first-line treatment for Type 2 Diabetes. "
+                        + "Monitor renal function before prescribing and adjust dose if necessary.",
+                0, "Medication", "American Diabetes Association (ADA)",
+                "www.placeholder-url.com/metformin-guideline", "07-15-2023",
+                "Monitor kidney function every 6 months in diabetic patients.", "MEDIUM"));
+
+        clinicalGuidelines.add(new ClinicalGuideline(
+                "C008", "Ibuprofen for Pain Management",
+                "Ibuprofen is used for pain relief and inflammation. "
+                        + "Avoid in patients with peptic ulcer disease or high cardiovascular risk.",
+                0, "Medication", "World Health Organization (WHO)",
+                "www.placeholder-url.com/ibuprofen-guideline", "08-05-2023",
+                "Limit to short-term use; consider alternatives for long-term pain management.", "LOW"));
+
+        clinicalGuidelines.add(new ClinicalGuideline(
+                "C009", "Statin Therapy: Atorvastatin for Cholesterol Control",
+                "Atorvastatin is used to lower cholesterol and reduce cardiovascular risk. "
+                        + "Monitor liver function and muscle enzymes in long-term use.",
+                10, "Medication", "American College of Cardiology (ACC)",
+                "www.placeholder-url.com/atorvastatin-guideline", "09-20-2023",
+                "Check liver enzymes and lipid profile every 6 months.", "MEDIUM"));
+
+        clinicalGuidelines.add(new ClinicalGuideline(
+                "C010", "Levothyroxine for Hypothyroidism",
+                "Levothyroxine is a thyroid hormone replacement. "
+                        + "Titrate dose based on TSH levels; avoid sudden dose changes.",
+                0, "Medication", "American Thyroid Association (ATA)",
+                "www.placeholder-url.com/levothyroxine-guideline", "10-11-2023",
+                "Monitor TSH levels every 3-6 months in newly treated patients.", "LOW"));
+        // Here ownwards are guidelines for symptoms
+        // Clinical Guideline for Possible Heart Condition
+        clinicalGuidelines.add(new ClinicalGuideline(
+                "C011", "Possible Heart Condition",
+                "Symptoms include chest pain, shortness of breath, dizziness, and palpitations. "
+                        + "Requires immediate ECG and clinical evaluation.",
+                120, "Symptom", "American College of Cardiology (ACC)",
+                "www.placeholder-url.com/chest-pain-guideline","05-19-2023",
+                "Urgent referral for cardiology evaluation and stress testing.", "CRITICAL"
+        ));
+        // Clinical Guideline for Pain Reflief
+        clinicalGuidelines.add(new ClinicalGuideline(
+                "C012", "Ibuprofen for Pain Management",
+                "Ibuprofen is used for pain relief and inflammation. "
+                        + "Avoid in patients with peptic ulcer disease or high cardiovascular risk.",
+                0, "Symptom", "World Health Organization (WHO)",
+                "www.placeholder-url.com/ibuprofen-guideline", "08-05-2023",
+                "Limit to short-term use; consider alternatives for long-term pain management.", "LOW"));
+        //Clinical Guidelines for General Body Aches
+        clinicalGuidelines.add(new ClinicalGuideline(
+                "C013", "Management of General Body Aches",
+                "Body aches can result from muscle strain, viral infections, or chronic pain conditions. "
+                        + "Mild cases can be managed with NSAIDs like ibuprofen or acetaminophen. "
+                        + "For severe or persistent cases, consider referral for further evaluation.",
+                0, "Symptom", "World Health Organization (WHO)",
+                "www.placeholder-url.com/body-ache-guideline", "06-01-2024",
+                "Recommend NSAIDs, hydration, and rest for mild cases. If pain persists beyond 2 weeks, consider further diagnostics.", "MEDIUM"));
         // Clinical Guideline for Viral Pharyngitis
         clinicalGuidelines.add( new ClinicalGuideline(
-                "C004", "Viral Pharyngitis",
+                "C014", "Viral Pharyngitis",
                 "Common symptoms include sore throat, runny nose, cough, and mild fever. "
                         + "Self-limiting in most cases; antibiotics are not recommended.",
                 0, "Symptom", "Centers for Disease Control (CDC)",
@@ -248,7 +333,7 @@ public class ClinicalGuideline {
         ));
         // Clinical Guideline for Strep Throat
         clinicalGuidelines.add( new ClinicalGuideline(
-                "C005", "Strep Throat (Bacterial Pharyngitis)",
+                "C015", "Strep Throat (Bacterial Pharyngitis)",
                 "Characterized by sore throat, high fever, swollen tonsils, and absence of cough. "
                         + "Requires rapid strep test or throat culture before starting antibiotics.",
                 0, "Symptom", "Centers for Disease Control (CDC)",
@@ -257,22 +342,81 @@ public class ClinicalGuideline {
         ));
         // Clinical Guideline for Tonsillitis
         clinicalGuidelines.add(new ClinicalGuideline(
-                "C006", "Tonsillitis",
+                "C016", "Tonsillitis",
                 "Severe sore throat, difficulty swallowing, and swollen tonsils. "
                         + "Can be viral or bacterial; clinical evaluation is needed.",
                 0, "Symptom", "American Academy of Otolaryngology",
                 "www.placeholder-url.com/tonsillitis", "05-19-2023",
                 "If bacterial, consider antibiotics; if recurrent, assess for tonsillectomy.", "MEDIUM"
         ));
-        // Clinical Guideline for Possible Heart Condition
+        //Clinal Guideline for Severe Headaches
         clinicalGuidelines.add(new ClinicalGuideline(
-                "C007", "Possible Heart Condition",
-                "Symptoms include chest pain, shortness of breath, dizziness, and palpitations. "
-                        + "Requires immediate ECG and clinical evaluation.",
-                120, "Cardiology", "American College of Cardiology (ACC)",
-                "www.placeholder-url.com/chest-pain-guideline","05-19-2023",
-                "Urgent referral for cardiology evaluation and stress testing.", "CRITICAL"
+                "C017", "Migraine",
+                "Migraine is a severe headache often accompanied by nausea, vomiting, and sensitivity to light and sound.",
+                80, "Symptom", "American Headache Society",
+                "www.placeholder-url.com/migraine-guideline", "08-01-2023",
+                "Administer pain relief like Ibuprofen or Acetaminophen. For recurrent migraines, consider preventive treatments and avoid triggers.", "MEDIUM"
         ));
+
+        clinicalGuidelines.add(new ClinicalGuideline(
+                "C018", "Meningitis",
+                "Meningitis is an inflammation of the protective membranes around the brain and spinal cord. Symptoms can include severe headache, Fever, chills, body aches",
+                95, "Symptom", "Centers for Disease Control and Prevention (CDC)",
+                "www.placeholder-url.com/meningitis-guideline", "08-05-2023",
+                "Immediate hospitalization and antibiotic therapy may be required. If bacterial meningitis is suspected, broad-spectrum antibiotics should be initiated.", "CRITICAL"
+        ));
+
+        //Clinical Guideline for Nausea and Vomiting
+        clinicalGuidelines.add(new ClinicalGuideline(
+                "C019", "Gastroenteritis (Stomach Flu)",
+                "Gastroenteritis causes inflammation of the stomach and intestines, leading to nausea and vomiting, constipation, and occassionally Severe Abdominal Pain",
+                85, "Symptom", "National Institute of Health (NIH)",
+                "www.placeholder-url.com/gastroenteritis-guideline", "07-25-2023",
+                "Rehydrate the patient with oral rehydration solutions. If vomiting persists, administer antiemetics like Ondansetron.", "MEDIUM"
+        ));
+
+        clinicalGuidelines.add(new ClinicalGuideline(
+                "C020", "Food Poisoning",
+                "Food poisoning is caused by consuming contaminated food or water, resulting in symptoms like nausea and vomiting, constipation, and abdominal pain.",
+                80, "Symptom", "Centers for Disease Control and Prevention (CDC)",
+                "www.placeholder-url.com/food-poisoning-guideline", "08-10-2023",
+                "Ensure rehydration. Administer antiemetics and antibiotics if bacterial infection is confirmed.", "MEDIUM"
+        ));
+
+        //Clinical Guidelines for skin conditions
+        clinicalGuidelines.add(new ClinicalGuideline(
+                "C021", "Dermatitis",
+                "Dermatitis is an inflammation of the skin leading to skin rash or itching. It can be caused by allergens or irritants.",
+                75, "Symptom", "American Academy of Dermatology",
+                "www.placeholder-url.com/dermatitis-guideline", "08-12-2023",
+                "Topical steroids may be used to reduce inflammation. Antihistamines like Diphenhydramine can relieve itching.", "MEDIUM"
+        ));
+
+        clinicalGuidelines.add(new ClinicalGuideline(
+                "C022", "Chickenpox",
+                "Chickenpox is a highly contagious viral infection that causes flu-like symptoms, skin rash or itching",
+                80, "Symptom", "Centers for Disease Control and Prevention (CDC)",
+                "www.placeholder-url.com/chickenpox-guideline", "08-15-2023",
+                "Manage fever with paracetamol and calamine lotion for itching. Antiviral drugs may be used in severe cases.", "MEDIUM"
+        ));
+        clinicalGuidelines.add(new ClinicalGuideline(
+                "C023", "Asthma",
+                "Asthma causes difficulty breathing, wheezing, and tightness in the chest. Symptoms often occur due to triggers like allergens or respiratory infections.",
+                90, "Symptom", "American Lung Association",
+                "www.placeholder-url.com/asthma-guideline", "07-30-2023",
+                "Administer bronchodilators (albuterol) immediately. For persistent symptoms, consider corticosteroids for long-term control.", "HIGH"
+        ));
+
+        clinicalGuidelines.add(new ClinicalGuideline(
+                "C024", "Pneumonia",
+                "Pneumonia is an infection in the lungs that can cause fever, difficulty breathing, chest pain, and fatigue.",
+                95, "Symptom", "World Health Organization (WHO)",
+                "www.placeholder-url.com/pneumonia-guideline", "08-05-2023",
+                "Start with empirical antibiotics (ceftriaxone) and adjust based on cultures. Oxygen therapy may be required in severe cases.", "CRITICAL"
+        ));
+
+
+
         return clinicalGuidelines;
     }
 

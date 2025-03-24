@@ -28,7 +28,8 @@ import java.util.Random;
 public class MedicationController {
     private static final String fileName = "medication.txt";
     private static List<Medication> availableMedication = new ArrayList<>(); // In-memory list
-
+    public static String medicationID;
+    public static String medicationID1;
 
     /**
      * returns a *copy* of the available medicine array.
@@ -65,9 +66,6 @@ public class MedicationController {
             System.out.printf("%-25s: %s%n", "Dosage", medications.getDosage());
             System.out.printf("%-25s: %s%n", "Side Effects", medications.getSideEffects());
             System.out.printf("%-25s: %s%n", "Brand Name", medications.getBrandName());
-            System.out.printf("%-25s: %d mg%n", "Dosage Strength", medications.getDosageStrength());
-            System.out.printf("%-25s: %s%n", "Frequency", medications.getFrequency());
-            System.out.printf("%-25s: %s%n", "Max Daily Dosage", medications.getMaximumDailyDosage());
             System.out.printf("%-25s: %d units%n", "Stock Available", medications.getStockAvailable());
             System.out.printf("%-25s: %s%n", "Controlled Substance", medications.isControlledSubstance() ? "Yes" : "No");
             System.out.printf("%-25s: %s%n", "Manufacturer", medications.getManufactureName());
@@ -142,36 +140,52 @@ public class MedicationController {
     public static void populateExampleMedication() {
         // Only add examples if the file was empty or didn't exist
         if (availableMedication.isEmpty()) {
+
             Medication Paracetamol = new Medication("Paracetamol", "C001", "M001", "325mg, Once a Week",
-                    "Drowsiness, Nausea", "Tylenol", 325, "Once a Day",
-                    "6969mg", 80, false, "Bayer Pharmaceuticals", "B002",
-                    "12-12-2025", "04-04-2026",23.1);
+                    "Drowsiness, Nausea", "Tylenol", 80, false, "Bayer Pharmaceuticals", "B002",
+                    "12-12-2025", "04-04-2026", 23.1);
             Medication Aspirin = new Medication("Aspirin", "C002", "M002", "325mg, Once a Week",
-                    "Bleeding, Stomach Pain", "Bayer", 325, "Once a Day",
-                    "6969mg", 80, false, "Bayer Pharmaceuticals", "B002",
-                    "12-12-2025", "04-04-2026",13.1);
+                    "Bleeding, Stomach Pain", "Bayer", 80, false, "Bayer Pharmaceuticals", "B002",
+                    "12-12-2025", "04-04-2026", 13.1);
             Medication Furosemide = new Medication("Furosemide", "C003", "M003", "325mg, Once a Week",
-                    "Dehydration, Low Blood Pressure", "Lasix", 325, "Once a Day",
-                    "6969mg", 80, true, "Sanofi", "B002",
-                    "12-12-2025", "04-04-2026",10.1);
+                    "Frequent Urination", "Lasix", 80, true, "Sanofi", "B002",
+                    "12-12-2025", "04-04-2026", 10.1);
             Medication Diphenhydramine = new Medication("Diphenhydramine", "C004", "M004", "200mg, Once a Week",
-                    "Bleeding Cock", "Bayer", 200, "Thrice a Day",
-                    "6969mg", 80, false, "Bayer Pharmaceuticals", "B002",
-                    "12-12-2025", "04-04-2026",100.1);
+                    "Drowsiness, Sleepiness", "HealthA2Z Sleep Aid", 80, false, "Bayer Pharmaceuticals", "B002",
+                    "12-12-2025", "04-04-2026", 14.69);
             Medication Loperamide = new Medication("Loperamide", "C005", "M005", "325mg, Once a Week",
-                    "Bleeding Cock", "Bayer", 325, "Twice a Day",
-                    "6969mg", 80, false, "Bayer Pharmaceuticals", "B002",
-                    "12-12-2025", "04-04-2026",53.1);
+                    "Constipation, Dry Mouth", "Imodium", 80, false, "Bayer Pharmaceuticals", "B002",
+                    "12-12-2025", "04-04-2026", 3.33);
+            Medication Amoxicillin = new Medication("Amoxicillin", "C006", "M006", "500mg, Twice a Day",
+                    "Nausea, Diarrhea", "Amoxil", 100, false, "GlaxoSmithKline", "B003",
+                    "15-08-2024", "20-12-2025", 8.99);
+            Medication Metformin = new Medication("Metformin", "C007", "M007", "850mg, Once Daily",
+                    "Stomach Upset, Lactic Acidosis (Rare)", "Glucophage", 120, false, "Merck", "B004",
+                    "10-09-2023", "11-11-2025", 5.75);
+            Medication Ibuprofen = new Medication("Ibuprofen", "C008", "M008", "200mg, Every 6 Hours",
+                    "Stomach Pain, Heartburn", "Advil", 150, false, "Pfizer", "B005",
+                    "01-03-2024", "02-07-2026", 6.49);
+            Medication Atorvastatin = new Medication("Atorvastatin", "C009", "M009", "10mg, Once Daily",
+                    "Muscle Pain, Liver Enzyme Changes", "Lipitor", 90, false, "Pfizer", "B006",
+                    "28-02-2024", "15-05-2026", 12.99);
+            Medication Levothyroxine = new Medication("Levothyroxine", "C010", "M010", "100mcg, Once Daily",
+                    "Hair Loss, Nervousness", "Synthroid", 60, false, "AbbVie", "B007",
+                    "05-07-2024", "30-09-2026", 9.50);
 
-        availableMedication.add(Paracetamol);
-        availableMedication.add(Aspirin);
-        availableMedication.add(Furosemide);
-        availableMedication.add(Diphenhydramine);
-        availableMedication.add(Loperamide);
+            // Adding all medications to the list
+            availableMedication.add(Paracetamol);
+            availableMedication.add(Aspirin);
+            availableMedication.add(Furosemide);
+            availableMedication.add(Diphenhydramine);
+            availableMedication.add(Loperamide);
+            availableMedication.add(Amoxicillin);
+            availableMedication.add(Metformin);
+            availableMedication.add(Ibuprofen);
+            availableMedication.add(Atorvastatin);
+            availableMedication.add(Levothyroxine);
+        }
+        saveMedicationToFile();
     }
-
-    saveMedicationToFile();
-}
 
     private static List<Medication> medication = new ArrayList<>();
     private static final String medicationFileName = "medication.txt";
@@ -219,7 +233,7 @@ public class MedicationController {
 
         return new ArrayList<>(selectedMedications);
     }
-    //TODO: find medication by ID
+
     public static Medication findAvailableMedicationByID(String id) {
         if (availableMedication.isEmpty()) {
             loadMedicationFromFile();
@@ -234,13 +248,12 @@ public class MedicationController {
     }
 
     //add to availableMedication list
-    public static void addNewMedication(String medicationName, String guidelineId, String medicationId, String dosage, String sideEffects, String brandName, int dosageStrength, String frequency, String maxDailyDosage, int stockAvailable, boolean controlledSubstance, String manufactureName, String batchNumber, String manufactureDate, String expiryDate, double price) {
-        Medication newMedication = new Medication(medicationName, guidelineId, medicationId, dosage, sideEffects, brandName, dosageStrength, frequency, maxDailyDosage, stockAvailable, controlledSubstance, manufactureName, batchNumber, manufactureDate, expiryDate, price);
+    public static void addNewMedication(String medicationName, String guidelineId, String medicationId, String dosage, String sideEffects, String brandName, int stockAvailable, boolean controlledSubstance, String manufactureName, String batchNumber, String manufactureDate, String expiryDate, double price) {
+        Medication newMedication = new Medication(medicationName, guidelineId, medicationId, dosage, sideEffects, brandName, stockAvailable, controlledSubstance, manufactureName, batchNumber, manufactureDate, expiryDate, price);
         availableMedication.add(newMedication);
         saveMedicationToFile();
     }
 
-    //TODO: Method to show the latest Guideline ID
     public static String getLatestGuidelineId() {
         if (availableMedication.isEmpty()) {
             loadMedicationFromFile();
@@ -254,7 +267,7 @@ public class MedicationController {
         return latestGuidelineId;
     }
 
-    //TODO: Method to show latest Medication ID
+
     public static String getLatestMedicationId() {
         if (availableMedication.isEmpty()) {
             loadMedicationFromFile();
@@ -269,7 +282,7 @@ public class MedicationController {
         }
         return latestMedicationId;
     }
-    //TODO: Method to show the latest Batch Number
+
     public static String getLatestBatchNumber() {
         if (availableMedication.isEmpty()) {
             loadMedicationFromFile();
@@ -307,15 +320,6 @@ public class MedicationController {
         System.out.println("Enter the Brand Name :");
         String brandName = scan.nextLine();
 
-        System.out.println("Enter the dosage strength :");
-        int dosageStrength = Integer.parseInt(scan.nextLine());
-
-        System.out.println("How often can patient take the medicine :");
-        String frequency = scan.nextLine();
-
-        System.out.println("Enter maximum dosage :");
-        String maximumDailyDosage = scan.nextLine();
-
         System.out.println("Enter stock amount to be added :");
         int stockAvailable = Integer.parseInt(scan.nextLine());
 
@@ -337,7 +341,7 @@ public class MedicationController {
         System.out.println("Enter the standard pricing of this medicine :");
         double medicationPrice = Double.parseDouble(scan.nextLine());
 
-        addNewMedication(medicationName, guidelineId, medicationID, dosage, sideEffects, brandName, dosageStrength, frequency, maximumDailyDosage, stockAvailable, controlledSubstance, manufactureName, batchNumber, manufactureDate, expiryDate, medicationPrice);
+        addNewMedication(medicationName, guidelineId, medicationID, dosage, sideEffects, brandName, stockAvailable, controlledSubstance, manufactureName, batchNumber, manufactureDate, expiryDate, medicationPrice);
     }
 
 
@@ -367,16 +371,20 @@ public class MedicationController {
         else {
             System.out.println("Invalid amount given. Please enter a valid amount that can be deducted from the total" + currentStock);
         }
+
+
     }
+
+
 
 
     public static void editMedicineDetails(){
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Enter Medicine ID of the medicine you wish to find :    Example: M001");
-        String medicationID = scan.nextLine();
+        String medicationID1 = scan.nextLine();
 
-        Medication medication = findAvailableMedicationByID(medicationID);
+        Medication medication = findAvailableMedicationByID(medicationID1);
         if (medication == null) {
             System.out.println("Medication not found");
             return;
@@ -390,16 +398,13 @@ public class MedicationController {
         System.out.println("3. Dosage");
         System.out.println("4. Side Effects");
         System.out.println("5. Brand Name");
-        System.out.println("6. Dosage Strength");
-        System.out.println("7. Frequency");
-        System.out.println("8. Maximum Daily Dosage");
-        System.out.println("9. Stock Available");
-        System.out.println("10. Controlled Substance");
-        System.out.println("11. Manufacturer Name");
-        System.out.println("12. Batch Number");
-        System.out.println("13. Manufacture Date");
-        System.out.println("14. Expiry Date");
-        System.out.println("15. Medication Price");
+        System.out.println("6. Stock Available");
+        System.out.println("7. Controlled Substance");
+        System.out.println("8. Manufacturer Name");
+        System.out.println("9. Batch Number");
+        System.out.println("10. Manufacture Date");
+        System.out.println("11. Expiry Date");
+        System.out.println("12. Medication Price");
         System.out.println("Enter the index number of the detail you wish to edit:     Example: 1 ");
 
         int choice = Integer.parseInt(scan.nextLine());
@@ -426,42 +431,30 @@ public class MedicationController {
                 medication.setBrandName(scan.nextLine());
                 break;
             case 6:
-                System.out.println("Enter new Dosage Strength:");
-                medication.setDosageStrength(Integer.parseInt(scan.nextLine()));
-                break;
-            case 7:
-                System.out.println("Enter new Frequency:");
-                medication.setFrequency(scan.nextLine());
-                break;
-            case 8:
-                System.out.println("Enter new Maximum Daily Dosage:");
-                medication.setMaximumDailyDosage(scan.nextLine());
-                break;
-            case 9:
                 System.out.println("Enter new Stock Available:");
                 medication.setStockAvailable(Integer.parseInt(scan.nextLine()));
                 break;
-            case 10:
+            case 7:
                 System.out.println("Is this a controlled substance? (Yes/No):");
                 medication.setControlledSubstance(scan.nextLine().equalsIgnoreCase("Yes"));
                 break;
-            case 11:
+            case 8:
                 System.out.println("Enter new Manufacturer Name:");
                 medication.setManufactureName(scan.nextLine());
                 break;
-            case 12:
+            case 9:
                 System.out.println("Enter new Batch Number:");
                 medication.setBatchNumber(scan.nextLine());
                 break;
-            case 13:
+            case 10:
                 System.out.println("Enter new Manufacture Date:");
                 medication.setManufactureDate(scan.nextLine());
                 break;
-            case 14:
+            case 11:
                 System.out.println("Enter new Expiry Date:");
                 medication.setExpiryDate(scan.nextLine());
                 break;
-            case 15:
+            case 12:
                 System.out.println("Enter new Medication Price:");
                 medication.setMedicationPrice(Double.parseDouble(scan.nextLine()));
                 break;
@@ -485,9 +478,6 @@ public class MedicationController {
         System.out.printf("%-25s: %s%n", "Dosage", medication.getDosage());
         System.out.printf("%-25s: %s%n", "Side Effects", medication.getSideEffects());
         System.out.printf("%-25s: %s%n", "Brand Name", medication.getBrandName());
-        System.out.printf("%-25s: %d mg%n", "Dosage Strength", medication.getDosageStrength());
-        System.out.printf("%-25s: %s%n", "Frequency", medication.getFrequency());
-        System.out.printf("%-25s: %s%n", "Max Daily Dosage", medication.getMaximumDailyDosage());
         System.out.printf("%-25s: %d units%n", "Stock Available", medication.getStockAvailable());
         System.out.printf("%-25s: %s%n", "Controlled Substance", medication.isControlledSubstance() ? "Yes" : "No");
         System.out.printf("%-25s: %s%n", "Manufacturer", medication.getManufactureName());
@@ -496,6 +486,14 @@ public class MedicationController {
         System.out.printf("%-25s: %s%n", "Expiry Date", medication.getExpiryDate());
         System.out.println("=======================================\n");
     }
+
+    public static String getMedicationID() {
+        return medicationID;
+    }
+    public static String getMedicationID1() {
+        return medicationID1;
+    }
+
 }
 
 

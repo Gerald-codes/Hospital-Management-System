@@ -43,7 +43,7 @@ public class DoctorLocationPage extends UiBase {
         selectedCase.setScreeningDoctor(doctor);
         selectedCase.setLocation(PatientLocation.EMERGENCY_ROOM_EXAMINATION_ROOM);
         selectedCase.setPatientStatus(PatientStatus.ONGOING);
-        ESController.doctorScreening(selectedCase);
+//        ESController.doctorScreening(selectedCase);
         selectedCase.setPatientStatus(PatientStatus.DONE);
         ESController.saveEmergencyCasesToFile();
         ToPage( new DoctorLocationPage());
