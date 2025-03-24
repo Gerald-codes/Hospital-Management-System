@@ -5,6 +5,7 @@ import org.lucas.Emergency.EmergencyCase_Dispatch;
 import org.lucas.Emergency.EmergencySystem;
 import org.lucas.Emergency.enums.PatientLocation;
 import org.lucas.Emergency.enums.PatientStatus;
+import org.lucas.audit.AuditManager;
 import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
 import org.lucas.models.ElectronicHealthRecord;
@@ -158,6 +159,7 @@ public class NurseDispatchMenuPage extends UiBase {
         System.out.println("New Dispatch Case | Case ID: " + caseID + " | Patient Name: " + patient.getName()
                 + " | Registered successfully!\n");
         ESController.saveEmergencyCasesToFile();
+        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "NEW EMERGENCY DISPATCH CASE CREATED", "Case ID: " + caseID, "EMERGENCY DISPATCH", "NURSE");
         new NurseDispatchMenuPage();
     }
 

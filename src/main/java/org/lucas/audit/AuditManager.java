@@ -12,6 +12,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  * It generates unique audit IDs, logs actions performed by users, and saves these logs to a file.
  */
 public class AuditManager {
+
+    //Singleton Instance
+    private static AuditManager instance;
     // Remove the static final variable and replace with a method
 
     // List to hold audit log entries in memory
@@ -34,6 +37,17 @@ public class AuditManager {
     // Get the current day's log file name
     private String getAuditLogFileName() {
         return LocalDateTime.now().format(FILE_DATE_FORMATTER) + ".txt";
+    }
+
+    /**
+     * Gets the singleton instance of AuditManager
+     * @return The AuditManager instance
+     */
+    public static AuditManager getInstance() {
+        if (instance == null) {
+            instance = new AuditManager();
+        }
+        return instance;
     }
 
     // Generate a unique audit ID based on the current timestamp and an incrementing counter

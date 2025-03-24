@@ -286,7 +286,7 @@ public class UserController {
      * @see UserType
      * @see #loadUsersFromFile()*/
 
-    public UserType authenticate(String username, String password, AuditManager auditManager){
+    public UserType authenticate(String username, String password){
         if(users.isEmpty()){
             loadUsersFromFile();
         }
@@ -296,28 +296,28 @@ public class UserController {
         ).toList();
 
         if(authenticated.isEmpty()){
-            auditManager.logAction("NIL", "LOGIN", "System", "FAILED","");
+            AuditManager.getInstance().logAction("NIL", "LOGIN", "System", "FAILED","");
             return UserType.ERROR;
         }
         if(authenticated.getFirst() instanceof Doctor){
             activeDoctor = (Doctor)authenticated.getFirst();
             activeUserType = UserType.DOCTOR;
-            auditManager.logAction(activeDoctor.getId(), "LOGIN", "System", "SUCCESS", "DOCTOR");
+            AuditManager.getInstance().logAction(activeDoctor.getId(), "LOGIN", "System", "SUCCESS", "DOCTOR");
             return UserType.DOCTOR;
         }
         if(authenticated.getFirst() instanceof Nurse){
             activeNurse = (Nurse)authenticated.getFirst();
             activeUserType = UserType.NURSE;
-            auditManager.logAction(activeNurse.getId(), "LOGIN", "System", "SUCCESS", "NURSE");
+            AuditManager.getInstance().logAction(activeNurse.getId(), "LOGIN", "System", "SUCCESS", "NURSE");
             return UserType.NURSE;
         }
         if(authenticated.getFirst() instanceof Patient){
             activePatient = (Patient)authenticated.getFirst();
             activeUserType = UserType.PATIENT;
-            auditManager.logAction(activePatient.getId(), "LOGIN", "System", "SUCCESS", "PATIENT");
+            AuditManager.getInstance().logAction(activePatient.getId(), "LOGIN", "System", "SUCCESS", "PATIENT");
             return UserType.PATIENT;
         }
-        auditManager.logAction("NIL", "LOGIN", "System", "FAILED","");
+        AuditManager.getInstance().logAction("NIL", "LOGIN", "System", "FAILED","");
         return UserType.ERROR;
     }
 

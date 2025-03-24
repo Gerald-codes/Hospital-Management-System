@@ -1,12 +1,10 @@
 package org.lucas.pages.pharmacy;
 
 import org.lucas.Globals;
+import org.lucas.audit.AuditManager;
 import org.lucas.controllers.MedicationController;
 import org.lucas.controllers.UserController;
-import org.lucas.models.Appointment;
-import org.lucas.models.Billing;
-import org.lucas.models.Medication;
-import org.lucas.models.Prescription;
+import org.lucas.models.*;
 import org.lucas.models.enums.AppointmentStatus;
 import org.lucas.models.enums.UserType;
 import org.lucas.ui.framework.*;
@@ -35,6 +33,7 @@ public class DispensaryPage extends UiBase {
             return lv;
         }
         lv.setTitleHeader("Dispense Medication for Patients | " + UserController.getActiveNurse().getName());
+
         this.listView = lv;
         return lv;
     }
@@ -114,7 +113,6 @@ public class DispensaryPage extends UiBase {
         System.out.println("| 1. Dispense Medication | 2. Go Back |");
         selectedIndex1 = InputHelper.getValidIndex("Select An Option", 1, 2);
 
-
         switch (selectedIndex1){
             case 1:
                 processBilling(selectedAppointment);
@@ -131,6 +129,7 @@ public class DispensaryPage extends UiBase {
         Billing billing = appointment.getBilling();
         if (billing == null) {
             System.out.println("No billing information available.");
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "RETRIEVE BILLING", UserController.getActivePatient().getId(), "FAILED", "NURSE");
             return;
         }
 
@@ -138,6 +137,7 @@ public class DispensaryPage extends UiBase {
         Prescription prescription = billing.getPrescription();
         if (prescription == null) {
             System.out.println("No prescription found in billing.");
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "RETRIEVE PRESCRIPTION", UserController.getActivePatient().getId(), "FAILED", "NURSE");
             return;
         }
 
@@ -157,6 +157,7 @@ public class DispensaryPage extends UiBase {
                 int newStock = availableMed.getStockAvailable() - requiredMed.getStockAvailable();;
                 availableMed.setStockAvailable(newStock);
                 System.out.println("Dispensed: " + availableMed.getMedicationName());
+                AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "DISPENSED x "+ availableMed.getStockAvailable()+ " - " + availableMed.getMedicationName(), UserController.getActivePatient().getId(), "SUCCESS", "NURSE");
             } else {
                 System.out.println("Out of stock: " + availableMed.getMedicationName());
             }

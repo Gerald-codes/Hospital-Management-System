@@ -2,7 +2,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P001",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -190,7 +189,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P008",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -340,7 +338,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P006",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -476,7 +473,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P007",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [],
@@ -606,7 +602,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P002",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -664,21 +659,21 @@
             "symptom_id": "SYM-039",
             "severity": 6,
             "duration": 5,
-            "doctor_notes": "Possible arthritis or autoimmune disorder."
+            "doctor_notes": "Patient getting seizure"
           },
           {
             "symptom_name": "runny nose, nasal congestion",
             "symptom_id": "SYM-023",
             "severity": 3,
             "duration": 4,
-            "doctor_notes": "May be allergic reaction or viral infection."
+            "doctor_notes": ""
           },
           {
             "symptom_name": "dizziness, light headedness",
             "symptom_id": "SYM-028",
             "severity": 6,
             "duration": 1,
-            "doctor_notes": "Check for dehydration or inner ear issues."
+            "doctor_notes": ""
           }
         ],
         "diagnosis": "Nil",
@@ -732,13 +727,15 @@
       "gender": "Male",
       "phone_number": "9876 5432"
     },
-    "appointment_status": "ACCEPTED",
+    "appointment_status": "EMERGENCY",
     "session": {
       "id": "8229517e-d143-4bd8-9cce-944b2eb673f9",
       "start_time": "2025-03-20T02:40:30.845262",
+      "end_time": "2025-03-24T12:53:04.9770802",
       "zoom_link": "https://us05web.zoom.us/j/84767642353?pwd\u003davMoLxj15Dxujhmv9735zW6xspN4Zo.1",
-      "session_status": "ONGOING"
+      "session_status": "COMPLETED"
     },
+    "doctor_notes": "Patient getting seizure",
     "billing": {
       "bill_amount": 20.0,
       "billing_i_d": "3e35c8b9-dd95-4711-9603-940f16cbf338",
@@ -754,7 +751,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P007",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -808,14 +804,14 @@
             "symptom_id": "SYM-155",
             "severity": 5,
             "duration": 7,
-            "doctor_notes": "Could indicate anemia or chronic fatigue syndrome."
+            "doctor_notes": "Patient is DYing"
           },
           {
             "symptom_name": "skin rash or itching",
             "symptom_id": "SYM-158",
             "severity": 4,
             "duration": 3,
-            "doctor_notes": "Could indicate allergic reaction or dermatitis."
+            "doctor_notes": ""
           }
         ],
         "diagnosis": "Nil",
@@ -872,13 +868,15 @@
       "gender": "Male",
       "phone_number": "9876 5432"
     },
-    "appointment_status": "ACCEPTED",
+    "appointment_status": "EMERGENCY",
     "session": {
       "id": "eb26a083-3368-4adb-8ed3-560800afe9bd",
       "start_time": "2025-03-20T02:26:34.112768",
+      "end_time": "2025-03-24T13:02:18.5528654",
       "zoom_link": "https://us05web.zoom.us/j/84897626801?pwd\u003dtQ0b0ljbcQoGkShbxf6rZwG1BZRqbt.1",
-      "session_status": "ONGOING"
+      "session_status": "COMPLETED"
     },
+    "doctor_notes": "Patient is DYing",
     "billing": {
       "bill_amount": 20.0,
       "billing_i_d": "a22f5868-3a00-406c-b3f0-6e4583c380d9",
@@ -894,7 +892,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P005",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -1009,7 +1006,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P001",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -1165,7 +1161,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P003",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -1332,7 +1327,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P002",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -1464,7 +1458,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P004",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -1616,7 +1609,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P003",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -1697,21 +1689,21 @@
             "symptom_id": "SYM-050",
             "severity": 5,
             "duration": 1,
-            "doctor_notes": "Check for food poisoning or stomach flu."
+            "doctor_notes": "Test"
           },
           {
             "symptom_name": "fever, chills, body aches",
             "symptom_id": "SYM-041",
             "severity": 6,
             "duration": 5,
-            "doctor_notes": "Patient has flu-like symptoms, monitor temperature."
+            "doctor_notes": ""
           },
           {
             "symptom_name": "joint pain and swelling",
             "symptom_id": "SYM-059",
             "severity": 6,
             "duration": 5,
-            "doctor_notes": "Possible arthritis or autoimmune disorder."
+            "doctor_notes": ""
           }
         ],
         "diagnosis": "Nil",
@@ -1761,13 +1753,15 @@
       "gender": "Male",
       "phone_number": "9876 5432"
     },
-    "appointment_status": "ACCEPTED",
+    "appointment_status": "EMERGENCY",
     "session": {
       "id": "e55dce8c-c284-4c79-b1e7-9f0e0cd96adc",
       "start_time": "2025-03-20T02:27:07.847194",
+      "end_time": "2025-03-24T13:00:29.7285448",
       "zoom_link": "https://us05web.zoom.us/j/86234717008?pwd\u003dgBsYzzwvbOLGYF6IFph0GPtDMQsvVR.1",
-      "session_status": "ONGOING"
+      "session_status": "COMPLETED"
     },
+    "doctor_notes": "Test",
     "billing": {
       "bill_amount": 20.0,
       "billing_i_d": "81b88e9c-23f4-44d6-bcdf-82ca846d1b78",
@@ -1783,7 +1777,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P001",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [],
@@ -1862,21 +1855,21 @@
             "symptom_id": "SYM-006",
             "severity": 5,
             "duration": 10,
-            "doctor_notes": "Check for tuberculosis or bronchitis."
+            "doctor_notes": "Dying"
           },
           {
             "symptom_name": "loss of taste and smell",
             "symptom_id": "SYM-016",
             "severity": 4,
             "duration": 14,
-            "doctor_notes": "Check for COVID-19 infection."
+            "doctor_notes": ""
           },
           {
             "symptom_name": "joint pain and swelling",
             "symptom_id": "SYM-019",
             "severity": 6,
             "duration": 5,
-            "doctor_notes": "Possible arthritis or autoimmune disorder."
+            "doctor_notes": ""
           }
         ],
         "diagnosis": "Nil",
@@ -1933,13 +1926,15 @@
       "gender": "Male",
       "phone_number": "9876 5432"
     },
-    "appointment_status": "ACCEPTED",
+    "appointment_status": "EMERGENCY",
     "session": {
       "id": "f1590286-8aff-44cd-9d26-7e146733333b",
       "start_time": "2025-03-23T23:02:00.2465704",
+      "end_time": "2025-03-24T12:55:34.8415712",
       "zoom_link": "https://us05web.zoom.us/j/88599072056?pwd\u003d3EAb743VPNp1NUoVhi1TQuf3NM1Y3N.1",
-      "session_status": "ONGOING"
+      "session_status": "COMPLETED"
     },
+    "doctor_notes": "Dying",
     "billing": {
       "bill_amount": 20.0,
       "billing_i_d": "d31e1e6f-27d6-42af-960c-906604006a38",
@@ -1955,7 +1950,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P001",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [],
@@ -2034,21 +2028,21 @@
             "symptom_id": "SYM-006",
             "severity": 5,
             "duration": 10,
-            "doctor_notes": "Check for tuberculosis or bronchitis."
+            "doctor_notes": "Patient cannot breathe"
           },
           {
             "symptom_name": "loss of taste and smell",
             "symptom_id": "SYM-016",
             "severity": 4,
             "duration": 14,
-            "doctor_notes": "Check for COVID-19 infection."
+            "doctor_notes": ""
           },
           {
             "symptom_name": "joint pain and swelling",
             "symptom_id": "SYM-019",
             "severity": 6,
             "duration": 5,
-            "doctor_notes": "Possible arthritis or autoimmune disorder."
+            "doctor_notes": ""
           }
         ],
         "diagnosis": "Nil",
@@ -2093,7 +2087,37 @@
     "reason": "Fever",
     "history": "No",
     "appointment_time": "2025-03-24T14:00:00",
-    "appointment_status": "PENDING",
+    "doctor": {
+      "specialisation": "GP",
+      "type": "GENERAL_PRACTICE",
+      "license_number": "L12345",
+      "id": "D001",
+      "login_name": "limtzekai",
+      "name": "Dr. Lim Tze Kai",
+      "password": "docpass",
+      "email": "limtzekai@clinic.com",
+      "gender": "Male",
+      "phone_number": "9876 5432"
+    },
+    "appointment_status": "EMERGENCY",
+    "session": {
+      "id": "4bfd098c-4e2a-45f6-990b-3d01f8570957",
+      "start_time": "2025-03-24T12:51:19.3958517",
+      "end_time": "2025-03-24T12:51:46.7370991",
+      "zoom_link": "https://us05web.zoom.us/j/89564195386?pwd\u003dM1l9N7eS17s1piFYJbAuAHQbBlFb49.1",
+      "session_status": "COMPLETED"
+    },
+    "doctor_notes": "Patient cannot breathe",
+    "billing": {
+      "bill_amount": 20.0,
+      "billing_i_d": "f292f9ad-3819-405c-b1fd-b2dabd06cd6d",
+      "is_paid": false,
+      "is_re_calculate_bill_amount": true,
+      "prescription": {
+        "prescription_i_d": "b1aecf6d-9fd2-4855-a442-4899dedc7930",
+        "medication": []
+      }
+    },
     "diagnosis": ""
   }
 ]

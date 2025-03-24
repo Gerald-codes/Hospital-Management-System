@@ -52,7 +52,7 @@ public class FeedbackPage extends UiBase {
 
         lv.attachUserInput("Give your feedback", str -> {
 
-            createFeedbackMechanism(clinicalGuidelines);
+            createFeedbackMechanism(clinicalGuidelines, new AuditManager());
         }); // Attach the user input to the list view
         canvas.setRequireRedraw(true);
     }
@@ -62,8 +62,7 @@ public class FeedbackPage extends UiBase {
         return super.equals(obj);
     }
 
-    public void createFeedbackMechanism(List<ClinicalGuideline> clinicalGuidelines) {
-        AuditManager auditManager = new AuditManager();
+    public void createFeedbackMechanism(List<ClinicalGuideline> clinicalGuidelines, AuditManager auditManager) {
         String activeUserId;
         String activeUserName;
 

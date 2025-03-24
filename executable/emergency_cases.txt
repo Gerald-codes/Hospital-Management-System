@@ -3,103 +3,259 @@
     "case_i_d": 1,
     "patient": {
       "alert_history": [],
+      "date_of_birth": "15-08-1990",
       "electronic_health_record": {
-        "allergies": [],
-        "current_medications": [],
-        "medical_history": [],
+        "allergies": [
+          "Peanuts"
+        ],
+        "current_medications": [
+          {
+            "medication_name": "Ibuprofen",
+            "guideline_id": "C008",
+            "medication_id": "M008",
+            "dosage": "200mg, Every 6 Hours",
+            "side_effects": "Stomach Pain, Heartburn",
+            "brand_name": "Advil",
+            "stock_available": 150,
+            "controlled_substance": false,
+            "manufacture_name": "Pfizer",
+            "batch_number": "B005",
+            "manufacture_date": "01-03-2024",
+            "expiry_date": "02-07-2026",
+            "medication_price": 6.49
+          },
+          {
+            "medication_name": "Loperamide",
+            "guideline_id": "C005",
+            "medication_id": "M005",
+            "dosage": "325mg, Once a Week",
+            "side_effects": "Constipation, Dry Mouth",
+            "brand_name": "Imodium",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 3.33
+          },
+          {
+            "medication_name": "Diphenhydramine",
+            "guideline_id": "C004",
+            "medication_id": "M004",
+            "dosage": "200mg, Once a Week",
+            "side_effects": "Drowsiness, Sleepiness",
+            "brand_name": "HealthA2Z Sleep Aid",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 14.69
+          }
+        ],
+        "medical_history": [
+          "Diabetes",
+          "Obesity",
+          "Hypertension",
+          "Arthritis"
+        ],
         "vital_signs": {
-          "temperature": 30.0,
-          "heart_rate": 120,
-          "blood_pressure_systolic": 120,
-          "blood_pressure_diastolic": 20,
-          "respiratory_rate": 20
+          "temperature": 37.2,
+          "heart_rate": 78,
+          "blood_pressure_systolic": 132,
+          "blood_pressure_diastolic": 72,
+          "respiratory_rate": 14
         },
-        "lab_results": [],
+        "lab_results": [
+          "CBC: Normal",
+          "Blood Glucose: High",
+          "Hemoglobin: Low",
+          "Thyroid: Normal",
+          "Lipid Panel: Elevated"
+        ],
         "imaging_records": [],
-        "clinical_notes": "Nil",
-        "symptoms": [],
+        "clinical_notes": "Patient complains of headache.",
+        "symptoms": [
+          {
+            "symptom_name": "nausea and vomiting",
+            "symptom_id": "SYM-050",
+            "severity": 5,
+            "duration": 1,
+            "doctor_notes": "Test"
+          },
+          {
+            "symptom_name": "fever, chills, body aches",
+            "symptom_id": "SYM-041",
+            "severity": 6,
+            "duration": 5,
+            "doctor_notes": ""
+          },
+          {
+            "symptom_name": "joint pain and swelling",
+            "symptom_id": "SYM-059",
+            "severity": 6,
+            "duration": 5,
+            "doctor_notes": ""
+          }
+        ],
         "diagnosis": "Nil",
         "outcome_monitoring_records": [],
-        "past_surgeries": [],
-        "vaccination_record": []
+        "past_surgeries": [
+          "Hernia Repair"
+        ],
+        "vaccination_record": [
+          "COVID-19 Vaccine",
+          "Measles, Mumps, Rubella (MMR) Vaccine"
+        ]
       },
-      "height": 0.0,
-      "weight": 0.0,
-      "emergency_contact_number": 0,
+      "patient_specific_factor": "Asthmatic",
+      "assigned_nurse": "N002",
+      "assigned_doctor": "D002",
+      "height": 158.0,
+      "weight": 55.0,
+      "blood_type": "B+",
+      "house_address": "789 Pine St, TX",
+      "emergency_contact_number": 76543210,
+      "occupation": "Nurse",
+      "ethnicity": "Hispanic",
+      "healthcare_department": "Pulmonology",
       "patient_consent": {
-        "consent_given": false
+        "consent_given": false,
+        "consent_terms": ""
       },
-      "id": "asd",
-      "name": "GERALD",
-      "gender": "MALE",
-      "phone_number": "0123213"
-    },
-    "chief_complaint": "ALSKDLASKD",
-    "arrival_mode": "Walk-In",
-    "arrival_date_time": "2025-03-24T00:50:16.787406",
-    "triage_level": "PRIORITY_3_MINOR_EMERGENCIES",
-    "initial_screening_nurse": {
-      "department": "Pediatrics",
-      "role": "Paramedic Nurse",
-      "assigned_ward": "Ward A",
-      "can_administer_medication": true,
-      "nursing_license_number": "RN-2023-00123",
-      "alert_list": [],
-      "id": "N001",
-      "login_name": "emily",
-      "name": "Emily Carter",
+      "id": "P003",
+      "login_name": "BobBrown",
+      "name": "Bob Brown",
       "password": "password123",
-      "email": "emilycarter@gmail",
-      "gender": "Female",
+      "email": "BobBrown@example.com",
+      "gender": "Male",
       "phone_number": "87654321"
     },
-    "location": "EMERGENCY_ROOM_TRIAGE_ROOM",
-    "patient_status": "DONE",
+    "chief_complaint": "Test",
+    "arrival_mode": "Referred",
+    "arrival_date_time": "2025-03-24T13:00:29.7384103",
+    "triage_level": "PRIORITY_1_CRITICAL",
+    "location": "EMERGENCY_ROOM_TRAUMA_ROOM",
+    "patient_status": "WAITING",
     "emergency_procedures": [],
-    "is_urgent": false
+    "is_urgent": true
   },
   {
     "case_i_d": 1,
     "patient": {
       "alert_history": [],
+      "date_of_birth": "15-08-1990",
       "electronic_health_record": {
-        "allergies": [],
-        "current_medications": [],
-        "medical_history": [],
+        "allergies": [
+          "Penicillin",
+          "Shellfish",
+          "Peanuts"
+        ],
+        "current_medications": [
+          {
+            "medication_name": "Atorvastatin",
+            "guideline_id": "C009",
+            "medication_id": "M009",
+            "dosage": "10mg, Once Daily",
+            "side_effects": "Muscle Pain, Liver Enzyme Changes",
+            "brand_name": "Lipitor",
+            "stock_available": 90,
+            "controlled_substance": false,
+            "manufacture_name": "Pfizer",
+            "batch_number": "B006",
+            "manufacture_date": "28-02-2024",
+            "expiry_date": "15-05-2026",
+            "medication_price": 12.99
+          }
+        ],
+        "medical_history": [
+          "Arthritis"
+        ],
         "vital_signs": {
-          "temperature": 0.0,
-          "heart_rate": 0,
-          "blood_pressure_systolic": 0,
-          "blood_pressure_diastolic": 0,
-          "respiratory_rate": 0
+          "temperature": 36.9,
+          "heart_rate": 86,
+          "blood_pressure_systolic": 137,
+          "blood_pressure_diastolic": 82,
+          "respiratory_rate": 12
         },
-        "lab_results": [],
-        "imaging_records": [],
-        "clinical_notes": "Nil",
-        "symptoms": [],
+        "lab_results": [
+          "Hemoglobin: Low",
+          "Thyroid: Normal",
+          "Lipid Panel: Elevated"
+        ],
+        "imaging_records": [
+          "X-Ray",
+          "CT Scan",
+          "PET Scan",
+          "MRI",
+          "Ultrasound"
+        ],
+        "clinical_notes": "Patient complains of headache.",
+        "symptoms": [
+          {
+            "symptom_name": "extreme fatigue",
+            "symptom_id": "SYM-155",
+            "severity": 5,
+            "duration": 7,
+            "doctor_notes": "Patient is DYing"
+          },
+          {
+            "symptom_name": "skin rash or itching",
+            "symptom_id": "SYM-158",
+            "severity": 4,
+            "duration": 3,
+            "doctor_notes": ""
+          }
+        ],
         "diagnosis": "Nil",
         "outcome_monitoring_records": [],
-        "past_surgeries": [],
-        "vaccination_record": []
+        "past_surgeries": [
+          "Knee Replacement",
+          "Hernia Repair",
+          "Gallbladder Removal",
+          "Cataract Surgery",
+          "Appendectomy"
+        ],
+        "vaccination_record": [
+          "Influenza Vaccine",
+          "Measles, Mumps, Rubella (MMR) Vaccine",
+          "Tetanus Booster",
+          "COVID-19 Vaccine",
+          "Hepatitis B Vaccine"
+        ]
       },
-      "height": 0.0,
-      "weight": 0.0,
-      "emergency_contact_number": 0,
+      "patient_specific_factor": "Pregnant",
+      "assigned_nurse": "N003",
+      "assigned_doctor": "D002",
+      "height": 160.0,
+      "weight": 58.0,
+      "blood_type": "A+",
+      "house_address": "951 Spruce St, NV",
+      "emergency_contact_number": 43210987,
+      "occupation": "Chef",
+      "ethnicity": "Hispanic",
+      "healthcare_department": "Hematology",
       "patient_consent": {
-        "consent_given": false
+        "consent_given": false,
+        "consent_terms": ""
       },
-      "id": "adasd",
-      "name": "Gerald",
-      "gender": "male",
-      "phone_number": "9123213"
+      "id": "P008",
+      "login_name": "FionaGreen",
+      "name": "Fiona Green",
+      "password": "password123",
+      "email": "edwardh@example.com",
+      "gender": "Male",
+      "phone_number": "81234567"
     },
-    "chief_complaint": "ASLDKLSKD",
-    "arrival_mode": "Walk-In",
-    "arrival_date_time": "2025-03-24T12:01:50.038781",
-    "triage_level": "PRIORITY_4_NON_EMERGENCY",
-    "location": "EMERGENCY_ROOM_WAITING_ROOM",
+    "chief_complaint": "Patient is DYing",
+    "arrival_mode": "Referred",
+    "arrival_date_time": "2025-03-24T13:02:18.562493",
+    "triage_level": "PRIORITY_1_CRITICAL",
+    "location": "EMERGENCY_ROOM_TRAUMA_ROOM",
     "patient_status": "WAITING",
     "emergency_procedures": [],
-    "is_urgent": false
+    "is_urgent": true
   }
 ]
