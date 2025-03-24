@@ -261,21 +261,21 @@
             "symptom_id": "SYM-173",
             "severity": 8,
             "duration": 1,
-            "doctor_notes": "Possible arrhythmia, conduct ECG."
+            "doctor_notes": "Testing"
           },
           {
             "symptom_name": "loss of taste and smell",
             "symptom_id": "SYM-176",
             "severity": 4,
             "duration": 14,
-            "doctor_notes": "Check for COVID-19 infection."
+            "doctor_notes": ""
           },
           {
             "symptom_name": "skin rash or itching",
             "symptom_id": "SYM-178",
             "severity": 4,
             "duration": 3,
-            "doctor_notes": "Could indicate allergic reaction or dermatitis."
+            "doctor_notes": ""
           }
         ],
         "diagnosis": "Nil",
@@ -332,7 +332,47 @@
       "gender": "Male",
       "phone_number": "9876 5432"
     },
-    "appointment_status": "PENDING",
+    "appointment_status": "COMPLETED",
+    "session": {
+      "id": "9c06a90a-a500-4c92-94e6-daef609d7ad6",
+      "start_time": "2025-03-24T14:57:01.9642076",
+      "end_time": "2025-03-24T14:57:57.6660773",
+      "zoom_link": "https://us05web.zoom.us/j/86810235386?pwd\u003dX5axa9HSNLFJab0noSjTRLGxIyoQ2v.1",
+      "session_status": "COMPLETED"
+    },
+    "doctor_notes": "Testing",
+    "billing": {
+      "bill_amount": 20.0,
+      "billing_i_d": "1eae6fec-41ed-49ce-af37-0f0b08eaa8f0",
+      "is_paid": false,
+      "is_re_calculate_bill_amount": true,
+      "prescription": {
+        "prescription_i_d": "0e17e21f-b127-4b4b-96f8-d4ebd97bea76",
+        "medication": [
+          {
+            "medication_name": "PARACETAMOL",
+            "dosage": "325mg, Once a Week",
+            "stock_available": 2,
+            "controlled_substance": false,
+            "medication_price": 23.1
+          },
+          {
+            "medication_name": "ASPIRIN",
+            "dosage": "325mg, Once a Week",
+            "stock_available": 2,
+            "controlled_substance": false,
+            "medication_price": 13.1
+          },
+          {
+            "medication_name": "FUROSEMIDE",
+            "dosage": "325mg, Once a Week",
+            "stock_available": 2,
+            "controlled_substance": false,
+            "medication_price": 10.1
+          }
+        ]
+      }
+    },
     "diagnosis": ""
   },
   {

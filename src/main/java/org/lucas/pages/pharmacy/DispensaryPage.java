@@ -157,7 +157,6 @@ public class DispensaryPage extends UiBase {
                 int newStock = availableMed.getStockAvailable() - requiredMed.getStockAvailable();;
                 availableMed.setStockAvailable(newStock);
                 System.out.println("Dispensed: " + availableMed.getMedicationName());
-                AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "DISPENSED x "+ availableMed.getStockAvailable()+ " - " + availableMed.getMedicationName(), UserController.getActivePatient().getId(), "SUCCESS", "NURSE");
             } else {
                 System.out.println("Out of stock: " + availableMed.getMedicationName());
             }
@@ -168,6 +167,7 @@ public class DispensaryPage extends UiBase {
 
         // Mark the billing as processed.
         System.out.println("Billing processed: medications have been dispensed.");
+        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "DISPENSED MEDICATION ", "SYSTEM", "SUCCESS", "NURSE");
         System.out.println("Press 0 to continue");
         appointment.setAppointmentStatus(AppointmentStatus.DISPENSED);
         //Uncomment this once ready
