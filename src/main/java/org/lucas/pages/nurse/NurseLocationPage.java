@@ -17,6 +17,7 @@ public class NurseLocationPage extends UiBase {
     public View OnCreateView() {
         ListView lv = new ListView(this.canvas, Color.GREEN);
         lv.setTitleHeader("Nurse Location Menu");
+
         return lv;
     }
 

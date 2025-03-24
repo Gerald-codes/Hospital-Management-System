@@ -11,6 +11,7 @@ import org.lucas.ui.framework.Color;
 import org.lucas.ui.framework.UiBase;
 import org.lucas.ui.framework.View;
 import org.lucas.ui.framework.views.ListView;
+import org.lucas.ui.framework.views.TextView;
 import org.lucas.util.InputValidator;
 
 public class DoctorLocationPage extends UiBase {
@@ -24,10 +25,13 @@ public class DoctorLocationPage extends UiBase {
     @Override
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
+
+        lv.addItem(new TextView(this.canvas, "1. Examination Room - Proceed With Doctor Screening ", Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "2. Trauma Room - Proceed With Immediate Response ", Color.GREEN));
+
         lv.setTitleHeader("Doctor Location Menu"); // Set the title header of the list view
-        lv.attachUserInput("Examination Room - Proceed With Doctor Screening\n", str -> proceedWithDoctorScreening() );
-        lv.attachUserInput("Trauma Room - Proceed With Immediate Response\n", str -> proceedWithImmediateResponse());
-        lv.attachUserInput("Back\n", str -> ToPage(new DoctorMainPage()));
+        lv.attachUserInput("Examination Room", str -> proceedWithDoctorScreening() );
+        lv.attachUserInput("Trauma Room", str -> proceedWithImmediateResponse());
     }
 
     public void proceedWithDoctorScreening() {

@@ -32,10 +32,10 @@ public class NurseEmergencyMenuPage extends UiBase {
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
         lv.setTitleHeader("Nurse Emergency Menu"); // Set the title header of the list view
-        lv.attachUserInput("Create New Emergency Case\n", str -> createNewEmergencyCase());
-        lv.attachUserInput("Location\n", str -> ToPage(new NurseLocationPage()));
-        lv.attachUserInput("View All Emergency Cases\n", str -> viewAllEmergencyCases());
-        lv.attachUserInput("View Dispatch Menu\n", str -> ToPage(new NurseDispatchMenuPage()));
+        lv.attachUserInput("Create New Emergency Case ", str -> createNewEmergencyCase());
+        lv.attachUserInput("Location ", str -> ToPage(new NurseLocationPage()));
+        lv.attachUserInput("View All Emergency Cases ", str -> viewAllEmergencyCases());
+        lv.attachUserInput("View Dispatch Menu ", str -> ToPage(new NurseDispatchMenuPage()));
         canvas.setRequireRedraw(true);
     }
 

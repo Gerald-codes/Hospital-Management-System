@@ -148,7 +148,7 @@ public class Canvas {
         canvasBackstack.push(v);
         if(v.getInputOptions().get(0) == null){
             // manually add input 0 to always be the back button
-            v.inputOptions.put(0, new UserInput("Go Back\n", str->{
+            v.inputOptions.put(0, new UserInput("Go Back", str->{
                 v.OnBackPressed();
                 this.previousPage();
             }));

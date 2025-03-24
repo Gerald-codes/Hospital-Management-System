@@ -15,6 +15,7 @@ import org.lucas.ui.framework.Color;
 import org.lucas.ui.framework.UiBase;
 import org.lucas.ui.framework.View;
 import org.lucas.ui.framework.views.ListView;
+import org.lucas.ui.framework.views.TextView;
 import org.lucas.util.InputValidator;
 
 import java.time.LocalDateTime;
@@ -40,6 +41,10 @@ public class NurseDispatchMenuPage extends UiBase {
     public View OnCreateView() {
         ListView lv = new ListView(this.canvas, Color.GREEN);
         lv.setTitleHeader("NurseDispatchMenuPage");
+        lv.addItem(new TextView(this.canvas, "1. Create New Emergency Dispatch Case", Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "2. Update Active Dispatch Case Status", Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "3. View Dispatch Cases", Color.GREEN));
+
         return lv;
     }
 
@@ -47,9 +52,9 @@ public class NurseDispatchMenuPage extends UiBase {
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
         lv.setTitleHeader("Nurse Emergency Dispatch Menu"); // Set the title header of the list view
-        lv.attachUserInput("Create New Emergency Dispatch Case\n", str -> createNewDispatchCase());
-        lv.attachUserInput("Update Active Dispatch Case Status\n", str -> updateDispatchStatus());
-        lv.attachUserInput("View Dispatch Cases\n", str -> viewDispatchCases());
+        lv.attachUserInput("Create New Emergency Dispatch Case", str -> createNewDispatchCase());
+        lv.attachUserInput("Update Active Dispatch Case Status", str -> updateDispatchStatus());
+        lv.attachUserInput("View Dispatch Cases", str -> viewDispatchCases());
 
         canvas.setRequireRedraw(true);
     }
