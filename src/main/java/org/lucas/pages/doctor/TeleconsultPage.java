@@ -1,7 +1,10 @@
 package org.lucas.pages.doctor;
 
+import org.lucas.Emergency.EmergencyCase;
+import org.lucas.Emergency.EmergencySystem;
 import org.lucas.Globals;
 import org.lucas.audit.AuditManager;
+import org.lucas.controllers.ESController;
 import org.lucas.controllers.MedicationController;
 import org.lucas.core.ClinicalGuideline;
 import org.lucas.models.*;
@@ -11,6 +14,7 @@ import org.lucas.ui.framework.views.ListView;
 import org.lucas.ui.framework.views.TextView;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -130,6 +134,11 @@ public class TeleconsultPage extends UiBase {
             System.out.println("Refering...");
             appointment.referEmergency(appointment.getDoctorNotes());
             Globals.appointmentController.saveAppointmentsToFile();
+            int caseID = 1;
+            EmergencyCase newCase = new EmergencyCase(caseID,appointment.getPatient(),appointment.getDoctorNotes(),"Referred",LocalDateTime.now(),true);
+            ESController.addEmergencyCases(newCase);
+            System.out.println("\nNew Case Registered | Case ID: " + caseID + " | Patient: " + appointment.getPatient().getName());
+            ESController.saveEmergencyCasesToFile();
             canvas.previousPage();
             this.OnBackPressed();
         });
@@ -186,7 +195,6 @@ public class TeleconsultPage extends UiBase {
                 auditManager.logAction(appointment.getDoctor().getId(), "DOCTOR PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
             }
         }
-
         refreshUi();
     }
     private void diagnosePatient(){

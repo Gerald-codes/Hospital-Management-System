@@ -290,7 +290,7 @@ public class UserController {
         if(users.isEmpty()){
             loadUsersFromFile();
         }
-
+        ESController.loadEmergencyCaseFromFile();
         List<User> authenticated = users.stream().filter(usr->
             usr.getLoginName().equals(username) && usr.checkPassword(password)
         ).toList();
