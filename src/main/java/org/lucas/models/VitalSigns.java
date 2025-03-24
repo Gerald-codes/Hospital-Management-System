@@ -11,7 +11,7 @@ public class VitalSigns {
     private int heartRate;                       // Heart rate in beats per minute (bpm)
     private int bloodPressureSystolic;           // Systolic blood pressure in mmHg
     private int bloodPressureDiastolic;          // Diastolic blood pressure in mmHg
-    private final int respiratoryRate;           // Respiratory rate in breaths per minute
+    private int respiratoryRate;                 // Respiratory rate in breaths per minute
 
     /**
      * Default constructor initializing all vital signs to 0.
@@ -120,6 +120,10 @@ public class VitalSigns {
      */
     public int getRespiratoryRate() {
         return respiratoryRate;
+    }
+
+    public void setRespiratoryRate(int respiratoryRate) {
+        this.respiratoryRate = respiratoryRate;
     }
 
     /**

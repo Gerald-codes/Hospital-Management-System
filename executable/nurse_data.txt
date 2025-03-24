@@ -1,7 +1,7 @@
 [
   {
     "department": "Pediatrics",
-    "role": "Pediatric Nurse",
+    "role": "Paramedic Nurse",
     "assigned_ward": "Ward A",
     "can_administer_medication": true,
     "nursing_license_number": "RN-2023-00123",

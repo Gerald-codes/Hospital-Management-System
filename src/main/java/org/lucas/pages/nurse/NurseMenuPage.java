@@ -43,11 +43,15 @@ public class NurseMenuPage extends UiBase {
         lv.addItem(new TextView(this.canvas, "1. View List of Patient - To view patient information ", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "2. Feedback Mechanism ", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "3. Pharmacy", Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "4. Emergency ", Color.GREEN));
 
         lv.attachUserInput("View List of Patient", str -> ToPage(new NurseMainPage()));
         lv.attachUserInput("Feedback Mechanism", str -> ToPage(new FeedbackPage()));
         lv.attachUserInput("Pharmacy ", str -> ToPage(new PharmacyPage()));
+        lv.attachUserInput("Emergency\n", str -> ToPage(new NurseEmergencyMenuPage()));
+
 
         canvas.setRequireRedraw(true);
     }
+
 }
