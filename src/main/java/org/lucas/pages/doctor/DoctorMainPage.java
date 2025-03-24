@@ -1,5 +1,6 @@
 package org.lucas.pages.doctor;
 
+import org.lucas.audit.AuditManager;
 import org.lucas.controllers.UserController;
 import org.lucas.ui.framework.Color;
 import org.lucas.ui.framework.UiBase;

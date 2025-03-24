@@ -303,6 +303,10 @@ public class EmergencyCase {
         this.dateAndTimeOfScreening = dateTime;
     }
 
+    public void setArrivalDateTime(LocalDateTime dateTime) {
+        this.arrivalDateTime = dateTime;
+    }
+
     /**
      * Get the date and time of the screening
      * @return the date and time of the screening

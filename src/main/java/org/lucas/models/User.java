@@ -150,11 +150,14 @@ public abstract class User implements ObjectBase {
                 '}';
     }
 
-    @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return Objects.equals(id, user.id) && Objects.equals(loginName, user.loginName) && Objects.equals(name, user.name) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(gender, user.gender);
+    }
+
+    public void setPatientSymptoms(Symptoms symptoms, Patient patient) {
+        throw new UnsupportedOperationException("You do not have permission to update patient symptoms.");
     }
 
     @Override

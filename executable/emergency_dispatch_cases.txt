@@ -1,0 +1,140 @@
+[
+  {
+    "dispatch_info": {
+      "vehicle_id": 123,
+      "medivac_members": [
+        {
+          "department": "Pediatrics",
+          "role": "Paramedic Nurse",
+          "assigned_ward": "Ward A",
+          "can_administer_medication": true,
+          "nursing_license_number": "RN-2023-00123",
+          "alert_list": [],
+          "id": "N001",
+          "login_name": "emily",
+          "name": "Emily Carter",
+          "password": "password123",
+          "email": "emilycarter@gmail",
+          "gender": "Female",
+          "phone_number": "87654321"
+        }
+      ],
+      "equipment": [],
+      "dispatch_location": "alsdaslk"
+    },
+    "dispatch_arrival_time": "2025-03-24T22:15:58.286594",
+    "time_of_call": "2025-03-24T22:15:58.286565",
+    "response_time": "PT0S",
+    "case_i_d": 1,
+    "patient": {
+      "alert_history": [],
+      "electronic_health_record": {
+        "allergies": [],
+        "current_medications": [],
+        "medical_history": [],
+        "vital_signs": {
+          "temperature": 0.0,
+          "heart_rate": 0,
+          "blood_pressure_systolic": 0,
+          "blood_pressure_diastolic": 0,
+          "respiratory_rate": 0
+        },
+        "lab_results": [],
+        "imaging_records": [],
+        "clinical_notes": "Nil",
+        "symptoms": [],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [],
+        "vaccination_record": []
+      },
+      "height": 0.0,
+      "weight": 0.0,
+      "emergency_contact_number": 0,
+      "patient_consent": {
+        "consent_given": false
+      },
+      "id": "laksdlk",
+      "name": "aklaskd",
+      "gender": "alkdlsakd",
+      "phone_number": "lkasdlkas"
+    },
+    "chief_complaint": "dalkdlaskd",
+    "arrival_mode": "Ambulance",
+    "arrival_date_time": "2025-03-24T22:15:58.286607",
+    "triage_level": "PRIORITY_4_NON_EMERGENCY",
+    "patient_status": "ONDISPATCHED",
+    "emergency_procedures": [],
+    "date_and_time_of_screening": "2025-03-24T22:15:58.2866",
+    "is_urgent": false
+  },
+  {
+    "dispatch_info": {
+      "vehicle_id": 123,
+      "medivac_members": [
+        {
+          "department": "Pediatrics",
+          "role": "Paramedic Nurse",
+          "assigned_ward": "Ward A",
+          "can_administer_medication": true,
+          "nursing_license_number": "RN-2023-00123",
+          "alert_list": [],
+          "id": "N001",
+          "login_name": "emily",
+          "name": "Emily Carter",
+          "password": "password123",
+          "email": "emilycarter@gmail",
+          "gender": "Female",
+          "phone_number": "87654321"
+        }
+      ],
+      "equipment": [],
+      "dispatch_location": "AKSDKSAJD"
+    },
+    "dispatch_arrival_time": "2025-03-24T22:16:38.228521",
+    "time_of_call": "2025-03-24T22:16:38.228481",
+    "response_time": "PT0S",
+    "case_i_d": 1,
+    "patient": {
+      "alert_history": [],
+      "electronic_health_record": {
+        "allergies": [],
+        "current_medications": [],
+        "medical_history": [],
+        "vital_signs": {
+          "temperature": 0.0,
+          "heart_rate": 0,
+          "blood_pressure_systolic": 0,
+          "blood_pressure_diastolic": 0,
+          "respiratory_rate": 0
+        },
+        "lab_results": [],
+        "imaging_records": [],
+        "clinical_notes": "Nil",
+        "symptoms": [],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [],
+        "vaccination_record": []
+      },
+      "height": 0.0,
+      "weight": 0.0,
+      "emergency_contact_number": 0,
+      "patient_consent": {
+        "consent_given": false
+      },
+      "id": "AKSDJKSJ",
+      "name": "AJDKASD",
+      "gender": "KAJDKJA",
+      "phone_number": "AKJDKAJSD"
+    },
+    "chief_complaint": "SDKJAKDJ",
+    "arrival_mode": "Ambulance",
+    "arrival_date_time": "2025-03-24T22:16:38.228541",
+    "triage_level": "PRIORITY_4_NON_EMERGENCY",
+    "patient_status": "ONDISPATCHED",
+    "emergency_procedures": [],
+    "date_and_time_of_screening": "2025-03-24T22:16:38.228526",
+    "is_urgent": false
+  }
+]

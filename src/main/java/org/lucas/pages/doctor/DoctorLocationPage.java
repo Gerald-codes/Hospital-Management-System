@@ -3,6 +3,7 @@ package org.lucas.pages.doctor;
 import org.lucas.Emergency.EmergencyCase;
 import org.lucas.Emergency.enums.PatientLocation;
 import org.lucas.Emergency.enums.PatientStatus;
+import org.lucas.audit.AuditManager;
 import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
 import org.lucas.models.Doctor;
@@ -25,16 +26,16 @@ public class DoctorLocationPage extends UiBase {
     @Override
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
-
+        AuditManager manager = new AuditManager();
         lv.addItem(new TextView(this.canvas, "1. Examination Room - Proceed With Doctor Screening ", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "2. Trauma Room - Proceed With Immediate Response ", Color.GREEN));
 
         lv.setTitleHeader("Doctor Location Menu"); // Set the title header of the list view
-        lv.attachUserInput("Examination Room", str -> proceedWithDoctorScreening() );
+        lv.attachUserInput("Examination Room", str -> proceedWithDoctorScreening(manager) );
         lv.attachUserInput("Trauma Room", str -> proceedWithImmediateResponse());
     }
 
-    public void proceedWithDoctorScreening() {
+    public void proceedWithDoctorScreening(AuditManager manager) {
         EmergencyCase selectedCase = null;
         do {
             ESController.printAllDoneEmergencyCaseInTriageRoom();
@@ -47,7 +48,7 @@ public class DoctorLocationPage extends UiBase {
         selectedCase.setScreeningDoctor(doctor);
         selectedCase.setLocation(PatientLocation.EMERGENCY_ROOM_EXAMINATION_ROOM);
         selectedCase.setPatientStatus(PatientStatus.ONGOING);
-//        ESController.doctorScreening(selectedCase);
+        ESController.doctorScreening(selectedCase,manager);
         selectedCase.setPatientStatus(PatientStatus.DONE);
         ESController.saveEmergencyCasesToFile();
         ToPage( new DoctorLocationPage());

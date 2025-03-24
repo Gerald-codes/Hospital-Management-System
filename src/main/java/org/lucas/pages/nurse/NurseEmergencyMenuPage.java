@@ -1,31 +1,38 @@
 package org.lucas.pages.nurse;
 
 import org.lucas.Emergency.EmergencyCase;
+import org.lucas.Emergency.EmergencyCase_Dispatch;
 import org.lucas.Emergency.EmergencySystem;
 import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
+import org.lucas.models.Nurse;
 import org.lucas.models.Patient;
 
 import org.lucas.ui.framework.Color;
+import org.lucas.ui.framework.TextStyle;
 import org.lucas.ui.framework.UiBase;
 import org.lucas.ui.framework.View;
 import org.lucas.ui.framework.views.ListView;
+import org.lucas.ui.framework.views.TextView;
 import org.lucas.util.InputValidator;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 /** Represents the main page of the Telemedicine Integration System.
  * This page displays a menu of options for the user to navigate to different sections of the application.
  * It extends {@link UiBase} and uses a {@link ListView} to present the menu items.*/
 public class NurseEmergencyMenuPage extends UiBase {
+    private ListView listView;
 
     @Override
     public View OnCreateView() {
-        ListView lv = new ListView(this.canvas, Color.GREEN);
-        lv.setTitleHeader("NurseEmergencyMenuPage");
+        listView= new ListView(this.canvas, Color.CYAN);
+        listView.setTitleHeader("NurseEmergencyMenuPage");
         ESController.loadEmergencyCaseFromFile();
-        return lv;
+        ESController.printAllEmergencyCase();
+        return listView;
     }
 
     @Override
@@ -74,10 +81,48 @@ public class NurseEmergencyMenuPage extends UiBase {
         ToPage(new NurseEmergencyMenuPage());
     }
 
-    private void viewAllEmergencyCases(){
-        ESController.printAllEmergencyCase();
-//        listView.addItem(new TextView(this.canvas, doctorNotes + "\n", Color.GREEN));
-        ToPage(new NurseEmergencyMenuPage());
-    }
+    private void viewAllEmergencyCases() {
+        List<EmergencyCase> allcases = ESController.getAllCases();
+        listView.clear();
 
+        for (EmergencyCase ec : allcases) {
+            listView.addItem(new TextView(this.canvas, "============ ALL EMERGENCY CASE ============ ", Color.WHITE, TextStyle.BOLD));
+
+            listView.addItem(new TextView(this.canvas, "---------------------------------", Color.WHITE, TextStyle.BOLD));
+            listView.addItem(new TextView(this.canvas, "Case ID: " + ec.getCaseID(), Color.WHITE));
+            listView.addItem(new TextView(this.canvas, "Patient Name: " + ec.getPatient().getName(), Color.WHITE));
+            listView.addItem(new TextView(this.canvas, "Location: " + ec.getLocation(), Color.WHITE));
+            listView.addItem(new TextView(this.canvas, "Chief Complaint: " + ec.getChiefComplaint(), Color.WHITE));
+            listView.addItem(new TextView(this.canvas, "Arrival Mode: " + ec.getArrivalMode(), Color.WHITE));
+            listView.addItem(new TextView(this.canvas, "Arrival Date & Time: " + ec.getArrivalDateTime(), Color.WHITE));
+            listView.addItem(new TextView(this.canvas, "Triage Level: " + ec.getTriageLevel(), Color.WHITE));
+            listView.addItem(new TextView(this.canvas, "Patient Status: " + ec.getPatientStatus(), Color.WHITE));
+            listView.addItem(new TextView(this.canvas, "Urgent: " + (ec.isUrgent() ? "YES" : "NO"), (ec.isUrgent() ? Color.RED : Color.WHITE), TextStyle.BOLD));
+
+            if (ec instanceof EmergencyCase_Dispatch dispatchCase) {
+                listView.addItem(new TextView(this.canvas, "====== Dispatch Info ======", Color.BLUE, TextStyle.BOLD));
+                listView.addItem(new TextView(this.canvas, "Vehicle ID: " + dispatchCase.getDispatchInfo().getVehicleId(), Color.BLUE));
+
+                listView.addItem(new TextView(this.canvas, "Medivac Members:", Color.BLUE));
+                for (Nurse nurse : dispatchCase.getDispatchInfo().getMedivacMembers()) {
+                    listView.addItem(new TextView(this.canvas, "  - " + nurse.getName(), Color.WHITE));
+                }
+
+                listView.addItem(new TextView(this.canvas, "Equipment:", Color.BLUE));
+                for (String equipment : dispatchCase.getDispatchInfo().getEquipment()) {
+                    listView.addItem(new TextView(this.canvas, "  - " + equipment, Color.WHITE));
+                }
+
+                listView.addItem(new TextView(this.canvas, "Dispatch Location: " + dispatchCase.getDispatchInfo().getDispatchLocation(), Color.BLUE));
+                listView.addItem(new TextView(this.canvas, "Dispatch Arrival Time: " + dispatchCase.getDispatchArrivalTime(), Color.BLUE));
+                listView.addItem(new TextView(this.canvas, "Time of Call: " + dispatchCase.getTimeOfCall(), Color.BLUE));
+                listView.addItem(new TextView(this.canvas, "Response Time: " + dispatchCase.getResponseTime().toMinutes() + " minutes", Color.BLUE));
+            }
+
+            listView.addItem(new TextView(this.canvas, "---------------------------------\n", Color.WHITE, TextStyle.BOLD));
+        }
+
+        canvas.setRequireRedraw(true);
+
+    }
 }

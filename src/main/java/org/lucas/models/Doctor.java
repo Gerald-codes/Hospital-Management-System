@@ -73,6 +73,11 @@ public class Doctor extends User implements ObjectBase {
     }
 
     @Override
+    public void setPatientSymptoms(Symptoms symptoms, Patient patient) {
+        patient.getEHR().addSymptom(symptoms);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Doctor doctor = (Doctor) o;

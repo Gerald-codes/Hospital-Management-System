@@ -50,7 +50,6 @@ public class NurseMenuPage extends UiBase {
         lv.attachUserInput("Pharmacy ", str -> ToPage(new PharmacyPage()));
         lv.attachUserInput("Emergency", str -> ToPage(new NurseEmergencyMenuPage()));
 
-
         canvas.setRequireRedraw(true);
     }
 

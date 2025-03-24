@@ -59,8 +59,8 @@ public class NurseDispatchMenuPage extends UiBase {
         canvas.setRequireRedraw(true);
     }
 
-    private static EmergencySystem ECsystem = new EmergencySystem();
     private void createNewDispatchCase() {
+        EmergencySystem ECsystem = new EmergencySystem();
         System.out.println("\n=========== Register New Emergency Case ===========");
         int caseID = ECsystem.setCaseID();  // Auto-incremented CaseId
 
@@ -158,7 +158,6 @@ public class NurseDispatchMenuPage extends UiBase {
 
         DispatchInfo dispatchInfo = new DispatchInfo(ambulanceID, paramedicNurses, equipmentList, dispatchLocation);
         EmergencyCase_Dispatch newDispatchCase = new EmergencyCase_Dispatch(caseID, patient, chiefComplaint, arrivalMode, patientStatus, dispatchInfo, isUrgent);
-
         ESController.addEmergencyCaseDispatch(newDispatchCase);
 
         System.out.println("New Dispatch Case | Case ID: " + caseID + " | Patient Name: " + patient.getName()
