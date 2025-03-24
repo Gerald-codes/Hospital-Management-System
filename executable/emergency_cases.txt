@@ -8,11 +8,11 @@
         "current_medications": [],
         "medical_history": [],
         "vital_signs": {
-          "temperature": 40.0,
-          "heart_rate": 120,
-          "blood_pressure_systolic": 120,
-          "blood_pressure_diastolic": 30,
-          "respiratory_rate": 30
+          "temperature": 0.0,
+          "heart_rate": 0,
+          "blood_pressure_systolic": 0,
+          "blood_pressure_diastolic": 0,
+          "respiratory_rate": 0
         },
         "lab_results": [],
         "imaging_records": [],
@@ -29,32 +29,17 @@
       "patient_consent": {
         "consent_given": false
       },
-      "id": "asd",
-      "name": "GERALD",
-      "gender": "MALE",
-      "phone_number": "0123213"
+      "id": "P011",
+      "name": "june",
+      "gender": "female",
+      "phone_number": "8128231"
     },
-    "chief_complaint": "ALSKDLASKD",
+    "chief_complaint": "sick",
     "arrival_mode": "Walk-In",
-    "arrival_date_time": "2025-03-24T00:50:16.787406",
-    "triage_level": "PRIORITY_1_CRITICAL",
-    "initial_screening_nurse": {
-      "department": "Pediatrics",
-      "role": "Paramedic Nurse",
-      "assigned_ward": "Ward A",
-      "can_administer_medication": true,
-      "nursing_license_number": "RN-2023-00123",
-      "alert_list": [],
-      "id": "N001",
-      "login_name": "emily",
-      "name": "Emily Carter",
-      "password": "password123",
-      "email": "emilycarter@gmail",
-      "gender": "Female",
-      "phone_number": "87654321"
-    },
-    "location": "EMERGENCY_ROOM_TRIAGE_ROOM",
-    "patient_status": "DONE",
+    "arrival_date_time": "2025-03-24T11:44:33.5306368",
+    "triage_level": "PRIORITY_4_NON_EMERGENCY",
+    "location": "EMERGENCY_ROOM_WAITING_ROOM",
+    "patient_status": "WAITING",
     "emergency_procedures": [],
     "is_urgent": false
   }
