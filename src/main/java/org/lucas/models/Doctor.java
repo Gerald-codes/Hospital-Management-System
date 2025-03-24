@@ -69,12 +69,17 @@ public class Doctor extends User implements ObjectBase {
     }
 
     public void diagnosePatient(Patient patient, String diagnosis) {
-        throw new UnsupportedOperationException("You do not have permission to diagnose patients.");
+        patient.getEHR().setDiagnosis(diagnosis);
     }
 
     @Override
     public void setPatientSymptoms(Symptoms symptoms, Patient patient) {
         patient.getEHR().addSymptom(symptoms);
+    }
+
+    @Override
+    public void prescribeMedication(Patient patient, Medication medicine){
+        patient.getEHR().addCurrentMedications(medicine);
     }
 
     @Override

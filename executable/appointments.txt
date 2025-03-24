@@ -2,7 +2,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P001",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -190,7 +189,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P008",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -340,7 +338,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P006",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -476,7 +473,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P007",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [],
@@ -589,24 +585,48 @@
     "reason": "skin rash or itching, dizziness, light headedness",
     "appointment_time": "2025-03-20T07:05:12.0219671",
     "doctor": {
-      "specialisation": "Cardiology",
-      "type": "SPECIALIST",
-      "license_number": "L67890",
-      "id": "D002",
-      "login_name": "kieransim",
-      "name": "Dr. Kieran Sim",
-      "password": "securedoc",
-      "email": "kieransim@clinic.com",
+      "specialisation": "GP",
+      "type": "GENERAL_PRACTICE",
+      "license_number": "L12345",
+      "id": "D001",
+      "login_name": "limtzekai",
+      "name": "Dr. Lim Tze Kai",
+      "password": "docpass",
+      "email": "limtzekai@clinic.com",
       "gender": "Male",
-      "phone_number": "8345 6789"
+      "phone_number": "9876 5432"
     },
-    "appointment_status": "PENDING",
+    "appointment_status": "COMPLETED",
+    "session": {
+      "id": "f0b0cc8e-d607-4fd7-8e71-58c55b4e82cc",
+      "start_time": "2025-03-24T23:06:24.192883",
+      "end_time": "2025-03-24T23:08:15.715224",
+      "zoom_link": "https://us05web.zoom.us/j/84351891926?pwd\u003dyaVbEM41u5gLrUeLaIFR5OhSixSFvp.1",
+      "session_status": "COMPLETED"
+    },
+    "billing": {
+      "bill_amount": 20.0,
+      "billing_i_d": "c8cc3b87-8814-43be-8226-a1a51bd467df",
+      "is_paid": false,
+      "is_re_calculate_bill_amount": true,
+      "prescription": {
+        "prescription_i_d": "76bcde91-2dbf-4c32-a36c-dc295d31b0e7",
+        "medication": [
+          {
+            "medication_name": "ASPIRIN",
+            "dosage": "325mg, Once a Week",
+            "stock_available": 20,
+            "controlled_substance": false,
+            "medication_price": 13.1
+          }
+        ]
+      }
+    },
     "diagnosis": ""
   },
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P002",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -754,7 +774,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P007",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -894,7 +913,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P005",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -1009,7 +1027,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P001",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -1165,7 +1182,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P003",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -1332,7 +1348,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P002",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -1464,7 +1479,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P004",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -1616,7 +1630,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P003",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
@@ -1783,7 +1796,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P001",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [],
@@ -1955,7 +1967,6 @@
   {
     "patient": {
       "alert_history": [],
-      "patient_i_d": "P001",
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [],

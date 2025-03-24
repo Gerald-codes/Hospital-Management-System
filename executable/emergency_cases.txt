@@ -5,24 +5,69 @@
       "alert_history": [],
       "electronic_health_record": {
         "allergies": [],
-        "current_medications": [],
+        "current_medications": [
+          {
+            "medication_name": "Amoxicillin",
+            "guideline_id": "C006",
+            "medication_id": "M006",
+            "dosage": "500mg, Twice a Day",
+            "side_effects": "Nausea, Diarrhea",
+            "brand_name": "Amoxil",
+            "stock_available": 100,
+            "controlled_substance": false,
+            "manufacture_name": "GlaxoSmithKline",
+            "batch_number": "B003",
+            "manufacture_date": "15-08-2024",
+            "expiry_date": "20-12-2025",
+            "medication_price": 8.99
+          },
+          {
+            "medication_name": "Amoxicillin",
+            "guideline_id": "C006",
+            "medication_id": "M006",
+            "dosage": "500mg, Twice a Day",
+            "side_effects": "Nausea, Diarrhea",
+            "brand_name": "Amoxil",
+            "stock_available": 100,
+            "controlled_substance": false,
+            "manufacture_name": "GlaxoSmithKline",
+            "batch_number": "B003",
+            "manufacture_date": "15-08-2024",
+            "expiry_date": "20-12-2025",
+            "medication_price": 8.99
+          },
+          {
+            "stock_available": 0,
+            "controlled_substance": false,
+            "medication_price": 0.0
+          }
+        ],
         "medical_history": [],
         "vital_signs": {
-          "temperature": 0.0,
-          "heart_rate": 0,
-          "blood_pressure_systolic": 0,
-          "blood_pressure_diastolic": 0,
-          "respiratory_rate": 0
+          "temperature": 30.0,
+          "heart_rate": 100,
+          "blood_pressure_systolic": 100,
+          "blood_pressure_diastolic": 40,
+          "respiratory_rate": 30
         },
         "lab_results": [],
         "imaging_records": [],
         "clinical_notes": "Nil",
-        "symptoms": [],
-        "diagnosis": "Nil",
+        "symptoms": [
+          {
+            "symptom_name": "fever",
+            "symptom_id": "SYM-001",
+            "severity": 9,
+            "duration": 5,
+            "doctor_notes": "TESTING"
+          }
+        ],
+        "diagnosis": "Strep Throat",
         "outcome_monitoring_records": [],
         "past_surgeries": [],
         "vaccination_record": []
       },
+      "assigned_doctor": "D001",
       "height": 0.0,
       "weight": 0.0,
       "emergency_contact_number": 0,
@@ -38,9 +83,27 @@
     "arrival_mode": "Walk-In",
     "arrival_date_time": "2025-03-24T20:40:48.764425",
     "triage_level": "PRIORITY_4_NON_EMERGENCY",
-    "location": "EMERGENCY_ROOM_WAITING_ROOM",
-    "patient_status": "WAITING",
-    "emergency_procedures": [],
+    "asssigned_doctor": {
+      "specialisation": "GP",
+      "type": "GENERAL_PRACTICE",
+      "license_number": "L12345",
+      "id": "D001",
+      "login_name": "1",
+      "name": "Dr. Lim Tze Kai",
+      "password": "1",
+      "email": "limtzekai@clinic.com",
+      "gender": "Male",
+      "phone_number": "9876 5432"
+    },
+    "location": "EMERGENCY_ROOM_EXAMINATION_ROOM",
+    "patient_status": "DONE",
+    "emergency_procedures": [
+      "25-03-2025 02:07:59 - alsdkalksd",
+      "25-03-2025 02:08:00 - asdlalskdlasd",
+      "25-03-2025 02:08:02 - k12j3ik",
+      "25-03-2025 02:08:02 - akdjia",
+      "25-03-2025 02:08:03 - asdk"
+    ],
     "is_urgent": false
   },
   {
@@ -130,5 +193,93 @@
     "patient_status": "WAITING",
     "emergency_procedures": [],
     "is_urgent": false
+  },
+  {
+    "case_i_d": 1,
+    "patient": {
+      "alert_history": [],
+      "electronic_health_record": {
+        "allergies": [],
+        "current_medications": [],
+        "medical_history": [],
+        "vital_signs": {
+          "temperature": 0.0,
+          "heart_rate": 0,
+          "blood_pressure_systolic": 0,
+          "blood_pressure_diastolic": 0,
+          "respiratory_rate": 0
+        },
+        "lab_results": [],
+        "imaging_records": [],
+        "clinical_notes": "Nil",
+        "symptoms": [],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [],
+        "vaccination_record": []
+      },
+      "height": 0.0,
+      "weight": 0.0,
+      "emergency_contact_number": 0,
+      "patient_consent": {
+        "consent_given": false
+      },
+      "id": "123",
+      "name": "BOB",
+      "gender": "MALE",
+      "phone_number": "1239213"
+    },
+    "chief_complaint": "DYING",
+    "arrival_mode": "Walk-In",
+    "arrival_date_time": "2025-03-25T02:04:18.663976",
+    "triage_level": "PRIORITY_1_CRITICAL",
+    "location": "EMERGENCY_ROOM_TRAUMA_ROOM",
+    "patient_status": "WAITING",
+    "emergency_procedures": [],
+    "is_urgent": true
+  },
+  {
+    "case_i_d": 1,
+    "patient": {
+      "alert_history": [],
+      "electronic_health_record": {
+        "allergies": [],
+        "current_medications": [],
+        "medical_history": [],
+        "vital_signs": {
+          "temperature": 0.0,
+          "heart_rate": 0,
+          "blood_pressure_systolic": 0,
+          "blood_pressure_diastolic": 0,
+          "respiratory_rate": 0
+        },
+        "lab_results": [],
+        "imaging_records": [],
+        "clinical_notes": "Nil",
+        "symptoms": [],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [],
+        "vaccination_record": []
+      },
+      "height": 0.0,
+      "weight": 0.0,
+      "emergency_contact_number": 0,
+      "patient_consent": {
+        "consent_given": false
+      },
+      "id": "ASD",
+      "name": "BOB",
+      "gender": "MALE",
+      "phone_number": "912312"
+    },
+    "chief_complaint": "DYIGN",
+    "arrival_mode": "Walk-In",
+    "arrival_date_time": "2025-03-25T02:07:39.570517",
+    "triage_level": "PRIORITY_1_CRITICAL",
+    "location": "EMERGENCY_ROOM_TRAUMA_ROOM",
+    "patient_status": "WAITING",
+    "emergency_procedures": [],
+    "is_urgent": true
   }
 ]

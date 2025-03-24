@@ -4,9 +4,9 @@
     "type": "GENERAL_PRACTICE",
     "license_number": "L12345",
     "id": "D001",
-    "login_name": "limtzekai",
+    "login_name": "1",
     "name": "Dr. Lim Tze Kai",
-    "password": "docpass",
+    "password": "1",
     "email": "limtzekai@clinic.com",
     "gender": "Male",
     "phone_number": "9876 5432"

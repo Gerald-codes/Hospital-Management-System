@@ -160,6 +160,14 @@ public abstract class User implements ObjectBase {
         throw new UnsupportedOperationException("You do not have permission to update patient symptoms.");
     }
 
+    public void diagnosePatient(Patient patient, String diagnosis) {
+        throw new UnsupportedOperationException("You do not have permission to diagnose patients.");
+    }
+
+    public void prescribeMedication(Patient patient, Medication medicine) {
+        throw new UnsupportedOperationException("You do not have permission to prescribe medication.");
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, loginName, name, password, email, gender);

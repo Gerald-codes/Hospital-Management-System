@@ -36,7 +36,6 @@ public class NurseLocationPage extends UiBase {
         do {
             ESController.printAllEmergencyCaseInWaitingRoom();
             int caseId = InputValidator.getValidIntInput("Enter Case ID : ");
-            System.out.println("Entered caseID: " + caseId);
             selectedCase = ESController.selectCase(caseId);
         } while(selectedCase == null);
 

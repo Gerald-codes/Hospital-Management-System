@@ -14,7 +14,6 @@ import org.lucas.util.InputValidator;
 import org.lucas.util.JarLocation;
 import org.lucas.util.Util;
 
-import javax.print.Doc;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -33,6 +32,7 @@ public class ESController {
     private static List<EmergencyCase_Dispatch> allDispatchCases = new ArrayList<>();
     private static final String fileName = "emergency_cases.txt";
     private static final String fileNameDispatch = "emergency_dispatch_cases.txt";
+    private static List<ClinicalGuideline> clinicalGuidelines = List.copyOf(ClinicalGuideline.generateClinicalGuideLine());
 
     public static List<EmergencyCase_Dispatch> getAllDispatchCases() {
         return allDispatchCases;
@@ -122,11 +122,12 @@ public class ESController {
         }
     }
 
-    public static void printAllEmergencyCaseInExaminationRoom() {
-        // Filter and print all emergency cases in the Examination Room
+    public static void printAllEmergencyCaseInTraumaRoom() {
+        // Filter and print all emergency cases in the Trauma Room
         for (EmergencyCase emergencyCase : allCases) {
-            if (PatientLocation.EMERGENCY_ROOM_EXAMINATION_ROOM.equals(emergencyCase.getLocation())) {
-                System.out.println(emergencyCase);  // Or use emergencyCase.toString() if defined
+            if (PatientLocation.EMERGENCY_ROOM_TRAUMA_ROOM.equals(emergencyCase.getLocation())&&
+                    emergencyCase.getPatientStatus().equals(PatientStatus.WAITING)) {
+                emergencyCase.displayCase();
             }
         }
     }
@@ -187,7 +188,7 @@ public class ESController {
 
         // Serialize the combined data to JSON (using allCases now)
         String json = Globals.gsonPrettyPrint.toJson(allCases); // Serialize all cases, not just emergencyCases
-        System.out.println(json + "JASDKASD");
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
             if (allCases.isEmpty()) {
                 writer.write("No emergency cases available.\n");
@@ -253,6 +254,12 @@ public class ESController {
     }
 
     public static void nurseInitialScreening(EmergencyCase emergencyCase) {
+        System.out.println("----------------------------------------------");
+        System.out.println("                 CASE DETAILS                 ");
+
+        //Display Case Detail
+        emergencyCase.displayCase();
+
         // Print all TriageLevel enum values and prompt the user to choose one
         System.out.println("======= Select Patient's Triage Level =======");
 
@@ -360,44 +367,60 @@ public class ESController {
         }
     }
 
-    public static void doctorScreening(EmergencyCase emergencyCase, AuditManager manager){
-        Patient patient =  emergencyCase.getPatient();
+    public static void doctorScreening(EmergencyCase emergencyCase, AuditManager manager) {
+        Patient patient = emergencyCase.getPatient();
         Doctor doctor = emergencyCase.getScreeningDoctor();
+
+        // Assign the doctor to the patient
         patient.setAssignedDoctor(doctor.getId());
-        patient.displayPatientInfo();
-        while (true){
+
+        while (true) {
+            System.out.println("----------------------------------------------");
+            System.out.println("                 CASE DETAILS                 ");
+
+            // Display case and patient info
+            emergencyCase.displayCase();
+            patient.displayPatientInfo();
+
+            // Show doctor options
             showDoctorPatientOption();
             int doctorInput = InputValidator.getValidIntInput("Enter your choice: ");
 
             switch (doctorInput) {
                 case 0:
-                    return;  // Go back to patient list
+                    return; // Done screening, go back to patient list
+
                 case 1:
                     updatePatientVitalSigns(patient, doctor, manager);  // Update vital signs
-                    continue;
+                    break;
+
                 case 2:
-                    updatePatientSymptoms(patient, doctor, manager);  // Update symptoms
-                    continue;
+                    updatePatientSymptoms(patient, doctor, manager);    // Update symptoms
+                    break;
+
                 case 3:
-                    diagnosePatient(patient, doctor, manager);  // Diagnose patient
-                    continue;
+                    diagnosePatient(patient, doctor, manager);          // Diagnose patient
+                    break;
+
                 case 4:
-//                    prescribeMedications(selectedPatient, doctor, manager);  // Prescribe medications
-                    continue;
+                    prescribeMedications(patient, doctor, manager); // Uncomment if implemented
+                    break;
+
                 default:
                     System.out.println("Invalid choice! Please try again.");
             }
         }
     }
 
-    public static void showDoctorPatientOption(){
-        System.out.println("\n===== Doctor Options =====");
+    private static void showDoctorPatientOption(){
+        System.out.println("\n========== Doctor Options ==========");
         System.out.println("1. Update Patient Vital Signs");
         System.out.println("2. Update Patient Symptoms");
         System.out.println("3. Diagnose Patient");
         System.out.println("4. Prescribe Medications");
-        System.out.println("0. Back");
+        System.out.println("0. End Consultation");
     }
+
     /**
      * Updates the vital signs of the selected patient.
      *
@@ -405,7 +428,8 @@ public class ESController {
      * @param doctor       The doctor performing the update.
      * @param auditManager The audit manager for logging actions.
      */
-    public static void updatePatientVitalSigns(Patient patient, Doctor doctor, AuditManager auditManager) {
+
+    private static void updatePatientVitalSigns(Patient patient, Doctor doctor, AuditManager auditManager) {
         System.out.println("========== Update Patient Vital Signs ==========");
         System.out.println("Printing " + patient.getName() + "'s current vital signs...");
         System.out.println(patient.getEHR().getVitalSigns().toString());  // Display current vital signs
@@ -429,6 +453,7 @@ public class ESController {
         System.out.println(patient.getName() + "'s vital signs have been updated.");
 
     }
+
     /**
      * Updates the symptoms of the selected patient.
      *
@@ -436,7 +461,7 @@ public class ESController {
      * @param doctor       The doctor performing the update.
      * @param auditManager The audit manager for logging actions.
      */
-    public static void updatePatientSymptoms(Patient patient, Doctor doctor, AuditManager auditManager) {
+    private static void updatePatientSymptoms(Patient patient, Doctor doctor, AuditManager auditManager) {
         String symptomName = InputValidator.getValidStringInput("Enter patient's symptoms: ");
         auditManager.logAction(doctor.getId(), "USER ENTERED: "+ symptomName, "Patient: " + patient.getId() + "'s symptoms", "SUCCESS", "DOCTOR");
         int severity = InputValidator.getValidRangeIntInput("Enter symptom's severity (0-10): ",10);
@@ -452,7 +477,6 @@ public class ESController {
         auditManager.logAction(doctor.getId(), "UPDATE SYMPTOMS", "Patient: " + patient.getId(), "SUCCESS", "DOCTOR");
     }
 
-
     /**
      * Prescribes medication to the selected patient.
      *
@@ -460,36 +484,53 @@ public class ESController {
      * @param doctor       The doctor prescribing the medication.
      * @param auditManager The audit manager for logging actions.
      */
+
     public static void diagnosePatient(Patient patient, Doctor doctor, AuditManager auditManager) {
-        List<String> cdssDiagnosis = cdssAnalyzeSymptoms(patient.getEHR().getSymptoms().getLast(), doctor);
-        System.out.println("CDSS Suggests: ");
+        // Get CDSS suggestions based on latest symptoms
+        List<String> cdssDiagnosis = cdssAnalyzeSymptoms(patient.getEHR().getSymptoms().getLast());
         String outcome = "SUCCESS";
+
+        System.out.println("======= CDSS Suggestions =======");
         for (int i = 0; i < cdssDiagnosis.size(); i++) {
-            System.out.println((i+1) + ". " + cdssDiagnosis.get(i));
-            if (i == cdssDiagnosis.size()-1){
-                while (true){
-                    String doctorConfirmation = InputValidator.getValidStringInput("Doctor " + doctor.getName() +
-                            ", do you agree with the CDSS diagnosis? (yes/no): ");
+            System.out.println((i + 1) + ". " + cdssDiagnosis.get(i));
+        }
 
-                    auditManager.logAction(doctor.getId(), "USER ENTERED: "+ doctorConfirmation, "CDSS diagnosis", "SUCCESS","DOCTOR");
-                    if (doctorConfirmation.equalsIgnoreCase("no")) {
-                        System.out.println("===== Override CDSS Diagnosis =====");
-                        String diagnosis = InputValidator.getValidStringWithSpaceInput("Enter your diagnosis: ");
-                        doctor.diagnosePatient(patient, diagnosis);  // Override diagnosis
-                        outcome = "OVERRIDDEN";
-                        auditManager.logAction(doctor.getId(), "DIAGNOSE PATIENT", "Patient: " + patient.getId(), outcome,"DOCTOR");
-                        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ diagnosis, "Patient: " + patient.getId() + "'s override diagnosis", "SUCCESS","DOCTOR");
-                        break;
-                    } else if (doctorConfirmation.equalsIgnoreCase("yes")) {
-                        int choice = InputValidator.getValidRangeIntInput("Enter choice of Diagnosis: ", cdssDiagnosis.size());
-                        doctor.diagnosePatient(patient, cdssDiagnosis.get(choice-1));  // Accept CDSS diagnosis
-                        auditManager.logAction(doctor.getId(), "DIAGNOSE PATIENT", "Patient: " + patient.getId(), outcome,"DOCTOR");
+        while (true) {
+            String doctorConfirmation = InputValidator.getValidStringInput(
+                    "Doctor " + doctor.getName() + ", do you agree with the CDSS diagnosis? (yes/no): ");
 
-                        break;
-                    }else{
-                        System.out.println("Invalid Input!\n");
-                    }
-                }
+            auditManager.logAction(
+                    doctor.getId(),
+                    "USER ENTERED: " + doctorConfirmation,
+                    "CDSS diagnosis",
+                    "SUCCESS",
+                    "DOCTOR"
+            );
+
+            if (doctorConfirmation.equalsIgnoreCase("no")) {
+                System.out.println("======== Override CDSS Diagnosis ========");
+                String diagnosis = InputValidator.getValidStringWithSpaceInput("Enter your diagnosis: ");
+
+                doctor.diagnosePatient(patient, diagnosis);
+                outcome = "OVERRIDDEN";
+
+                auditManager.logAction(doctor.getId(), "DIAGNOSE PATIENT", "Patient: " + patient.getId(), outcome, "DOCTOR");
+                auditManager.logAction(doctor.getId(), "USER ENTERED: " + diagnosis, "Override diagnosis", "SUCCESS", "DOCTOR");
+                break;
+
+            } else if (doctorConfirmation.equalsIgnoreCase("yes")) {
+                int choice = InputValidator.getValidRangeIntInput(
+                        "Enter choice of Diagnosis (1-" + cdssDiagnosis.size() + "): ",
+                        cdssDiagnosis.size());
+
+                String selectedDiagnosis = cdssDiagnosis.get(choice - 1);
+                doctor.diagnosePatient(patient, selectedDiagnosis);
+
+                auditManager.logAction(doctor.getId(), "DIAGNOSE PATIENT", "Patient: " + patient.getId(), outcome, "DOCTOR");
+                break;
+
+            } else {
+                System.out.println("Invalid input! Please type 'yes' or 'no'.");
             }
         }
     }
@@ -505,7 +546,6 @@ public class ESController {
      * that further tests are required.</p>
      *
      * @param symptom The {@link Symptoms} object representing the patient's symptom to be analyzed.
-     * @param doctor  The {@link Doctor} whose clinical guidelines will be used for analysis.
      * @return A {@link List} of possible diagnoses. If no matches are found, the list will contain
      *         a default message: "Diagnosis Unclear - Further Tests Required".
      *
@@ -513,14 +553,15 @@ public class ESController {
      * @see Symptoms
      * @see Doctor
      */
+
     // Method to Analyze Symptoms and Return Diagnosis
-    public static List<String> cdssAnalyzeSymptoms(Symptoms symptom, Doctor doctor) {
+    private static List<String> cdssAnalyzeSymptoms(Symptoms symptom) {
         List<String> CDSSDiagnosis = new ArrayList<>();
 
-        for (ClinicalGuideline guidelineSymptom : doctor.getClinicalGuidelines()) {
+        for (ClinicalGuideline guidelineSymptom : clinicalGuidelines) {
             if (guidelineSymptom.getGuideLineType().equals("Symptom") &&
                     guidelineSymptom.getSupportingEvidence().contains(symptom.getSymptomName())) {
-                CDSSDiagnosis.add(guidelineSymptom.getGuideDescription());
+                CDSSDiagnosis.add(guidelineSymptom.getSymptomName());
             }
         }
 
@@ -530,6 +571,145 @@ public class ESController {
 
         // Return possible Diagnosis
         return CDSSDiagnosis;
+    }
+
+    private static void prescribeMedications(Patient patient, Doctor doctor, AuditManager auditManager){
+        String diagnosis = patient.getEHR().getDiagnosis();
+
+        if (diagnosis == null || diagnosis.isEmpty()) {
+            System.out.println("⚠ Cannot prescribe medications without a diagnosis.");
+            return;
+        }
+
+        System.out.println("Diagnosis: " + diagnosis);
+
+        // Get CDSS recommendations
+        List<Medication> cdssRecommendations = cdssAnalyzeDiagnosis(diagnosis);
+        if (cdssRecommendations.isEmpty()) {
+            System.out.println("No recommendations found from CDSS for: " + diagnosis);
+            return;
+        }
+
+        System.out.println("======= CDSS Medication Suggestions =======");
+        for (int i = 0; i < cdssRecommendations.size(); i++) {
+            Medication med = cdssRecommendations.get(i);
+            System.out.printf("%d. %s (%s)\n", i + 1, med.getMedicationName(), med.getDosage());
+        }
+
+        String outcome = "SUCCESS";
+
+        while (true) {
+            String confirm = InputValidator.getValidStringInput("Doctor " + doctor.getName() +
+                    ", do you want to accept a CDSS suggestion? (yes/no): ");
+
+            auditManager.logAction(doctor.getId(), "USER ENTERED: " + confirm, "CDSS prescription suggestion", "SUCCESS", "DOCTOR");
+
+            if (confirm.equalsIgnoreCase("yes")) {
+                int choice = InputValidator.getValidRangeIntInput("Select medication to prescribe: ", cdssRecommendations.size());
+                Medication selectedMed = cdssRecommendations.get(choice - 1);
+
+                doctor.prescribeMedication(patient, selectedMed);
+
+                auditManager.logAction(doctor.getId(), "PRESCRIBED MEDICATION", selectedMed.getMedicationName(), outcome, "DOCTOR");
+                System.out.println("Medication prescribed: " + selectedMed.getMedicationName());
+                break;
+
+            } else if (confirm.equalsIgnoreCase("no")) {
+                System.out.println("======== Manual Prescription Entry ========");
+
+                String medName = InputValidator.getValidStringWithSpaceInput("Enter medication name: ");
+
+                // Try to fetch from available medications
+                Medication availableMed = MedicationController.findAvailableMedicationByName(medName);
+                Medication customMed;
+
+                if (availableMed != null) {
+                    System.out.println("Medication found: " + availableMed.getMedicationName() + " (" + availableMed.getDosage() + ")");
+
+                    String override = InputValidator.getValidStringInput("Use specific dosage/frequency? (yes/no): ");
+                    if (override.equalsIgnoreCase("yes")) {
+                        String dosage = InputValidator.getValidStringInput("Enter dosage (e.g. 500mg): ");
+                        String frequency = InputValidator.getValidStringInput("Enter frequency (e.g. once daily): ");
+                        String combined = dosage + ", " + frequency;
+
+                        // Create new med object with custom dosage/frequency
+                        customMed = new Medication(
+                                availableMed.getMedicationId(),
+                                availableMed.getMedicationName(),
+                                combined
+                        );
+                    } else {
+                        customMed = availableMed;
+                    }
+
+                } else {
+                    // Full manual entry
+                    System.out.println("Medication not found in system. Creating a custom medication record.");
+                    String dosage = InputValidator.getValidStringInput("Enter dosage (e.g. 500mg): ");
+                    String frequency = InputValidator.getValidStringInput("Enter frequency (e.g. once daily): ");
+                    String combined = dosage + ", " + frequency;
+
+                    customMed = new Medication(null, medName, combined);
+                }
+
+                doctor.prescribeMedication(patient, customMed);
+                auditManager.logAction(doctor.getId(), "PRESCRIBED MEDICATION", customMed.getMedicationName(), "OVERRIDDEN", "DOCTOR");
+
+                System.out.println("Medication manually prescribed: " + customMed.getMedicationName());
+                break;
+            }else {
+                System.out.println("Invalid input! Please type 'yes' or 'no'.");
+            }
+        }
+    }
+
+    // Method to Analyze Diagnosis and Return Medication Suggestion
+    private static List<Medication> cdssAnalyzeDiagnosis(String diagnosis) {
+        List<Medication> CDSSPrescription = new ArrayList<>();
+        List<Medication> medicationList = MedicationController.getAvailableMedications();
+        String formattedDiagnosis = diagnosis.substring(0, 1).toUpperCase() + diagnosis.substring(1).toLowerCase();
+
+        for (ClinicalGuideline guidelineMedication : clinicalGuidelines) {
+            if (guidelineMedication.getGuideLineType().equalsIgnoreCase("Medication") &&
+                    (guidelineMedication.getSupportingEvidence().toLowerCase().contains(diagnosis.toLowerCase()) ||
+                            guidelineMedication.getSupportingEvidence().contains(formattedDiagnosis))) {
+
+                System.out.println(); // Optional — can remove or replace with a label
+
+                for (Medication med : medicationList) {
+                    if (guidelineMedication.getMedicationName() != null &&
+                            guidelineMedication.getMedicationName().equalsIgnoreCase(med.getMedicationName())) {
+                        CDSSPrescription.add(med);
+                    }
+                }
+            }
+        }
+
+        // Return possible Diagnosis
+        return CDSSPrescription;
+    }
+
+    public static void immediateResponse(EmergencyCase emergencyCase, AuditManager manager) {
+        System.out.println("=== Immediate Response: Emergency Procedures ===");
+
+        while (true) {
+            String procedure = InputValidator.getValidStringWithSpaceInput(
+                    "Enter emergency procedure (type 'done' to finish): ");
+
+            if (procedure.equalsIgnoreCase("done")) {
+                break;
+            }
+
+            emergencyCase.addEmergencyProcedure(procedure); // Add to the case
+
+            if (manager != null) {
+                manager.logAction("SYSTEM", "ADDED PROCEDURE", procedure, "SUCCESS", "SYSTEM");
+            }
+
+            System.out.println("Procedure added: " + procedure);
+        }
+
+        System.out.println("\nAll procedures recorded for Case ID: " + emergencyCase.getCaseID());
     }
 }
 
