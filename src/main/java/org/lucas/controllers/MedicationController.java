@@ -28,7 +28,8 @@ import java.util.Random;
 public class MedicationController {
     private static final String fileName = "medication.txt";
     private static List<Medication> availableMedication = new ArrayList<>(); // In-memory list
-
+    public static String medicationID;
+    public static String medicationID1;
 
     /**
      * returns a *copy* of the available medicine array.
@@ -370,16 +371,20 @@ public class MedicationController {
         else {
             System.out.println("Invalid amount given. Please enter a valid amount that can be deducted from the total" + currentStock);
         }
+
+
     }
+
+
 
 
     public static void editMedicineDetails(){
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Enter Medicine ID of the medicine you wish to find :    Example: M001");
-        String medicationID = scan.nextLine();
+        String medicationID1 = scan.nextLine();
 
-        Medication medication = findAvailableMedicationByID(medicationID);
+        Medication medication = findAvailableMedicationByID(medicationID1);
         if (medication == null) {
             System.out.println("Medication not found");
             return;
@@ -481,6 +486,14 @@ public class MedicationController {
         System.out.printf("%-25s: %s%n", "Expiry Date", medication.getExpiryDate());
         System.out.println("=======================================\n");
     }
+
+    public static String getMedicationID() {
+        return medicationID;
+    }
+    public static String getMedicationID1() {
+        return medicationID1;
+    }
+
 }
 
 

@@ -38,6 +38,8 @@ public class Nurse extends User{
         this.nursingLicenseNumber = nursingLicenseNumber;
         this.alertList = new ArrayList<>();
     }
+
+    public String getNurseID() { return this.getId(); }
     /**
      * GETTER & SETTER METHODS
      */

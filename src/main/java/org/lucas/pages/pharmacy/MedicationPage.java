@@ -1,11 +1,13 @@
 package org.lucas.pages.pharmacy;
 import org.lucas.controllers.MedicationController;
+import org.lucas.controllers.UserController;
 import org.lucas.models.Medication;
 import org.lucas.ui.framework.Color;
 import org.lucas.ui.framework.UiBase;
 import org.lucas.ui.framework.View;
 import org.lucas.ui.framework.views.ListView;
 import org.lucas.ui.framework.views.TextView;
+import org.lucas.audit.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -31,21 +33,26 @@ public class MedicationPage extends UiBase{
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView;// Cast the parent view to a list view
         lv.setTitleHeader("List of Medicines");
+
         for (Medication medication : MedicationController.getAvailableMedications()) {
             printAllMedications(medication, lv);
         }
+        AuditManager auditManager = new AuditManager();
 
         lv.attachUserInput("Add New Medicine", str -> {
             MedicationController.collectUserInputAndAddMedication();
+            auditManager.logAction(UserController.getActiveNurse().getNurseID(), "New Medicine added", "System", "Medicine added", "NURSE");
             canvas.setRequireRedraw(true);
         });
         lv.attachUserInput("Remove Medicine from inventory", str -> {
             MedicationController.removeStockfromMedication();
+            auditManager.logAction(UserController.getActiveNurse().getNurseID(), "Medicine removed from stock", "System", "Inventory updated for " + MedicationController.getMedicationID() , "NURSE");
             canvas.setRequireRedraw(true);
         });
 
         lv.attachUserInput(" Search or Update an existing Medication", str -> {
             MedicationController.editMedicineDetails();
+            auditManager.logAction(UserController.getActiveNurse().getNurseID(), "Medicine details edited", "System", "Details updated for: " + MedicationController.getMedicationID1() , "NURSE");
 
             canvas.setRequireRedraw(true);
 

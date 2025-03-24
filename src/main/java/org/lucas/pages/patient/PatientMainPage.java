@@ -10,6 +10,7 @@ import org.lucas.ui.framework.UiBase;
 import org.lucas.ui.framework.View;
 import org.lucas.ui.framework.views.ListView;
 import org.lucas.ui.framework.views.TextView;
+import org.lucas.audit.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -151,6 +152,10 @@ public class PatientMainPage extends UiBase {
                 String s = scanner.nextLine();
                 if (s.equalsIgnoreCase("Y")) {
                     validInput = true;
+
+                    AuditManager auditManager = new AuditManager();
+                    auditManager.logAction(UserController.getActivePatient().getId(), "Appointment Booked", "System", "Patient Appointment Booked", "Patient");
+
                 } else if (s.equalsIgnoreCase("N")) {
                     System.out.println("Consent not recieved, terminating session. Your information will not be saved.");
                     canvas.setRequireRedraw(true);
@@ -164,6 +169,8 @@ public class PatientMainPage extends UiBase {
         appointment.setHistory(history);
         appointmentController.addAppointment(appointment);
         appointmentController.saveAppointmentsToFile();
+
+
         canvas.setRequireRedraw(true);
     }
 }

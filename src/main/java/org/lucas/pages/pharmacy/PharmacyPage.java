@@ -31,12 +31,11 @@ public class PharmacyPage extends UiBase {
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
         lv.setTitleHeader("Welcome to the Pharmacy"); // Set the title header of the list view
-        lv.addItem(new TextView(this.canvas, "1. Prescription - View Outstanding Prescription to settle. ", Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "1. Dispensary - View Outstanding Prescription to settle. ", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "2. Medication - View list of Medication. ", Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "3. Inventory - Manage Medication. ", Color.GREEN));
-        lv.attachUserInput("Prescription", str -> ToPage(new MedicationPage()));
+
+        lv.attachUserInput("Dispensary", str -> ToPage(new DispensaryPage()));
         lv.attachUserInput("Medication", str -> ToPage(new MedicationPage()));
-        lv.attachUserInput("Inventory", str -> ToPage(new MedicationPage()));
         canvas.setRequireRedraw(true);
     }
 }
