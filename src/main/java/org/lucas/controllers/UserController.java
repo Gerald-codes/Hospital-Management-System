@@ -734,7 +734,7 @@ public class UserController {
         List<Nurse> allNurse = getAvailableNurses();
         while (foundNurse == null) {
             for (Nurse n : allNurse) {
-                if (n.getId().equals(nurseID) && n.getRole().equalsIgnoreCase(role)) {
+                if (n.getId().equalsIgnoreCase(nurseID) && n.getRole().equalsIgnoreCase(role)) {
                     System.out.println("\nExisting nurse found: " + n.getName());
                     foundNurse = n;
                     return n;

@@ -7,10 +7,10 @@ import org.lucas.Emergency.enums.PatientLocation;
 import org.lucas.Emergency.enums.PatientStatus;
 import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
-import org.lucas.models.ElectronicHealthRecord;
+
 import org.lucas.models.Nurse;
 import org.lucas.models.Patient;
-import org.lucas.models.VitalSigns;
+
 import org.lucas.ui.framework.Color;
 import org.lucas.ui.framework.UiBase;
 import org.lucas.ui.framework.View;
@@ -20,7 +20,7 @@ import org.lucas.util.InputValidator;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 
 /** Represents the main page of the Telemedicine Integration System.
@@ -60,10 +60,9 @@ public class NurseDispatchMenuPage extends UiBase {
     }
 
     private static EmergencySystem ECsystem = new EmergencySystem();
-    private static void createNewDispatchCase() {
-//      EmergencySystem ECsystem = new EmergencySystem();
+    private void createNewDispatchCase() {
         System.out.println("\n=========== Register New Emergency Case ===========");
-        int caseID = ECsystem.setCaseID(); // Auto-incremented CaseId
+        int caseID = ECsystem.setCaseID();  // Auto-incremented CaseId
 
         //Patient ID
         String enteredPatientID = InputValidator.getValidStringInput("Enter Patient ID: ");
@@ -159,20 +158,23 @@ public class NurseDispatchMenuPage extends UiBase {
 
         DispatchInfo dispatchInfo = new DispatchInfo(ambulanceID, paramedicNurses, equipmentList, dispatchLocation);
         EmergencyCase_Dispatch newDispatchCase = new EmergencyCase_Dispatch(caseID, patient, chiefComplaint, arrivalMode, patientStatus, dispatchInfo, isUrgent);
+
         ESController.addEmergencyCaseDispatch(newDispatchCase);
+
         System.out.println("New Dispatch Case | Case ID: " + caseID + " | Patient Name: " + patient.getName()
                 + " | Registered successfully!\n");
-        ESController.saveEmergencyCasesToFile();
-        new NurseDispatchMenuPage();
+        ESController.saveEmergencyDispatchCasesToFile();
+
+        ToPage(new NurseDispatchMenuPage());
     }
 
 
-    private static void updateDispatchStatus() {
+    private void updateDispatchStatus() {
 //        EmergencySystem ECsystem = new EmergencySystem();
         int caseID = InputValidator.getValidIntInput("Enter case ID: ");
 
-        for (EmergencyCase_Dispatch dispatchCase : ECsystem.getEmergencyCaseDispatch()) { //this part should load the existing emergency dispatch cases
-            if ((dispatchCase.getCaseID() == caseID) && (dispatchCase.getPatientStatus().equals("DONE"))) {
+        for (EmergencyCase_Dispatch dispatchCase : ESController.getAllDispatchCases()) { //this part should load the existing emergency dispatch cases
+            if ((dispatchCase.getCaseID() == caseID) && (dispatchCase.getPatientStatus() == PatientStatus.DONE)) {
                 System.out.println("Dispatch case already resolved.");
                 }
             else{
@@ -193,40 +195,28 @@ public class NurseDispatchMenuPage extends UiBase {
         }
 
 
-    private static void arrivedAtLocation(EmergencyCase_Dispatch dispatchCase){
+    private void arrivedAtLocation(EmergencyCase_Dispatch dispatchCase){
         // update dispatch arrival time
         dispatchCase.setDispatchTeamArrivalTime(LocalDateTime.now());
-//        //do initial screening
-//        String triageLevelInput = InputValidator.getValidStringInput("Enter triage level: ");
-//        dispatchCase.setTriageLevel(triageLevelInput);
-        Patient patient = dispatchCase.getPatient();
-        ElectronicHealthRecord EHR = patient.getElectronicHealthRecord();
-        // ask for vital signs
-        double temperature = InputValidator.getValidDoubleInput("Enter patient's temperature: ");
-        int heartRate = InputValidator.getValidIntInput("Enter patient's heart rate: ");
-        int bloodPressureSystolic = InputValidator.getValidIntInput("Enter patient's systolic blood pressure: ");
-        int bloodPressureDiastolic = InputValidator.getValidIntInput("Enter patient's diastolic blood pressure: ");
-        int respiratoryRate = InputValidator.getValidIntInput("Enter patient's respiratory rate: ");
-        VitalSigns vitalSigns = new VitalSigns(temperature, heartRate, bloodPressureSystolic, bloodPressureDiastolic, respiratoryRate);
-        EHR.setVitalSigns(vitalSigns);
-        // ask for allergies
-        String input = InputValidator.getValidStringInput("Enter patient's allergies (separate by commas): ");
-        List<String> allergies = Arrays.asList(input.split("\\s*,\\s*"));
-        EHR.setAllergies(allergies);
+        ESController.nurseInitialScreening(dispatchCase);
         //didnt include the staff member selection part because the paramedic nurse for each dispatch case is already a staff member
         dispatchCase.setPatientStatus(PatientStatus.ONDISPATCHED);
         //save the case
+        ESController.saveEmergencyDispatchCasesToFile();
+        ToPage(new NurseDispatchMenuPage());
     }
 
-    private static void arrivedAtHospital(EmergencyCase_Dispatch dispatchCase){
+    private void arrivedAtHospital(EmergencyCase_Dispatch dispatchCase){
         dispatchCase.setPatientStatusToArrived();
         dispatchCase.setLocation(PatientLocation.EMERGENCY_ROOM_WAITING_ROOM);
         System.out.println(dispatchCase.getResponseDetails());
         //save the case
+        ESController.saveEmergencyDispatchCasesToFile();
+        ToPage(new NurseDispatchMenuPage());
     }
 
 
-    private static void viewDispatchCases(){
+    private void viewDispatchCases(){
         System.out.println("0. Back\n1. View Past Dispatch Case\n2.View Active Dispatch Case\n3. View ALl Dispatch Cases\n");
         int choice = InputValidator.getValidIntInput("Enter your choice: ");
         switch(choice){
@@ -234,12 +224,12 @@ public class NurseDispatchMenuPage extends UiBase {
                 return;
             case 1:
                 int caseID = InputValidator.getValidIntInput("Enter the case ID of the dispatch case you want to view: ");
-                ECsystem.printCaseInfo(caseID,"Dispatch");
+                ESController.printDispatchCaseInfo(caseID);
             case 2:
-                ECsystem.printActiveDispatch();
+                ESController.printActiveDispatch();
             case 3:
-                ECsystem.printAllDispatch();
+                ESController.printAllDispatchCases();
         }
-
+        ToPage(new NurseDispatchMenuPage());
     }
 }

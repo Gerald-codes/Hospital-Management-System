@@ -32,9 +32,50 @@ public class ESController {
 //    private static List<EmergencyCase> emergencyCases = new ArrayList<>();
 //    private static List<EmergencyCase_Dispatch> emergencyCaseDispatch = new ArrayList<>();
     private static List<EmergencyCase> allCases = new ArrayList<>();
+    private static List<EmergencyCase_Dispatch> allDispatchCases = new ArrayList<>();
     private static final String fileName = "emergency_cases.txt";
+    private static final String fileNameDispatch = "emergency_dispatch_cases.txt";
 
+    public static List<EmergencyCase_Dispatch> getAllDispatchCases() {
+        return allDispatchCases;
+    }
 
+    public static void printDispatchCaseInfo(int caseID){
+        for(EmergencyCase_Dispatch ec : allDispatchCases){
+            if (ec.getCaseID() == caseID) {
+                System.out.println("Emergency Dispatch Case found: " + ec.printIncidentReport()); /*
+                 * print the
+                 * dispatch case
+                 * info if found
+                 */
+                break; /* Exit the loop once we find the dispatch case */
+            }
+        }System.out.println("Emergency Dispatch Case with ID " + caseID + " not found.");
+    }
+    public static void printActiveDispatch() {
+
+        if (allDispatchCases.isEmpty()) {
+            System.out.println("No emergency dispatch cases in the system.");
+            return;
+        }
+        for (EmergencyCase c : allDispatchCases) {
+            if (c.getPatientStatus().toString() == "ONDISPATCHED") {
+                System.out.println(c.printIncidentReport());
+            } else {
+                System.out.println("No active Dispatch Cases");
+            }
+        }
+
+    }
+    public static void printAllDispatchCases(){
+        if (allDispatchCases.isEmpty()) {
+            System.out.println("No emergency dispatch cases in the system.");
+            return;
+        }
+        for (EmergencyCase c : allDispatchCases){
+            System.out.println(c.printIncidentReport());
+        }
+    }
 
     public static void addEmergencyCases(EmergencyCase emergencyCase){
         allCases.add(emergencyCase);
@@ -45,15 +86,18 @@ public class ESController {
 //        emergencyCases.sort(): //sort by triage level
 //    }
 
-    public static void addEmergencyCaseDispatch(EmergencyCase_Dispatch newCase_Dispatch) {
-        if (!allCases.contains(newCase_Dispatch)) {
-            allCases.add(newCase_Dispatch); // add the new case dispatch
+    public static void addEmergencyCaseDispatch(EmergencyCase_Dispatch newDispatchCase) {
+        if (!allDispatchCases.contains(newDispatchCase)) {
+            System.out.println("Adding case with ID: " + newDispatchCase.getCaseID());
+            allDispatchCases.add(newDispatchCase); // add the new case dispatch
+            System.out.println("Case added successfully. Total cases: " + allCases.size());
+
         } else {
-            System.out.println("Duplicate emergency case dispatch-not added: " + newCase_Dispatch); // print the error
+            System.out.println("Duplicate emergency case dispatch-not added: " + newDispatchCase); // print the error
             // message if the
-            // case dispatch
-            // already exists
-        }
+           // case dispatch
+           // already exists
+       }
 
     }
 
@@ -152,6 +196,35 @@ public class ESController {
                 writer.write(json);
             }
             System.out.println("Emergency Cases saved to " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveEmergencyDispatchCasesToFile() {
+        String basePath = "";
+
+        // Get the jar location
+        try {
+            basePath = JarLocation.getJarDirectory();
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
+        String path = Paths.get(basePath, fileNameDispatch).toString();
+
+        // Serialize the combined data to JSON (using allCases now)
+        String json = Globals.gsonPrettyPrint.toJson(allDispatchCases); // Serialize all cases, not just emergencyCases
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
+            if (allDispatchCases.isEmpty()) {
+                writer.write("No emergency cases available.\n");
+            } else {
+                // Write the JSON representation of all cases
+                writer.write(json);
+            }
+            System.out.println("Emergency Cases saved to " + fileNameDispatch);
         } catch (IOException e) {
             e.printStackTrace();
         }
