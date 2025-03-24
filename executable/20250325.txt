@@ -1,0 +1,2 @@
+Audit Log - [AuditID: 20250325003227773001, UserID: N001, Action: LOGIN, Target: System, Timestamp: 2025-03-25T00:32:27.775016400, Outcome: SUCCESS, Device: PC1, Role: NURSE]
+Audit Log - [AuditID: 20250325003227779002, UserID: N001, Action: LOGIN, Target: System, Timestamp: 2025-03-25T00:32:27.780731400, Outcome: SUCCESS, Device: PC1, Role: NURSE]
