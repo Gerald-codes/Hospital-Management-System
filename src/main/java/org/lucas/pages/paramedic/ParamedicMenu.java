@@ -73,8 +73,10 @@ public class ParamedicMenu extends UiBase {
 
         //Select dispatch vehicle type
         System.out.print(
-                "___- Select dispatch vehicle -___\n (1. Ambulance) \n (2. Helicopter) \n");
+                "------ Select dispatch vehicle ------\n 1. Ambulance \n 2. Helicopter \n");
+
         int choice = InputValidator.getValidIntInput("Enter your choice: ");
+
         String arrivalMode;
         switch (choice) {
             case 1:
@@ -91,8 +93,14 @@ public class ParamedicMenu extends UiBase {
 
         //Get Vehicle ID
         int ambulanceID = 0;
-        while (ambulanceID == 0) {
+        boolean correct = true;
+        while (correct) {
             ambulanceID = InputValidator.getValidIntInput("Enter Vehicle ID: ");
+            int length = String.valueOf(ambulanceID).length();
+            if (length == 4){
+                correct = false;
+                break;
+            }
         }
 
         //Dispatched paramedic nurse
@@ -167,6 +175,7 @@ public class ParamedicMenu extends UiBase {
             if (dc.getCaseID() == caseID){
                 if (dc.getPatientStatus() == PatientStatus.DONE) {
                     System.out.println("Dispatch case already resolved.");
+                    refreshUi("");
                 }
                 else{
                     System.out.print(
@@ -174,23 +183,27 @@ public class ParamedicMenu extends UiBase {
                     int choice = InputValidator.getValidIntInput("Enter your choice: ");
                     switch(choice){
                         case 0:
-                            return;
+                            refreshUi("");
+                            break;
                         case 1:
                             arrivedAtLocation(dc);
                             refreshUi("Status updated to arrived at location.");
+                            ESController.loadEmergencyDispatchCaseFromFile();
                             break;
 
                         case 2:
                             arrivedAtHospital(dc);
                             ESController.addResolvedCases(dc);
                             refreshUi("Dispatch case completed, added to emergency case.");
+                            ESController.loadEmergencyDispatchCaseFromFile();
                             break;
                         default:
                             refreshUi("Invalid choice.");
+                            break;
                     }
                 }
                 break;
-            }
+            }refreshUi("Invalid Case ID");
         }
     }
 

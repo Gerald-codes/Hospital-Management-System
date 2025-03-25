@@ -433,31 +433,6 @@
     "is_urgent": false
   },
   {
-    "dispatch_info": {
-      "vehicle_id": 123,
-      "medivac_members": [
-        {
-          "department": "Pediatrics",
-          "role": "Paramedic Nurse",
-          "assigned_ward": "Ward A",
-          "can_administer_medication": true,
-          "nursing_license_number": "RN-2023-00123",
-          "alert_list": [],
-          "id": "N001",
-          "login_name": "emily",
-          "name": "Emily Carter",
-          "password": "password123",
-          "email": "emilycarter@gmail",
-          "gender": "Female",
-          "phone_number": "87654321"
-        }
-      ],
-      "equipment": [],
-      "dispatch_location": "cck"
-    },
-    "dispatch_arrival_time": "2025-03-25T14:18:40.6556604",
-    "time_of_call": "2025-03-25T14:18:40.6556604",
-    "response_time": "PT0S",
     "case_i_d": 6,
     "patient": {
       "alert_history": [],
@@ -604,6 +579,198 @@
     "patient_status": "WAITING",
     "emergency_procedures": [],
     "screening_date_time": "2025-03-25T14:18:40.6556604",
+    "is_urgent": false
+  },
+  {
+    "case_i_d": 9,
+    "patient": {
+      "alert_history": [],
+      "electronic_health_record": {
+        "allergies": [],
+        "current_medications": [],
+        "medical_history": [],
+        "vital_signs": {
+          "temperature": 10.0,
+          "heart_rate": 10,
+          "blood_pressure_systolic": 10,
+          "blood_pressure_diastolic": 10,
+          "respiratory_rate": 10
+        },
+        "lab_results": [],
+        "imaging_records": [],
+        "clinical_notes": "Nil",
+        "symptoms": [],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [],
+        "vaccination_record": []
+      },
+      "height": 0.0,
+      "weight": 0.0,
+      "emergency_contact_number": 0,
+      "patient_consent": {
+        "consent_given": false
+      },
+      "id": "laksdlk",
+      "name": "aklaskd",
+      "gender": "alkdlsakd",
+      "phone_number": "lkasdlkas"
+    },
+    "chief_complaint": "dalkdlaskd",
+    "arrival_mode": "Ambulance",
+    "arrival_date_time": "2025-03-25T18:11:44.2044738",
+    "triage_level": "PRIORITY_4_NON_EMERGENCY",
+    "location": "EMERGENCY_ROOM_WAITING_ROOM",
+    "patient_status": "WAITING",
+    "emergency_procedures": [],
+    "is_urgent": false
+  },
+  {
+    "case_i_d": 11,
+    "patient": {
+      "alert_history": [],
+      "electronic_health_record": {
+        "allergies": [],
+        "current_medications": [],
+        "medical_history": [],
+        "vital_signs": {
+          "temperature": 0.0,
+          "heart_rate": 0,
+          "blood_pressure_systolic": 0,
+          "blood_pressure_diastolic": 0,
+          "respiratory_rate": 0
+        },
+        "lab_results": [],
+        "imaging_records": [],
+        "clinical_notes": "Nil",
+        "symptoms": [],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [],
+        "vaccination_record": []
+      },
+      "height": 0.0,
+      "weight": 0.0,
+      "emergency_contact_number": 0,
+      "patient_consent": {
+        "consent_given": false
+      },
+      "id": "p010",
+      "name": "june",
+      "gender": "male",
+      "phone_number": "13232"
+    },
+    "chief_complaint": "sick",
+    "arrival_mode": "Ambulance",
+    "arrival_date_time": "2025-03-25T18:52:10.5254349",
+    "triage_level": "PRIORITY_4_NON_EMERGENCY",
+    "location": "EMERGENCY_ROOM_WAITING_ROOM",
+    "patient_status": "WAITING",
+    "emergency_procedures": [],
+    "screening_date_time": "2025-03-25T18:50:38.4823751",
+    "is_urgent": false
+  },
+  {
+    "case_i_d": 13,
+    "patient": {
+      "alert_history": [],
+      "electronic_health_record": {
+        "allergies": [],
+        "current_medications": [],
+        "medical_history": [],
+        "vital_signs": {
+          "temperature": 0.0,
+          "heart_rate": 0,
+          "blood_pressure_systolic": 0,
+          "blood_pressure_diastolic": 0,
+          "respiratory_rate": 0
+        },
+        "lab_results": [],
+        "imaging_records": [],
+        "clinical_notes": "Nil",
+        "symptoms": [],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [],
+        "vaccination_record": []
+      },
+      "height": 0.0,
+      "weight": 0.0,
+      "emergency_contact_number": 0,
+      "patient_consent": {
+        "consent_given": false
+      },
+      "id": "p004",
+      "name": "june",
+      "gender": "male",
+      "phone_number": "12321321"
+    },
+    "chief_complaint": "sick",
+    "arrival_mode": "Walk-In",
+    "arrival_date_time": "2025-03-25T19:07:22.8456956",
+    "triage_level": "PRIORITY_4_NON_EMERGENCY",
+    "initial_screening_nurse": {
+      "department": "Pediatrics",
+      "role": "Paramedic Nurse",
+      "assigned_ward": "Ward A",
+      "can_administer_medication": true,
+      "nursing_license_number": "RN-2023-00123",
+      "alert_list": [],
+      "id": "N001",
+      "login_name": "emily",
+      "name": "Emily Carter",
+      "password": "password123",
+      "email": "emilycarter@gmail",
+      "gender": "Female",
+      "phone_number": "87654321"
+    },
+    "location": "EMERGENCY_ROOM_TRIAGE_ROOM",
+    "patient_status": "DONE",
+    "emergency_procedures": [],
+    "is_urgent": false
+  },
+  {
+    "case_i_d": 14,
+    "patient": {
+      "alert_history": [],
+      "electronic_health_record": {
+        "allergies": [],
+        "current_medications": [],
+        "medical_history": [],
+        "vital_signs": {
+          "temperature": 0.0,
+          "heart_rate": 0,
+          "blood_pressure_systolic": 0,
+          "blood_pressure_diastolic": 0,
+          "respiratory_rate": 0
+        },
+        "lab_results": [],
+        "imaging_records": [],
+        "clinical_notes": "Nil",
+        "symptoms": [],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [],
+        "vaccination_record": []
+      },
+      "height": 0.0,
+      "weight": 0.0,
+      "emergency_contact_number": 0,
+      "patient_consent": {
+        "consent_given": false
+      },
+      "id": "p011",
+      "name": "saf",
+      "gender": "male",
+      "phone_number": "132132131"
+    },
+    "chief_complaint": "sick",
+    "arrival_mode": "Walk-In",
+    "arrival_date_time": "2025-03-25T19:18:50.0511466",
+    "triage_level": "PRIORITY_4_NON_EMERGENCY",
+    "location": "EMERGENCY_ROOM_WAITING_ROOM",
+    "patient_status": "WAITING",
+    "emergency_procedures": [],
     "is_urgent": false
   }
 ]
