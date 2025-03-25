@@ -70,9 +70,6 @@ public class Medication {
      * @param dosage               The dosage amount in mg.
      * @param sideEffects          The potential side effects of the medication.
      * @param brandName            The brand name of the medication.
-     * @param dosageStrength       The strength of the dosage in mg.
-     * @param frequency            The frequency of administration
-     * @param maximumDailyDosage   The maximum allowed daily dosage.
      * @param stockAvailable       The available stock in units.
      * @param controlledSubstance  It Indicates if the medication is a controlled substance.
      * @param manufactureName      The name of the manufacturer.
@@ -107,6 +104,9 @@ public class Medication {
         this.stockAvailable = stockAvailable;
         this.dosage = dosage;
         this.medicationPrice = medicationPrice;
+    }
+
+    public Medication(String medicationId, String medicationName, String combined) {
     }
     // Getters and Setters for all attributes
     /**

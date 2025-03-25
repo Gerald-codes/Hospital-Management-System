@@ -1,10 +1,12 @@
 package org.lucas.pages;
 
 import org.lucas.audit.AuditManager;
+import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
 import org.lucas.models.enums.UserType;
 import org.lucas.pages.doctor.DoctorMainPage;
 import org.lucas.pages.nurse.NurseMenuPage;
+import org.lucas.pages.paramedic.ParamedicMenu;
 import org.lucas.pages.patient.PatientMainPage;
 import org.lucas.ui.framework.Color;
 import org.lucas.ui.framework.UiBase;
@@ -46,6 +48,8 @@ public class LoginPage extends UiBase { // This is the class that represents the
         lv.setTitleHeader("Welcome to the Hospital Management System "); // Set the title header of the list view
         lv.addItem(new TextView(this.canvas, "To use our system, please kindly login by pressing 1", Color.GREEN)); // Create a new text view with the message
         AuditManager auditManager = new AuditManager();
+        ESController.loadEmergencyCaseFromFile();
+        ESController.loadEmergencyDispatchCaseFromFile();
         lv.attachUserInput("Login ", x -> { // Attach the user input to the list view
             String username = InputValidator.getValidStringInput("Enter your username: ");
             String password = InputValidator.getValidStringInput("Enter your password: ");
@@ -60,7 +64,10 @@ public class LoginPage extends UiBase { // This is the class that represents the
             } else if (UserType.PATIENT == userController.authenticate(username, password)) {
                 System.out.println("Login successful!");
                 ToPage(new PatientMainPage());
-            } else { System.out.println("Invalid username or password!"); }
+            } else if (UserType.PARAMEDIC == userController.authenticate(username, password)){
+                System.out.println("Login successful");
+                ToPage(new ParamedicMenu());
+            }else { System.out.println("Invalid username or password!"); }
 
             canvas.setRequireRedraw(true);
             });

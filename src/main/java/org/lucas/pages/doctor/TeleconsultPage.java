@@ -1,7 +1,6 @@
 package org.lucas.pages.doctor;
 
 import org.lucas.Emergency.EmergencyCase;
-import org.lucas.Emergency.EmergencySystem;
 import org.lucas.Globals;
 import org.lucas.audit.AuditManager;
 import org.lucas.controllers.ESController;

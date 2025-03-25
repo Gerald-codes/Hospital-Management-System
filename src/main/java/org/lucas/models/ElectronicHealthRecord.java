@@ -179,6 +179,13 @@ public class ElectronicHealthRecord {
     public List<String> getOutcomeMonitoringRecords() { return outcomeMonitoringRecords; }
 
     /**
+     * Sets the outcome monitoring records.
+     *
+     * @param outcomeMonitoringRecords a list of outcome monitoring records
+     */
+    public void setOutcomeMonitoringRecords(List<String> outcomeMonitoringRecords) { this.outcomeMonitoringRecords = outcomeMonitoringRecords; }
+
+    /**
      * Retrieves the list of past surgeries.
      *
      * @return a list of past surgeries
@@ -205,6 +212,16 @@ public class ElectronicHealthRecord {
      * @param vaccinationRecord a list of vaccination records
      */
     public void setVaccinationRecord(List<String> vaccinationRecord) { this.vaccinationRecord = vaccinationRecord; }
+
+    /**
+     * Adds a medication to the list of current medications.
+     *
+     * @param medication The Medication object to be added.
+     */
+    public void addCurrentMedications(Medication medication) {
+        this.currentMedications.add(medication);
+    }
+
     /**
      * Updates the patient's blood pressure readings in the vital signs.
      *
@@ -237,6 +254,30 @@ public class ElectronicHealthRecord {
         outcomeMonitoringRecords.add(record);
         System.out.println("Outcome recorded in EHR: " + record);
     }
+
+    /**
+     * Displays all outcome monitoring records stored in the EHR.
+     */
+    public void displayOutcomeMonitoring() {
+        if (outcomeMonitoringRecords.isEmpty()) {
+            System.out.println("No outcome monitoring records available in EHR.");
+            return;
+        }
+        System.out.println("\nOutcome Monitoring Records in EHR:");
+        for (String record : outcomeMonitoringRecords) {
+            System.out.println(" " + record);
+        }
+    }
+
+    /**
+     * Adds a symptom to the list of symptoms reported by the patient.
+     *
+     * @param symptoms The Symptoms object to be added.
+     */
+    public void addSymptom(Symptoms symptoms) {
+        this.symptoms.add(symptoms);
+    }
+
     /**
      * Get a string representation of the ElectronicHealthRecord object.
      *
