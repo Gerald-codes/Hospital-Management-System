@@ -188,14 +188,12 @@ public class ParamedicMenu extends UiBase {
                         case 1:
                             arrivedAtLocation(dc);
                             refreshUi("Status updated to arrived at location.");
-                            ESController.loadEmergencyDispatchCaseFromFile();
                             break;
 
                         case 2:
                             arrivedAtHospital(dc);
                             ESController.addResolvedCases(dc);
                             refreshUi("Dispatch case completed, added to emergency case.");
-                            ESController.loadEmergencyDispatchCaseFromFile();
                             break;
                         default:
                             refreshUi("Invalid choice.");
