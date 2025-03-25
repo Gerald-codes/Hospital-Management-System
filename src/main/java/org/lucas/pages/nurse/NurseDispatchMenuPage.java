@@ -167,7 +167,8 @@ public class NurseDispatchMenuPage extends UiBase {
 
 
     private void updateDispatchStatus() {
-//        EmergencySystem ECsystem = new EmergencySystem();
+        ESController.printAllDispatchCases();
+
         int caseID = InputValidator.getValidIntInput("Enter case ID: ");
         List<EmergencyCase_Dispatch> dispatchCases = ESController.getAllDispatchCases();
         boolean found = false;
@@ -200,11 +201,6 @@ public class NurseDispatchMenuPage extends UiBase {
                 break;
                 }
             }
-        if (!found){
-            System.out.println("Invalid Case ID");
-        }
-
-
         }
 
 //    private void updateDispatchStatus() {
@@ -260,7 +256,6 @@ public class NurseDispatchMenuPage extends UiBase {
         System.out.println(dispatchCase.getResponseDetails());
         //save the case
         ESController.saveEmergencyDispatchCasesToFile();
-        ToPage(new NurseDispatchMenuPage());
     }
 
 

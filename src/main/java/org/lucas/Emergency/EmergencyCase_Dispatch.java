@@ -61,7 +61,7 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
         this.dispatchInfo = dispatchInfo;
         this.timeOfCall = LocalDateTime.now(); // Set the time of call be the current time
         this.dispatchArrivalTime = LocalDateTime.now();
-        this.setDateAndTimeOfScreening(LocalDateTime.now());
+        this.setScreeningDateTime(LocalDateTime.now());
         this.setArrivalDateTime(LocalDateTime.now());
     }
 

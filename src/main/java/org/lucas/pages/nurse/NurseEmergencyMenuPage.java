@@ -2,7 +2,6 @@ package org.lucas.pages.nurse;
 
 import org.lucas.Emergency.EmergencyCase;
 import org.lucas.Emergency.EmergencyCase_Dispatch;
-import org.lucas.Emergency.EmergencySystem;
 import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
 import org.lucas.models.Nurse;
@@ -29,7 +28,6 @@ public class NurseEmergencyMenuPage extends UiBase {
     @Override
     public View OnCreateView() {
         listView= new ListView(this.canvas, Color.GREEN);
-        listView.setTitleHeader("NurseEmergencyMenuPage");
         listView.addItem(new TextView(this.canvas, "1. Create New Emergency Case - To enter and proceed with Action  ", Color.GREEN));
         listView.addItem(new TextView(this.canvas, "2. Locations - To enter and proceed with Action  ", Color.GREEN));
         listView.addItem(new TextView(this.canvas, "3. View Dispatch Menu", Color.GREEN));
@@ -75,11 +73,10 @@ public class NurseEmergencyMenuPage extends UiBase {
         EmergencyCase newCase = new EmergencyCase(caseID, patient, chiefComplaint, "Walk-In", LocalDateTime.now(), isUrgent);
         ESController.addEmergencyCases(newCase);
 
-        System.out.println("\nNew Case Registered | Case ID: " + caseID + " | Patient: " + patient.getName());
+        String string = "\nNew Case Registered | Case ID: " + caseID + " | Patient: " + patient.getName();
         ESController.saveEmergencyCasesToFile();
+        refreshUi(string);
 
-        // After creating the emergency case, navigate back to the NurseEmergencyMenuPage
-        ToPage(new NurseEmergencyMenuPage());
     }
 
     private void viewAllEmergencyCases() {
@@ -121,8 +118,20 @@ public class NurseEmergencyMenuPage extends UiBase {
 
             listView.addItem(new TextView(this.canvas, "---------------------------------\n", Color.CYAN, TextStyle.BOLD));
         }
-
         canvas.setRequireRedraw(true);
 
     }
+
+    public void refreshUi(String string){
+        listView.clear();
+        listView.setTitleHeader("Nurse Emergency Menu");
+        listView.addItem(new TextView(this.canvas, "1. Create New Emergency Case - To enter and proceed with Action  ", Color.GREEN));
+        listView.addItem(new TextView(this.canvas, "2. Locations - To enter and proceed with Action  ", Color.GREEN));
+        listView.addItem(new TextView(this.canvas, "3. View Dispatch Menu", Color.GREEN));
+        listView.addItem(new TextView(this.canvas, "4. View All Emergency Cases", Color.GREEN));
+        listView.addItem(new TextView(this.canvas, string, Color.GREEN));
+
+        canvas.setRequireRedraw(true);
+    }
+
 }

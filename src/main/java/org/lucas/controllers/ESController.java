@@ -192,7 +192,7 @@ public class ESController {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
             if (allCases.isEmpty()) {
-                writer.write("No emergency cases available.\n");
+                writer.write("[]");
             } else {
                 // Write the JSON representation of all cases
                 writer.write(json);
@@ -261,7 +261,7 @@ public class ESController {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
             if (allDispatchCases.isEmpty()) {
-                writer.write("No emergency cases available.\n");
+                writer.write("[]");
             } else {
                 writer.write(json);
             }
@@ -763,17 +763,12 @@ public class ESController {
     public static void addResolvedCases(EmergencyCase_Dispatch dc) {
 
         int caseID;
-        for (EmergencyCase ec : allCases) {
-            if (ec.getCaseID() == dc.getCaseID()) {
-                caseID = ESController.setCaseID();
-                dc.setCaseID(caseID);
-                allCases.add(dc);
-                break;
-            }
-
-
-        }
+        caseID = ESController.setCaseID();
+        dc.setCaseID(caseID);
+        dc.setPatientStatus(PatientStatus.WAITING);
+        allCases.add(dc);
         saveEmergencyCasesToFile();
+
     }
 }
 
