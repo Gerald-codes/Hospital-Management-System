@@ -58,11 +58,13 @@ public class NurseEmergencyMenuPage extends UiBase {
         String chiefComplaint = "";
         while (chiefComplaint.isBlank()) {
             chiefComplaint = InputValidator.getValidStringInput("Enter reason of patient's visit (Chief Complaint): ").trim();
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "ENTER REASON OF PATIENT'S VISIT", String.valueOf(caseID), "SUCCESS", "NURSE");
         }
 
         boolean isUrgent;
         while (true) {
             String urgency = InputValidator.getValidStringInput("Require Urgent Treatment (YES or NO): ");
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "ENTER REQUIREMENT FOR URGENT TREATMENT", String.valueOf(caseID), "SUCCESS", "NURSE");
             if (urgency.equalsIgnoreCase("YES")){
                 isUrgent = true;
                 break;

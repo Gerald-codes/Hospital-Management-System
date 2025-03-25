@@ -770,7 +770,7 @@ public class ESController {
         while (true) {
             String procedure = InputValidator.getValidStringWithSpaceInput(
                     "Enter emergency procedure (type 'done' to finish): ");
-            AuditManager.getInstance().logAction(UserController.getActiveDoctor().toString(), "ENTER EMERGENCY PROCEDURE", procedure, "SUCCESS", "DOCTOR");
+            AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "ENTER EMERGENCY PROCEDURE", procedure, "SUCCESS", "DOCTOR");
 
 
             if (procedure.equalsIgnoreCase("done")) {
