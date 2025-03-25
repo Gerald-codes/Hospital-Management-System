@@ -8,7 +8,7 @@ import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
 import org.lucas.models.Nurse;
 import org.lucas.models.Patient;
-import org.lucas.pages.nurse.NurseDispatchMenuPage;
+
 import org.lucas.ui.framework.Color;
 import org.lucas.ui.framework.UiBase;
 import org.lucas.ui.framework.View;
@@ -145,7 +145,7 @@ public class ParamedicMenu extends UiBase {
                 + " | Registered successfully!\n");
         ESController.saveEmergencyDispatchCasesToFile();
 
-        ToPage(new NurseDispatchMenuPage());
+        ToPage(new ParamedicMenu());
     }
 
 
@@ -194,7 +194,7 @@ public class ParamedicMenu extends UiBase {
         dispatchCase.setPatientStatus(PatientStatus.ONDISPATCHED);
         //save the case
         ESController.saveEmergencyDispatchCasesToFile();
-        ToPage(new NurseDispatchMenuPage());
+        ToPage(new ParamedicMenu());
     }
 
     private void arrivedAtHospital(EmergencyCase_Dispatch dispatchCase){
@@ -217,6 +217,6 @@ public class ParamedicMenu extends UiBase {
             case 2:
                 ESController.printAllDispatchCases();
         }
-        ToPage(new NurseDispatchMenuPage());
+        ToPage(new ParamedicMenu());
     }
 }
