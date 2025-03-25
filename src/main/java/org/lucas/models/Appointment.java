@@ -132,6 +132,11 @@ public class Appointment implements ObjectBase {
         this.doctorNotes = doctorNotes;
         this.appointmentStatus = AppointmentStatus.COMPLETED;
     }
+    public void referEmergency(String doctorNotes){
+        this.session.endSession();
+        this.doctorNotes = doctorNotes;
+        this.appointmentStatus = AppointmentStatus.EMERGENCY;
+    }
 
     public void setMedicalCertificate(MedicalCertificate mc){
         this.mc = mc;

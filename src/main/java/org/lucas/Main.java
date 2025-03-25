@@ -9,32 +9,30 @@ import org.lucas.ui.framework.Canvas;
 
 public class Main {
 
+    /**
+     * Main method to start the application.
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
-        //UserController.getAvailablePatients();
-        //UserController.printAllPatients();
-        //UserController.getAvailableDoctors();
-        //UserController.printAvailableDoctors();
-        //Globals.appointmentController.generateRandomAppointmentData(8);
-        // initialise medicines
+
         //create a new canvas
         var canvas = new Canvas();
         ApplicationContext applicationContext = new ApplicationContext(canvas);
-        //Initializations
-        // Initialize Medicine: This line needs to stay uncommented
+
+        //Initialize Medicine: This line needs to stay uncommented
         MedicationController.getAvailableMedications();
 
-        // Uncomment these to generate dummy users
+        // Uncomment these to generate dummy medications
         //MedicationController.getAvailableMedications();
-        //UserController.getAvailablePatients();
-        //UserController.generateDummyUsers();
-
         //MedicationController.populateExampleMedication();
 
-        //UserController.generateDummyUsers();
+        // Uncomment these to generate dummy Patients (getAvailableMedications needs to be uncommented)
         //UserController.getAvailablePatients();
-        //UserController.printAllPatients();
-        //UserController.getAvailableNurses();
-        //UserController.generateDummyNurses();
+        //UserController.generateDummyUsers();
+
+        //Uncomment this to generate dummy appointments (getAvailableMedications & getAvailablePatients needs to be uncommented)
+        //Globals.appointmentController.generateRandomAppointmentData(12);
+
         applicationContext.startApplication(Globals.landingPage);
     }
 }

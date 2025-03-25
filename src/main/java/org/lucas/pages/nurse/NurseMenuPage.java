@@ -3,6 +3,7 @@ package org.lucas.pages.nurse;
 import org.lucas.controllers.UserController;
 import org.lucas.pages.doctor.FeedbackPage;
 
+import org.lucas.pages.pharmacy.PharmacyPage;
 import org.lucas.ui.framework.Color;
 import org.lucas.ui.framework.UiBase;
 import org.lucas.ui.framework.View;
@@ -38,13 +39,16 @@ public class NurseMenuPage extends UiBase {
     @Override
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
-        lv.setTitleHeader("Welcome to Telemedicine Integration System | Welcome Back " + UserController.getActiveNurse().getName()); // Set the title header of the list view
+        lv.setTitleHeader("Welcome to the Hospital Management System | Welcome Back " + UserController.getActiveNurse().getName()); // Set the title header of the list view
         lv.addItem(new TextView(this.canvas, "1. View List of Patient - To view patient information ", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "2. Feedback Mechanism ", Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "3. Pharmacy", Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "4. Emergency ", Color.GREEN));
 
         lv.attachUserInput("View List of Patient", str -> ToPage(new NurseMainPage()));
         lv.attachUserInput("Feedback Mechanism", str -> ToPage(new FeedbackPage()));
-
+        lv.attachUserInput("Pharmacy ", str -> ToPage(new PharmacyPage()));
+        lv.attachUserInput("Emergency", str -> ToPage(new NurseEmergencyMenuPage()));
 
         canvas.setRequireRedraw(true);
     }

@@ -26,6 +26,8 @@ public class PatientConsent {
         this.consentTerms = consentTerms;
     }
 
+    public PatientConsent(){};
+
     // Getters and Setters
     public boolean isConsentGiven() {
         return consentGiven;

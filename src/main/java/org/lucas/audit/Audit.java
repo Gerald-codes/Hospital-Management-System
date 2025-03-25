@@ -104,6 +104,12 @@ public class Audit {
         }
     }
 
+    /**
+     * Sets the user role for the audit entry. This method allows updating or setting
+     * the role of the user who performed the action recorded in the audit log.
+     *
+     * @param userRole The role of the user to be set (e.g., Doctor, Nurse, Admin).
+     */
     public void setUserRole(String userRole) {
         this.userRole = userRole;
     }

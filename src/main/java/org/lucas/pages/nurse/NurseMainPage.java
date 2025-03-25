@@ -43,7 +43,7 @@ public class NurseMainPage extends UiBase {
     @Override
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
-        lv.setTitleHeader("Welcome to Telemedicine Integration System | Nurse Portal"); // Set the title header of the list view
+        lv.setTitleHeader("Welcome to the Hospital Management System | Nurse Portal"); // Set the title header of the list view
         lv.addItem(new TextView(this.canvas, "1. View List of Patient - To view patient information and perform actions ", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "2. Feedback Mechanism ", Color.GREEN));
 
@@ -81,100 +81,5 @@ public class NurseMainPage extends UiBase {
             }
         });
         canvas.setRequireRedraw(true);
-    }
-
-    private void displayPatient(Patient patient, ListView lv) {
-        // Basic patient information
-        lv.addItem(new TextView(this.canvas, "===========================================================================", Color.RED));
-        lv.addItem(new TextView(this.canvas, "                               PATIENT INFORMATION                         ", Color.BLUE));
-        lv.addItem(new TextView(this.canvas, "===========================================================================", Color.RED));
-        lv.addItem(new TextView(this.canvas, "Patient ID: " + patient.getPatientID(), Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "Name: " + patient.getName(), Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "Gender: " + patient.getGender(), Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "Date of Birth: " + patient.getDateOfBirth(), Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "Height: " + patient.getHeight() + " cm", Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "Weight: " + patient.getWeight() + " kg", Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "Blood Type: " + patient.getBloodType(), Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "House Address: " + patient.getHouseAddress(), Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "Emergency Contact: " + patient.getEmergencyContactNumber(), Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "Occupation: " + patient.getOccupation(), Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "Ethnicity: " + patient.getEthnicity(), Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "Email: " + patient.getEmail(), Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "Healthcare Dept.: " + patient.getHealthcareDepartment(), Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "Patient Consent: " + patient.getPatientConsent().isConsentGiven(), Color.GREEN));
-
-        // EHR Section
-        lv.addItem(new TextView(this.canvas, "\n----------------------------------------------------------------------------", Color.RED));
-        lv.addItem(new TextView(this.canvas, "                             ELECTRONIC HEALTH RECORD                       ", Color.BLUE));
-        lv.addItem(new TextView(this.canvas, "----------------------------------------------------------------------------", Color.RED));
-
-        lv.addItem(new TextView(this.canvas, "Allergies: " + formatList(patient.getEHR().getAllergies()), Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "Medical History: " + formatList(patient.getEHR().getMedicalHistory()), Color.GREEN));
-
-        // Medications
-        lv.addItem(new TextView(this.canvas, "\nCurrent Medications:", Color.CYAN));
-        for (Medication med : patient.getEHR().getCurrentMedications()) {
-            lv.addItem(new TextView(this.canvas, "  - " + med.getMedicationName(), Color.GREEN));
-        }
-
-        lv.addItem(new TextView(this.canvas, "Vital Signs: " + patient.getEHR().getVitalSigns(), Color.GREEN));
-
-        // Past Surgeries
-        lv.addItem(new TextView(this.canvas, "\nPast Surgeries:", Color.CYAN));
-        for (String surgery : patient.getEHR().getPastSurgeries()) {
-            lv.addItem(new TextView(this.canvas, "  - " + surgery, Color.GREEN));
-        }
-
-        // Vaccination Record
-        lv.addItem(new TextView(this.canvas, "\nVaccination Record:", Color.CYAN));
-        for (String vaccine : patient.getEHR().getVaccinationRecord()) {
-            lv.addItem(new TextView(this.canvas, "  - " + vaccine, Color.GREEN));
-        }
-
-        // Lab Results
-        lv.addItem(new TextView(this.canvas, "\nLab Results:", Color.CYAN));
-        for (String result : patient.getEHR().getLabResults()) {
-            lv.addItem(new TextView(this.canvas, "  - " + result, Color.GREEN));
-        }
-
-        // Imaging Records
-        lv.addItem(new TextView(this.canvas, "\nImaging Records:", Color.CYAN));
-        for (String image : patient.getEHR().getImagingRecords()) {
-            lv.addItem(new TextView(this.canvas, "  - " + image, Color.GREEN));
-        }
-
-        // Symptoms
-        if (patient.getEHR().getSymptoms().isEmpty()) {
-            lv.addItem(new TextView(this.canvas, "\nSymptoms: Nil", Color.GREEN));
-        } else {
-            lv.addItem(new TextView(this.canvas, "\nSymptoms:", Color.CYAN));
-            for (Symptoms symptom : patient.getEHR().getSymptoms()) {
-                lv.addItem(new TextView(this.canvas, "  - Symptom Name: " + symptom.getSymptomName(), Color.GREEN));
-                lv.addItem(new TextView(this.canvas, "    Symptom ID: " + symptom.getSymptomId(), Color.GREEN));
-                lv.addItem(new TextView(this.canvas, "    Severity Level: " + symptom.getSeverity(), Color.GREEN));
-                lv.addItem(new TextView(this.canvas, "    Duration (days): " + symptom.getDuration(), Color.GREEN));
-                lv.addItem(new TextView(this.canvas, "    Doctor Notes: " + symptom.getDoctorNotes(), Color.GREEN));
-                lv.addItem(new TextView(this.canvas, "", Color.GREEN)); // Space between symptoms
-            }
-        }
-
-        // Diagnosis and Clinical Notes
-        lv.addItem(new TextView(this.canvas, "Diagnosis: " + patient.getEHR().getDiagnosis(), Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "Clinical Notes: " + patient.getEHR().getClinicalNotes(), Color.GREEN));
-
-        // Outcome Monitoring Records
-        if (!patient.getEHR().getOutcomeMonitoringRecords().isEmpty()) {
-            lv.addItem(new TextView(this.canvas, "\nOutcome Monitoring Records:", Color.CYAN));
-            for (String record : patient.getEHR().getOutcomeMonitoringRecords()) {
-                lv.addItem(new TextView(this.canvas, "  - " + record, Color.GREEN));
-            }
-        }
-    }
-
-    private String formatList(List<String> items) {
-        if (items == null || items.isEmpty()) {
-            return "None";
-        }
-        return String.join(", ", items);
     }
 }

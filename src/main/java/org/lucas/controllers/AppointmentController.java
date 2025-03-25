@@ -3,9 +3,7 @@ import com.google.gson.reflect.TypeToken;
 import org.lucas.Globals;
 import org.lucas.models.*;
 import org.lucas.models.enums.AppointmentStatus;
-import org.lucas.controllers.UserController;
 import org.lucas.util.JarLocation;
-import org.lucas.util.Pair;
 import org.lucas.util.Util;
 
 import java.io.BufferedReader;
@@ -22,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 
 /**
@@ -59,74 +56,6 @@ public class AppointmentController {
     }
 
     /**
-     * Retrieves a list of all pending appointments.
-     * This method filters through the current list of appointments and returns a new list containing only those
-     * appointments whose status is marked as PENDING. It is useful for displaying or processing appointments
-     * that are yet to be approved or finalized.
-     *
-     * @return a list of appointments with the status {@link AppointmentStatus#PENDING}; this list is not null but may be empty if no pending appointments are found
-     */
-    public List<Appointment> displayPendingAppointments(){
-        List<Appointment> appointments = getAppointments();
-        List<Appointment> returnList = new ArrayList<>();
-        for(Appointment appt: appointments){
-            if(appt.getAppointmentStatus() == AppointmentStatus.PENDING) {
-                returnList.add(appt);
-            };
-        }
-        return returnList;
-    }
-
-    /**
-     * Retrieves a list of all appointments associated with a specific doctor.
-     * This method filters through the entire list of appointments to find and return those that are linked to the specified doctor.
-     * The comparison is based on the {@code equals} method of the {@code Doctor} class, assuming it properly handles equality.
-     *
-     * @param doctor the doctor whose appointments are to be retrieved; this should not be null
-     * @return a list of appointments associated with the given doctor; this list is not null but may be empty if no appointments match the specified doctor
-     */
-    public List<Appointment> getDoctorAppointments(Doctor doctor){
-        List<Appointment> appointments = getAppointments();
-        List<Appointment> returnList = new ArrayList<>();
-        for(Appointment appt: appointments){
-            if(appt.getDoctor().equals(doctor)){
-                returnList.add(appt);
-            }
-        }
-        return returnList;
-    }
-
-    /**
-     * Retrieves a list of all appointments associated with a specific patient.
-     * This method filters through the entire list of appointments to find and return those that are associated with the specified patient.
-     * The comparison checks for object reference equality, meaning it checks if the appointments are linked to the exact same {@code Patient} object provided as the parameter.
-     *
-     * @param patient the patient whose appointments are to be retrieved; this should not be null to ensure proper functionality.
-     * @return a list of appointments associated with the given patient; this list is not null but may be empty if no appointments are found for the specified patient.
-     */
-    public List<Appointment> getPatientAppointment(Patient patient){
-        List<Appointment> appointments = getAppointments();
-        List<Appointment> returnList = new ArrayList<>();
-        for(Appointment appt: appointments){
-            if(appt.getPatient()== patient){
-                returnList.add(appt);
-            }
-        }
-        return returnList;
-    }
-
-    /**
-     * Sets the list of appointments managed by the AppointmentController.
-     * This method allows the replacement of the current list of appointments with a new list provided by the caller.
-     * Use this method with caution as it replaces the entire existing list, which could affect other parts of the application that depend on the current state of appointments.
-     *
-     * @param appointments the new list of appointments to set; this list should not be null to avoid null pointer exceptions during operations on the appointments list.
-     */
-    public void setAppointments(List<Appointment> appointments){
-        AppointmentController.appointments = appointments;
-    }
-
-    /**
      * Retrieves the current list of appointments.
      * If the list is initially empty, it attempts to load appointments from a file before returning the list. This ensures that the method returns up-to-date data by checking and potentially reloading the list from persistent storage.
      * This method is critical for accessing the list of all appointments managed by the AppointmentController.
@@ -139,7 +68,6 @@ public class AppointmentController {
         }
         return appointments;
     }
-
     /**
      * Loads appointments from a file into the appointments list.
      * This method clears the existing list of appointments and attempts to load a new list from a specified file.
@@ -200,50 +128,12 @@ public class AppointmentController {
             String json = Globals.gsonPrettyPrint.toJson(appointments);
             writer.write(json);
             System.out.println("Appointments saved to " + fileName);
+            System.out.println("Press 0 to continue");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Checks if the patient associated with a given appointment has consented to the procedure.
-     * <p>
-     * This method first retrieves the patient from the appointment. If no patient is associated with the appointment,
-     * it logs an error message and returns false. It then checks for a patient consent record. If no consent record is found,
-     * it logs a message to indicate that consent is being requested and returns false.
-     * If a consent record exists, it evaluates whether consent has been given. If consent is given, it logs a confirmation
-     * message and allows the appointment to proceed by returning true. If consent is not given, it logs a denial message
-     * and prevents the appointment from proceeding by returning false.
-     * </p>
-     *
-     * @param appointment the appointment to check for patient consent; must not be null
-     * @return true if consent has been given by the patient, false otherwise
-     */
-    public static boolean isConsented(Appointment appointment){
-        Patient patient = appointment.getPatient();
-
-        if (patient == null) {
-            System.out.println("Error: No patient associated with this appointment.");
-            return false;
-        }
-
-        PatientConsent consent = patient.getPatientConsent();
-
-        if (consent == null) {
-            System.out.println("No consent record found. Requesting patient consent...");
-            return false;
-        }
-
-        if (consent.isConsentGiven()) {
-            System.out.println("Consent is given. Appointment can proceed.");
-            return true;
-        } else {
-            System.out.println("Patient has NOT consented! Appointment cannot proceed.");
-            return false;
-        }
-    }
-
-
+    
     /**
      * Generates dummy data for testing and demonstrating purposes
      * @param numberOfAppointments indicate the number of appointment to be created

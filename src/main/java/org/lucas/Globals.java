@@ -4,17 +4,19 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.lucas.controllers.AppointmentController;
+import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
 import org.lucas.pages.LandingPage;
 import org.lucas.pages.LoginPage;
-import org.lucas.pages.PharmacyPage;
+import org.lucas.pages.pharmacy.PharmacyPage;
 import org.lucas.pages.doctor.*;
 import org.lucas.pages.nurse.NurseMenuPage;
 import org.lucas.pages.nurse.NursePatientActionsPage;
 import org.lucas.pages.pharmacy.MedicationPage;
-import org.lucas.ui.framework.UiBase;
+import org.lucas.util.DurationTypeAdapter;
 import org.lucas.util.LocalDateTimeTypeAdapter;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 /**
@@ -43,12 +45,14 @@ public class Globals {
     public static Gson gson = new GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeTypeAdapter())
+            .registerTypeAdapter(Duration.class, new DurationTypeAdapter())
             .create();
-    // used strictly for debugging, beats printOutputData for POJO classes, lol
+
     public static Gson gsonPrettyPrint = new GsonBuilder()
             .setPrettyPrinting()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeTypeAdapter())
+            .registerTypeAdapter(Duration.class, new DurationTypeAdapter())
             .create();
 
 

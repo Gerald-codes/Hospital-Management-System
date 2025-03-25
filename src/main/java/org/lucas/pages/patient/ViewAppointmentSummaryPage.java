@@ -44,7 +44,6 @@ public class ViewAppointmentSummaryPage extends UiBase {
         listView.clear();
         listView.addItem(new TextView(this.canvas, "Attending Doctor Name: " + appointment.getDoctor().getName(), Color.BLUE, TextStyle.BOLD));
         listView.addItem(new TextView(this.canvas, "Patient Name: " + appointment.getPatient().getName(), Color.GREEN, TextStyle.ITALIC));
-        //listView.addItem(new TextView(this.canvas, "Patient Contact No: " + appointment.getPatient().getPhoneNumber(), Color.GREEN, TextStyle.ITALIC));
         listView.addItem(new TextView(this.canvas, "Appointment Time: " + appointment.getAppointmentTime().format(DateTimeFormatter.ofPattern("HH:mm")), Color.GREEN, TextStyle.ITALIC));
         listView.addItem(new TextView(this.canvas, "Reason: " + appointment.getReason() + "\n", Color.GREEN, TextStyle.ITALIC));
 
@@ -78,7 +77,6 @@ public class ViewAppointmentSummaryPage extends UiBase {
         listView.addItem(new TextView(this.canvas, "Diagnosis: " + appointment.getDiagnosis(), Color.CYAN, TextStyle.ITALIC));
 
         // Add prescription details
-
         Prescription prescription = appointment.getBilling().getPrescription();
         if (prescription != null) {
             List<Medication> medication = prescription.getMedication();
@@ -91,5 +89,4 @@ public class ViewAppointmentSummaryPage extends UiBase {
         }
         canvas.setRequireRedraw(true);
     }
-
 }

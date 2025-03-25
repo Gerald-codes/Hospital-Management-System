@@ -1,11 +1,13 @@
 package org.lucas.pages.pharmacy;
 import org.lucas.controllers.MedicationController;
+import org.lucas.controllers.UserController;
 import org.lucas.models.Medication;
 import org.lucas.ui.framework.Color;
 import org.lucas.ui.framework.UiBase;
 import org.lucas.ui.framework.View;
 import org.lucas.ui.framework.views.ListView;
 import org.lucas.ui.framework.views.TextView;
+import org.lucas.audit.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -31,21 +33,25 @@ public class MedicationPage extends UiBase{
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView;// Cast the parent view to a list view
         lv.setTitleHeader("List of Medicines");
+
         for (Medication medication : MedicationController.getAvailableMedications()) {
             printAllMedications(medication, lv);
         }
 
         lv.attachUserInput("Add New Medicine", str -> {
             MedicationController.collectUserInputAndAddMedication();
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getNurseID(), "NEW MEDICINE ADDED", "SYSTEM", "MEDICINE ADDED", "NURSE");
             canvas.setRequireRedraw(true);
         });
         lv.attachUserInput("Remove Medicine from inventory", str -> {
             MedicationController.removeStockfromMedication();
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getNurseID(), "MEDICINE REMOVED FROM STOCK", "SYSTEM", "INVENTORY UPDATED FOR " + MedicationController.getMedicationID() , "NURSE");
             canvas.setRequireRedraw(true);
         });
 
         lv.attachUserInput(" Search or Update an existing Medication", str -> {
             MedicationController.editMedicineDetails();
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getNurseID(), "MEDICINE DETAILS EDITED", "SYSTEM", "DETAILS UPDATED FOR: " + MedicationController.getMedicationID1() , "NURSE");
 
             canvas.setRequireRedraw(true);
 
@@ -79,9 +85,6 @@ public class MedicationPage extends UiBase{
         lv.addItem(new TextView(this.canvas, "Dosage: " + medication.getDosage(), Color.BLUE));
         lv.addItem(new TextView(this.canvas, "Side Effects: " + medication.getDosage(), Color.BLUE));
         lv.addItem(new TextView(this.canvas, "Brand Name: " + medication.getBrandName(), Color.BLUE));
-        lv.addItem(new TextView(this.canvas, "Dosage Strength: " + medication.getDosageStrength(), Color.BLUE));
-        lv.addItem(new TextView(this.canvas, "Frequency: " + medication.getFrequency(), Color.BLUE));
-        lv.addItem(new TextView(this.canvas, "Max Daily Dosage: " + medication.getMaximumDailyDosage(), Color.BLUE));
         lv.addItem(new TextView(this.canvas, "Stock Available: " + medication.getStockAvailable(), Color.BLUE));
         lv.addItem(new TextView(this.canvas, "Controlled Substance: " + medication.isControlledSubstance(), Color.BLUE));
         lv.addItem(new TextView(this.canvas, "Manufacturer: " + medication.getManufactureName(), Color.BLUE));

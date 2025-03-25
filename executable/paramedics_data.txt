@@ -1,0 +1,10 @@
+[{
+     "id": "PA001",
+     "login_name": "mary",
+     "name": "Mary Jane",
+     "password": "password123",
+     "email": "maryjane@gmail",
+     "gender": "Female",
+     "phone_number": "12321412"
+   }
+]

@@ -36,15 +36,7 @@ public class MedicalCertificate implements ObjectBase {
         return startDate;
     }
 
-    public String getRemarks() {
-        return remarks;
-    }
-
     public String getId() {
         return id;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
     }
 }
