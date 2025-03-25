@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ESController {
-//    private static List<EmergencyCase> emergencyCases = new ArrayList<>();
+    //    private static List<EmergencyCase> emergencyCases = new ArrayList<>();
 //    private static List<EmergencyCase_Dispatch> emergencyCaseDispatch = new ArrayList<>();
     private static List<EmergencyCase> allCases = new ArrayList<>();
     private static List<EmergencyCase_Dispatch> allDispatchCases = new ArrayList<>();
@@ -38,8 +38,8 @@ public class ESController {
         return allDispatchCases;
     }
 
-    public static void printDispatchCaseInfo(int caseID){
-        for(EmergencyCase_Dispatch ec : allDispatchCases){
+    public static void printDispatchCaseInfo(int caseID) {
+        for (EmergencyCase_Dispatch ec : allDispatchCases) {
             if (ec.getCaseID() == caseID) {
                 System.out.println("Emergency Dispatch Case found: " + ec.printIncidentReport()); /*
                  * print the
@@ -48,34 +48,35 @@ public class ESController {
                  */
                 break; /* Exit the loop once we find the dispatch case */
             }
-        }System.out.println("Emergency Dispatch Case with ID " + caseID + " not found.");
+        }
+        System.out.println("Emergency Dispatch Case with ID " + caseID + " not found.");
     }
-    public static void printActiveDispatch() {
 
+    public static void printActiveDispatch() {
+        boolean activeFound = false;
+        for (EmergencyCase_Dispatch c : allDispatchCases) {
+            if (c.getPatientStatus().equals(PatientStatus.ONDISPATCHED)) {
+                System.out.println(c.printIncidentReport());
+                activeFound =true;
+            }
+        }
+        if (!activeFound){
+            System.out.println("No active dispatch cases");
+        }
+
+    }
+
+    public static void printAllDispatchCases() {
         if (allDispatchCases.isEmpty()) {
             System.out.println("No emergency dispatch cases in the system.");
             return;
         }
         for (EmergencyCase c : allDispatchCases) {
-            if (c.getPatientStatus().toString() == "ONDISPATCHED") {
-                System.out.println(c.printIncidentReport());
-            } else {
-                System.out.println("No active Dispatch Cases");
-            }
-        }
-
-    }
-    public static void printAllDispatchCases(){
-        if (allDispatchCases.isEmpty()) {
-            System.out.println("No emergency dispatch cases in the system.");
-            return;
-        }
-        for (EmergencyCase c : allDispatchCases){
             System.out.println(c.printIncidentReport());
         }
     }
 
-    public static void addEmergencyCases(EmergencyCase emergencyCase){
+    public static void addEmergencyCases(EmergencyCase emergencyCase) {
         allCases.add(emergencyCase);
     }
 
@@ -84,7 +85,7 @@ public class ESController {
 //        emergencyCases.sort(): //sort by triage level
 //    }
 
-    public static List<EmergencyCase> getAllCases(){
+    public static List<EmergencyCase> getAllCases() {
         return allCases;
     }
 
@@ -125,7 +126,7 @@ public class ESController {
     public static void printAllEmergencyCaseInTraumaRoom() {
         // Filter and print all emergency cases in the Trauma Room
         for (EmergencyCase emergencyCase : allCases) {
-            if (PatientLocation.EMERGENCY_ROOM_TRAUMA_ROOM.equals(emergencyCase.getLocation())&&
+            if (PatientLocation.EMERGENCY_ROOM_TRAUMA_ROOM.equals(emergencyCase.getLocation()) &&
                     emergencyCase.getPatientStatus().equals(PatientStatus.WAITING)) {
                 emergencyCase.displayCase();
             }
@@ -202,6 +203,33 @@ public class ESController {
         }
     }
 
+    public static void loadEmergencyDispatchCaseFromFile() {
+        allDispatchCases.clear();
+        StringBuilder sb = new StringBuilder();
+        String basePath = "";
+
+        // get the jar location
+        try {
+            basePath = JarLocation.getJarDirectory();
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        try (BufferedReader br = Files.newBufferedReader(Paths.get(basePath, fileNameDispatch))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+
+            Type listType = new TypeToken<List<EmergencyCase_Dispatch>>() {
+            }.getType();
+            allDispatchCases = Util.fromJsonString(sb.toString(), listType);
+        } catch (IOException e) {
+            e.printStackTrace();
+            e.getMessage();
+        }
+    }
+
     public static void saveEmergencyDispatchCasesToFile() {
         String basePath = "";
 
@@ -243,7 +271,7 @@ public class ESController {
         }
     }
 
-    public static EmergencyCase selectCase(int caseID){
+    public static EmergencyCase selectCase(int caseID) {
         for (EmergencyCase emergencyCase : allCases) {
 
             if (caseID == emergencyCase.getCaseID()) {
@@ -412,7 +440,7 @@ public class ESController {
         }
     }
 
-    private static void showDoctorPatientOption(){
+    private static void showDoctorPatientOption() {
         System.out.println("\n========== Doctor Options ==========");
         System.out.println("1. Update Patient Vital Signs");
         System.out.println("2. Update Patient Symptoms");
@@ -437,15 +465,15 @@ public class ESController {
 
         // Prompt for new vital sign values
         double temperature = InputValidator.getValidDoubleInput("Please enter the temperature: ");
-        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ temperature, "Patient: " + patient.getId() + "'s temperature", "SUCCESS", "DOCTOR");
+        auditManager.logAction(doctor.getId(), "USER ENTERED: " + temperature, "Patient: " + patient.getId() + "'s temperature", "SUCCESS", "DOCTOR");
         int hr = InputValidator.getValidIntInput("Please enter the heart rate: ");
-        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ hr, "Patient: " + patient.getId() + "'s heart rate", "SUCCESS", "DOCTOR");
+        auditManager.logAction(doctor.getId(), "USER ENTERED: " + hr, "Patient: " + patient.getId() + "'s heart rate", "SUCCESS", "DOCTOR");
         int sysBloodPressure = InputValidator.getValidIntInput("Please enter the systolic blood pressure: ");
-        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ sysBloodPressure, "Patient: " + patient.getId() + "'s systolic blood pressure", "SUCCESS", "DOCTOR");
+        auditManager.logAction(doctor.getId(), "USER ENTERED: " + sysBloodPressure, "Patient: " + patient.getId() + "'s systolic blood pressure", "SUCCESS", "DOCTOR");
         int diaBloodPressure = InputValidator.getValidIntInput("Please enter the diastolic blood pressure: ");
-        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ diaBloodPressure, "Patient: " + patient.getId() + "'s diastolic blood pressure", "SUCCESS", "DOCTOR");
+        auditManager.logAction(doctor.getId(), "USER ENTERED: " + diaBloodPressure, "Patient: " + patient.getId() + "'s diastolic blood pressure", "SUCCESS", "DOCTOR");
         int respiratory = InputValidator.getValidIntInput("Please enter the respiratory rate: ");
-        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ respiratory, "Patient: " + patient.getId() + "'s respiratory rate", "SUCCESS", "DOCTOR");
+        auditManager.logAction(doctor.getId(), "USER ENTERED: " + respiratory, "Patient: " + patient.getId() + "'s respiratory rate", "SUCCESS", "DOCTOR");
 
         // Update patient's vital signs
         patient.getEHR().setVitalSigns(new VitalSigns(temperature, hr, sysBloodPressure, diaBloodPressure, respiratory));
@@ -463,15 +491,15 @@ public class ESController {
      */
     private static void updatePatientSymptoms(Patient patient, Doctor doctor, AuditManager auditManager) {
         String symptomName = InputValidator.getValidStringInput("Enter patient's symptoms: ");
-        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ symptomName, "Patient: " + patient.getId() + "'s symptoms", "SUCCESS", "DOCTOR");
-        int severity = InputValidator.getValidRangeIntInput("Enter symptom's severity (0-10): ",10);
-        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ severity, "symptom's severity", "SUCCESS", "DOCTOR");
-        int duration = InputValidator.getValidRangeIntInput("Enter duration of symptoms (days): ",50);
-        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ duration, "duration of symptoms", "SUCCESS", "DOCTOR");
+        auditManager.logAction(doctor.getId(), "USER ENTERED: " + symptomName, "Patient: " + patient.getId() + "'s symptoms", "SUCCESS", "DOCTOR");
+        int severity = InputValidator.getValidRangeIntInput("Enter symptom's severity (0-10): ", 10);
+        auditManager.logAction(doctor.getId(), "USER ENTERED: " + severity, "symptom's severity", "SUCCESS", "DOCTOR");
+        int duration = InputValidator.getValidRangeIntInput("Enter duration of symptoms (days): ", 50);
+        auditManager.logAction(doctor.getId(), "USER ENTERED: " + duration, "duration of symptoms", "SUCCESS", "DOCTOR");
         String clinicianNotes = InputValidator.getValidStringWithSpaceInput("Doctor's notes:  ");
-        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ clinicianNotes, "doctor notes", "SUCCESS", "DOCTOR");
+        auditManager.logAction(doctor.getId(), "USER ENTERED: " + clinicianNotes, "doctor notes", "SUCCESS", "DOCTOR");
 
-        Symptoms newSymptom = new Symptoms(symptomName,severity,duration,clinicianNotes);
+        Symptoms newSymptom = new Symptoms(symptomName, severity, duration, clinicianNotes);
 
         doctor.setPatientSymptoms(newSymptom, patient);  // Update patient's symptoms
         auditManager.logAction(doctor.getId(), "UPDATE SYMPTOMS", "Patient: " + patient.getId(), "SUCCESS", "DOCTOR");
@@ -547,8 +575,7 @@ public class ESController {
      *
      * @param symptom The {@link Symptoms} object representing the patient's symptom to be analyzed.
      * @return A {@link List} of possible diagnoses. If no matches are found, the list will contain
-     *         a default message: "Diagnosis Unclear - Further Tests Required".
-     *
+     * a default message: "Diagnosis Unclear - Further Tests Required".
      * @see ClinicalGuideline
      * @see Symptoms
      * @see Doctor
@@ -573,7 +600,7 @@ public class ESController {
         return CDSSDiagnosis;
     }
 
-    private static void prescribeMedications(Patient patient, Doctor doctor, AuditManager auditManager){
+    private static void prescribeMedications(Patient patient, Doctor doctor, AuditManager auditManager) {
         String diagnosis = patient.getEHR().getDiagnosis();
 
         if (diagnosis == null || diagnosis.isEmpty()) {
@@ -657,7 +684,7 @@ public class ESController {
 
                 System.out.println("Medication manually prescribed: " + customMed.getMedicationName());
                 break;
-            }else {
+            } else {
                 System.out.println("Invalid input! Please type 'yes' or 'no'.");
             }
         }
@@ -711,7 +738,8 @@ public class ESController {
 
         System.out.println("\nAll procedures recorded for Case ID: " + emergencyCase.getCaseID());
     }
-    public static int setCaseID () { // Finds the largest existing case ID and returns the next available ID
+
+    public static int setCaseID() { // Finds the largest existing case ID and returns the next available ID
         int highestID = 0; // initialize the highest ID
 
         if (!allCases.isEmpty()) {
@@ -728,6 +756,24 @@ public class ESController {
             }
         }
         return highestID + 1; // return the next available ID
+    }
+
+
+
+    public static void addResolvedCases(EmergencyCase_Dispatch dc) {
+
+        int caseID;
+        for (EmergencyCase ec : allCases) {
+            if (ec.getCaseID() == dc.getCaseID()) {
+                caseID = ESController.setCaseID();
+                dc.setCaseID(caseID);
+                allCases.add(dc);
+                break;
+            }
+
+
+        }
+        saveEmergencyCasesToFile();
     }
 }
 

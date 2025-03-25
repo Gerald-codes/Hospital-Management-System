@@ -44,7 +44,6 @@ public class NurseDispatchMenuPage extends UiBase {
         lv.addItem(new TextView(this.canvas, "1. Create New Emergency Dispatch Case", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "2. Update Active Dispatch Case Status", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "3. View Dispatch Cases", Color.GREEN));
-
         return lv;
     }
 
@@ -170,27 +169,78 @@ public class NurseDispatchMenuPage extends UiBase {
     private void updateDispatchStatus() {
 //        EmergencySystem ECsystem = new EmergencySystem();
         int caseID = InputValidator.getValidIntInput("Enter case ID: ");
-
-        for (EmergencyCase_Dispatch dispatchCase : ESController.getAllDispatchCases()) { //this part should load the existing emergency dispatch cases
-            if ((dispatchCase.getCaseID() == caseID) && (dispatchCase.getPatientStatus() == PatientStatus.DONE)) {
-                System.out.println("Dispatch case already resolved.");
+        List<EmergencyCase_Dispatch> dispatchCases = ESController.getAllDispatchCases();
+        boolean found = false;
+        for (EmergencyCase_Dispatch dc : dispatchCases) {
+            if (dc.getCaseID() == caseID){
+                if (dc.getPatientStatus() == PatientStatus.DONE) {
+                    System.out.println("Dispatch case already resolved.");
                 }
-            else{
-                System.out.print(
-                 "___- Select Option -___\n (0. Back\n1. Set Dispatch Team status to arrived to patient location)\n " +
-                 "(2. Set Dispatch Team status to arrived to hospital)\n");
-                int choice = InputValidator.getValidIntInput("Enter your choice: ");
-                switch(choice){
-                    case 0:
-                        return;
-                    case 1:
-                        arrivedAtLocation(dispatchCase);
-                    case 2:
-                        arrivedAtHospital(dispatchCase);
+                else{
+                    System.out.print(
+                            "___- Select Option -___\n (0. Back\n1. Set Dispatch Team status to arrived to patient location)\n " +
+                                    "(2. Set Dispatch Team status to arrived to hospital)\n");
+                    int choice = InputValidator.getValidIntInput("Enter your choice: ");
+                    switch(choice){
+                        case 0:
+                            return;
+                        case 1:
+                            arrivedAtLocation(dc);
+                            break;
+
+                        case 2:
+                            arrivedAtHospital(dc);
+                            ESController.addResolvedCases(dc);
+                            break;
+                        default:
+                            System.out.println("Invalid choice.");
+                            return;
                     }
                 }
+                break;
+                }
             }
+        if (!found){
+            System.out.println("Invalid Case ID");
         }
+
+
+        }
+
+//    private void updateDispatchStatus() {
+//        int caseID = InputValidator.getValidIntInput("Enter case ID: ");
+//        List<EmergencyCase_Dispatch> dispatchCases = ESController.getAllDispatchCases();
+//        boolean found = false;
+//        for (EmergencyCase_Dispatch dc : dispatchCases) {
+//            if (dc.getCaseID() == caseID) { found = true;
+//                if (dc.getPatientStatus() == PatientStatus.DONE) {
+//                    System.out.println("Dispatch case already resolved.");
+//                }
+//                else {
+//                    System.out.print( "- Select Option -\n (0. Back)\n (1. Set Dispatch Team status to arrived to patient location)\n " + "(2. Set Dispatch Team status to arrived to hospital)\n");
+//                    int choice = InputValidator.getValidIntInput("Enter your choice: ");
+//                    switch(choice) {
+//                        case 0:
+//                            return;
+//                        case 1:
+//                            arrivedAtLocation(dc);
+//                            break;
+//                        case 2:
+//                            arrivedAtHospital(dc);
+//                            ESController.mergeBothCases();
+//                            break;
+//                        default:
+//                            System.out.println("Invalid choice.");
+//                            return;
+//                    }
+//                }
+//                break;
+//                }
+//        }
+//        if (!found) {
+//            System.out.println("Invalid case ID");
+//        }
+//    }
 
 
     private void arrivedAtLocation(EmergencyCase_Dispatch dispatchCase){
@@ -215,17 +265,14 @@ public class NurseDispatchMenuPage extends UiBase {
 
 
     private void viewDispatchCases(){
-        System.out.println("0. Back\n1. View Past Dispatch Case\n2.View Active Dispatch Case\n3. View ALl Dispatch Cases\n");
+        System.out.println("0. Back\n1. View Active Dispatch Case\n2. View ALl Dispatch Cases\n");
         int choice = InputValidator.getValidIntInput("Enter your choice: ");
         switch(choice){
             case 0:
                 return;
             case 1:
-                int caseID = InputValidator.getValidIntInput("Enter the case ID of the dispatch case you want to view: ");
-                ESController.printDispatchCaseInfo(caseID);
-            case 2:
                 ESController.printActiveDispatch();
-            case 3:
+            case 2:
                 ESController.printAllDispatchCases();
         }
         ToPage(new NurseDispatchMenuPage());
