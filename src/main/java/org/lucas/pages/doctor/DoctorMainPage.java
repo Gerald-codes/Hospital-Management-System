@@ -1,11 +1,20 @@
 package org.lucas.pages.doctor;
 
+import org.lucas.Emergency.EmergencyCase;
+import org.lucas.Emergency.EmergencyCase_Dispatch;
+import org.lucas.audit.AuditManager;
+import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
+import org.lucas.models.Nurse;
+import org.lucas.pages.paramedic.ParamedicMenu;
 import org.lucas.ui.framework.Color;
+import org.lucas.ui.framework.TextStyle;
 import org.lucas.ui.framework.UiBase;
 import org.lucas.ui.framework.View;
 import org.lucas.ui.framework.views.ListView;
 import org.lucas.ui.framework.views.TextView;
+
+import java.util.List;
 
 
 /** Represents the main page of the Telemedicine Integration System.
@@ -18,12 +27,12 @@ public class DoctorMainPage extends UiBase {
      * Sets the title header to "Main".
      * @return A new {@link ListView} instance representing the main page's view.
      * @Override*/
-
+    private ListView listView;
     @Override
     public View OnCreateView() {
-        ListView lv = new ListView(this.canvas, Color.GREEN);
-        lv.setTitleHeader("Main");
-        return lv;
+        listView = new ListView(this.canvas, Color.GREEN);
+        listView.setTitleHeader("Main");
+        return listView;
     }
 
     /**Called after the view has been created and attached to the UI.
@@ -38,13 +47,59 @@ public class DoctorMainPage extends UiBase {
         lv.addItem(new TextView(this.canvas, "1. View List of Patient - To view patient information ", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "2. View Appointment - To view new / scheduled appointments for teleconsultation ", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "3. Feedback Mechanism - Provide your feedback on Clinical Guidelines  ", Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "4. Locations - View the locations of doctor ", Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "4. Locations - To enter and proceed with Action  ", Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "5. View All Emergency Cases", Color.GREEN));
+
 
         lv.attachUserInput("View List of Patient", str -> ToPage(new PatientInfoPage()));
         lv.attachUserInput("View Appointment", str -> ToPage(new ViewAppointmentsPage()));
         lv.attachUserInput("Feedback Mechanism", str -> ToPage(new FeedbackPage()));
         lv.attachUserInput("Locations", str -> ToPage(new DoctorLocationPage()));
+        lv.attachUserInput("View All Emergency Cases ", str -> viewAllEmergencyCases());
 
+
+        canvas.setRequireRedraw(true);
+    }
+
+    private void viewAllEmergencyCases() {
+        List<EmergencyCase> allcases = ESController.getAllCases();
+        listView.clear();
+        listView.addItem(new TextView(this.canvas, "============ ALL EMERGENCY CASE ============ ", Color.CYAN, TextStyle.BOLD));
+
+        for (EmergencyCase ec : allcases) {
+            listView.addItem(new TextView(this.canvas, "---------------------------------", Color.CYAN, TextStyle.BOLD));
+            listView.addItem(new TextView(this.canvas, "Case ID: " + ec.getCaseID(), Color.CYAN));
+            listView.addItem(new TextView(this.canvas, "Patient Name: " + ec.getPatient().getName(), Color.CYAN));
+            listView.addItem(new TextView(this.canvas, "Location: " + ec.getLocation(), Color.CYAN));
+            listView.addItem(new TextView(this.canvas, "Chief Complaint: " + ec.getChiefComplaint(), Color.CYAN));
+            listView.addItem(new TextView(this.canvas, "Arrival Mode: " + ec.getArrivalMode(), Color.CYAN));
+            listView.addItem(new TextView(this.canvas, "Arrival Date & Time: " + ec.getArrivalDateTime(), Color.CYAN));
+            listView.addItem(new TextView(this.canvas, "Triage Level: " + ec.getTriageLevel(), Color.CYAN));
+            listView.addItem(new TextView(this.canvas, "Patient Status: " + ec.getPatientStatus(), Color.CYAN));
+            listView.addItem(new TextView(this.canvas, "Urgent: " + (ec.isUrgent() ? "YES" : "NO"), (ec.isUrgent() ? Color.RED : Color.CYAN), TextStyle.BOLD));
+
+            if (ec instanceof EmergencyCase_Dispatch dispatchCase) {
+                listView.addItem(new TextView(this.canvas, "====== Dispatch Info ======", Color.BLUE, TextStyle.BOLD));
+                listView.addItem(new TextView(this.canvas, "Vehicle ID: " + dispatchCase.getDispatchInfo().getVehicleId(), Color.BLUE));
+
+                listView.addItem(new TextView(this.canvas, "Medivac Members:", Color.BLUE));
+                for (Nurse nurse : dispatchCase.getDispatchInfo().getMedivacMembers()) {
+                    listView.addItem(new TextView(this.canvas, "  - " + nurse.getName(), Color.CYAN));
+                }
+
+                listView.addItem(new TextView(this.canvas, "Equipment:", Color.BLUE));
+                for (String equipment : dispatchCase.getDispatchInfo().getEquipment()) {
+                    listView.addItem(new TextView(this.canvas, "  - " + equipment, Color.CYAN));
+                }
+
+                listView.addItem(new TextView(this.canvas, "Dispatch Location: " + dispatchCase.getDispatchInfo().getDispatchLocation(), Color.BLUE));
+                listView.addItem(new TextView(this.canvas, "Dispatch Arrival Time: " + dispatchCase.getDispatchArrivalTime(), Color.BLUE));
+                listView.addItem(new TextView(this.canvas, "Time of Call: " + dispatchCase.getTimeOfCall(), Color.BLUE));
+                listView.addItem(new TextView(this.canvas, "Response Time: " + dispatchCase.getResponseTime().toMinutes() + " minutes", Color.BLUE));
+            }
+
+            listView.addItem(new TextView(this.canvas, "---------------------------------\n", Color.CYAN, TextStyle.BOLD));
+        }
         canvas.setRequireRedraw(true);
     }
 }
