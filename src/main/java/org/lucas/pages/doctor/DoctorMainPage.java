@@ -48,7 +48,7 @@ public class DoctorMainPage extends UiBase {
         lv.addItem(new TextView(this.canvas, "2. View Appointment - To view new / scheduled appointments for teleconsultation ", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "3. Feedback Mechanism - Provide your feedback on Clinical Guidelines  ", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "4. Locations - To enter and proceed with Action  ", Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "4. View All Emergency Cases", Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "5. View All Emergency Cases", Color.GREEN));
 
 
         lv.attachUserInput("View List of Patient", str -> ToPage(new PatientInfoPage()));
@@ -100,8 +100,6 @@ public class DoctorMainPage extends UiBase {
 
             listView.addItem(new TextView(this.canvas, "---------------------------------\n", Color.CYAN, TextStyle.BOLD));
         }
-
         canvas.setRequireRedraw(true);
-
     }
 }

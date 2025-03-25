@@ -32,6 +32,7 @@ public class EmergencyCase {
     private List<String> emergencyProcedures; // List of emergency procedures done on patient
     private LocalDateTime screeningDateTime;
     private boolean isUrgent;
+
     // standard triage levels used in the emergency department
 
     // helper method to check if the triage level is valid

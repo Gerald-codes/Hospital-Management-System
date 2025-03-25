@@ -55,16 +55,16 @@ public class LoginPage extends UiBase { // This is the class that represents the
             String password = InputValidator.getValidStringInput("Enter your password: ");
 
             //Check credential for Doctors / Patient
-            if (UserType.DOCTOR == userController.authenticate(username, password,auditManager)) {
+            if (UserType.DOCTOR == userController.authenticate(username, password)) {
                 System.out.println("Login successful!");
                 ToPage(new DoctorMainPage());
-            } else if (UserType.NURSE == userController.authenticate(username, password,auditManager)) {
+            } else if (UserType.NURSE == userController.authenticate(username, password)) {
                 System.out.println("Login successful!");
                 ToPage(new NurseMenuPage());
-            } else if (UserType.PATIENT == userController.authenticate(username, password,auditManager)) {
+            } else if (UserType.PATIENT == userController.authenticate(username, password)) {
                 System.out.println("Login successful!");
                 ToPage(new PatientMainPage());
-            } else if (UserType.PARAMEDIC == userController.authenticate(username, password,auditManager)){
+            } else if (UserType.PARAMEDIC == userController.authenticate(username, password)){
                 System.out.println("Login successful");
                 ToPage(new ParamedicMenu());
             }else { System.out.println("Invalid username or password!"); }

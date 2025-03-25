@@ -1,8 +1,0 @@
-Audit Log - [AuditID: 20250321004409583001, UserID: A001, Action: LOGIN, Target: System, Timestamp: 2025-03-21T00:44:09.585840, Outcome: SUCCESS, Device: PC1, Role: ADMIN]
-Audit Log - [AuditID: 20250321004409588002, UserID: A001, Action: LOGIN, Target: System, Timestamp: 2025-03-21T00:44:09.588843400, Outcome: SUCCESS, Device: PC1, Role: ADMIN]
-Audit Log - [AuditID: 20250321004409589003, UserID: A001, Action: LOGIN, Target: System, Timestamp: 2025-03-21T00:44:09.589840, Outcome: SUCCESS, Device: PC1, Role: ADMIN]
-Audit Log - [AuditID: 20250321004409589004, UserID: A001, Action: LOGIN, Target: System, Timestamp: 2025-03-21T00:44:09.589840, Outcome: SUCCESS, Device: PC1, Role: ADMIN]
-Audit Log - [AuditID: 20250321004546890005, UserID: A001, Action: LOGIN, Target: System, Timestamp: 2025-03-21T00:45:46.890205500, Outcome: SUCCESS, Device: PC1, Role: ADMIN]
-Audit Log - [AuditID: 20250321004546893006, UserID: A001, Action: LOGIN, Target: System, Timestamp: 2025-03-21T00:45:46.893923200, Outcome: SUCCESS, Device: PC1, Role: ADMIN]
-Audit Log - [AuditID: 20250321004546893007, UserID: A001, Action: LOGIN, Target: System, Timestamp: 2025-03-21T00:45:46.893923200, Outcome: SUCCESS, Device: PC1, Role: ADMIN]
-Audit Log - [AuditID: 20250321004546895008, UserID: A001, Action: LOGIN, Target: System, Timestamp: 2025-03-21T00:45:46.895390800, Outcome: SUCCESS, Device: PC1, Role: ADMIN]

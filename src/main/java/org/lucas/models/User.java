@@ -106,35 +106,11 @@ public abstract class User implements ObjectBase {
     }
 
     /**
-     * Sets the user's email address
-     * @param email The user's email address
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
      *
      * @return The user's gender
      */
     public String getGender() {
         return gender;
-    }
-
-    /**
-     * Sets the user's gender
-     * @param gender the gender to set.
-     */
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     // override methods

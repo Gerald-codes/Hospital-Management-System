@@ -750,7 +750,7 @@
         "Measles, Mumps, Rubella (MMR) Vaccine"
       ]
     },
-    "patient_specific_factor": "Pregnant",
+    "patient_specific_factor": "Obese",
     "assigned_nurse": "N003",
     "assigned_doctor": "D002",
     "height": 160.0,
@@ -891,7 +891,7 @@
         "Measles, Mumps, Rubella (MMR) Vaccine"
       ]
     },
-    "patient_specific_factor": "Pregnant",
+    "patient_specific_factor": "Diabetic",
     "assigned_nurse": "N003",
     "assigned_doctor": "D002",
     "height": 160.0,
@@ -1031,7 +1031,7 @@
         "COVID-19 Vaccine"
       ]
     },
-    "patient_specific_factor": "Pregnant",
+    "patient_specific_factor": "Drug Addict",
     "assigned_nurse": "N003",
     "assigned_doctor": "D002",
     "height": 160.0,

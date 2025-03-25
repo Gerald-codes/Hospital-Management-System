@@ -80,19 +80,6 @@ public class Billing implements ObjectBase {
         return billAmount;
     }
 
-
-    /**
-     * Initializes or resets the prescription associated with this billing to a new, empty Prescription instance.
-     * This method is typically used to clear any existing prescription details and prepare the billing instance
-     * for a new set of prescription data, ensuring that there are no residual data from previous uses.
-     *
-     * Note: This method does not accept any parameters and will replace any existing prescription data
-     * with a completely new, empty Prescription object.
-     */
-
-    public void setPrescriptions(){
-        this.prescription = new Prescription();
-    }
     public Prescription getPrescription(){
         return this.prescription;
     }

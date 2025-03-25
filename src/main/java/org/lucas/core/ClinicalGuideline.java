@@ -28,9 +28,6 @@ public class ClinicalGuideline {
     private String medicationName;  // For Medication-type guidelines
     private String symptomName;
 
-
-    // Priority level of the guideline
-
     /**
      * Constructs a ClinicalGuideline object with all fields.
      *
@@ -45,6 +42,7 @@ public class ClinicalGuideline {
      * @param followUpRecommendation          Follow-up recommendations based on the guideline.
      * @param priorityLevel                   Priority level of the guideline.
      */
+
     public ClinicalGuideline(String guidelineId, String guideDescription, String supportingEvidence,
                              int bloodPressureSystolicThreshHold, String guideLineType, String authoringCommittee,
                              String referenceDocuments, String lastUpdated, String followUpRecommendation,
@@ -62,7 +60,6 @@ public class ClinicalGuideline {
         this.medicationName = medicationName;
         this.symptomName = symptomType;
     }
-
 
     /**
      * Constructs a ClinicalGuideline object without specifying the blood pressure threshold.
@@ -386,7 +383,7 @@ public class ClinicalGuideline {
                 "Strep Throat"
         ));
 
-// Clinical Guideline for Tonsillitis
+        // Clinical Guideline for Tonsillitis
         clinicalGuidelines.add(new ClinicalGuideline(
                 "C016",
                 "Tonsillitis",
@@ -402,6 +399,8 @@ public class ClinicalGuideline {
                 null,
                 "Tonsillitis"
         ));
+
+        //Clinal Guideline for Severe Headaches
         clinicalGuidelines.add(new ClinicalGuideline(
                 "C017", "Migraine",
                 "Migraine is a severe headache often accompanied by nausea, vomiting, and sensitivity to light and sound.",
@@ -418,6 +417,7 @@ public class ClinicalGuideline {
                 "Immediate hospitalization and antibiotic therapy may be required. If bacterial meningitis is suspected, broad-spectrum antibiotics should be initiated.",
                 "CRITICAL", null, "Meningitis"));
 
+        //Clinical Guideline for Nausea and Vomiting
         clinicalGuidelines.add(new ClinicalGuideline(
                 "C019", "Gastroenteritis (Stomach Flu)",
                 "Gastroenteritis causes inflammation of the stomach and intestines, leading to nausea and vomiting, constipation, and occasionally severe abdominal pain.",

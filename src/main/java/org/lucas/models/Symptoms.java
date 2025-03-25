@@ -52,31 +52,12 @@ public class Symptoms {
     }
 
     /**
-     * Sets the name of the symptom.
-     * Converts the provided name to lowercase for consistency.
-     *
-     * @param symptomName the name of the symptom.
-     */
-    public void setSymptomName(String symptomName) {
-        this.symptomName = symptomName.toLowerCase();  // Convert to lowercase for consistency
-    }
-
-    /**
      * Gets the unique identifier of the symptom.
      *
      * @return the symptom ID.
      */
     public String getSymptomId() {
         return symptomId;
-    }
-
-    /**
-     * Sets the unique identifier of the symptom.
-     *
-     * @param symptomId the unique identifier for the symptom.
-     */
-    public void setSymptomId(String symptomId) {
-        this.symptomId = symptomId;
     }
 
     /**
@@ -89,30 +70,12 @@ public class Symptoms {
     }
 
     /**
-     * Sets the severity level of the symptom.
-     *
-     * @param severity the severity level as an integer.
-     */
-    public void setSeverity(int severity) {
-        this.severity = severity;
-    }
-
-    /**
      * Gets the duration of the symptom in days.
      *
      * @return the duration in days.
      */
     public int getDuration() {
         return duration;
-    }
-
-    /**
-     * Sets the duration of the symptom in days.
-     *
-     * @param duration the duration in days.
-     */
-    public void setDuration(int duration) {
-        this.duration = duration;
     }
 
     /**

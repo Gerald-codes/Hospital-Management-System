@@ -4,6 +4,7 @@ import org.lucas.Emergency.DispatchInfo;
 import org.lucas.Emergency.EmergencyCase_Dispatch;
 import org.lucas.Emergency.enums.PatientLocation;
 import org.lucas.Emergency.enums.PatientStatus;
+import org.lucas.audit.AuditManager;
 import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
 import org.lucas.models.Nurse;
@@ -102,7 +103,7 @@ public class ParamedicMenu extends UiBase {
         //Add more staff members
         boolean addMoreStaff = true;
         while (addMoreStaff) {
-            System.out.print("____ Select Option ____\n 1. Add more member\n 2. End\n");
+            System.out.print("------------ Select Option ------------\n 1. Add more member\n 2. End\n");
             choice = InputValidator.getValidIntInput("Enter your choice: ");
 
             if (choice == 2) {
@@ -117,7 +118,7 @@ public class ParamedicMenu extends UiBase {
 
         //Add Equipment
         System.out.print(
-                "____ Select Option ____\n 1. Add special equipment\n 2. End\n");
+                "------------ Select Option ------------\n 1. Add special equipment\n 2. End\n");
         choice = InputValidator.getValidIntInput("Enter your choice: ");
 
         List<String> equipmentList = new ArrayList<>();
@@ -129,7 +130,7 @@ public class ParamedicMenu extends UiBase {
             String equipment = InputValidator.getValidStringInput("Enter special treatment: ");
             equipmentList.add(equipment);
             System.out.print(
-                    "____Select Option ____\n 1. Add special equipment\n 2. End\n");
+                    "------------ Select Option ------------\n 1. Add special equipment\n 2. End\n");
             choice = InputValidator.getValidIntInput("Enter your choice: ");
             if (choice == 2)
                 addEquipment = false;

@@ -61,8 +61,6 @@ public class ViewAppointmentsPage extends UiBase {
                 selectedIndex1 = InputHelper.getValidIndex("Select An Option", 1, 3);
         }
 
-        AuditManager auditManager = new AuditManager();
-
         switch (selectedIndex1){
             case 1:
                 selectedAppointment.setAppointmentStatus(AppointmentStatus.ACCEPTED);
@@ -80,7 +78,7 @@ public class ViewAppointmentsPage extends UiBase {
                     );
                     selectedAppointment.approveAppointment(UserController.getActiveDoctor(), joinUrl);
                     Globals.appointmentController.saveAppointmentsToFile();
-                    auditManager.logAction(UserController.getActiveDoctor().getId(), "Appointment accepted by doctor","Patient " + UserController.getActivePatient().getId(),"APPOINTMENT ACCEPTED", "DOCTOR");
+                    AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "Appointment accepted by doctor","Patient " + UserController.getActivePatient().getId(),"APPOINTMENT ACCEPTED", "DOCTOR");
                 }catch (IOException e){
                     System.out.println("Error generating zoom link");
                 }
@@ -88,7 +86,7 @@ public class ViewAppointmentsPage extends UiBase {
             case 2:
                 selectedAppointment.setAppointmentStatus(AppointmentStatus.DECLINED);
                 Globals.appointmentController.saveAppointmentsToFile();
-                auditManager.logAction(UserController.getActiveDoctor().getId(), "Appointment declined by doctor","Patient " + UserController.getActivePatient().getId(),"APPOINTMENT DECLINED", "DOCTOR");
+                AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "Appointment declined by doctor","Patient " + UserController.getActivePatient().getId(),"APPOINTMENT DECLINED", "DOCTOR");
 
                 break;
             case 3:
@@ -137,11 +135,6 @@ public class ViewAppointmentsPage extends UiBase {
 
             String displayText = String.format("%s | %s | %s | %s | %s |",
                     formattedIndex, formattedName, formattedReason, formattedDateColumn, formattedTimeColumn);
-
-//            String status = appointment.getAppointmentStatus().toString();
-//
-//            String displayText = String.format("%d. %s | Consult Reason: %s | Date: %s | Time: %s |",
-//                    i, patientName, consultReason, formattedDate, formattedTime);
 
             Color itemColor = getItemColor(appointment.getAppointmentStatus());
 

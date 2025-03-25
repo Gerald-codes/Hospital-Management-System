@@ -26,8 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ESController {
-    //    private static List<EmergencyCase> emergencyCases = new ArrayList<>();
-//    private static List<EmergencyCase_Dispatch> emergencyCaseDispatch = new ArrayList<>();
     private static List<EmergencyCase> allCases = new ArrayList<>();
     private static List<EmergencyCase_Dispatch> allDispatchCases = new ArrayList<>();
     private static final String fileName = "emergency_cases.txt";
@@ -76,7 +74,12 @@ public class ESController {
         }
     }
 
-    public static void addEmergencyCases(EmergencyCase emergencyCase) {
+    /**
+     * Adds an emergency case to the list of all cases.
+     *
+     * @param emergencyCase The emergency case to be added.
+     */
+    public static void addEmergencyCases(EmergencyCase emergencyCase){
         allCases.add(emergencyCase);
     }
 
@@ -104,6 +107,9 @@ public class ESController {
         allDispatchCases.add(newDispatchCase);
     }
 
+    /**
+     * Prints all emergency cases that are currently in the emergency room waiting room.
+     */
     public static void printAllEmergencyCaseInWaitingRoom() {
         // Filter and print all emergency cases in the Waiting Room
         for (EmergencyCase emergencyCase : allCases) {
@@ -113,6 +119,9 @@ public class ESController {
         }
     }
 
+    /**
+     * Prints all emergency cases that have been completed (status DONE) and are in the triage room.
+     */
     public static void printAllDoneEmergencyCaseInTriageRoom() {
         // Filter and print all emergency cases in the Triage Room
         for (EmergencyCase emergencyCase : allCases) {
@@ -123,6 +132,9 @@ public class ESController {
         }
     }
 
+    /**
+     * Prints all emergency cases that are currently in the examination room.
+     */
     public static void printAllEmergencyCaseInTraumaRoom() {
         // Filter and print all emergency cases in the Trauma Room
         for (EmergencyCase emergencyCase : allCases) {
@@ -133,6 +145,9 @@ public class ESController {
         }
     }
 
+    /**
+     * Prints all emergency cases, regardless of their location or status.
+     */
     public static void printAllEmergencyCase() {
         if (allCases.isEmpty()) {
             System.out.println("No emergency cases available.");
@@ -147,7 +162,10 @@ public class ESController {
         }
     }
 
-    public static void loadEmergencyCaseFromFile() {
+    /**
+     * Loads emergency cases from a file.
+     */
+    public static void  loadEmergencyCaseFromFile() {
         allCases.clear();
         StringBuilder sb = new StringBuilder();
         String basePath = "";
@@ -174,6 +192,9 @@ public class ESController {
         }
     }
 
+    /**
+     * Saves all emergency cases to a file.
+     */
     public static void saveEmergencyCasesToFile() {
         String basePath = "";
 
@@ -271,7 +292,13 @@ public class ESController {
         }
     }
 
-    public static EmergencyCase selectCase(int caseID) {
+    /**
+     * Selects an emergency case by its ID.
+     *
+     * @param caseID The ID of the emergency case to select.
+     * @return The selected emergency case, or null if no case with the given ID is found.
+     */
+    public static EmergencyCase selectCase(int caseID){
         for (EmergencyCase emergencyCase : allCases) {
 
             if (caseID == emergencyCase.getCaseID()) {
@@ -281,6 +308,13 @@ public class ESController {
         return null;
     }
 
+    /**
+     * Performs the initial screening for an emergency case, typically done by a nurse.
+     * This involves collecting the patient's triage level, vital signs, and allergies.
+     * The method prompts for user input and allows for editing of the entered information.
+     *
+     * @param emergencyCase The emergency case to be screened.
+     */
     public static void nurseInitialScreening(EmergencyCase emergencyCase) {
         System.out.println("----------------------------------------------");
         System.out.println("                 CASE DETAILS                 ");
@@ -395,7 +429,7 @@ public class ESController {
         }
     }
 
-    public static void doctorScreening(EmergencyCase emergencyCase, AuditManager manager) {
+    public static void doctorScreening(EmergencyCase emergencyCase) {
         Patient patient = emergencyCase.getPatient();
         Doctor doctor = emergencyCase.getScreeningDoctor();
 
@@ -419,19 +453,19 @@ public class ESController {
                     return; // Done screening, go back to patient list
 
                 case 1:
-                    updatePatientVitalSigns(patient, doctor, manager);  // Update vital signs
+                    updatePatientVitalSigns(patient, doctor);  // Update vital signs
                     break;
 
                 case 2:
-                    updatePatientSymptoms(patient, doctor, manager);    // Update symptoms
+                    updatePatientSymptoms(patient, doctor);    // Update symptoms
                     break;
 
                 case 3:
-                    diagnosePatient(patient, doctor, manager);          // Diagnose patient
+                    diagnosePatient(patient, doctor);          // Diagnose patient
                     break;
 
                 case 4:
-                    prescribeMedications(patient, doctor, manager); // Uncomment if implemented
+                    prescribeMedications(patient, doctor); // Uncomment if implemented
                     break;
 
                 default:
@@ -454,26 +488,25 @@ public class ESController {
      *
      * @param patient      The patient whose vital signs are being updated.
      * @param doctor       The doctor performing the update.
-     * @param auditManager The audit manager for logging actions.
      */
 
-    private static void updatePatientVitalSigns(Patient patient, Doctor doctor, AuditManager auditManager) {
+    private static void updatePatientVitalSigns(Patient patient, Doctor doctor) {
         System.out.println("========== Update Patient Vital Signs ==========");
         System.out.println("Printing " + patient.getName() + "'s current vital signs...");
         System.out.println(patient.getEHR().getVitalSigns().toString());  // Display current vital signs
-        auditManager.logAction(doctor.getId(), "UPDATE PATIENT RECORD", "Patient: " + patient.getId(), "SUCCESS", "DOCTOR");
+        AuditManager.getInstance().logAction(doctor.getId(), "UPDATE PATIENT RECORD", "Patient: " + patient.getId(), "SUCCESS", "DOCTOR");
 
         // Prompt for new vital sign values
         double temperature = InputValidator.getValidDoubleInput("Please enter the temperature: ");
-        auditManager.logAction(doctor.getId(), "USER ENTERED: " + temperature, "Patient: " + patient.getId() + "'s temperature", "SUCCESS", "DOCTOR");
+        AuditManager.getInstance().logAction(doctor.getId(), "USER ENTERED: " + temperature, "Patient: " + patient.getId() + "'s temperature", "SUCCESS", "DOCTOR");
         int hr = InputValidator.getValidIntInput("Please enter the heart rate: ");
-        auditManager.logAction(doctor.getId(), "USER ENTERED: " + hr, "Patient: " + patient.getId() + "'s heart rate", "SUCCESS", "DOCTOR");
+        AuditManager.getInstance().logAction(doctor.getId(), "USER ENTERED: " + hr, "Patient: " + patient.getId() + "'s heart rate", "SUCCESS", "DOCTOR");
         int sysBloodPressure = InputValidator.getValidIntInput("Please enter the systolic blood pressure: ");
-        auditManager.logAction(doctor.getId(), "USER ENTERED: " + sysBloodPressure, "Patient: " + patient.getId() + "'s systolic blood pressure", "SUCCESS", "DOCTOR");
+        AuditManager.getInstance().logAction(doctor.getId(), "USER ENTERED: " + sysBloodPressure, "Patient: " + patient.getId() + "'s systolic blood pressure", "SUCCESS", "DOCTOR");
         int diaBloodPressure = InputValidator.getValidIntInput("Please enter the diastolic blood pressure: ");
-        auditManager.logAction(doctor.getId(), "USER ENTERED: " + diaBloodPressure, "Patient: " + patient.getId() + "'s diastolic blood pressure", "SUCCESS", "DOCTOR");
+        AuditManager.getInstance().logAction(doctor.getId(), "USER ENTERED: " + diaBloodPressure, "Patient: " + patient.getId() + "'s diastolic blood pressure", "SUCCESS", "DOCTOR");
         int respiratory = InputValidator.getValidIntInput("Please enter the respiratory rate: ");
-        auditManager.logAction(doctor.getId(), "USER ENTERED: " + respiratory, "Patient: " + patient.getId() + "'s respiratory rate", "SUCCESS", "DOCTOR");
+        AuditManager.getInstance().logAction(doctor.getId(), "USER ENTERED: " + respiratory, "Patient: " + patient.getId() + "'s respiratory rate", "SUCCESS", "DOCTOR");
 
         // Update patient's vital signs
         patient.getEHR().setVitalSigns(new VitalSigns(temperature, hr, sysBloodPressure, diaBloodPressure, respiratory));
@@ -487,22 +520,21 @@ public class ESController {
      *
      * @param patient      The patient whose symptoms are being updated.
      * @param doctor       The doctor performing the update.
-     * @param auditManager The audit manager for logging actions.
      */
-    private static void updatePatientSymptoms(Patient patient, Doctor doctor, AuditManager auditManager) {
+    private static void updatePatientSymptoms(Patient patient, Doctor doctor) {
         String symptomName = InputValidator.getValidStringInput("Enter patient's symptoms: ");
-        auditManager.logAction(doctor.getId(), "USER ENTERED: " + symptomName, "Patient: " + patient.getId() + "'s symptoms", "SUCCESS", "DOCTOR");
+        AuditManager.getInstance().logAction(doctor.getId(), "USER ENTERED: " + symptomName, "Patient: " + patient.getId() + "'s symptoms", "SUCCESS", "DOCTOR");
         int severity = InputValidator.getValidRangeIntInput("Enter symptom's severity (0-10): ", 10);
-        auditManager.logAction(doctor.getId(), "USER ENTERED: " + severity, "symptom's severity", "SUCCESS", "DOCTOR");
+        AuditManager.getInstance().logAction(doctor.getId(), "USER ENTERED: " + severity, "symptom's severity", "SUCCESS", "DOCTOR");
         int duration = InputValidator.getValidRangeIntInput("Enter duration of symptoms (days): ", 50);
-        auditManager.logAction(doctor.getId(), "USER ENTERED: " + duration, "duration of symptoms", "SUCCESS", "DOCTOR");
+        AuditManager.getInstance().logAction(doctor.getId(), "USER ENTERED: " + duration, "duration of symptoms", "SUCCESS", "DOCTOR");
         String clinicianNotes = InputValidator.getValidStringWithSpaceInput("Doctor's notes:  ");
-        auditManager.logAction(doctor.getId(), "USER ENTERED: " + clinicianNotes, "doctor notes", "SUCCESS", "DOCTOR");
+        AuditManager.getInstance().logAction(doctor.getId(), "USER ENTERED: " + clinicianNotes, "doctor notes", "SUCCESS", "DOCTOR");
 
         Symptoms newSymptom = new Symptoms(symptomName, severity, duration, clinicianNotes);
 
         doctor.setPatientSymptoms(newSymptom, patient);  // Update patient's symptoms
-        auditManager.logAction(doctor.getId(), "UPDATE SYMPTOMS", "Patient: " + patient.getId(), "SUCCESS", "DOCTOR");
+        AuditManager.getInstance().logAction(doctor.getId(), "UPDATE SYMPTOMS", "Patient: " + patient.getId(), "SUCCESS", "DOCTOR");
     }
 
     /**
@@ -510,10 +542,9 @@ public class ESController {
      *
      * @param patient      The patient receiving the medication.
      * @param doctor       The doctor prescribing the medication.
-     * @param auditManager The audit manager for logging actions.
      */
 
-    public static void diagnosePatient(Patient patient, Doctor doctor, AuditManager auditManager) {
+    public static void diagnosePatient(Patient patient, Doctor doctor) {
         // Get CDSS suggestions based on latest symptoms
         List<String> cdssDiagnosis = cdssAnalyzeSymptoms(patient.getEHR().getSymptoms().getLast());
         String outcome = "SUCCESS";
@@ -527,7 +558,7 @@ public class ESController {
             String doctorConfirmation = InputValidator.getValidStringInput(
                     "Doctor " + doctor.getName() + ", do you agree with the CDSS diagnosis? (yes/no): ");
 
-            auditManager.logAction(
+            AuditManager.getInstance().logAction(
                     doctor.getId(),
                     "USER ENTERED: " + doctorConfirmation,
                     "CDSS diagnosis",
@@ -542,8 +573,8 @@ public class ESController {
                 doctor.diagnosePatient(patient, diagnosis);
                 outcome = "OVERRIDDEN";
 
-                auditManager.logAction(doctor.getId(), "DIAGNOSE PATIENT", "Patient: " + patient.getId(), outcome, "DOCTOR");
-                auditManager.logAction(doctor.getId(), "USER ENTERED: " + diagnosis, "Override diagnosis", "SUCCESS", "DOCTOR");
+                AuditManager.getInstance().logAction(doctor.getId(), "DIAGNOSE PATIENT", "Patient: " + patient.getId(), outcome, "DOCTOR");
+                AuditManager.getInstance().logAction(doctor.getId(), "USER ENTERED: " + diagnosis, "Override diagnosis", "SUCCESS", "DOCTOR");
                 break;
 
             } else if (doctorConfirmation.equalsIgnoreCase("yes")) {
@@ -554,7 +585,7 @@ public class ESController {
                 String selectedDiagnosis = cdssDiagnosis.get(choice - 1);
                 doctor.diagnosePatient(patient, selectedDiagnosis);
 
-                auditManager.logAction(doctor.getId(), "DIAGNOSE PATIENT", "Patient: " + patient.getId(), outcome, "DOCTOR");
+                AuditManager.getInstance().logAction(doctor.getId(), "DIAGNOSE PATIENT", "Patient: " + patient.getId(), outcome, "DOCTOR");
                 break;
 
             } else {
@@ -600,7 +631,7 @@ public class ESController {
         return CDSSDiagnosis;
     }
 
-    private static void prescribeMedications(Patient patient, Doctor doctor, AuditManager auditManager) {
+    private static void prescribeMedications(Patient patient, Doctor doctor) {
         String diagnosis = patient.getEHR().getDiagnosis();
 
         if (diagnosis == null || diagnosis.isEmpty()) {
@@ -629,7 +660,7 @@ public class ESController {
             String confirm = InputValidator.getValidStringInput("Doctor " + doctor.getName() +
                     ", do you want to accept a CDSS suggestion? (yes/no): ");
 
-            auditManager.logAction(doctor.getId(), "USER ENTERED: " + confirm, "CDSS prescription suggestion", "SUCCESS", "DOCTOR");
+            AuditManager.getInstance().logAction(doctor.getId(), "USER ENTERED: " + confirm, "CDSS prescription suggestion", "SUCCESS", "DOCTOR");
 
             if (confirm.equalsIgnoreCase("yes")) {
                 int choice = InputValidator.getValidRangeIntInput("Select medication to prescribe: ", cdssRecommendations.size());
@@ -637,7 +668,7 @@ public class ESController {
 
                 doctor.prescribeMedication(patient, selectedMed);
 
-                auditManager.logAction(doctor.getId(), "PRESCRIBED MEDICATION", selectedMed.getMedicationName(), outcome, "DOCTOR");
+                AuditManager.getInstance().logAction(doctor.getId(), "PRESCRIBED MEDICATION", selectedMed.getMedicationName(), outcome, "DOCTOR");
                 System.out.println("Medication prescribed: " + selectedMed.getMedicationName());
                 break;
 
@@ -680,7 +711,7 @@ public class ESController {
                 }
 
                 doctor.prescribeMedication(patient, customMed);
-                auditManager.logAction(doctor.getId(), "PRESCRIBED MEDICATION", customMed.getMedicationName(), "OVERRIDDEN", "DOCTOR");
+                AuditManager.getInstance().logAction(doctor.getId(), "PRESCRIBED MEDICATION", customMed.getMedicationName(), "OVERRIDDEN", "DOCTOR");
 
                 System.out.println("Medication manually prescribed: " + customMed.getMedicationName());
                 break;
@@ -716,7 +747,7 @@ public class ESController {
         return CDSSPrescription;
     }
 
-    public static void immediateResponse(EmergencyCase emergencyCase, AuditManager manager) {
+    public static void immediateResponse(EmergencyCase emergencyCase) {
         System.out.println("=== Immediate Response: Emergency Procedures ===");
 
         while (true) {
@@ -729,9 +760,7 @@ public class ESController {
 
             emergencyCase.addEmergencyProcedure(procedure); // Add to the case
 
-            if (manager != null) {
-                manager.logAction("SYSTEM", "ADDED PROCEDURE", procedure, "SUCCESS", "SYSTEM");
-            }
+            AuditManager.getInstance().logAction("SYSTEM", "ADDED PROCEDURE", procedure, "SUCCESS", "SYSTEM");
 
             System.out.println("Procedure added: " + procedure);
         }

@@ -30,11 +30,11 @@ public class DoctorLocationPage extends UiBase {
         lv.addItem(new TextView(this.canvas, "2. Trauma Room - Proceed With Immediate Response ", Color.GREEN));
 
         lv.setTitleHeader("Doctor Location Menu"); // Set the title header of the list view
-        lv.attachUserInput("Examination Room", str -> proceedWithDoctorScreening(manager) );
-        lv.attachUserInput("Trauma Room", str -> proceedWithImmediateResponse(manager));
+        lv.attachUserInput("Examination Room", str -> proceedWithDoctorScreening() );
+        lv.attachUserInput("Trauma Room", str -> proceedWithImmediateResponse());
     }
 
-    public void proceedWithDoctorScreening(AuditManager manager) {
+    public void proceedWithDoctorScreening() {
         EmergencyCase selectedCase = null;
         do {
             ESController.printAllDoneEmergencyCaseInTriageRoom();
@@ -46,7 +46,7 @@ public class DoctorLocationPage extends UiBase {
         selectedCase.setAssignedDoctor(doctor);
         selectedCase.setLocation(PatientLocation.EMERGENCY_ROOM_EXAMINATION_ROOM);
         selectedCase.setPatientStatus(PatientStatus.ONGOING);
-        ESController.doctorScreening(selectedCase,manager);
+        ESController.doctorScreening(selectedCase);
         System.out.println("======= Update Patient's Status =======");
 
         // Only showing first 3 statuses — you can extend this to show all
@@ -67,7 +67,7 @@ public class DoctorLocationPage extends UiBase {
         ToPage( new DoctorLocationPage());
     }
 
-    public void proceedWithImmediateResponse(AuditManager manager){
+    public void proceedWithImmediateResponse(){
         EmergencyCase selectedCase = null;
         do {
             ESController.printAllEmergencyCaseInTraumaRoom();
@@ -79,7 +79,7 @@ public class DoctorLocationPage extends UiBase {
         Doctor doctor = UserController.getActiveDoctor();
         selectedCase.setAssignedDoctor(doctor);
         selectedCase.setPatientStatus(PatientStatus.ONGOING);
-        ESController.immediateResponse(selectedCase,manager);
+        ESController.immediateResponse(selectedCase);
         selectedCase.setPatientStatus(PatientStatus.DONE);
         ESController.saveEmergencyCasesToFile();
 
