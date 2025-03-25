@@ -1,16 +1,14 @@
-package org.lucas.pages.nurse;
+package org.lucas.pages.paramedic;
 
 import org.lucas.Emergency.DispatchInfo;
 import org.lucas.Emergency.EmergencyCase_Dispatch;
-import org.lucas.Emergency.EmergencySystem;
 import org.lucas.Emergency.enums.PatientLocation;
 import org.lucas.Emergency.enums.PatientStatus;
 import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
-
 import org.lucas.models.Nurse;
 import org.lucas.models.Patient;
-
+import org.lucas.pages.nurse.NurseDispatchMenuPage;
 import org.lucas.ui.framework.Color;
 import org.lucas.ui.framework.UiBase;
 import org.lucas.ui.framework.View;
@@ -20,31 +18,18 @@ import org.lucas.util.InputValidator;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
 import java.util.List;
 
-/** Represents the main page of the Telemedicine Integration System.
- * This page displays a menu of options for the user to navigate to different sections of the application.
- * It extends {@link UiBase} and uses a {@link ListView} to present the menu items.*/
-public class NurseDispatchMenuPage extends UiBase {
-
-    /**
-     * Called when the main page's view is created.
-     * Creates a {@link ListView} to hold the main menu options.
-     * Sets the title header to "Main".
-     *
-     * @return A new {@link ListView} instance representing the main page's view.
-     * @Override
-     */
+public class ParamedicMenu extends UiBase {
+    private ListView listView;
 
     @Override
     public View OnCreateView() {
-        ListView lv = new ListView(this.canvas, Color.GREEN);
-        lv.setTitleHeader("NurseDispatchMenuPage");
-        lv.addItem(new TextView(this.canvas, "1. Create New Emergency Dispatch Case", Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "2. Update Active Dispatch Case Status", Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "3. View Dispatch Cases", Color.GREEN));
-        return lv;
+        listView= new ListView(this.canvas, Color.GREEN);
+        listView.addItem(new TextView(this.canvas, "1. Create New Emergency Dispatch Case", Color.GREEN));
+        listView.addItem(new TextView(this.canvas, "2. Update Active Dispatch Case Status", Color.GREEN));
+        listView.addItem(new TextView(this.canvas, "3. View Dispatch Menu", Color.GREEN));
+        return listView;
     }
 
     @Override
@@ -57,7 +42,6 @@ public class NurseDispatchMenuPage extends UiBase {
 
         canvas.setRequireRedraw(true);
     }
-
     private void createNewDispatchCase() {
         System.out.println("\n=========== Register New Emergency Case ===========");
         int caseID = ESController.setCaseID();  // Auto-incremented CaseId
@@ -178,7 +162,7 @@ public class NurseDispatchMenuPage extends UiBase {
                 }
                 else{
                     System.out.print(
-                    "____Select Option____\n 0. Back\n 1. Set Dispatch Team status to arrived to patient location\n 2. Set Dispatch Team status to arrived to hospital\n");
+                            "____Select Option____\n 0. Back\n 1. Set Dispatch Team status to arrived to patient location\n 2. Set Dispatch Team status to arrived to hospital\n");
                     int choice = InputValidator.getValidIntInput("Enter your choice: ");
                     switch(choice){
                         case 0:
@@ -197,9 +181,9 @@ public class NurseDispatchMenuPage extends UiBase {
                     }
                 }
                 break;
-                }
             }
         }
+    }
 
 
     private void arrivedAtLocation(EmergencyCase_Dispatch dispatchCase){

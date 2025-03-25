@@ -36,9 +36,11 @@ public class UserController {
     private static List<Doctor> allDoctors = new ArrayList<>();
     private static List<Medication> availableMedication = new ArrayList<>();
     private static List<Nurse> allNurses = new ArrayList<>();
+    private static List<Paramedic> allParamedics = new ArrayList<>();
     private static final String doctorFileName = "doctor_data.txt";
     private static final String patientFileName = "patient_data.txt";
     private static final String nurseFileName = "nurse_data.txt";
+    private static final String paramedicFileName = "paramedics_data.txt";
 
     /**
      * the active doctor that is currently logged in.
@@ -55,6 +57,8 @@ public class UserController {
     /**
      * Specifies the user type to avoid excessive instanceof or null checks
      */
+
+    private static Paramedic activeParamedic;
 
     private static UserType activeUserType;
 
@@ -109,6 +113,22 @@ public class UserController {
             Type listType = new TypeToken<List<Nurse>>() {
             }.getType();
             allNurses = Util.fromJsonString(sb.toString(), listType);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadParamedicFromFile() {
+        allParamedics.clear();
+        StringBuilder sb = new StringBuilder();
+        try (BufferedReader br = Files.newBufferedReader(Paths.get(paramedicFileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+            Type listType = new TypeToken<List<Paramedic>>() {
+            }.getType();
+            allParamedics = Util.fromJsonString(sb.toString(), listType);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -200,6 +220,27 @@ public class UserController {
                 sb.append(line);
             }
             Type listType = new TypeToken<List<Nurse>>() {}.getType();
+            users.addAll(Util.fromJsonString(sb.toString(), listType));
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        //then load the paramedics
+        sb = new StringBuilder();
+        String paramedicBasePath = "";
+        try {
+            basePath = JarLocation.getJarDirectory();
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        try (BufferedReader br = Files.newBufferedReader(Paths.get(paramedicBasePath, paramedicFileName))) {
+            String line;
+
+            while((line = br.readLine()) != null){
+                sb.append(line);
+            }
+            Type listType = new TypeToken<List<Paramedic>>() {}.getType();
             users.addAll(Util.fromJsonString(sb.toString(), listType));
         }catch (IOException e){
             e.printStackTrace();
@@ -311,6 +352,12 @@ public class UserController {
             auditManager.logAction(activeNurse.getId(), "LOGIN", "System", "SUCCESS", "NURSE");
             return UserType.NURSE;
         }
+        if(authenticated.getFirst() instanceof Paramedic){
+            activeParamedic = (Paramedic) authenticated.getFirst();
+            activeUserType = UserType.PARAMEDIC;
+            auditManager.logAction(activeParamedic.getId(), "LOGIN", "System", "SUCCESS", "PARAMEDIC");
+            return UserType.PARAMEDIC;
+        }
         if(authenticated.getFirst() instanceof Patient){
             activePatient = (Patient)authenticated.getFirst();
             activeUserType = UserType.PATIENT;
@@ -370,6 +417,10 @@ public class UserController {
      * @return the active {@link Nurse}, or null if no nurse is active.*/
     public static Nurse getActiveNurse() {
         return activeNurse;
+    }
+
+    public static Paramedic getActiveParamedic() {
+        return activeParamedic;
     }
 
     /**Gets the active patient.
@@ -712,20 +763,34 @@ public class UserController {
         return list != null && !list.isEmpty() ? String.join(", ", list) : "None";
     }
 
-    public static Patient checkOrCreatePatient(String patientID) {
+    public static Patient checkOrCreatePatient() {
         List<Patient> allPatients = getAvailablePatients();
+        String patientID = ""; // Keep prompting until patientID contains "P" (ignoring case)
+        while (true) {
+            patientID = InputValidator.getValidStringInput("Enter Patient ID: ");
+            if (patientID.toUpperCase().contains("P")) {
+                break;
+            } else {
+                System.out.println("Invalid ID. The Patient ID must contain the letter 'P'. Please try again.");
+            }
+        }
+        // Check if patient exists in our list
         for (Patient p : allPatients) {
-            if (p.getId().equals(patientID)) {
+            if (p.getId().equalsIgnoreCase(patientID)) {
                 System.out.println("\nExisting patient found: " + p.getName());
                 return p;
             }
         }
-        // If patient does not exist, create a new one
+
+// If patient does not exist, create a new one
         System.out.println("No existing patient found. Registering a new patient...");
         Patient newPatient = createEmergencyPatient(patientID);
-//        savePatientDataToFile(allPatients);
         return newPatient;
+
     }
+
+
+
 
     public static Nurse checkParamedicNurse(String nurseID) {
         Scanner scanner = new Scanner(System.in);

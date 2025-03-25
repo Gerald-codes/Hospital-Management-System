@@ -340,9 +340,9 @@ public class EmergencyCase {
                     DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"))).append("\n"); // print the date and time of incident
         else
             report.append("Date and Time of Incident: Dispatch In Progress\n"); // print the date and time of incident
-        report.append("Arrival Mode: ").append(arrivalMode).append("\n"); // print the arrival mode
-        report.append("Chief Complaint: ").append(chiefComplaint).append("\n"); // print the chief complaint
-        report.append("Triage Level: ").append(triageLevel).append("\n"); // print the triage level
+            report.append("Arrival Mode: ").append(arrivalMode).append("\n"); // print the arrival mode
+            report.append("Chief Complaint: ").append(chiefComplaint).append("\n"); // print the chief complaint
+            report.append("Triage Level: ").append(triageLevel).append("\n"); // print the triage level
 
         /**
          * Handle initial screening nurse

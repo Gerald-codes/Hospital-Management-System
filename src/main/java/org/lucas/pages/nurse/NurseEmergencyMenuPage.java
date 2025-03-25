@@ -30,7 +30,7 @@ public class NurseEmergencyMenuPage extends UiBase {
         listView= new ListView(this.canvas, Color.GREEN);
         listView.addItem(new TextView(this.canvas, "1. Create New Emergency Case - To enter and proceed with Action  ", Color.GREEN));
         listView.addItem(new TextView(this.canvas, "2. Locations - To enter and proceed with Action  ", Color.GREEN));
-        listView.addItem(new TextView(this.canvas, "3. View Dispatch Menu", Color.GREEN));
+//        listView.addItem(new TextView(this.canvas, "3. View Dispatch Menu", Color.GREEN));
         listView.addItem(new TextView(this.canvas, "4. View All Emergency Cases", Color.GREEN));
         return listView;
     }
@@ -42,7 +42,7 @@ public class NurseEmergencyMenuPage extends UiBase {
         lv.attachUserInput("Create New Emergency Case ", str -> createNewEmergencyCase());
         lv.attachUserInput("Location ", str -> ToPage(new NurseLocationPage()));
         lv.attachUserInput("View All Emergency Cases ", str -> viewAllEmergencyCases());
-        lv.attachUserInput("View Dispatch Menu ", str -> ToPage(new NurseDispatchMenuPage()));
+//        lv.attachUserInput("View Dispatch Menu ", str -> ToPage(new NurseDispatchMenuPage()));
         canvas.setRequireRedraw(true);
     }
 
@@ -50,8 +50,7 @@ public class NurseEmergencyMenuPage extends UiBase {
         System.out.println("\n=========== Register New Emergency Case ===========");
         int caseID = ESController.setCaseID(); // Auto-incremented CaseId
 
-        String enteredPatientID = InputValidator.getValidStringInput("Enter Patient ID: ");
-        Patient patient = UserController.checkOrCreatePatient(enteredPatientID);
+        Patient patient = UserController.checkOrCreatePatient();
 
         String chiefComplaint = "";
         while (chiefComplaint.isBlank()) {
