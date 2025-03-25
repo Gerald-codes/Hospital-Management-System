@@ -30,7 +30,7 @@ public class EmergencyCase {
 
     private PatientStatus patientStatus; // Admitted, Discharged, etc.
     private List<String> emergencyProcedures; // List of emergency procedures done on patient
-    private LocalDateTime dateAndTimeOfScreening;
+    private LocalDateTime screeningDateTime;
     private boolean isUrgent;
     // standard triage levels used in the emergency department
 
@@ -129,7 +129,7 @@ public class EmergencyCase {
 
 
     public LocalDateTime getScreeningTime() {
-        return this.dateAndTimeOfScreening;
+        return this.screeningDateTime;
     }
 
     public void setTriageLevel(TriageLevel triageLevel){
@@ -292,8 +292,8 @@ public class EmergencyCase {
      * Set the date and time of the screening
      * @param dateTime
      */
-    public void setDateAndTimeOfScreening(LocalDateTime dateTime) {
-        this.dateAndTimeOfScreening = dateTime;
+    public void setScreeningDateTime(LocalDateTime dateTime) {
+        this.screeningDateTime = dateTime;
     }
 
     public void setArrivalDateTime(LocalDateTime dateTime) {
@@ -304,8 +304,8 @@ public class EmergencyCase {
      * Get the date and time of the screening
      * @return the date and time of the screening
      */
-    public LocalDateTime getDateAndTimeOfScreening() {
-        return this.dateAndTimeOfScreening;
+    public LocalDateTime getScreeningDateTime() {
+        return this.screeningDateTime;
     }
 
     /**
@@ -353,9 +353,9 @@ public class EmergencyCase {
          * Handle screening doctor
          * If the screening doctor is not null and not empty, print the doctor's name and ID
          */
-        if (dateAndTimeOfScreening != null) {
+        if (screeningDateTime != null) {
             report.append("Screening Time: ")
-                    .append(dateAndTimeOfScreening.format(
+                    .append(screeningDateTime.format(
                             DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")))
                     .append("\n"); // print the screening time
         }
@@ -404,7 +404,7 @@ public class EmergencyCase {
                 ", location='" + location + '\'' +
                 ", patientStatus=" + patientStatus +
                 ", emergencyProcedures=" + emergencyProcedures +
-                ", dateAndTimeOfScreening=" + dateAndTimeOfScreening +
+                ", dateAndTimeOfScreening=" + screeningDateTime +
                 ", isUrgentTreatment=" + isUrgent +
                 '}';
     }
