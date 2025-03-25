@@ -1,6 +1,7 @@
 package org.lucas.pages.nurse;
 
 import org.lucas.Globals;
+import org.lucas.audit.AuditManager;
 import org.lucas.controllers.UserController;
 import org.lucas.models.Medication;
 import org.lucas.models.Patient;
@@ -74,6 +75,7 @@ public class NurseMainPage extends UiBase {
             System.out.println("\nSelected Patient: " + patient.getName());
             System.out.println("1. Perform Patient Actions");
             int choice = InputHelper.getValidIndex("Select an option", 1, 1);
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "SELECTING AN OPTION", String.valueOf(choice), "SUCCESS", "NURSE");
             if (choice == 1) {
                 // Navigate to patient actions page
                 NursePatientActionsPage.setPatient(patient);
