@@ -77,7 +77,7 @@ public class NurseMainPage extends UiBase {
             if (choice == 1) {
                 // Navigate to patient actions page
                 NursePatientActionsPage.setPatient(patient);
-                ToPage(Globals.nursePatientActionsPage);
+                ToPage(new NursePatientActionsPage());
             }
         });
         canvas.setRequireRedraw(true);

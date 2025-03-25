@@ -47,7 +47,11 @@ public class ViewAppointmentsPage extends UiBase {
        listView.attachUserInput("Select Patient index", str-> selectAppointmentPrompt(appointments));
        refreshUi();
     }
-
+    /**
+     * Prompts the user to select an appointment and handles the selected option.
+     *
+     * @param appointments the list of appointments to choose from
+     */
     private void selectAppointmentPrompt(List<Appointment> appointments) {
         int selectedIndex = InputHelper.getValidIndex("Select Patient index", appointments);
         Appointment selectedAppointment = appointments.get(selectedIndex);
@@ -78,7 +82,7 @@ public class ViewAppointmentsPage extends UiBase {
                     );
                     selectedAppointment.approveAppointment(UserController.getActiveDoctor(), joinUrl);
                     Globals.appointmentController.saveAppointmentsToFile();
-                    AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "Appointment accepted by doctor","Patient " + UserController.getActivePatient().getId(),"APPOINTMENT ACCEPTED", "DOCTOR");
+                    AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "USER ACCEPTED","Patient " + selectedAppointment.getPatient().getId() + "'s APPOINTMENT","APPOINTMENT ACCEPTED", "DOCTOR");
                 }catch (IOException e){
                     System.out.println("Error generating zoom link");
                 }
@@ -86,7 +90,7 @@ public class ViewAppointmentsPage extends UiBase {
             case 2:
                 selectedAppointment.setAppointmentStatus(AppointmentStatus.DECLINED);
                 Globals.appointmentController.saveAppointmentsToFile();
-                AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "Appointment declined by doctor","Patient " + UserController.getActivePatient().getId(),"APPOINTMENT DECLINED", "DOCTOR");
+                AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "USER DECLINED","Patient " + selectedAppointment.getPatient().getId() + "'s APPOINTMENT","APPOINTMENT DECLINED", "DOCTOR");
 
                 break;
             case 3:

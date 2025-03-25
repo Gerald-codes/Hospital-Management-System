@@ -1,5 +1,6 @@
 package org.lucas.pages.doctor;
 
+import org.lucas.audit.AuditManager;
 import org.lucas.controllers.UserController;
 import org.lucas.models.Medication;
 import org.lucas.models.Patient;
@@ -49,10 +50,13 @@ public class PatientInfoPage extends UiBase {
             int selectedIndex = InputHelper.getValidIndex("Select Patient index", patients);
                 if(selectedIndex == 0) {
                     lv.clear();
+                    AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(),"VIEWED PATIENT INFO", " ALL PATIENTS", "SUCCESS", "DOCTOR");
+
                     displayAllPatients(patients, lv);
                     canvas.setRequireRedraw(true);
                 }
                 else{
+                    AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(),"VIEWED PATIENT INFO", "Patient ID: " + patients.get(selectedIndex - 1).getId(), "SUCCESS", "DOCTOR");
                     patient = patients.get(selectedIndex -1);
                     try {
                         lv.clear();  // Clear the ListView first
@@ -69,7 +73,12 @@ public class PatientInfoPage extends UiBase {
                 }
         });
     }
-
+    /**
+     * Displays the information of a single patient.
+     *
+     * @param patient the patient whose information is to be displayed
+     * @param isPartOfList whether the patient is part of a list
+     */
     private void displayPatient(Patient patient, ListView lv, boolean isPartOfList) {
         // Patient header (only if part of a list)
         if (isPartOfList) {
@@ -166,6 +175,11 @@ public class PatientInfoPage extends UiBase {
             lv.addItem(new TextView(this.canvas, "===========================================================================", Color.RED));
         }
     }
+    /**
+     * Displays the information of all patients.
+     *
+     * @param patients the patient whose information is to be displayed
+     */
     private void displayAllPatients(List<Patient> patients, ListView lv) {
         lv.clear();
         lv.setTitleHeader("All Patients Information");

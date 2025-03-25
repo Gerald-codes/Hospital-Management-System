@@ -16,7 +16,7 @@ import org.lucas.ui.framework.views.TextView;
 import org.lucas.util.InputValidator;
 
 /**
- * Represents the login page of the Telemedicine Integration System.
+ * Represents the login page of the Hospital Management System.
  * This class extends {@link UiBase} and provides the UI elements and logic for user authentication.*/
 public class LoginPage extends UiBase { // This is the class that represents the login page
 
@@ -24,6 +24,12 @@ public class LoginPage extends UiBase { // This is the class that represents the
      * The {@link UserController} instance used for user authentication.
      * This field is static, meaning there's only one UserController shared across all LoginPage instances.*/
     public static UserController userController = new UserController();
+
+    private String loginMessage;
+
+    public LoginPage(String loginMessage) {
+        this.loginMessage = loginMessage;
+    }
 
     /**
      * Called when the login page's view is created.
@@ -46,6 +52,7 @@ public class LoginPage extends UiBase { // This is the class that represents the
 
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
         lv.setTitleHeader("Welcome to the Hospital Management System "); // Set the title header of the list view
+        lv.addItem(new TextView(this.canvas, loginMessage, Color.GREEN));
         lv.addItem(new TextView(this.canvas, "To use our system, please kindly login by pressing 1", Color.GREEN)); // Create a new text view with the message
         AuditManager auditManager = new AuditManager();
         ESController.loadEmergencyCaseFromFile();

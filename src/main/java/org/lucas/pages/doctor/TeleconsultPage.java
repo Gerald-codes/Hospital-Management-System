@@ -3,6 +3,7 @@ package org.lucas.pages.doctor;
 import org.lucas.Emergency.EmergencyCase;
 import org.lucas.Globals;
 import org.lucas.audit.AuditManager;
+import org.lucas.controllers.AppointmentController;
 import org.lucas.controllers.ESController;
 import org.lucas.controllers.MedicationController;
 import org.lucas.core.ClinicalGuideline;
@@ -19,12 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-
+/**
+ * Represents the teleconsultation page in the UI.
+ * This class handles the creation and management of the teleconsultation page, including user inputs and UI updates.
+ */
 public class TeleconsultPage extends UiBase {
     private static Appointment appointment;
     private static Doctor doctor;
     private ListView listView;
-    private static List<ClinicalGuideline> clinicalGuidelines = List.copyOf(ClinicalGuideline.generateClinicalGuideLine());
 
     public static void setAppointment(Appointment appointment) {
         TeleconsultPage.appointment = appointment;
@@ -44,7 +47,8 @@ public class TeleconsultPage extends UiBase {
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView;
         lv.attachUserInput("Set Doctor Notes", str -> {
-            setDoctorNotes();
+            Globals.appointmentController.setDoctorNotes(appointment);
+            refreshUi();
         });
 
         lv.attachUserInput("Edit Prescription", str -> {
@@ -57,22 +61,24 @@ public class TeleconsultPage extends UiBase {
 
             switch (prescriptionchoice) {
                 case 1: // Add a New Medication (In Database or Not, the function will handle it)
-                    AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "PRESCRIBED MEDICATION", "Patient: " + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
-                    setPrescribeMeds(-1);
+                    //setPrescribeMeds handles the auditing of the action as well
+                    Globals.appointmentController.setPrescribeMeds(-1, appointment);
+                    refreshUi();
                     break;
                 case 2: // Edit Existing Medication
                     int editIndex = selectMedicationIndexPrompt();
                     if (editIndex != -1) {
-                        setPrescribeMeds(editIndex);
+                        Globals.appointmentController.setPrescribeMeds(editIndex, appointment);
+                        refreshUi();
                     }
-                    AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "EDITED MEDICATION", "Patient: " + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
+                    AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "USER EDITED MEDICATION", "Patient: " + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
                     break;
                 case 3: // Remove Medication
                     int removeIndex = selectMedicationIndexPrompt();
                     if (removeIndex != -1) {
                         appointment.getBilling().getPrescription().removeMedicationAtIndex(removeIndex);
                     }
-                    AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "DELETED MEDICATION", "Patient: " + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
+                    AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "USER DELETED MEDICATION", "Patient: " + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
                     break;
                 case 4: // Cancel
                     // If doctor accidentally clicked this, they can cancel
@@ -111,16 +117,16 @@ public class TeleconsultPage extends UiBase {
                 LocalDate endDay = today.plusDays(days - 1);
                 MedicalCertificate mc = new MedicalCertificate(today.atStartOfDay(), endDay.atTime(23, 59), remarks);
                 appointment.setMedicalCertificate(mc);
-                AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "GAVE"+ remarks + "day(s) MC", "Patient: " + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
+                AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "USER GAVE: "+ remarks + "DAY(S) MC", "Patient: " + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
             } else if (choice == 2 && mcExists) {
                 appointment.setMedicalCertificate(null);
-                AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "REMOVED MC", "Patient: " + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
+                AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "USER REMOVED MC", "Patient: " + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
 
             }
             refreshUi();
         });
         lv.attachUserInput("Diagnose Patient", str -> {
-            diagnosePatient();
+            Globals.appointmentController.diagnosePatient(appointment);
             refreshUi();
         });
         lv.attachUserInput("Finish Consultation", str -> {
@@ -140,14 +146,18 @@ public class TeleconsultPage extends UiBase {
             EmergencyCase newCase = new EmergencyCase(caseID,appointment.getPatient(),appointment.getDoctorNotes(),"Referred",LocalDateTime.now(),true);
             ESController.addEmergencyCases(newCase);
             System.out.println("\nNew Case Registered | Case ID: " + caseID + " | Patient: " + appointment.getPatient().getName());
-            AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "REFER PATIENT TO EMERGENCY", "Patient: " + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
+            AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "REFERRED PATIENT TO EMERGENCY", "Patient: " + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
             ESController.saveEmergencyCasesToFile();
             canvas.previousPage();
             this.OnBackPressed();
         });
         refreshUi();
     }
-
+    /**
+     * Prompts the user to select a medication index for editing.
+     *
+     * @return the selected medication index, or -1 if no medication is available
+     */
     private int selectMedicationIndexPrompt() {
         List<Medication> medication = appointment.getBilling().getPrescription().getMedication();
         if (medication == null || medication.isEmpty()) {
@@ -157,129 +167,9 @@ public class TeleconsultPage extends UiBase {
         }
         return InputHelper.getValidIndex("Select medication index to edit", medication);
     }
-
     /**
-     * Sets the medicine, either at the index or add a new medicine when index = -1
-     *
-     * @param index -1 when adding, otherwise, specifying index will add a new medicine
+     * Refreshes the UI by clearing and updating the list view with the latest appointment details.
      */
-    private void setPrescribeMeds(int index) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter the drug name: ");
-        // always use upper case
-        String medicationName = scanner.nextLine().trim().toUpperCase();
-
-        System.out.println("Enter the amount: ");
-        int medicineAmount = scanner.nextInt();
-        // somehow creating a new scanner prevents errors where it may just skip the scanner.
-        scanner = new Scanner(System.in);
-        Prescription prescription = appointment.getBilling().getPrescription();
-
-        // if the medicine is in the database, automatically fill in the dosage
-        // otherwise prompt for the dosage and instructions.
-        if (MedicationController.findAvailableMedicationByName(medicationName) != null) {
-            if (index == -1) {
-                prescription.addMedication(medicationName, medicineAmount, "");
-                AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "DOCTOR PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
-            } else {
-                prescription.setMedicationAtIndex(medicationName, medicineAmount, "", index);
-                AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "DOCTOR PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
-            }
-        } else {
-            System.out.println("Enter the dosage/instructions: ");
-            String dosage = scanner.nextLine();
-
-            if (index == -1) {
-                prescription.addMedication(medicationName, medicineAmount, dosage);
-                AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "DOCTOR PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
-            } else {
-                prescription.setMedicationAtIndex(medicationName, medicineAmount, dosage, index);
-                AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "DOCTOR PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
-            }
-        }
-        refreshUi();
-    }
-    private void diagnosePatient(){
-        System.out.println("Diagnose patient in progress");
-        List<Symptoms> symptoms = appointment.getPatient().getEHR().getSymptoms();
-        if (symptoms == null || symptoms.isEmpty()) {
-            System.out.println("No symptoms recorded for this patient.");
-            return;
-        }
-        // Get the last symptom
-        Symptoms lastSymptom = symptoms.get(symptoms.size() - 1);
-        List<String> cdssDiagnosis = cdssAnalyzeSymptoms(lastSymptom);
-        System.out.println("CDSS Suggests: ");
-        String outcome = "SUCCESS";
-        for (int i = 0; i < cdssDiagnosis.size(); i++) {
-            System.out.println((i+1) + ". " + cdssDiagnosis.get(i));
-            if (i == cdssDiagnosis.size()-1){
-                while (true){
-                    String doctorConfirmation = InputValidator.getValidStringInput("Doctor " + appointment.getDoctor().getName() +
-                            ", do you agree with the CDSS diagnosis? (yes/no): ");
-
-                    AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "USER ENTERED: "+ doctorConfirmation, "CDSS diagnosis", "SUCCESS", "DOCTOR");
-                    if (doctorConfirmation.equalsIgnoreCase("no")) {
-                        System.out.println("===== Override CDSS Diagnosis =====");
-                        String diagnosis = InputValidator.getValidStringWithSpaceInput("Enter your diagnosis: ");
-                        appointment.setDiagnosis(diagnosis);
-                        outcome = "OVERRIDDEN";
-                        AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "DIAGNOSE PATIENT", "Patient: " + appointment.getPatient().getId(), outcome,"DOCTOR");
-                        AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "USER ENTERED: "+ diagnosis, "Patient: " + appointment.getPatient().getId() + "'s override diagnosis", "SUCCESS", "DOCTOR");
-                        break;
-                    } else if (doctorConfirmation.equalsIgnoreCase("yes")) {
-                        int choice = InputValidator.getValidRangeIntInput("Enter choice of Diagnosis: ", cdssDiagnosis.size());
-                        appointment.setDiagnosis(cdssDiagnosis.get(choice-1));  // Accept CDSS diagnosis
-                        AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "DIAGNOSE PATIENT", "Patient: " + appointment.getPatient().getId(), outcome,"DOCTOR");
-                        break;
-                    }else{
-                        System.out.println("Invalid Input!\n");
-                    }
-                }
-            }
-        }
-    }
-    private static List<String> cdssAnalyzeSymptoms(Symptoms symptom) {
-        List<String> CDSSDiagnosis = new ArrayList<>();
-        for (ClinicalGuideline guidelineSymptom : clinicalGuidelines) {
-            if (guidelineSymptom.getGuideLineType().equals("Symptom") &&
-                    guidelineSymptom.getSupportingEvidence().contains(symptom.getSymptomName())) {
-                CDSSDiagnosis.add(guidelineSymptom.getGuideDescription());
-            }
-        }
-        if (CDSSDiagnosis.isEmpty()) {
-            CDSSDiagnosis.add("Diagnosis Unclear - Further Tests Required");
-        }
-        // Return possible Diagnosis
-        return CDSSDiagnosis;
-    }
-
-    private void setDoctorNotes() {
-        System.out.println("Enter Doctor Notes :");
-        Scanner scanner = new Scanner(System.in);
-        String newNotes = scanner.nextLine();
-
-        // Set the doctor notes at the appointment level
-        appointment.setDoctorNotes(newNotes);
-        AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "ENTERED DOC NOTES" + newNotes, "Patient: " + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
-
-
-        // Clear any existing doctor notes from symptoms
-        List<Symptoms> symptomsList = appointment.getPatient().getEHR().getSymptoms();
-        if (!symptomsList.isEmpty()) {
-            // Only set the notes on the first symptom, leave others empty
-            symptomsList.get(0).setDoctorNotes(newNotes);
-
-            // Clear notes from other symptoms to avoid duplication
-            for (int i = 1; i < symptomsList.size(); i++) {
-                symptomsList.get(i).setDoctorNotes("");
-            }
-        }
-
-        refreshUi();
-    }
-
     private void refreshUi() {
         listView.clear();
         listView.addItem(new TextView(this.canvas, "Patient Name: " + appointment.getPatient().getName(), Color.GREEN, TextStyle.ITALIC));

@@ -25,11 +25,9 @@ public enum UserType {
      */
     NURSE,
     /**
-     * Represents a medical nurse or healthcare provider within the system.
-     * Used for users who manage the medicines inventory.
+     * Represents a medical paramedic or healthcare provider within the system.
+     * Used for users who manage the emergency module.
      */
-    PHARMACIST,
-
     PARAMEDIC,
 
     /**
