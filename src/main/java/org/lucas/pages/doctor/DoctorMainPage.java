@@ -6,7 +6,7 @@ import org.lucas.audit.AuditManager;
 import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
 import org.lucas.models.Nurse;
-import org.lucas.pages.nurse.NurseDispatchMenuPage;
+import org.lucas.pages.paramedic.ParamedicMenu;
 import org.lucas.ui.framework.Color;
 import org.lucas.ui.framework.TextStyle;
 import org.lucas.ui.framework.UiBase;

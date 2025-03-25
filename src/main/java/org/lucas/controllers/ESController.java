@@ -53,16 +53,16 @@ public class ESController {
     }
 
     public static void printActiveDispatch() {
-        boolean activeFound = false;
         for (EmergencyCase_Dispatch c : allDispatchCases) {
-            if (c.getPatientStatus().equals(PatientStatus.ONDISPATCHED)) {
-                System.out.println(c.printIncidentReport());
-                activeFound =true;
+            if (c.getPatientStatus() == PatientStatus.ONDISPATCHED) {
+                c.printIncidentReport();
+//                activeFound =true;
             }
         }
-        if (!activeFound){
-            System.out.println("No active dispatch cases");
-        }
+        System.out.println("Active Dispatch Case does not exist");
+//        if (!activeFound){
+//            System.out.println("No active dispatch cases");
+//        }
 
     }
 
@@ -770,5 +770,6 @@ public class ESController {
         saveEmergencyCasesToFile();
 
     }
+
 }
 

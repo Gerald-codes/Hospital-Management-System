@@ -65,7 +65,6 @@
     "triage_level": "PRIORITY_4_NON_EMERGENCY",
     "patient_status": "ONDISPATCHED",
     "emergency_procedures": [],
-    "date_and_time_of_screening": "2025-03-24T22:15:58.2866",
     "is_urgent": false
   },
   {
@@ -134,7 +133,353 @@
     "triage_level": "PRIORITY_4_NON_EMERGENCY",
     "patient_status": "DONE",
     "emergency_procedures": [],
-    "date_and_time_of_screening": "2025-03-24T22:16:38.228526",
+    "is_urgent": false
+  },
+  {
+    "dispatch_info": {
+      "vehicle_id": 123,
+      "medivac_members": [
+        {
+          "department": "Pediatrics",
+          "role": "Paramedic Nurse",
+          "assigned_ward": "Ward A",
+          "can_administer_medication": true,
+          "nursing_license_number": "RN-2023-00123",
+          "alert_list": [],
+          "id": "N001",
+          "login_name": "emily",
+          "name": "Emily Carter",
+          "password": "password123",
+          "email": "emilycarter@gmail",
+          "gender": "Female",
+          "phone_number": "87654321"
+        }
+      ],
+      "equipment": [],
+      "dispatch_location": "cck"
+    },
+    "dispatch_arrival_time": "2025-03-25T14:18:40.6556604",
+    "time_of_call": "2025-03-25T14:18:40.6556604",
+    "response_time": "PT0S",
+    "case_i_d": 5,
+    "patient": {
+      "alert_history": [],
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [
+          "Gluten",
+          "Penicillin",
+          "Shellfish",
+          "Pollen",
+          "Latex",
+          "Dust",
+          "Peanuts"
+        ],
+        "current_medications": [
+          {
+            "medication_name": "Ibuprofen",
+            "guideline_id": "C008",
+            "medication_id": "M008",
+            "dosage": "200mg, Every 6 Hours",
+            "side_effects": "Stomach Pain, Heartburn",
+            "brand_name": "Advil",
+            "stock_available": 150,
+            "controlled_substance": false,
+            "manufacture_name": "Pfizer",
+            "batch_number": "B005",
+            "manufacture_date": "01-03-2024",
+            "expiry_date": "02-07-2026",
+            "medication_price": 6.49
+          },
+          {
+            "medication_name": "Furosemide",
+            "guideline_id": "C003",
+            "medication_id": "M003",
+            "dosage": "325mg, Once a Week",
+            "side_effects": "Frequent Urination",
+            "brand_name": "Lasix",
+            "stock_available": 80,
+            "controlled_substance": true,
+            "manufacture_name": "Sanofi",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 10.1
+          },
+          {
+            "medication_name": "Diphenhydramine",
+            "guideline_id": "C004",
+            "medication_id": "M004",
+            "dosage": "200mg, Once a Week",
+            "side_effects": "Drowsiness, Sleepiness",
+            "brand_name": "HealthA2Z Sleep Aid",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 14.69
+          }
+        ],
+        "medical_history": [
+          "Hypertension",
+          "Diabetes"
+        ],
+        "vital_signs": {
+          "temperature": 37.3,
+          "heart_rate": 70,
+          "blood_pressure_systolic": 90,
+          "blood_pressure_diastolic": 87,
+          "respiratory_rate": 12
+        },
+        "lab_results": [
+          "Lipid Panel: Elevated",
+          "Thyroid: Normal",
+          "Hemoglobin: Low",
+          "Blood Glucose: High",
+          "CBC: Normal"
+        ],
+        "imaging_records": [
+          "MRI"
+        ],
+        "clinical_notes": "Patient is recovering well.",
+        "symptoms": [
+          {
+            "symptom_name": "severe abdominal pain",
+            "symptom_id": "SYM-111",
+            "severity": 9,
+            "duration": 2,
+            "doctor_notes": "Possible appendicitis or pancreatitis."
+          },
+          {
+            "symptom_name": "sore throat",
+            "symptom_id": "SYM-102",
+            "severity": 4,
+            "duration": 3,
+            "doctor_notes": "Recommend warm fluids and throat lozenges."
+          }
+        ],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [
+          "Appendectomy",
+          "Gallbladder Removal",
+          "Knee Replacement",
+          "Cataract Surgery",
+          "Hernia Repair"
+        ],
+        "vaccination_record": [
+          "Hepatitis B Vaccine",
+          "COVID-19 Vaccine",
+          "Tetanus Booster",
+          "Measles, Mumps, Rubella (MMR) Vaccine"
+        ]
+      },
+      "patient_specific_factor": "Pregnant",
+      "assigned_nurse": "N003",
+      "assigned_doctor": "D002",
+      "height": 160.0,
+      "weight": 58.0,
+      "blood_type": "A+",
+      "house_address": "753 Cedar St, WA",
+      "emergency_contact_number": 43210987,
+      "occupation": "Artist",
+      "ethnicity": "Asian",
+      "healthcare_department": "Obstetrics",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P006",
+      "login_name": "DianaEvans",
+      "name": "Diana Evans",
+      "password": "password123",
+      "email": "dianae@example.com",
+      "gender": "Female",
+      "phone_number": "81234567"
+    },
+    "chief_complaint": "sick",
+    "arrival_mode": "Ambulance",
+    "arrival_date_time": "2025-03-25T15:31:43.2338159",
+    "triage_level": "PRIORITY_4_NON_EMERGENCY",
+    "location": "EMERGENCY_ROOM_WAITING_ROOM",
+    "patient_status": "DONE",
+    "emergency_procedures": [],
+    "screening_date_time": "2025-03-25T14:18:40.6556604",
+    "is_urgent": false
+  },
+  {
+    "dispatch_info": {
+      "vehicle_id": 1203,
+      "medivac_members": [
+        {
+          "department": "Pediatrics",
+          "role": "Paramedic Nurse",
+          "assigned_ward": "Ward A",
+          "can_administer_medication": true,
+          "nursing_license_number": "RN-2023-00123",
+          "alert_list": [],
+          "id": "N001",
+          "login_name": "emily",
+          "name": "Emily Carter",
+          "password": "password123",
+          "email": "emilycarter@gmail",
+          "gender": "Female",
+          "phone_number": "87654321"
+        }
+      ],
+      "equipment": [],
+      "dispatch_location": "cik"
+    },
+    "dispatch_arrival_time": "2025-03-25T15:32:41.4673235",
+    "time_of_call": "2025-03-25T15:32:41.4673235",
+    "response_time": "PT0S",
+    "case_i_d": 7,
+    "patient": {
+      "alert_history": [],
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [
+          "Gluten",
+          "Penicillin",
+          "Shellfish",
+          "Pollen",
+          "Latex",
+          "Dust",
+          "Peanuts"
+        ],
+        "current_medications": [
+          {
+            "medication_name": "Ibuprofen",
+            "guideline_id": "C008",
+            "medication_id": "M008",
+            "dosage": "200mg, Every 6 Hours",
+            "side_effects": "Stomach Pain, Heartburn",
+            "brand_name": "Advil",
+            "stock_available": 150,
+            "controlled_substance": false,
+            "manufacture_name": "Pfizer",
+            "batch_number": "B005",
+            "manufacture_date": "01-03-2024",
+            "expiry_date": "02-07-2026",
+            "medication_price": 6.49
+          },
+          {
+            "medication_name": "Furosemide",
+            "guideline_id": "C003",
+            "medication_id": "M003",
+            "dosage": "325mg, Once a Week",
+            "side_effects": "Frequent Urination",
+            "brand_name": "Lasix",
+            "stock_available": 80,
+            "controlled_substance": true,
+            "manufacture_name": "Sanofi",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 10.1
+          },
+          {
+            "medication_name": "Diphenhydramine",
+            "guideline_id": "C004",
+            "medication_id": "M004",
+            "dosage": "200mg, Once a Week",
+            "side_effects": "Drowsiness, Sleepiness",
+            "brand_name": "HealthA2Z Sleep Aid",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 14.69
+          }
+        ],
+        "medical_history": [
+          "Hypertension",
+          "Diabetes"
+        ],
+        "vital_signs": {
+          "temperature": 37.3,
+          "heart_rate": 70,
+          "blood_pressure_systolic": 90,
+          "blood_pressure_diastolic": 87,
+          "respiratory_rate": 12
+        },
+        "lab_results": [
+          "Lipid Panel: Elevated",
+          "Thyroid: Normal",
+          "Hemoglobin: Low",
+          "Blood Glucose: High",
+          "CBC: Normal"
+        ],
+        "imaging_records": [
+          "MRI"
+        ],
+        "clinical_notes": "Patient is recovering well.",
+        "symptoms": [
+          {
+            "symptom_name": "severe abdominal pain",
+            "symptom_id": "SYM-111",
+            "severity": 9,
+            "duration": 2,
+            "doctor_notes": "Possible appendicitis or pancreatitis."
+          },
+          {
+            "symptom_name": "sore throat",
+            "symptom_id": "SYM-102",
+            "severity": 4,
+            "duration": 3,
+            "doctor_notes": "Recommend warm fluids and throat lozenges."
+          }
+        ],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [
+          "Appendectomy",
+          "Gallbladder Removal",
+          "Knee Replacement",
+          "Cataract Surgery",
+          "Hernia Repair"
+        ],
+        "vaccination_record": [
+          "Hepatitis B Vaccine",
+          "COVID-19 Vaccine",
+          "Tetanus Booster",
+          "Measles, Mumps, Rubella (MMR) Vaccine"
+        ]
+      },
+      "patient_specific_factor": "Pregnant",
+      "assigned_nurse": "N003",
+      "assigned_doctor": "D002",
+      "height": 160.0,
+      "weight": 58.0,
+      "blood_type": "A+",
+      "house_address": "753 Cedar St, WA",
+      "emergency_contact_number": 43210987,
+      "occupation": "Artist",
+      "ethnicity": "Asian",
+      "healthcare_department": "Obstetrics",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P006",
+      "login_name": "DianaEvans",
+      "name": "Diana Evans",
+      "password": "password123",
+      "email": "dianae@example.com",
+      "gender": "Female",
+      "phone_number": "81234567"
+    },
+    "chief_complaint": "sick",
+    "arrival_mode": "Ambulance",
+    "arrival_date_time": "2025-03-25T15:32:41.4673235",
+    "triage_level": "PRIORITY_4_NON_EMERGENCY",
+    "patient_status": "ONDISPATCHED",
+    "emergency_procedures": [],
+    "screening_date_time": "2025-03-25T15:32:41.4673235",
     "is_urgent": false
   }
 ]

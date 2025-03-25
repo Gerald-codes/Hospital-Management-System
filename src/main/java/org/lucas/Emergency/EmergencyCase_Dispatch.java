@@ -191,15 +191,15 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
      * Return a String value that contains the information of current state of dispatch case.
      * Uses the same printIncidentReport() function from base EmergencyCase class but also adds on with dispatch info at the end of the report.
      */
-//    @Override public String printIncidentReport(){
-//        String report = "\n----------Incident Report----------\n";
-////        report += super.printIncidentReport();
-//        report += "\n----------Dispatch Info----------\n";
-//        report += dispatchInfo.getInfo();
-//        report += "\n----------Response Info----------\n";
-//        report += getResponseDetails();
-//        return report;
-//    }
+    @Override public String printIncidentReport(){
+        String report = "\n----------Incident Report----------\n";
+        report += super.printIncidentReport();
+        report += "\n----------Dispatch Info----------\n";
+        report += dispatchInfo.getInfo();
+        report += "\n----------Response Info----------\n";
+        report += getResponseDetails();
+        return report;
+    }
 
     /**
      * Get function for responseTime tied to the dispatch case.

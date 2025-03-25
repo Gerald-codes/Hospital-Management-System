@@ -6,6 +6,7 @@ import org.lucas.controllers.UserController;
 import org.lucas.models.enums.UserType;
 import org.lucas.pages.doctor.DoctorMainPage;
 import org.lucas.pages.nurse.NurseMenuPage;
+import org.lucas.pages.paramedic.ParamedicMenu;
 import org.lucas.pages.patient.PatientMainPage;
 import org.lucas.ui.framework.Color;
 import org.lucas.ui.framework.UiBase;
@@ -63,7 +64,10 @@ public class LoginPage extends UiBase { // This is the class that represents the
             } else if (UserType.PATIENT == userController.authenticate(username, password,auditManager)) {
                 System.out.println("Login successful!");
                 ToPage(new PatientMainPage());
-            } else { System.out.println("Invalid username or password!"); }
+            } else if (UserType.PARAMEDIC == userController.authenticate(username, password,auditManager)){
+                System.out.println("Login successful");
+                ToPage(new ParamedicMenu());
+            }else { System.out.println("Invalid username or password!"); }
 
             canvas.setRequireRedraw(true);
             });
