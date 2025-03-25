@@ -56,11 +56,14 @@ public class ParamedicMenu extends UiBase {
         while (chiefComplaint.isBlank()) {
             chiefComplaint = InputValidator.getValidStringInput("Enter reason of patient's visit (Chief Complaint): ").trim();
         }
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "ENTER REASON OF PATIENT'S VISIT", chiefComplaint, "SUCCESS", "PARAMEDIC");
+
 
         //Is case urgent
         boolean isUrgent;
         while (true) {
             String urgency = InputValidator.getValidStringInput("Require Urgent Treatment (YES or NO): ");
+            AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "REQUIRE URGENT TREATMENT", urgency, "SUCCESS", "PARAMEDIC");
             if (urgency.equalsIgnoreCase("YES")){
                 isUrgent = true;
                 break;
@@ -71,11 +74,14 @@ public class ParamedicMenu extends UiBase {
         }
 
 
+
         //Select dispatch vehicle type
         System.out.print(
                 "------ Select dispatch vehicle ------\n 1. Ambulance \n 2. Helicopter \n");
 
         int choice = InputValidator.getValidIntInput("Enter your choice: ");
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "SELECTING VEHICLE CHOICE",String.valueOf(caseID), "SUCCESS", "PARAMEDIC");
+
 
         String arrivalMode;
         switch (choice) {
@@ -102,10 +108,14 @@ public class ParamedicMenu extends UiBase {
                 break;
             }
         }
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "ENTER VEHICLE ID",String.valueOf(ambulanceID), "SUCCESS", "PARAMEDIC");
+
 
         //Dispatched paramedic nurse
         List<Nurse> paramedicNurses = new ArrayList<Nurse>();
         String nurseID = InputValidator.getValidStringInput("Enter dispatched paramedic nurse ID: ");
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "ENTER PARAMEDIC ID",nurseID, "SUCCESS", "PARAMEDIC");
+
         Nurse paramedicNurse = UserController.checkParamedicNurse(nurseID);
         paramedicNurses.add(paramedicNurse);
         AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "CREATE NEW DISPATCH CASE", patient.getId(), "SUCCESS", "PARAMEDIC");
@@ -115,12 +125,14 @@ public class ParamedicMenu extends UiBase {
         while (addMoreStaff) {
             System.out.print("------------ Select Option ------------\n 1. Add more member\n 2. End\n");
             choice = InputValidator.getValidIntInput("Enter your choice: ");
+            AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "SELECTING MORE CHOICES",String.valueOf(caseID), "SUCCESS", "PARAMEDIC");
 
             if (choice == 2) {
                 addMoreStaff = false;
             } else {
                 // Get staff ID with validation
                 nurseID = InputValidator.getValidStringInput("Enter dispatched paramedic nurse ID: ");
+                AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "ENTER PARAMEDIC ID",nurseID, "SUCCESS", "PARAMEDIC");
                 paramedicNurse= UserController.checkParamedicNurse(nurseID);
                 paramedicNurses.add(paramedicNurse);
             }
@@ -130,6 +142,7 @@ public class ParamedicMenu extends UiBase {
         System.out.print(
                 "------------ Select Option ------------\n 1. Add special equipment\n 2. End\n");
         choice = InputValidator.getValidIntInput("Enter your choice: ");
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "SELECTING MORE CHOICES",String.valueOf(caseID), "SUCCESS", "PARAMEDIC");
 
         List<String> equipmentList = new ArrayList<>();
         boolean addEquipment = false;
@@ -138,15 +151,19 @@ public class ParamedicMenu extends UiBase {
 
         while (addEquipment) {
             String equipment = InputValidator.getValidStringInput("Enter special treatment: ");
+            AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "ENTERING TREATMENT",equipment, "SUCCESS", "PARAMEDIC");
             equipmentList.add(equipment);
             System.out.print(
                     "------------ Select Option ------------\n 1. Add special equipment\n 2. End\n");
             choice = InputValidator.getValidIntInput("Enter your choice: ");
+            AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "SELECTING MORE CHOICES",String.valueOf(caseID), "SUCCESS", "PARAMEDIC");
             if (choice == 2)
                 addEquipment = false;
         }
 
         String dispatchLocation = InputValidator.getValidStringInput("Please enter the location for dispatch: ");
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "ENTERING DISPATCH LOCATION",dispatchLocation, "SUCCESS", "PARAMEDIC");
+
 
         DispatchInfo dispatchInfo = new DispatchInfo(ambulanceID, paramedicNurses, equipmentList, dispatchLocation);
 
@@ -168,6 +185,8 @@ public class ParamedicMenu extends UiBase {
         AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "VIEW ALL DISPATCH CASE", "DISPATCH CASE", "SUCCESS", "PARAMEDIC");
 
         int caseID = InputValidator.getValidIntInput("Enter case ID: ");
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "ENTER CASE ID", String.valueOf(caseID), "SUCCESS", "PARAMEDIC");
+
 
         List<EmergencyCase_Dispatch> dispatchCases = ESController.getAllDispatchCases();
         boolean found = false;
@@ -181,6 +200,7 @@ public class ParamedicMenu extends UiBase {
                     System.out.print(
                             "____Select Option____\n 0. Back\n 1. Set Dispatch Team status to arrived to patient location\n 2. Set Dispatch Team status to arrived to hospital\n");
                     int choice = InputValidator.getValidIntInput("Enter your choice: ");
+                    AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "SELECTING MORE CHOICES",String.valueOf(caseID), "SUCCESS", "PARAMEDIC");
                     switch(choice){
                         case 0:
                             refreshUi("");
@@ -240,6 +260,8 @@ public class ParamedicMenu extends UiBase {
     private void viewDispatchCases(){
         System.out.println("0. Back\n1. View ALl Dispatch Cases\n");
         int choice = InputValidator.getValidIntInput("Enter your choice: ");
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "SELECTING MORE CHOICES",String.valueOf(choice), "SUCCESS", "PARAMEDIC");
+
         switch(choice){
             case 0:
                 return;
