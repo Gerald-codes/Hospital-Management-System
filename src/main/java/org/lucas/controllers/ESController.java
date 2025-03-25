@@ -361,7 +361,7 @@ public class ESController {
                 System.out.println("6. Allergies");
                 System.out.println("7. Finish Editing");
 
-                int editChoice = InputValidator.getValidRangeIntInput("Enter the number corresponding to the field you want to edit: ", 6);
+                int editChoice = InputValidator.getValidRangeIntInput("Enter the number corresponding to the field you want to edit: ", 7);
 
                 switch (editChoice) {
                     case 1:
