@@ -43,37 +43,10 @@ public class Session implements ObjectBase {
         this.id = id;
     }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
-    public String getConnectivityIssues() {
-        return connectivityIssues;
-    }
-
-    public void setConnectivityIssues(String connectivityIssues) {
-        this.connectivityIssues = connectivityIssues;
-    }
-
     public String getZoomLink() {return zoomLink;}
-    public void setZoomLink(String zoomLink) {this.zoomLink = zoomLink;}
 
-    public SessionStatus getSessionStatus(){return sessionStatus;};
     public void setSessionStatus(SessionStatus sessionStatus){this.sessionStatus = sessionStatus;}
 
-    public LocalDateTime getEndTime(){return endTime;}
     public void setEndTime(LocalDateTime time){this.endTime= time;}
     ;
 

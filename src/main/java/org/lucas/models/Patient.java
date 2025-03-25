@@ -125,64 +125,32 @@ public class Patient extends User{
         return height;
     }
 
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
     public double getWeight() {
         return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
     }
 
     public String getBloodType() {
         return bloodType;
     }
 
-    public void setBloodType(String bloodType) {
-        this.bloodType = bloodType;
-    }
-
     public String getHouseAddress() {
         return houseAddress;
-    }
-
-    public void setHouseAddress(String houseAddress) {
-        this.houseAddress = houseAddress;
     }
 
     public int getEmergencyContactNumber() {
         return emergencyContactNumber;
     }
 
-    public void setEmergencyContactNumber(int emergencyContactNumber) {
-        this.emergencyContactNumber = emergencyContactNumber;
-    }
-
     public String getOccupation() {
         return occupation;
-    }
-
-    public void setOccupation(String occupation) {
-        this.occupation = occupation;
     }
 
     public String getEthnicity() {
         return ethnicity;
     }
 
-    public void setEthnicity(String ethnicity) {
-        this.ethnicity = ethnicity;
-    }
-
     public String getHealthcareDepartment() {
         return healthcareDepartment;
-    }
-
-    public void setHealthcareDepartment(String healthcareDepartment) {
-        this.healthcareDepartment = healthcareDepartment;
     }
 
     // Getters and Setters for all attributes
@@ -224,53 +192,11 @@ public class Patient extends User{
     public String getDateOfBirth() { return this.dateOfBirth; }
 
     /**
-     * Sets the date of birth for the patient.
-     *
-     * @param dateOfBirth the LocalDate representing the patient's date of birth.
-     */
-    public void setDateOfBirth(String dateOfBirth) { this.dateOfBirth = dateOfBirth; }
-
-    /**
-     * Retrieves the name of the doctor assigned to the patient.
-     *
-     * @return the assigned doctor's name as a String.
-     */
-    public String getAssignedDoctor() { return this.assignedDoctor; }
-
-    /**
-     * Sets the name of the doctor assigned to the patient.
-     *
-     * @param assignedDoctor the name of the assigned doctor to be set.
-     */
-    public void setAssignedDoctor(String assignedDoctor) { this.assignedDoctor = assignedDoctor; }
-
-    /**
-     * Retrieves the name of the nurse assigned to the patient.
-     *
-     * @return the assigned nurse's name as a String.
-     */
-    public String getAssignedNurse() { return this.assignedNurse; }
-
-    /**
-     * Sets the name of the nurse assigned to the patient.
-     *
-     * @param assignedNurse the name of the assigned nurse to be set.
-     */
-    public void setAssignedNurse(String assignedNurse) { this.assignedNurse = assignedNurse; }
-
-    /**
      * Retrieves patient-specific factors that might influence care.
      *
      * @return the patient-specific factors as a String.
      */
     public String getPatientSpecificFactor() { return this.patientSpecificFactor; }
-
-    /**
-     * Sets patient-specific factors that might influence care.
-     *
-     * @param patientSpecificFactor the patient-specific factors to be set.
-     */
-    public void setPatientSpecificFactor(String patientSpecificFactor) { this.patientSpecificFactor = patientSpecificFactor; }
 
 
     /**
@@ -389,7 +315,7 @@ public class Patient extends User{
     }
 
     public void setPatientConsent(PatientConsent patientConsent) {
-        PatientConsent patientconsent = new PatientConsent(true,"");
+        this.patientConsent = patientConsent;
     }
 
     public void updatePatientVitalSigns(double temperature, int heartRate, int systolic, int diastolic, int respiratoryRate){

@@ -36,6 +36,11 @@ public class ESController {
 
 
 
+    /**
+     * Adds an emergency case to the list of all cases.
+     *
+     * @param emergencyCase The emergency case to be added.
+     */
     public static void addEmergencyCases(EmergencyCase emergencyCase){
         allCases.add(emergencyCase);
     }
@@ -45,6 +50,11 @@ public class ESController {
 //        emergencyCases.sort(): //sort by triage level
 //    }
 
+    /**
+     * Adds a new emergency case dispatch to the list of all cases, if it's not a duplicate.
+     *
+     * @param newCase_Dispatch The new emergency case dispatch to be added.
+     */
     public static void addEmergencyCaseDispatch(EmergencyCase_Dispatch newCase_Dispatch) {
         if (!allCases.contains(newCase_Dispatch)) {
             allCases.add(newCase_Dispatch); // add the new case dispatch
@@ -57,6 +67,9 @@ public class ESController {
 
     }
 
+    /**
+     * Prints all emergency cases that are currently in the emergency room waiting room.
+     */
     public static void printAllEmergencyCaseInWaitingRoom() {
         // Filter and print all emergency cases in the Waiting Room
         for (EmergencyCase emergencyCase : allCases) {
@@ -66,6 +79,9 @@ public class ESController {
         }
     }
 
+    /**
+     * Prints all emergency cases that have been completed (status DONE) and are in the triage room.
+     */
     public static void printAllDoneEmergencyCaseInTriageRoom() {
         // Filter and print all emergency cases in the Triage Room
         for (EmergencyCase emergencyCase : allCases) {
@@ -76,6 +92,9 @@ public class ESController {
         }
     }
 
+    /**
+     * Prints all emergency cases that are currently in the examination room.
+     */
     public static void printAllEmergencyCaseInExaminationRoom() {
         // Filter and print all emergency cases in the Examination Room
         for (EmergencyCase emergencyCase : allCases) {
@@ -85,6 +104,9 @@ public class ESController {
         }
     }
 
+    /**
+     * Prints all emergency cases, regardless of their location or status.
+     */
     public static void printAllEmergencyCase() {
         if (allCases.isEmpty()) {
             System.out.println("No emergency cases available.");
@@ -99,7 +121,10 @@ public class ESController {
         }
     }
 
-    public static void loadEmergencyCaseFromFile() {
+    /**
+     * Loads emergency cases from a file.
+     */
+    public static void  loadEmergencyCaseFromFile() {
         allCases.clear();
         StringBuilder sb = new StringBuilder();
         String basePath = "";
@@ -117,7 +142,7 @@ public class ESController {
                 sb.append(line);
             }
 
-            System.out.println("File contents: " + sb.toString());
+            //System.out.println("File contents: " + sb.toString());
 
             Type listType = new TypeToken<List<EmergencyCase>>() {
             }.getType();
@@ -128,6 +153,9 @@ public class ESController {
         }
     }
 
+    /**
+     * Saves all emergency cases to a file.
+     */
     public static void saveEmergencyCasesToFile() {
         String basePath = "";
 
@@ -157,6 +185,12 @@ public class ESController {
         }
     }
 
+    /**
+     * Selects an emergency case by its ID.
+     *
+     * @param caseID The ID of the emergency case to select.
+     * @return The selected emergency case, or null if no case with the given ID is found.
+     */
     public static EmergencyCase selectCase(int caseID){
         for (EmergencyCase emergencyCase : allCases) {
 
@@ -167,6 +201,13 @@ public class ESController {
         return null;
     }
 
+    /**
+     * Performs the initial screening for an emergency case, typically done by a nurse.
+     * This involves collecting the patient's triage level, vital signs, and allergies.
+     * The method prompts for user input and allows for editing of the entered information.
+     *
+     * @param emergencyCase The emergency case to be screened.
+     */
     public static void nurseInitialScreening(EmergencyCase emergencyCase) {
         // Print all TriageLevel enum values and prompt the user to choose one
         System.out.println("======= Select Patient's Triage Level =======");
@@ -307,6 +348,9 @@ public class ESController {
 //        }
 //    }
 
+    /**
+     * Displays the options available to a doctor when interacting with a patient's case.
+     */
     public static void showDoctorPatientOption(){
         System.out.println("\n===== Doctor Options =====");
         System.out.println("1. Update Patient Vital Signs");
@@ -316,6 +360,14 @@ public class ESController {
         System.out.println("0. Back");
     }
 
+    /**
+     * Updates the vital signs of a patient. This method is intended to be used by a doctor
+     * to update a patient's vital signs record. (Currently commented out)
+     *
+     * @param patient      The patient whose vital signs are to be updated.
+     * @param doctor       The doctor performing the update.
+     * @param auditManager The audit manager to log the action.
+     */
     public static void updatePatientVitalSigns(Patient patient, Doctor doctor, AuditManager auditManager) {
 //        System.out.println("========== Update Patient Vital Signs ==========");
 //        System.out.println("Printing " + patient.getPatientName() + "'s current vital signs...");

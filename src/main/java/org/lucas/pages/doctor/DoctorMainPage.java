@@ -38,12 +38,12 @@ public class DoctorMainPage extends UiBase {
         lv.addItem(new TextView(this.canvas, "1. View List of Patient - To view patient information ", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "2. View Appointment - To view new / scheduled appointments for teleconsultation ", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "3. Feedback Mechanism - Provide your feedback on Clinical Guidelines  ", Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "4. Locations - View the locations of doctor ", Color.GREEN));
 
         lv.attachUserInput("View List of Patient", str -> ToPage(new PatientInfoPage()));
         lv.attachUserInput("View Appointment", str -> ToPage(new ViewAppointmentsPage()));
         lv.attachUserInput("Feedback Mechanism", str -> ToPage(new FeedbackPage()));
         lv.attachUserInput("Locations", str -> ToPage(new DoctorLocationPage()));
-
 
         canvas.setRequireRedraw(true);
     }

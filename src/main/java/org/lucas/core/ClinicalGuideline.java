@@ -27,8 +27,6 @@ public class ClinicalGuideline {
     private String followUpRecommendation;          // Follow-up recommendations based on the guideline
     private String priorityLevel;
 
-    // Priority level of the guideline
-
     /**
      * Constructs a ClinicalGuideline object with all fields.
      *
@@ -414,9 +412,6 @@ public class ClinicalGuideline {
                 "www.placeholder-url.com/pneumonia-guideline", "08-05-2023",
                 "Start with empirical antibiotics (ceftriaxone) and adjust based on cultures. Oxygen therapy may be required in severe cases.", "CRITICAL"
         ));
-
-
-
         return clinicalGuidelines;
     }
 

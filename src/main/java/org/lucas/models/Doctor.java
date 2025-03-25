@@ -49,28 +49,9 @@ public class Doctor extends User implements ObjectBase {
                 '}';
     }
 
-    public String getSpecialisation() {return specialisation;}
-
-    public void setSpecialisation(String specialisation) {this.specialisation = specialisation;}
-
     public DoctorType getType() {return type;}
 
     public void setType(DoctorType type) {this.type = type;}
-
-    public String getLicenseNumber() {return licenseNumber;}
-
-    public void setLicenseNumber(String licenseNumber) {this.licenseNumber = licenseNumber;}
-
-    public List<ClinicalGuideline> getClinicalGuidelines() { return new ArrayList<>(this.clinicalGuidelines); }
-
-    public void setClinicalGuidelines(List<ClinicalGuideline> clinicalGuidelines) {
-        this.clinicalGuidelines.clear();
-        this.clinicalGuidelines.addAll(clinicalGuidelines);
-    }
-
-    public void diagnosePatient(Patient patient, String diagnosis) {
-        throw new UnsupportedOperationException("You do not have permission to diagnose patients.");
-    }
 
     @Override
     public boolean equals(Object o) {

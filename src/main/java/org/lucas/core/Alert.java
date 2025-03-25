@@ -46,7 +46,6 @@ public class Alert {
         this.overrideReason = overrideReason;
     }
 
-
     /**
      * Gets the alert ID.
      *

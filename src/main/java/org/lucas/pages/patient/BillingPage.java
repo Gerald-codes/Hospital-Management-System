@@ -1,6 +1,7 @@
 package org.lucas.pages.patient;
 
 import org.lucas.Globals;
+import org.lucas.audit.AuditManager;
 import org.lucas.controllers.UserController;
 import org.lucas.models.Appointment;
 import org.lucas.models.enums.AppointmentStatus;
@@ -35,6 +36,7 @@ public class BillingPage extends UiBase {
                     System.out.println("Processing payment (simulated)...");
                     selectedAppointment.getBilling().setPaid(true);
                     Globals.appointmentController.saveAppointmentsToFile();
+                    AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "PAID BILL", "SYSTEM", "SUCCESS", "PATIENT");
                     System.out.println("Payment success!!");
                     System.out.println("Press Enter to exit...");
                     Scanner scanner = new Scanner(System.in);
@@ -44,11 +46,13 @@ public class BillingPage extends UiBase {
                 case 2:
                     System.out.println("Viewing appointment summary...");
                     ViewAppointmentSummaryPage.setAppointment(selectedAppointment);
+                    AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "VIEWED APPOINTMENT SUMMARY", "SYSTEM", "SUCCESS", "PATIENT");
                     ToPage(new ViewAppointmentSummaryPage());
                     break;
                 case 3:
                     System.out.println("Generating Itemised Bill...");
                     String bill = selectedAppointment.getBilling().generateBillString();
+                    AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "GENERATED BILL", "SYSTEM", "SUCCESS", "PATIENT");
                     System.out.println(bill);
                     System.out.println("Press Enter to exit...");
                     scanner = new Scanner(System.in);

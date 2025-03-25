@@ -1,5 +1,4 @@
 package org.lucas.controllers;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import com.google.gson.reflect.TypeToken;
@@ -16,8 +15,6 @@ import java.lang.reflect.Type;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Random;
 
 /**
@@ -43,38 +40,6 @@ public class MedicationController {
         }
         return new ArrayList<>(availableMedication); // Return a *copy*
     }
-    /**
-     * Prints a list of all available medicines to the console, All Attributes.
-     * This method is for Pharmacist to see .
-     */
-
-
-    /**
-     * Prints a list of all available medicines to the console, including their names and prices.
-     * This method is primarily for diagnostic and user interface purposes.
-     */
-
-    public static void printAllMedications() {
-        System.out.println("All Medications:");
-        for (Medication medications : availableMedication) {
-            System.out.println("\n=======================================");
-            System.out.println("          MEDICATION DETAILS           ");
-            System.out.println("=======================================");
-            System.out.printf("%-25s: %s%n", "Medication Name", medications.getMedicationName());
-            System.out.printf("%-25s: %s%n", "Medication ID", medications.getMedicationId());
-            System.out.printf("%-25s: %s%n", "Clinical Guideline ID", medications.getGuidelineId());
-            System.out.printf("%-25s: %s%n", "Dosage", medications.getDosage());
-            System.out.printf("%-25s: %s%n", "Side Effects", medications.getSideEffects());
-            System.out.printf("%-25s: %s%n", "Brand Name", medications.getBrandName());
-            System.out.printf("%-25s: %d units%n", "Stock Available", medications.getStockAvailable());
-            System.out.printf("%-25s: %s%n", "Controlled Substance", medications.isControlledSubstance() ? "Yes" : "No");
-            System.out.printf("%-25s: %s%n", "Manufacturer", medications.getManufactureName());
-            System.out.printf("%-25s: %s%n", "Batch Number", medications.getBatchNumber());
-            System.out.printf("%-25s: %s%n", "Manufacture Date", medications.getManufactureDate());
-            System.out.printf("%-25s: %s%n", "Expiry Date", medications.getExpiryDate());
-            System.out.println("=======================================\n");
-        }
-    }
 
     /**
      * Finds a medicine by its name.  This method searches the list of available
@@ -96,7 +61,43 @@ public class MedicationController {
         }
         return null; // Return null if not found.
     }
+    /**
+     * Finds a medicine by its ID.  This method searches the list of available
+     * medicines and returns the first medicine that matches the given ID.
+     *
+     * @param id The id of the medicine to search for.
+     * @return The {@code Medicine} object if found, or {@code null} if no medicine
+     * with the given name is found.
+     */
+    public static Medication findAvailableMedicationByID(String id) {
+        if (availableMedication.isEmpty()) {
+            loadMedicationFromFile();
+        }
 
+        for (Medication medication : availableMedication) {
+            if (medication != null && medication.getMedicationId() != null && medication.getMedicationId().equalsIgnoreCase(id)) {
+                return medication;
+            }
+        }
+        return null; // Return null if not found.
+    }
+    /**
+     * Finds the latest medicine ID. This method searches the list of available
+     * medicines and returns the latest medicine ID.
+     */
+    public static String getLatestMedicationId() {
+        if (availableMedication.isEmpty()) {
+            loadMedicationFromFile();
+        }
+        //Initialize variable
+        String latestMedicationId = "";
+        for (Medication medication : availableMedication) {
+            if (medication.getMedicationId().compareTo(latestMedicationId) > 0) {
+                latestMedicationId = medication.getMedicationId();
+            }
+        }
+        return latestMedicationId;
+    }
     /**
      * Loads the list of available medicines from the (medicines.json) file.
      * This method uses Gson to deserialize the JSON data into a list of (Medicine) objects.
@@ -187,66 +188,23 @@ public class MedicationController {
         saveMedicationToFile();
     }
 
-    private static List<Medication> medication = new ArrayList<>();
-    private static final String medicationFileName = "medication.txt";
-
-    private void loadMedicationsFromFile(){
-        medication.clear();
-        //first load the patients
-        StringBuilder sb = new StringBuilder();
-
-        // get the jar location
-        String basePath = "";
-        try {
-            basePath = JarLocation.getJarDirectory();
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-        try (BufferedReader br = Files.newBufferedReader(Paths.get(basePath, medicationFileName))) {
-            String line;
-            while((line = br.readLine()) != null){
-                sb.append(line);
-            }
-            Type listType = new TypeToken<List<Medication>>() {}.getType();
-            medication.addAll(Util.fromJsonString(sb.toString(), listType));
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-    public List<Medication> getMedication(){
-        if(medication.isEmpty()){
-            loadMedicationsFromFile();
-        }
-        // get the users which are instanceof patient, then map and cast them all to Patients
-        return medication.stream().filter(med -> med instanceof Medication).map(med -> (Medication) med).toList();
-    }
-    public static List<Medication> generateRandomMedications(List<Medication> availableMedications){
-        Set<Medication> selectedMedications = new HashSet<>();
-        Random random = new Random();
-        int numToSelect = random.nextInt(3) + 1; // Randomly pick 1 to 3
-
-        while (selectedMedications.size() < numToSelect) {
-            Medication randomMed = availableMedications.get(random.nextInt(availableMedications.size()));
-            selectedMedications.add(randomMed);  // Ensures no duplicates
-        }
-
-        return new ArrayList<>(selectedMedications);
-    }
-
-    public static Medication findAvailableMedicationByID(String id) {
-        if (availableMedication.isEmpty()) {
-            loadMedicationFromFile();
-        }
-
-        for (Medication medication : availableMedication) {
-            if (medication != null && medication.getMedicationId() != null && medication.getMedicationId().equalsIgnoreCase(id)) {
-                return medication;
-            }
-        }
-        return null; // Return null if not found.
-    }
-
+    /**
+     * Adds a new medication to the list of available medications and saves the updated list to file.
+     *
+     * @param medicationName      The name of the medication.
+     * @param guidelineId         The ID of the clinical guideline associated with the medication.
+     * @param medicationId        The unique ID of the medication.
+     * @param dosage              The dosage instructions for the medication.
+     * @param sideEffects         The potential side effects of the medication.
+     * @param brandName           The brand name of the medication.
+     * @param stockAvailable      The current stock level of the medication.
+     * @param controlledSubstance Indicates whether the medication is a controlled substance.
+     * @param manufactureName     The name of the medication's manufacturer.
+     * @param batchNumber         The batch number of the medication.
+     * @param manufactureDate     The manufacturing date of the medication.
+     * @param expiryDate          The expiry date of the medication.
+     * @param price               The price of the medication.
+     */
     //add to availableMedication list
     public static void addNewMedication(String medicationName, String guidelineId, String medicationId, String dosage, String sideEffects, String brandName, int stockAvailable, boolean controlledSubstance, String manufactureName, String batchNumber, String manufactureDate, String expiryDate, double price) {
         Medication newMedication = new Medication(medicationName, guidelineId, medicationId, dosage, sideEffects, brandName, stockAvailable, controlledSubstance, manufactureName, batchNumber, manufactureDate, expiryDate, price);
@@ -254,6 +212,11 @@ public class MedicationController {
         saveMedicationToFile();
     }
 
+    /**
+     * Retrieves the latest guideline ID from the list of available medications.
+     *
+     * @return The latest guideline ID.
+     */
     public static String getLatestGuidelineId() {
         if (availableMedication.isEmpty()) {
             loadMedicationFromFile();
@@ -267,22 +230,11 @@ public class MedicationController {
         return latestGuidelineId;
     }
 
-
-    public static String getLatestMedicationId() {
-        if (availableMedication.isEmpty()) {
-            loadMedicationFromFile();
-        }
-
-        //Initialize variable
-        String latestMedicationId = "";
-        for (Medication medication : availableMedication) {
-            if (medication.getMedicationId().compareTo(latestMedicationId) > 0) {
-                latestMedicationId = medication.getMedicationId();
-            }
-        }
-        return latestMedicationId;
-    }
-
+    /**
+     * Retrieves the latest batch number from the list of available medications.
+     *
+     * @return The latest batch number.
+     */
     public static String getLatestBatchNumber() {
         if (availableMedication.isEmpty()) {
             loadMedicationFromFile();
@@ -298,6 +250,9 @@ public class MedicationController {
         return latestBatchNumber;
     }
 
+    /**
+     * Collects user input for adding a new medication and adds it to the list of available medications.
+     */
     // Method to collect user input and add a new medication to the list of available medications
     public static void collectUserInputAndAddMedication() {
         Scanner scan = new Scanner(System.in);
@@ -344,7 +299,9 @@ public class MedicationController {
         addNewMedication(medicationName, guidelineId, medicationID, dosage, sideEffects, brandName, stockAvailable, controlledSubstance, manufactureName, batchNumber, manufactureDate, expiryDate, medicationPrice);
     }
 
-
+    /**
+     * Removes a specified amount of stock from a medication.
+     */
     //method to remove stock from total stock
     public static void removeStockfromMedication(){
         Scanner scan = new Scanner(System.in);
@@ -371,13 +328,15 @@ public class MedicationController {
         else {
             System.out.println("Invalid amount given. Please enter a valid amount that can be deducted from the total" + currentStock);
         }
-
-
     }
 
 
 
 
+    /**
+     * Edits the details of a specific medication identified by its ID.
+     * Allows modification of various attributes such as name, dosage, side effects, etc.
+     */
     public static void editMedicineDetails(){
         Scanner scan = new Scanner(System.in);
 
@@ -468,6 +427,11 @@ public class MedicationController {
     }
 
 
+    /**
+     * Prints the details of a given medication in a formatted manner.
+     *
+     * @param medication The medication whose details are to be printed.
+     */
     private static void printMedicationDetails(Medication medication) {
         System.out.println("\n=======================================");
         System.out.println("          MEDICATION DETAILS           ");
@@ -487,9 +451,19 @@ public class MedicationController {
         System.out.println("=======================================\n");
     }
 
+    /**
+     * Retrieves the medication ID.
+     *
+     * @return The medication ID.
+     */
     public static String getMedicationID() {
         return medicationID;
     }
+    /**
+     * Retrieves the second medication ID.
+     *
+     * @return The second medication ID.
+     */
     public static String getMedicationID1() {
         return medicationID1;
     }

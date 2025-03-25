@@ -3,24 +3,17 @@ package org.lucas.pages.doctor;
 import org.lucas.controllers.UserController;
 import org.lucas.models.enums.UserType;
 import org.lucas.ui.framework.Color;
-import org.lucas.ui.framework.TextStyle;
 import org.lucas.ui.framework.UiBase;
 import org.lucas.ui.framework.View;
 import org.lucas.ui.framework.views.ListView;
-import org.lucas.ui.framework.views.TextView;
 import org.lucas.core.ClinicalGuideline;
 import org.lucas.core.SharedMethod;
 import org.lucas.util.InputValidator;
-import org.lucas.models.*;
 import org.lucas.util.TextSplitter;
 import org.lucas.audit.*;
 
 
 import java.util.List;
-
-
-import static org.lucas.controllers.UserController.getActiveDoctor;
-
 
 /** Represents the main page of the Telemedicine Integration System.
  * This page displays a menu of options for the user to navigate to different sections of the application.
@@ -63,7 +56,6 @@ public class FeedbackPage extends UiBase {
     }
 
     public void createFeedbackMechanism(List<ClinicalGuideline> clinicalGuidelines) {
-        AuditManager auditManager = new AuditManager();
         String activeUserId;
         String activeUserName;
 
@@ -100,7 +92,7 @@ public class FeedbackPage extends UiBase {
                 matchClinicalGuideline.saveFeedbackToFile(feedback);
 
                 System.out.println("✅ Thank you for your feedback! It has been successfully recorded.");
-                auditManager.logAction(activeUserId, "Feedback given", "Guideline ID: " + selectedClinicalID, "Patient Feedback Administered", activeUserName);
+                AuditManager.getInstance().logAction(activeUserId, "Feedback given", "Guideline ID: " + selectedClinicalID, "Patient Feedback Administered", activeUserName);
                 ToPage(new DoctorMainPage());
                 break;  // Exit feedback loop after successful submission
             }

@@ -26,7 +26,6 @@ public class NursePatientActionsPage extends UiBase {
     private ListView listView;
     private static List<ClinicalGuideline> clinicalGuidelines = List.copyOf(ClinicalGuideline.generateClinicalGuideLine());
     final private static List<Alert> alertList = List.copyOf(Alert.generateAlert());
-    private AuditManager auditManager = new AuditManager();
     public static void setPatient(Patient p) {
         patient = p;
     }
@@ -44,7 +43,7 @@ public class NursePatientActionsPage extends UiBase {
         Nurse nurse = UserController.getActiveNurse();
         // Attach user input handlers for each action
         lv.attachUserInput("Administer Medication", str -> {
-            showPatientMedicationHistory(nurse, patient, clinicalGuidelines, alertList, auditManager);
+            showPatientMedicationHistory(nurse, patient, clinicalGuidelines, alertList);
             refreshUi();
         });
 
@@ -53,7 +52,7 @@ public class NursePatientActionsPage extends UiBase {
         });
 
         lv.attachUserInput("Enter Outcome Monitoring", str -> {
-            enterOutcomeMonitoring(nurse, patient, auditManager);
+            enterOutcomeMonitoring(nurse, patient);
             refreshUi();
             canvas.setRequireRedraw(true);
         });
@@ -170,11 +169,10 @@ public class NursePatientActionsPage extends UiBase {
     }
 
     public static void administerMedication(Nurse nurse, Alert alert,
-                                            ClinicalGuideline clinicalGuideline, Patient patient,
-                                            AuditManager auditManager) {
+                                            ClinicalGuideline clinicalGuideline, Patient patient) {
         alert.displayAlertForPatient();  // Display any alerts before administration
         String outcomeResponse;
-        auditManager.logAction(nurse.getId(), "ADMINISTER MEDICATION", "Patient: " + patient.getId(), "OVERRIDDEN", "NURSE");
+        AuditManager.getInstance().logAction(nurse.getId(), "ADMINISTER MEDICATION", "Patient: " + patient.getId(), "OVERRIDDEN", "NURSE");
         while (true) {
             int systolicBP = InputValidator.getValidIntInput("Please enter Systolic BP: ");
             if (systolicBP <= clinicalGuideline.getBloodPressureSystolicThreshHold()) {
@@ -184,7 +182,7 @@ public class NursePatientActionsPage extends UiBase {
                     systolicBP = InputValidator.getValidIntInput("Please enter Systolic BP again: ");
                     outcomeResponse = InputValidator.getValidStringWithSpaceInput("Please enter override reason: ");
                     alert.setOverrideReason(outcomeResponse);
-                    auditManager.logAction(nurse.getId(), "USER ENTERED:" + outcomeResponse, "Override reason", "SUCCESS", "NURSE");
+                    AuditManager.getInstance().logAction(nurse.getId(), "USER ENTERED:" + outcomeResponse, "Override reason", "SUCCESS", "NURSE");
                 } else {
                     return;  // Abort medication administration if override is not approved
                 }
@@ -196,7 +194,7 @@ public class NursePatientActionsPage extends UiBase {
             return;  // Exit after successful medication administration
         }
     }
-    public static void enterOutcomeMonitoring(Nurse nurse, Patient patient, AuditManager auditManager) {
+    public static void enterOutcomeMonitoring(Nurse nurse, Patient patient) {
         System.out.println("\nEnter outcome monitoring for patient: " + patient.getName());
 
         List<Medication> medicationList = patient.getMedications();  // Get the list of prescribed medications
@@ -217,15 +215,14 @@ public class NursePatientActionsPage extends UiBase {
                 "Enter patient's response after medication (e.g., Improved, Unchanged, Side Effects): ");
         nurse.updateOutcomeMonitoring(patient, selectedMedication.getMedicationName(), outcomeResponse);  // Update outcome
 
-        auditManager.logAction(nurse.getId(), "ENTER OUTCOME MONITORING", "Patient: " + patient.getId() + "'s outcome monitoring", "SUCCESS", "NURSE");
-        auditManager.logAction(nurse.getId(), "USER ENTERED:" + outcomeResponse, "Patient: " + patient.getId() + "'s outcome monitoring", "SUCCESS", "NURSE");
+        AuditManager.getInstance().logAction(nurse.getId(), "ENTER OUTCOME MONITORING", "Patient: " + patient.getId() + "'s outcome monitoring", "SUCCESS", "NURSE");
+        AuditManager.getInstance().logAction(nurse.getId(), "USER ENTERED:" + outcomeResponse, "Patient: " + patient.getId() + "'s outcome monitoring", "SUCCESS", "NURSE");
     }
 
     public static void showPatientMedicationHistory(Nurse nurse, Patient patient,
-                                                    List<ClinicalGuideline> clinicalGuidelines, List<Alert> alerts,
-                                                    AuditManager auditManager) {
+                                                    List<ClinicalGuideline> clinicalGuidelines, List<Alert> alerts) {
         List<Medication> medicationHistory = patient.getMedications();  // Get medication history
-        auditManager.logAction(nurse.getId(), "VIEW MEDICATION HISTORY", "Patient: " + patient.getId(), "SUCCESS", "NURSE");
+        AuditManager.getInstance().logAction(nurse.getId(), "VIEW MEDICATION HISTORY", "Patient: " + patient.getId(), "SUCCESS", "NURSE");
 
         for (Medication med : medicationHistory) {
             med.displayPatientMedication();  // Display each medication
@@ -240,21 +237,23 @@ public class NursePatientActionsPage extends UiBase {
             // Check for medication alerts
             Alert matchedAlert = SharedMethod.findAlertByID(alerts, med.getGuidelineId());
             if (matchedAlert != null && matchedGuideline != null) {
-                administerMedication(nurse, matchedAlert, matchedGuideline, patient, auditManager);  // Administer medication
+                administerMedication(nurse, matchedAlert, matchedGuideline, patient);  // Administer medication
                 nurse.setPatientAlertHistory(patient, matchedAlert);  // Log the alert history
             }
-            askNurseMedicationConfirmation();  // Confirm medication administration
+            askNurseMedicationConfirmation(patient);  // Confirm medication administration
         }
     }
-    public static void askNurseMedicationConfirmation() {
+    public static void askNurseMedicationConfirmation(Patient patient) {
         while (true) {
             String response = InputValidator.getValidStringInput("\nHas this medication been administered? (yes/no): ");
             switch (response.toLowerCase()) {
                 case "yes" -> {
+                    AuditManager.getInstance().logAction(UserController.getActiveNurse().getNurseID(), "MEDICATION ADMINISTERED", patient.getId(),"SUCCESS", "NURSE");
                     System.out.println("✅ Medication has been administered.");
                     return;
                 }
                 case "no" -> {
+                    AuditManager.getInstance().logAction(UserController.getActiveNurse().getNurseID(), "MEDICATION NOT ADMINISTERED", patient.getId(),"FAILED", "NURSE");
                     System.out.println("❌ Medication not administered. Moving to the next one.");
                     return;
                 }

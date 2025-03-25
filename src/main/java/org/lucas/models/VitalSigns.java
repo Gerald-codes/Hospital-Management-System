@@ -42,30 +42,12 @@ public class VitalSigns {
     }
 
     /**
-     * Gets the body temperature.
-     *
-     * @return the current body temperature in degrees Celsius.
-     */
-    public double getTemperature() {
-        return temperature;
-    }
-
-    /**
      * Sets the body temperature.
      *
      * @param temperature the body temperature to set, in degrees Celsius.
      */
     public void setTemperature(double temperature) {
         this.temperature = temperature;
-    }
-
-    /**
-     * Gets the heart rate.
-     *
-     * @return the current heart rate in beats per minute (BPM).
-     */
-    public int getHeartRate() {
-        return heartRate;
     }
 
     /**
@@ -78,15 +60,6 @@ public class VitalSigns {
     }
 
     /**
-     * Gets the systolic blood pressure.
-     *
-     * @return the current systolic blood pressure in mmHg.
-     */
-    public int getBloodPressureSystolic() {
-        return bloodPressureSystolic;
-    }
-
-    /**
      * Sets the systolic blood pressure.
      *
      * @param systolic the systolic blood pressure to set, in mmHg.
@@ -96,30 +69,12 @@ public class VitalSigns {
     }
 
     /**
-     * Gets the diastolic blood pressure.
-     *
-     * @return the current diastolic blood pressure in mmHg.
-     */
-    public int getBloodPressureDiastolic() {
-        return bloodPressureDiastolic;
-    }
-
-    /**
      * Sets the diastolic blood pressure.
      *
      * @param diastolic the diastolic blood pressure to set, in mmHg.
      */
     public void setBloodPressureDiastolic(int diastolic) {
         this.bloodPressureDiastolic = diastolic;
-    }
-
-    /**
-     * Gets the respiratory rate.
-     *
-     * @return the current respiratory rate in breaths per minute.
-     */
-    public int getRespiratoryRate() {
-        return respiratoryRate;
     }
 
     public void setRespiratoryRate(int respiratoryRate) {
