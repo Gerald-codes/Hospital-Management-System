@@ -31,7 +31,7 @@ public class NurseEmergencyMenuPage extends UiBase {
         listView.addItem(new TextView(this.canvas, "1. Create New Emergency Case - To enter and proceed with Action  ", Color.GREEN));
         listView.addItem(new TextView(this.canvas, "2. Locations - To enter and proceed with Action  ", Color.GREEN));
 //        listView.addItem(new TextView(this.canvas, "3. View Dispatch Menu", Color.GREEN));
-        listView.addItem(new TextView(this.canvas, "4. View All Emergency Cases", Color.GREEN));
+        listView.addItem(new TextView(this.canvas, "3. View All Emergency Cases", Color.GREEN));
         return listView;
     }
 
@@ -126,8 +126,7 @@ public class NurseEmergencyMenuPage extends UiBase {
         listView.setTitleHeader("Nurse Emergency Menu");
         listView.addItem(new TextView(this.canvas, "1. Create New Emergency Case - To enter and proceed with Action  ", Color.GREEN));
         listView.addItem(new TextView(this.canvas, "2. Locations - To enter and proceed with Action  ", Color.GREEN));
-        listView.addItem(new TextView(this.canvas, "3. View Dispatch Menu", Color.GREEN));
-        listView.addItem(new TextView(this.canvas, "4. View All Emergency Cases", Color.GREEN));
+        listView.addItem(new TextView(this.canvas, "3. View All Emergency Cases", Color.GREEN));
         listView.addItem(new TextView(this.canvas, string, Color.GREEN));
 
         canvas.setRequireRedraw(true);

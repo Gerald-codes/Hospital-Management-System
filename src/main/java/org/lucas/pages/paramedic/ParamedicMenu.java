@@ -35,7 +35,7 @@ public class ParamedicMenu extends UiBase {
     @Override
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
-        lv.setTitleHeader("Nurse Emergency Dispatch Menu"); // Set the title header of the list view
+        lv.setTitleHeader("Paramedic Emergency Dispatch Menu"); // Set the title header of the list view
         lv.attachUserInput("Create New Emergency Dispatch Case", str -> createNewDispatchCase());
         lv.attachUserInput("Update Active Dispatch Case Status", str -> updateDispatchStatus());
         lv.attachUserInput("View Dispatch Cases", str -> viewDispatchCases());
@@ -141,11 +141,11 @@ public class ParamedicMenu extends UiBase {
         EmergencyCase_Dispatch newDispatchCase = new EmergencyCase_Dispatch(caseID, patient, chiefComplaint, arrivalMode, patientStatus, dispatchInfo, isUrgent);
         ESController.addEmergencyCaseDispatch(newDispatchCase);
 
-        System.out.println("New Dispatch Case | Case ID: " + caseID + " | Patient Name: " + patient.getName()
+        String string = ("New Dispatch Case | Case ID: " + caseID + " | Patient Name: " + patient.getName()
                 + " | Registered successfully!\n");
         ESController.saveEmergencyDispatchCasesToFile();
 
-        ToPage(new ParamedicMenu());
+        refreshUi(string);
     }
 
 
@@ -169,15 +169,16 @@ public class ParamedicMenu extends UiBase {
                             return;
                         case 1:
                             arrivedAtLocation(dc);
+                            refreshUi("Status Updated.");
                             break;
 
                         case 2:
                             arrivedAtHospital(dc);
                             ESController.addResolvedCases(dc);
+                            refreshUi("Status Updated.");
                             break;
                         default:
-                            System.out.println("Invalid choice.");
-                            return;
+                            refreshUi("Invalid choice.");
                     }
                 }
                 break;
@@ -217,6 +218,17 @@ public class ParamedicMenu extends UiBase {
             case 2:
                 ESController.printAllDispatchCases();
         }
-        ToPage(new ParamedicMenu());
+        refreshUi("");
+    }
+
+    public void refreshUi(String string){
+        listView.clear();
+        listView.setTitleHeader("Paramedic Emergency Dispatch Menu");
+        listView.addItem(new TextView(this.canvas, "1. Create New Emergency Dispatch Case", Color.GREEN));
+        listView.addItem(new TextView(this.canvas, "2. Update Active Dispatch Case Status", Color.GREEN));
+        listView.addItem(new TextView(this.canvas, "3. View Dispatch Menu", Color.GREEN));
+        listView.addItem(new TextView(this.canvas, string, Color.GREEN));
+
+        canvas.setRequireRedraw(true);
     }
 }
