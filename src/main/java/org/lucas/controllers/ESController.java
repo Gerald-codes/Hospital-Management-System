@@ -308,6 +308,7 @@ public class ESController {
         //Display Case Detail
         emergencyCase.displayCase();
 
+        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "PROCEED WITH INITIAL SCREENING", String.valueOf(emergencyCase.getCaseID()), "ONGOING", UserController.getActiveUserType().toString());
         // Print all TriageLevel enum values and prompt the user to choose one
         System.out.println("======= Select Patient's Triage Level =======");
 
@@ -409,9 +410,13 @@ public class ESController {
             }
         } else {
             emergencyCase.setTriageLevel(selectedTriageLevel);
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "UPDATE EMERGENCY CASE TRIAGE LEVEL", String.valueOf(emergencyCase.getCaseID()), "SUCCESS", UserController.getActiveUserType().toString());
+
             Patient patient = emergencyCase.getPatient();
             patient.updatePatientVitalSigns(temperature, heartRate, bloodPressureSystolic, bloodPressureDiastolic, respiratoryRate);
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "UPDATE PATIENT VITAL SIGNS", String.valueOf(patient.getId()), "SUCCESS", UserController.getActiveUserType().toString());
             System.out.println("\nPatient Initial Screening Completed!");
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "PROCEED WITH INITIAL SCREENING", String.valueOf(emergencyCase.getCaseID()), "COMPLETED", UserController.getActiveUserType().toString());
         }
     }
 
@@ -429,6 +434,7 @@ public class ESController {
             // Display case and patient info
             emergencyCase.displayCase();
             patient.displayPatientInfo();
+            AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "PROCEED WITH DOCTOR SCREENING", String.valueOf(emergencyCase.getCaseID()), "ONGOING", "DOCTOR");
 
             // Show doctor options
             showDoctorPatientOption();
@@ -477,6 +483,8 @@ public class ESController {
      */
 
     private static void updatePatientVitalSigns(Patient patient, Doctor doctor) {
+        AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "UPDATE PATIENT VITAL SIGNS", patient.getId(), "ONGOING", "DOCTOR");
+
         System.out.println("========== Update Patient Vital Signs ==========");
         System.out.println("Printing " + patient.getName() + "'s current vital signs...");
         System.out.println(patient.getEHR().getVitalSigns().toString());  // Display current vital signs
@@ -496,9 +504,8 @@ public class ESController {
 
         // Update patient's vital signs
         patient.getEHR().setVitalSigns(new VitalSigns(temperature, hr, sysBloodPressure, diaBloodPressure, respiratory));
-
+        AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "UPDATE PATIENT VITAL SIGNS", patient.getId(), "COMPLETED", "DOCTOR");
         System.out.println(patient.getName() + "'s vital signs have been updated.");
-
     }
 
     /**
@@ -508,6 +515,8 @@ public class ESController {
      * @param doctor       The doctor performing the update.
      */
     private static void updatePatientSymptoms(Patient patient, Doctor doctor) {
+        AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "UPDATE PATIENT SYMPTOMS", patient.getId(), "ONGOING", "DOCTOR");
+
         String symptomName = InputValidator.getValidStringInput("Enter patient's symptoms: ");
         AuditManager.getInstance().logAction(doctor.getId(), "USER ENTERED: " + symptomName, "Patient: " + patient.getId() + "'s symptoms", "SUCCESS", "DOCTOR");
         int severity = InputValidator.getValidRangeIntInput("Enter symptom's severity (0-10): ", 10);
@@ -520,7 +529,7 @@ public class ESController {
         Symptoms newSymptom = new Symptoms(symptomName, severity, duration, clinicianNotes);
 
         doctor.setPatientSymptoms(newSymptom, patient);  // Update patient's symptoms
-        AuditManager.getInstance().logAction(doctor.getId(), "UPDATE SYMPTOMS", "Patient: " + patient.getId(), "SUCCESS", "DOCTOR");
+        AuditManager.getInstance().logAction(doctor.getId(), "UPDATE SYMPTOMS", patient.getId(), "SUCCESS", "DOCTOR");
     }
 
     /**
@@ -697,7 +706,7 @@ public class ESController {
                 }
 
                 doctor.prescribeMedication(patient, customMed);
-                AuditManager.getInstance().logAction(doctor.getId(), "PRESCRIBED MEDICATION", customMed.getMedicationName(), "OVERRIDDEN", "DOCTOR");
+                AuditManager.getInstance().logAction(doctor.getId(), "PRESCRIBED MEDICATION", customMed.getMedicationName(), "OVERRIDDEN", UserController.getActiveUserType().toString());
 
                 System.out.println("Medication manually prescribed: " + customMed.getMedicationName());
                 break;
@@ -780,10 +789,15 @@ public class ESController {
         int caseID;
         caseID = ESController.setCaseID();
         dc.setCaseID(caseID);
-        dc.setPatientStatus(PatientStatus.WAITING);
-        allCases.add(dc);
-        saveEmergencyCasesToFile();
 
+        dc.setPatientStatus(PatientStatus.WAITING);
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "UPDATE DISPATCH CASE PATIENT STATUS TO WAITING" , String.valueOf(dc.getCaseID()),"SUCCESS", "PARAMEDIC");
+
+        allCases.add(dc);
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "ADD DISPATCH CASE TO EMERGENCY CASE LIST" , String.valueOf(dc.getCaseID()),"SUCCESS", "PARAMEDIC");
+
+        saveEmergencyCasesToFile();
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "ADD DISPATCH CASE TO EMERGENCY CASE FILE" , String.valueOf(dc.getCaseID()),"SUCCESS", "PARAMEDIC");
     }
 
 }

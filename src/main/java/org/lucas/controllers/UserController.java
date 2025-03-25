@@ -804,7 +804,7 @@ public class UserController {
         return list != null && !list.isEmpty() ? String.join(", ", list) : "None";
     }
 
-    public static Patient checkOrCreatePatient() {
+    public static Patient checkOrCreatePatient(User user) {
         List<Patient> allPatients = getAvailablePatients();
         String patientID = ""; // Keep prompting until patientID contains "P" (ignoring case)
         while (true) {
@@ -819,6 +819,7 @@ public class UserController {
         for (Patient p : allPatients) {
             if (p.getId().equalsIgnoreCase(patientID)) {
                 System.out.println("\nExisting patient found: " + p.getName());
+                AuditManager.getInstance().logAction(user.getId(), "GET EXISTING PATIENT", patientID, "SUCCESS", UserController.getActiveUserType().toString());
                 return p;
             }
         }
@@ -826,8 +827,10 @@ public class UserController {
 // If patient does not exist, create a new one
         System.out.println("No existing patient found. Registering a new patient...");
         Patient newPatient = createEmergencyPatient(patientID);
+        AuditManager.getInstance().logAction(user.getId(), "CREATE NEW PATIENT", patientID, "SUCCESS", UserController.getActiveUserType().toString());
         allPatients.add((newPatient));
         savePatientsToFile();
+        AuditManager.getInstance().logAction(user.getId(), "SAVE PATIENT TO FILE", patientID, "SUCCESS", UserController.getActiveUserType().toString());
         return newPatient;
     }
 
@@ -903,7 +906,6 @@ public class UserController {
 
         // Create a new Patient object with the collected data
         Patient newPatient = new Patient( patientID, name, gender,  phoneNumber, electronicHealthRecord,patientConsent,alertHistory);
-
         // Output confirmation or the new patient info (you can display the patient info here as needed)
         System.out.println("New patient " + newPatient.getName() + " created!");
 

@@ -18,7 +18,6 @@ public class DoctorLocationPage extends UiBase {
     @Override
     public View OnCreateView() {
         ListView lv = new ListView(this.canvas, Color.GREEN);
-        lv.setTitleHeader("Doctor Location Menu");
         return lv;
     }
 
@@ -35,6 +34,7 @@ public class DoctorLocationPage extends UiBase {
     }
 
     public void proceedWithDoctorScreening() {
+
         EmergencyCase selectedCase = null;
         do {
             ESController.printAllDoneEmergencyCaseInTriageRoom();
@@ -44,8 +44,14 @@ public class DoctorLocationPage extends UiBase {
 
         Doctor doctor = UserController.getActiveDoctor();
         selectedCase.setAssignedDoctor(doctor);
+        AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "UPDATE ASSIGNED DOCTOR", String.valueOf(selectedCase.getCaseID()), "SUCCESS", "DOCTOR");
+
         selectedCase.setLocation(PatientLocation.EMERGENCY_ROOM_EXAMINATION_ROOM);
+        AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "UPDATE PATIENT LOCATION TO EXAMINATION ROOM", String.valueOf(selectedCase.getCaseID()), "SUCCESS", "DOCTOR");
+
         selectedCase.setPatientStatus(PatientStatus.ONGOING);
+        AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "UPDATE PATIENT STATUS TO ONGOING", String.valueOf(selectedCase.getCaseID()), "SUCCESS", "DOCTOR");
+
         ESController.doctorScreening(selectedCase);
         System.out.println("======= Update Patient's Status =======");
 

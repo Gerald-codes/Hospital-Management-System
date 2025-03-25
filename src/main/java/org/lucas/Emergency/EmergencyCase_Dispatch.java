@@ -1,5 +1,6 @@
 package org.lucas.Emergency;
 
+import org.lucas.audit.AuditManager;
 import org.lucas.models.Nurse;
 import org.lucas.models.Patient;
 import org.lucas.controllers.UserController;

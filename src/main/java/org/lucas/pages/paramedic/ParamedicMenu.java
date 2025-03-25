@@ -46,9 +46,10 @@ public class ParamedicMenu extends UiBase {
     private void createNewDispatchCase() {
         System.out.println("\n=========== Register New Emergency Case ===========");
         int caseID = ESController.setCaseID();  // Auto-incremented CaseId
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "CREATE NEW DISPATCH CASE", String.valueOf(caseID), "ONGOING", "PARAMEDIC");
 
         //Patient ID
-        Patient patient = UserController.checkOrCreatePatient();
+        Patient patient = UserController.checkOrCreatePatient(UserController.getActiveParamedic());
 
         //Cheif Complaint
         String chiefComplaint = "";
@@ -99,6 +100,7 @@ public class ParamedicMenu extends UiBase {
         String nurseID = InputValidator.getValidStringInput("Enter dispatched paramedic nurse ID: ");
         Nurse paramedicNurse = UserController.checkParamedicNurse(nurseID);
         paramedicNurses.add(paramedicNurse);
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "CREATE NEW DISPATCH CASE", patient.getId(), "SUCCESS", "PARAMEDIC");
 
         //Add more staff members
         boolean addMoreStaff = true;
@@ -139,12 +141,15 @@ public class ParamedicMenu extends UiBase {
         String dispatchLocation = InputValidator.getValidStringInput("Please enter the location for dispatch: ");
 
         DispatchInfo dispatchInfo = new DispatchInfo(ambulanceID, paramedicNurses, equipmentList, dispatchLocation);
+
         EmergencyCase_Dispatch newDispatchCase = new EmergencyCase_Dispatch(caseID, patient, chiefComplaint, arrivalMode, patientStatus, dispatchInfo, isUrgent);
         ESController.addEmergencyCaseDispatch(newDispatchCase);
-
         String string = ("New Dispatch Case | Case ID: " + caseID + " | Patient Name: " + patient.getName()
                 + " | Registered successfully!\n");
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "CREATE NEW DISPATCH CASE", String.valueOf(caseID), "COMPLETED", "PARAMEDIC");
+
         ESController.saveEmergencyDispatchCasesToFile();
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "SAVE NEW DISPATCH CASE TO FILE", String.valueOf(caseID), "SUCCESS", "PARAMEDIC");
 
         refreshUi(string);
     }
@@ -152,8 +157,10 @@ public class ParamedicMenu extends UiBase {
 
     private void updateDispatchStatus() {
         ESController.printAllDispatchCases();
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "VIEW ALL DISPATCH CASE", "DISPATCH CASE", "SUCCESS", "PARAMEDIC");
 
         int caseID = InputValidator.getValidIntInput("Enter case ID: ");
+
         List<EmergencyCase_Dispatch> dispatchCases = ESController.getAllDispatchCases();
         boolean found = false;
         for (EmergencyCase_Dispatch dc : dispatchCases) {
@@ -170,13 +177,13 @@ public class ParamedicMenu extends UiBase {
                             return;
                         case 1:
                             arrivedAtLocation(dc);
-                            refreshUi("Status Updated.");
+                            refreshUi("Status updated to arrived at location.");
                             break;
 
                         case 2:
                             arrivedAtHospital(dc);
                             ESController.addResolvedCases(dc);
-                            refreshUi("Status Updated.");
+                            refreshUi("Dispatch case completed, added to emergency case.");
                             break;
                         default:
                             refreshUi("Invalid choice.");
@@ -191,20 +198,31 @@ public class ParamedicMenu extends UiBase {
     private void arrivedAtLocation(EmergencyCase_Dispatch dispatchCase){
         // update dispatch arrival time
         dispatchCase.setDispatchTeamArrivalTime(LocalDateTime.now());
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "UPDATE DISPATCH CASE ARRIVAL TIME" , String.valueOf(dispatchCase.getCaseID()),"SUCCESS", "PARAMEDIC");
+
         ESController.nurseInitialScreening(dispatchCase);
+
         //didnt include the staff member selection part because the paramedic nurse for each dispatch case is already a staff member
         dispatchCase.setPatientStatus(PatientStatus.ONDISPATCHED);
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "UPDATE DISPATCH CASE PATIENT STATUS TO ONDISPATCHED" , String.valueOf(dispatchCase.getCaseID()),"SUCCESS", "PARAMEDIC");
         //save the case
         ESController.saveEmergencyDispatchCasesToFile();
-        ToPage(new ParamedicMenu());
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "SAVE DISPATCH CASE TO FILE" , String.valueOf(dispatchCase.getCaseID()),"SUCCESS", "PARAMEDIC");
     }
 
     private void arrivedAtHospital(EmergencyCase_Dispatch dispatchCase){
         dispatchCase.setPatientStatusToArrived();
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "UPDATE DISPATCH CASE ARRIVE DATETIME" , String.valueOf(dispatchCase.getCaseID()),"SUCCESS", "PARAMEDIC");
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "UPDATE DISPATCH CASE PATIENT STATUS TO DONE" , String.valueOf(dispatchCase.getCaseID()),"SUCCESS", "PARAMEDIC");
+
         dispatchCase.setLocation(PatientLocation.EMERGENCY_ROOM_WAITING_ROOM);
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "UPDATE DISPATCH CASE LOCATION TO WAITING ROOM" , String.valueOf(dispatchCase.getCaseID()),"SUCCESS", "PARAMEDIC");
+
         System.out.println(dispatchCase.getResponseDetails());
+
         //save the case
         ESController.saveEmergencyDispatchCasesToFile();
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "SAVE DISPATCH CASE TO FILE" , String.valueOf(dispatchCase.getCaseID()),"SUCCESS", "PARAMEDIC");
     }
 
 
@@ -216,6 +234,7 @@ public class ParamedicMenu extends UiBase {
                 return;
             case 1:
                 ESController.printAllDispatchCases();
+                AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "VIEW ALL DISPATCH CASE" , "DISPATCH CASE","SUCCESS", "PARAMEDIC");
         }
         refreshUi("");
     }

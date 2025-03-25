@@ -2,6 +2,7 @@ package org.lucas.pages.nurse;
 
 import org.lucas.Emergency.EmergencyCase;
 import org.lucas.Emergency.EmergencyCase_Dispatch;
+import org.lucas.audit.AuditManager;
 import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
 import org.lucas.models.Nurse;
@@ -48,9 +49,11 @@ public class NurseEmergencyMenuPage extends UiBase {
 
     private void createNewEmergencyCase() {
         System.out.println("\n=========== Register New Emergency Case ===========");
-        int caseID = ESController.setCaseID(); // Auto-incremented CaseId
 
-        Patient patient = UserController.checkOrCreatePatient();
+        int caseID = ESController.setCaseID(); // Auto-incremented CaseId
+        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "CREATE NEW EMERGENCY CASE", String.valueOf(caseID), "ONGOING", "NURSE");
+
+        Patient patient = UserController.checkOrCreatePatient(UserController.getActiveNurse());
 
         String chiefComplaint = "";
         while (chiefComplaint.isBlank()) {
@@ -70,16 +73,19 @@ public class NurseEmergencyMenuPage extends UiBase {
         }
 
         EmergencyCase newCase = new EmergencyCase(caseID, patient, chiefComplaint, "Walk-In", LocalDateTime.now(), isUrgent);
+        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "CREATE NEW EMERGENCY CASE", patient.getId(), "COMPLETED", "NURSE");
         ESController.addEmergencyCases(newCase);
 
         String string = "\nNew Case Registered | Case ID: " + caseID + " | Patient: " + patient.getName();
         ESController.saveEmergencyCasesToFile();
+        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "SAVE EMERGENCY CASE TO FILE", patient.getId(), "SUCCESS", "NURSE");
         refreshUi(string);
 
     }
 
     private void viewAllEmergencyCases() {
         List<EmergencyCase> allcases = ESController.getAllCases();
+        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "VIEW ALL EMERGENCY CASE", "EMERGENCY CASE" , "SUCCESS", "NURSE");
         listView.clear();
         listView.addItem(new TextView(this.canvas, "============ ALL EMERGENCY CASE ============ ", Color.CYAN, TextStyle.BOLD));
 
@@ -99,7 +105,7 @@ public class NurseEmergencyMenuPage extends UiBase {
                 listView.addItem(new TextView(this.canvas, "====== Dispatch Info ======", Color.BLUE, TextStyle.BOLD));
                 listView.addItem(new TextView(this.canvas, "Vehicle ID: " + dispatchCase.getDispatchInfo().getVehicleId(), Color.BLUE));
 
-                listView.addItem(new TextView(this.canvas, "Medivac Members:", Color.BLUE));
+                listView.addItem(new TextView(this.canvas, "Medevac Members:", Color.BLUE));
                 for (Nurse nurse : dispatchCase.getDispatchInfo().getMedivacMembers()) {
                     listView.addItem(new TextView(this.canvas, "  - " + nurse.getName(), Color.CYAN));
                 }
