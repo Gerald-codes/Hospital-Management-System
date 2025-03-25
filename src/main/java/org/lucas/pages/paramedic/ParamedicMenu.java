@@ -209,14 +209,12 @@ public class ParamedicMenu extends UiBase {
 
 
     private void viewDispatchCases(){
-        System.out.println("0. Back\n1. View A Dispatch Case\n2. View ALl Dispatch Cases\n");
+        System.out.println("0. Back\n1. View ALl Dispatch Cases\n");
         int choice = InputValidator.getValidIntInput("Enter your choice: ");
         switch(choice){
             case 0:
                 return;
             case 1:
-                ESController.printActiveDispatch();
-            case 2:
                 ESController.printAllDispatchCases();
         }
         refreshUi("");

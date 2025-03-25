@@ -50,20 +50,6 @@ public class ESController {
         System.out.println("Emergency Dispatch Case with ID " + caseID + " not found.");
     }
 
-    public static void printActiveDispatch() {
-        for (EmergencyCase_Dispatch c : allDispatchCases) {
-            if (c.getPatientStatus() == PatientStatus.ONDISPATCHED) {
-                c.printIncidentReport();
-//                activeFound =true;
-            }
-        }
-        System.out.println("Active Dispatch Case does not exist");
-//        if (!activeFound){
-//            System.out.println("No active dispatch cases");
-//        }
-
-    }
-
     public static void printAllDispatchCases() {
         if (allDispatchCases.isEmpty()) {
             System.out.println("No emergency dispatch cases in the system.");
