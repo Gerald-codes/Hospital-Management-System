@@ -105,6 +105,8 @@ public class EmergencyCase {
      * Set Method to set the arrival date time for the patient
      * @param time
      */
+
+
     public void SetArrivalDateTime(LocalDateTime time) {
         arrivalDateTime = time;
 
@@ -127,6 +129,9 @@ public class EmergencyCase {
         return caseID;
     }
 
+    public void setCaseID(int caseID) {
+        this.caseID = caseID;
+    }
 
     public LocalDateTime getScreeningTime() {
         return this.screeningDateTime;

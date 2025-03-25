@@ -49,9 +49,8 @@ public class NurseEmergencyMenuPage extends UiBase {
     }
 
     private void createNewEmergencyCase() {
-        EmergencySystem ECsystem = new EmergencySystem();
         System.out.println("\n=========== Register New Emergency Case ===========");
-        int caseID = ECsystem.setCaseID(); // Auto-incremented CaseId
+        int caseID = ESController.setCaseID(); // Auto-incremented CaseId
 
         String enteredPatientID = InputValidator.getValidStringInput("Enter Patient ID: ");
         Patient patient = UserController.checkOrCreatePatient(enteredPatientID);

@@ -94,7 +94,7 @@
     "dispatch_arrival_time": "2025-03-24T22:16:38.228521",
     "time_of_call": "2025-03-24T22:16:38.228481",
     "response_time": "PT0S",
-    "case_i_d": 1,
+    "case_i_d": 2,
     "patient": {
       "alert_history": [],
       "electronic_health_record": {
