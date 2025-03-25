@@ -60,9 +60,8 @@ public class NurseDispatchMenuPage extends UiBase {
     }
 
     private void createNewDispatchCase() {
-        EmergencySystem ECsystem = new EmergencySystem();
         System.out.println("\n=========== Register New Emergency Case ===========");
-        int caseID = ECsystem.setCaseID();  // Auto-incremented CaseId
+        int caseID = ESController.setCaseID();  // Auto-incremented CaseId
 
         //Patient ID
         String enteredPatientID = InputValidator.getValidStringInput("Enter Patient ID: ");

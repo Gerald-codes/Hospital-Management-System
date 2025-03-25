@@ -711,5 +711,23 @@ public class ESController {
 
         System.out.println("\nAll procedures recorded for Case ID: " + emergencyCase.getCaseID());
     }
+    public static int setCaseID () { // Finds the largest existing case ID and returns the next available ID
+        int highestID = 0; // initialize the highest ID
+
+        if (!allCases.isEmpty()) {
+            for (EmergencyCase x : allCases) {
+                if (x.getCaseID() > highestID)
+                    highestID = x.getCaseID(); // update the highest ID
+            }
+        }
+
+        if (!allDispatchCases.isEmpty()) {
+            for (EmergencyCase_Dispatch x : allDispatchCases) {
+                if (x.getCaseID() > highestID)
+                    highestID = x.getCaseID(); // update the highest ID
+            }
+        }
+        return highestID + 1; // return the next available ID
+    }
 }
 
