@@ -1,6 +1,9 @@
 package org.lucas.pages.nurse;
 
+import org.lucas.Globals;
+import org.lucas.audit.AuditManager;
 import org.lucas.controllers.UserController;
+import org.lucas.models.User;
 import org.lucas.pages.doctor.FeedbackPage;
 
 import org.lucas.pages.pharmacy.PharmacyPage;
@@ -11,6 +14,7 @@ import org.lucas.ui.framework.views.ListView;
 import org.lucas.ui.framework.views.TextView;
 
 import java.util.List;
+import java.util.Objects;
 
 
 /** Represents the main page of the Telemedicine Integration System.
@@ -47,10 +51,17 @@ public class NurseMenuPage extends UiBase {
 
         lv.attachUserInput("View List of Patient", str -> ToPage(new NurseMainPage()));
         lv.attachUserInput("Feedback Mechanism", str -> ToPage(new FeedbackPage()));
-        lv.attachUserInput("Pharmacy ", str -> ToPage(new PharmacyPage()));
+        lv.attachUserInput("Pharmacy", str -> {
+            if (!Objects.equals(UserController.getActiveNurse().getDepartment(), "Pharmacy")) {
+                System.out.println("Current Nurse is not AUTHORIZED to access this page");
+                AuditManager.getInstance().logAction(UserController.getActiveNurse().getNurseID(), "UNAUTHORIZED ACCESS TO PHARMACY", "SYSTEM", "FAILED", "NURSE");
+                ToPage(Globals.nurseMenuPage);
+            }
+            else{
+                ToPage(new PharmacyPage());
+            }
+        });
         lv.attachUserInput("Emergency", str -> ToPage(new NurseEmergencyMenuPage()));
-
         canvas.setRequireRedraw(true);
     }
-
 }

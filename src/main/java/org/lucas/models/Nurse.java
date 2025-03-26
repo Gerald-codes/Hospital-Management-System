@@ -43,6 +43,14 @@ public class Nurse extends User{
     /**
      * GETTER & SETTER METHODS
      */
+    /**
+     * Retrieves the nurse's department.
+     *
+     * @return The department of the nurse.
+     */
+    public String getDepartment() {
+        return department;
+    }
 
     /**
      * Retrieves the nurse's role.
