@@ -22,9 +22,9 @@
       "equipment": [],
       "dispatch_location": "alsdaslk"
     },
-    "dispatch_arrival_time": "2025-03-24T22:15:58.286594",
+    "dispatch_arrival_time": "2025-03-25T18:08:16.5673643",
     "time_of_call": "2025-03-24T22:15:58.286565",
-    "response_time": "PT0S",
+    "response_time": "PT19H52M18.2807993S",
     "case_i_d": 1,
     "patient": {
       "alert_history": [],
@@ -33,11 +33,11 @@
         "current_medications": [],
         "medical_history": [],
         "vital_signs": {
-          "temperature": 0.0,
-          "heart_rate": 0,
-          "blood_pressure_systolic": 0,
-          "blood_pressure_diastolic": 0,
-          "respiratory_rate": 0
+          "temperature": 10.0,
+          "heart_rate": 10,
+          "blood_pressure_systolic": 10,
+          "blood_pressure_diastolic": 10,
+          "respiratory_rate": 10
         },
         "lab_results": [],
         "imaging_records": [],
@@ -61,9 +61,10 @@
     },
     "chief_complaint": "dalkdlaskd",
     "arrival_mode": "Ambulance",
-    "arrival_date_time": "2025-03-24T22:15:58.286607",
+    "arrival_date_time": "2025-03-25T18:11:44.2044738",
     "triage_level": "PRIORITY_4_NON_EMERGENCY",
-    "patient_status": "ONDISPATCHED",
+    "location": "EMERGENCY_ROOM_WAITING_ROOM",
+    "patient_status": "DONE",
     "emergency_procedures": [],
     "is_urgent": false
   },
@@ -332,9 +333,9 @@
       "equipment": [],
       "dispatch_location": "cik"
     },
-    "dispatch_arrival_time": "2025-03-25T15:32:41.4673235",
+    "dispatch_arrival_time": "2025-03-25T18:59:56.3924078",
     "time_of_call": "2025-03-25T15:32:41.4673235",
-    "response_time": "PT0S",
+    "response_time": "PT3H27M14.9250843S",
     "case_i_d": 7,
     "patient": {
       "alert_history": [],
@@ -480,6 +481,312 @@
     "patient_status": "ONDISPATCHED",
     "emergency_procedures": [],
     "screening_date_time": "2025-03-25T15:32:41.4673235",
+    "is_urgent": false
+  },
+  {
+    "dispatch_info": {
+      "vehicle_id": 981,
+      "medivac_members": [
+        {
+          "department": "Pediatrics",
+          "role": "Paramedic Nurse",
+          "assigned_ward": "Ward A",
+          "can_administer_medication": true,
+          "nursing_license_number": "RN-2023-00123",
+          "alert_list": [],
+          "id": "N001",
+          "login_name": "emily",
+          "name": "Emily Carter",
+          "password": "password123",
+          "email": "emilycarter@gmail",
+          "gender": "Female",
+          "phone_number": "87654321"
+        }
+      ],
+      "equipment": [],
+      "dispatch_location": "cck"
+    },
+    "dispatch_arrival_time": "2025-03-25T18:05:50.956739",
+    "time_of_call": "2025-03-25T18:05:50.956739",
+    "response_time": "PT0S",
+    "case_i_d": 8,
+    "patient": {
+      "alert_history": [],
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [
+          "Pollen",
+          "Latex",
+          "Dust",
+          "Shellfish",
+          "Gluten"
+        ],
+        "current_medications": [
+          {
+            "medication_name": "Ibuprofen",
+            "guideline_id": "C008",
+            "medication_id": "M008",
+            "dosage": "200mg, Every 6 Hours",
+            "side_effects": "Stomach Pain, Heartburn",
+            "brand_name": "Advil",
+            "stock_available": 150,
+            "controlled_substance": false,
+            "manufacture_name": "Pfizer",
+            "batch_number": "B005",
+            "manufacture_date": "01-03-2024",
+            "expiry_date": "02-07-2026",
+            "medication_price": 6.49
+          },
+          {
+            "medication_name": "Furosemide",
+            "guideline_id": "C003",
+            "medication_id": "M003",
+            "dosage": "325mg, Once a Week",
+            "side_effects": "Frequent Urination",
+            "brand_name": "Lasix",
+            "stock_available": 80,
+            "controlled_substance": true,
+            "manufacture_name": "Sanofi",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 10.1
+          },
+          {
+            "medication_name": "Diphenhydramine",
+            "guideline_id": "C004",
+            "medication_id": "M004",
+            "dosage": "200mg, Once a Week",
+            "side_effects": "Drowsiness, Sleepiness",
+            "brand_name": "HealthA2Z Sleep Aid",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 14.69
+          }
+        ],
+        "medical_history": [
+          "Hypertension",
+          "Diabetes",
+          "Obesity",
+          "Asthma"
+        ],
+        "vital_signs": {
+          "temperature": 36.0,
+          "heart_rate": 100,
+          "blood_pressure_systolic": 116,
+          "blood_pressure_diastolic": 82,
+          "respiratory_rate": 16
+        },
+        "lab_results": [
+          "Lipid Panel: Elevated"
+        ],
+        "imaging_records": [
+          "Ultrasound",
+          "MRI",
+          "PET Scan"
+        ],
+        "clinical_notes": "Monitor blood pressure closely.",
+        "symptoms": [
+          {
+            "symptom_name": "severe abdominal pain",
+            "symptom_id": "SYM-171",
+            "severity": 9,
+            "duration": 2,
+            "doctor_notes": "Possible appendicitis or pancreatitis."
+          },
+          {
+            "symptom_name": "sore throat",
+            "symptom_id": "SYM-162",
+            "severity": 4,
+            "duration": 3,
+            "doctor_notes": "Recommend warm fluids and throat lozenges."
+          }
+        ],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [
+          "Cataract Surgery"
+        ],
+        "vaccination_record": [
+          "Influenza Vaccine",
+          "Tetanus Booster",
+          "Measles, Mumps, Rubella (MMR) Vaccine",
+          "COVID-19 Vaccine"
+        ]
+      },
+      "patient_specific_factor": "Pregnant",
+      "assigned_nurse": "N003",
+      "assigned_doctor": "D002",
+      "height": 160.0,
+      "weight": 58.0,
+      "blood_type": "A+",
+      "house_address": "951 Spruce St, NV",
+      "emergency_contact_number": 43210987,
+      "occupation": "Chef",
+      "ethnicity": "Hispanic",
+      "healthcare_department": "Hematology",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P009",
+      "login_name": "GeorgeKing",
+      "name": "George King",
+      "password": "password123",
+      "email": "georgek@example.com",
+      "gender": "Male",
+      "phone_number": "81234567"
+    },
+    "chief_complaint": "sick",
+    "arrival_mode": "Ambulance",
+    "arrival_date_time": "2025-03-25T18:05:50.956739",
+    "triage_level": "PRIORITY_4_NON_EMERGENCY",
+    "patient_status": "ONDISPATCHED",
+    "emergency_procedures": [],
+    "screening_date_time": "2025-03-25T18:05:50.956739",
+    "is_urgent": false
+  },
+  {
+    "dispatch_info": {
+      "vehicle_id": 109,
+      "medivac_members": [
+        {
+          "department": "Pediatrics",
+          "role": "Paramedic Nurse",
+          "assigned_ward": "Ward A",
+          "can_administer_medication": true,
+          "nursing_license_number": "RN-2023-00123",
+          "alert_list": [],
+          "id": "N001",
+          "login_name": "emily",
+          "name": "Emily Carter",
+          "password": "password123",
+          "email": "emilycarter@gmail",
+          "gender": "Female",
+          "phone_number": "87654321"
+        }
+      ],
+      "equipment": [],
+      "dispatch_location": "cck"
+    },
+    "dispatch_arrival_time": "2025-03-25T18:50:38.4823751",
+    "time_of_call": "2025-03-25T18:50:38.4823751",
+    "response_time": "PT0S",
+    "case_i_d": 10,
+    "patient": {
+      "alert_history": [],
+      "electronic_health_record": {
+        "allergies": [],
+        "current_medications": [],
+        "medical_history": [],
+        "vital_signs": {
+          "temperature": 0.0,
+          "heart_rate": 0,
+          "blood_pressure_systolic": 0,
+          "blood_pressure_diastolic": 0,
+          "respiratory_rate": 0
+        },
+        "lab_results": [],
+        "imaging_records": [],
+        "clinical_notes": "Nil",
+        "symptoms": [],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [],
+        "vaccination_record": []
+      },
+      "height": 0.0,
+      "weight": 0.0,
+      "emergency_contact_number": 0,
+      "patient_consent": {
+        "consent_given": false
+      },
+      "id": "p010",
+      "name": "june",
+      "gender": "male",
+      "phone_number": "13232"
+    },
+    "chief_complaint": "sick",
+    "arrival_mode": "Ambulance",
+    "arrival_date_time": "2025-03-25T18:52:10.5254349",
+    "triage_level": "PRIORITY_4_NON_EMERGENCY",
+    "location": "EMERGENCY_ROOM_WAITING_ROOM",
+    "patient_status": "DONE",
+    "emergency_procedures": [],
+    "screening_date_time": "2025-03-25T18:50:38.4823751",
+    "is_urgent": false
+  },
+  {
+    "dispatch_info": {
+      "vehicle_id": 1094,
+      "medivac_members": [
+        {
+          "department": "Pediatrics",
+          "role": "Paramedic Nurse",
+          "assigned_ward": "Ward A",
+          "can_administer_medication": true,
+          "nursing_license_number": "RN-2023-00123",
+          "alert_list": [],
+          "id": "N001",
+          "login_name": "emily",
+          "name": "Emily Carter",
+          "password": "password123",
+          "email": "emilycarter@gmail",
+          "gender": "Female",
+          "phone_number": "87654321"
+        }
+      ],
+      "equipment": [],
+      "dispatch_location": "cck"
+    },
+    "dispatch_arrival_time": "2025-03-25T19:06:30.1877317",
+    "time_of_call": "2025-03-25T19:06:30.1877317",
+    "response_time": "PT0S",
+    "case_i_d": 12,
+    "patient": {
+      "alert_history": [],
+      "electronic_health_record": {
+        "allergies": [],
+        "current_medications": [],
+        "medical_history": [],
+        "vital_signs": {
+          "temperature": 0.0,
+          "heart_rate": 0,
+          "blood_pressure_systolic": 0,
+          "blood_pressure_diastolic": 0,
+          "respiratory_rate": 0
+        },
+        "lab_results": [],
+        "imaging_records": [],
+        "clinical_notes": "Nil",
+        "symptoms": [],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [],
+        "vaccination_record": []
+      },
+      "height": 0.0,
+      "weight": 0.0,
+      "emergency_contact_number": 0,
+      "patient_consent": {
+        "consent_given": false
+      },
+      "id": "p012",
+      "name": "af",
+      "gender": "male",
+      "phone_number": "132133"
+    },
+    "chief_complaint": "sick",
+    "arrival_mode": "Ambulance",
+    "arrival_date_time": "2025-03-25T19:06:30.1877317",
+    "triage_level": "PRIORITY_4_NON_EMERGENCY",
+    "patient_status": "ONDISPATCHED",
+    "emergency_procedures": [],
+    "screening_date_time": "2025-03-25T19:06:30.1877317",
     "is_urgent": false
   }
 ]
