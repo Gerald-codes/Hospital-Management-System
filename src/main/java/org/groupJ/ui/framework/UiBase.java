@@ -33,31 +33,29 @@ public abstract class UiBase {
      * Called when the back button is pressed.
      */
     public void OnBackPressed(){
-        if(this.canvas.getBackstackSize() != context.backStack.size()){
-            UiBase poppedPage = context.backStack.pop();
-            if(this.context.backStack.peek() instanceof NullPage){
-                context.backStack.push(poppedPage);
-                return;
-            }
-            // we now know the backstack has been updated, tell context.
-            UiBase page = context.backStack.peek();
-
-            // the canvas will handle the backstack rendering independently. So no need to manipulate.
-            var view = page.OnCreateView();
-            page.OnViewCreated(view);
-
-            // sometimes canvas may not correctly render the new page
-            // since I carelessly let canvas have its own backstack.
-            // so sometimes the old view may be an old reference.
-            // TODO remove backstack support from canvas.
-            canvas.newInPlacePage(view);
-            page.setApplicationContext(context);
-            canvas.clearCallbacks();
-            canvas.addOnBackPressedCallback(page::OnBackPressed);
-            canvas.addApplicationStopCallback(page::OnApplicationExit);
-            page.OnPageEntry();
-            canvas.setRequireRedraw(true);
+        UiBase poppedPage = context.backStack.pop();
+        if(this.context.backStack.peek() instanceof NullPage){
+            context.backStack.push(poppedPage);
+            return;
         }
+        // we now know the backstack has been updated, tell context.
+        UiBase page = context.backStack.peek();
+
+        // the canvas will handle the backstack rendering independently. So no need to manipulate.
+        var view = page.OnCreateView();
+        page.OnViewCreated(view);
+
+        // sometimes canvas may not correctly render the new page
+        // since I carelessly let canvas have its own backstack.
+        // so sometimes the old view may be an old reference.
+        // TODO remove backstack support from canvas.
+        canvas.newInPlacePage(view);
+        page.setApplicationContext(context);
+        canvas.clearCallbacks();
+        canvas.addOnBackPressedCallback(page::OnBackPressed);
+        canvas.addApplicationStopCallback(page::OnApplicationExit);
+        page.OnPageEntry();
+        canvas.setRequireRedraw(true);
     }
 
     /**
