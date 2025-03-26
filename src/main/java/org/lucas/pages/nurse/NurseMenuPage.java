@@ -21,6 +21,8 @@ import java.util.Objects;
  * This page displays a menu of options for the user to navigate to different sections of the application.
  * It extends {@link UiBase} and uses a {@link ListView} to present the menu items.*/
 public class NurseMenuPage extends UiBase {
+    private String errorMessage = "";
+    private ListView listView;
 
     /** Called when the main page's view is created.
      * Creates a {@link ListView} to hold the main menu options.
@@ -32,6 +34,7 @@ public class NurseMenuPage extends UiBase {
     public View OnCreateView() {
         ListView lv = new ListView(this.canvas, Color.GREEN);
         lv.setTitleHeader("Main");
+        this.listView = lv;
         return lv;
     }
 
@@ -42,26 +45,57 @@ public class NurseMenuPage extends UiBase {
      * @Override */
     @Override
     public void OnViewCreated(View parentView) {
-        ListView lv = (ListView) parentView; // Cast the parent view to a list view
-        lv.setTitleHeader("Welcome to the Hospital Management System | Welcome Back " + UserController.getActiveNurse().getName()); // Set the title header of the list view
-        lv.addItem(new TextView(this.canvas, "1. View List of Patient - To view patient information ", Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "2. Feedback Mechanism ", Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "3. Pharmacy", Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "4. Emergency ", Color.GREEN));
+        listView = (ListView) parentView; // Cast the parent view to a list view
+        refreshUI(); // Initial UI setup
 
-        lv.attachUserInput("View List of Patient", str -> ToPage(new NurseMainPage()));
-        lv.attachUserInput("Feedback Mechanism", str -> ToPage(new FeedbackPage()));
-        lv.attachUserInput("Pharmacy", str -> {
+        listView.attachUserInput("View List of Patient", str -> ToPage(new NurseMainPage()));
+        listView.attachUserInput("Feedback Mechanism", str -> ToPage(new FeedbackPage()));
+        listView.attachUserInput("Pharmacy", str -> {
             if (!Objects.equals(UserController.getActiveNurse().getDepartment(), "Pharmacy")) {
-                System.out.println("Current Nurse is not AUTHORIZED to access this page");
+                setErrorMessage("Current Nurse is not AUTHORIZED to access this page");
                 AuditManager.getInstance().logAction(UserController.getActiveNurse().getNurseID(), "UNAUTHORIZED ACCESS TO PHARMACY", "SYSTEM", "FAILED", "NURSE");
-                ToPage(Globals.nurseMenuPage);
             }
             else{
                 ToPage(new PharmacyPage());
             }
         });
-        lv.attachUserInput("Emergency", str -> ToPage(new NurseEmergencyMenuPage()));
+        listView.attachUserInput("Emergency", str -> {
+            if (!Objects.equals(UserController.getActiveNurse().getDepartment(), "Emergency")) {
+                setErrorMessage("Current Nurse is not AUTHORIZED to access this page");
+                AuditManager.getInstance().logAction(UserController.getActiveNurse().getNurseID(), "UNAUTHORIZED ACCESS TO EMERGENCY", "SYSTEM", "FAILED", "NURSE");
+            }
+            else{
+                ToPage(new NurseEmergencyMenuPage());
+            }
+        });
+    }
+
+    /**
+     * Sets the error message and refreshes the UI.
+     *
+     * @param message The error message to display
+     */
+    private void setErrorMessage(String message) {
+        this.errorMessage = message;
+        refreshUI();
+    }
+
+    /**
+     * Refreshes the UI by clearing and rebuilding the list view.
+     */
+    private void refreshUI() {
+        listView.clear();
+        listView.setTitleHeader("Welcome to the Hospital Management System | Welcome Back " + UserController.getActiveNurse().getName());
+        listView.addItem(new TextView(this.canvas, "1. View List of Patient - To view patient information ", Color.GREEN));
+        listView.addItem(new TextView(this.canvas, "2. Feedback Mechanism ", Color.GREEN));
+        listView.addItem(new TextView(this.canvas, "3. Pharmacy", Color.GREEN));
+        listView.addItem(new TextView(this.canvas, "4. Emergency ", Color.GREEN));
+
+        // Only add error message if it's not empty
+        if (!errorMessage.isEmpty()) {
+            listView.addItem(new TextView(this.canvas, errorMessage, Color.RED));
+        }
+
         canvas.setRequireRedraw(true);
     }
 }
