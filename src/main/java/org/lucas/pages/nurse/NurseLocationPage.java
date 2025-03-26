@@ -42,6 +42,7 @@ public class NurseLocationPage extends UiBase {
             ESController.printAllEmergencyCaseInWaitingRoom();
             int caseId = InputValidator.getValidIntInput("Enter Case ID : ");
 
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "ENTER CASE ID", String.valueOf(selectedCase.getCaseID()), "SUCCESS", "NURSE");
             selectedCase = ESController.selectCase(caseId);
         } while(selectedCase == null);
 
