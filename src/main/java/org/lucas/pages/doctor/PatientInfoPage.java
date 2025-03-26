@@ -1,5 +1,6 @@
 package org.lucas.pages.doctor;
 
+import org.lucas.audit.AuditManager;
 import org.lucas.controllers.UserController;
 import org.lucas.models.Medication;
 import org.lucas.models.Patient;
@@ -63,7 +64,7 @@ public class PatientInfoPage extends UiBase {
                         displayPatient(patient, lv, false);
                         canvas.setRequireRedraw(true);
                     }catch (Exception e){
-                        e.printStackTrace();
+                        AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(),e.toString(),"UNABLE TO GET PATIENT", "ERROR", "DOCTOR");
                         throw e;
                     }
                 }

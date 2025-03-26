@@ -3,9 +3,7 @@ package org.lucas.pages.nurse;
 import org.lucas.Globals;
 import org.lucas.audit.AuditManager;
 import org.lucas.controllers.UserController;
-import org.lucas.models.Medication;
 import org.lucas.models.Patient;
-import org.lucas.models.Symptoms;
 import org.lucas.ui.framework.views.ListViewOrientation;
 import org.lucas.ui.framework.Color;
 import org.lucas.ui.framework.InputHelper;
@@ -24,23 +22,11 @@ public class NurseMainPage extends UiBase {
     public static UserController userController = new UserController();
     public static Patient patient;
 
-    /** Called when the main page's view is created.
-     * Creates a {@link ListView} to hold the main menu options.
-     * Sets the title header to "Main".
-     * @return A new {@link ListView} instance representing the main page's view.
-     * @Override*/
     @Override
     public View OnCreateView() {
-        ListView lv = new ListView(this.canvas, Color.GREEN);
-        lv.setTitleHeader("Main");
-        return lv;
+        return new ListView(this.canvas, Color.GREEN);
     }
 
-    /**Called after the view has been created and attached to the UI.
-     * Populates the view with the main menu options, such as "View List of Patient", and "View Appointment".
-     * Attaches user input handlers to each menu option to navigate to the corresponding pages.
-     * @param parentView The parent {@link View} to which the main page's UI elements are added. This should be a ListView.
-     * @Override */
     @Override
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
@@ -83,8 +69,7 @@ public class NurseMainPage extends UiBase {
             }
         });
 
-        lv.attachUserInput("Feedback Mechanism", str -> {
-            ToPage(Globals.feedbackPage);});
+        lv.attachUserInput("Feedback Mechanism", str -> ToPage(Globals.feedbackPage));
         canvas.setRequireRedraw(true);
     }
 }

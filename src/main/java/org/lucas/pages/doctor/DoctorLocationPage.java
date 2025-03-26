@@ -18,14 +18,12 @@ import org.lucas.util.InputValidator;
 public class DoctorLocationPage extends UiBase {
     @Override
     public View OnCreateView() {
-        ListView lv = new ListView(this.canvas, Color.GREEN);
-        return lv;
+        return new ListView(this.canvas, Color.GREEN);
     }
 
     @Override
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
-        AuditManager manager = new AuditManager();
         lv.addItem(new TextView(this.canvas, "1. Examination Room - Proceed With Doctor Screening ", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "2. Trauma Room - Proceed With Immediate Response ", Color.GREEN));
 
@@ -36,7 +34,7 @@ public class DoctorLocationPage extends UiBase {
 
     public void proceedWithDoctorScreening() {
 
-        EmergencyCase selectedCase = null;
+        EmergencyCase selectedCase;
         do {
             ESController.printAllDoneEmergencyCaseInTriageRoom();
             int caseId = InputValidator.getValidIntInput("Enter Case ID : ");
@@ -75,7 +73,7 @@ public class DoctorLocationPage extends UiBase {
     }
 
     public void proceedWithImmediateResponse(){
-        EmergencyCase selectedCase = null;
+        EmergencyCase selectedCase;
         do {
             ESController.printAllEmergencyCaseInTraumaRoom();
             int caseId = InputValidator.getValidIntInput("Enter Case ID : ");

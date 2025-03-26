@@ -11,6 +11,7 @@ import org.lucas.ui.framework.View;
 import org.lucas.ui.framework.views.ListView;
 import org.lucas.ui.framework.views.TextView;
 import org.lucas.audit.*;
+import org.lucas.util.InputValidator;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -65,18 +66,14 @@ public class PatientMainPage extends UiBase {
 
     private void bookAppointmentPrompt(){
         appointmentController.getAppointments();
-        Scanner scanner = new Scanner(System.in); // Create a new scanner object
-        System.out.println("Enter reason to consult: ");
-        String reason = scanner.nextLine(); //
-        System.out.println("Do you have any Medical History?: ");
-        String history = scanner.nextLine(); //
+        String reason = InputValidator.getValidStringInput("Enter reason to consult: ");
+        String history = InputValidator.getValidStringInput("Do you have any Medical History?: ");
 
-        System.out.println("Select your appointment date in this format (DD-MM-YYYY): ");
         LocalDate date = null; // safe to initialise as null, as it will never be null after the prompt.
         boolean validDate = false;
         String appointmentDate;
         while (!validDate) {
-            appointmentDate = scanner.nextLine();
+            appointmentDate = InputValidator.getValidStringInput("Select your appointment date in this format (DD-MM-YYYY): ");
             try {
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 date = LocalDate.parse(appointmentDate, dateFormatter);
@@ -148,8 +145,7 @@ public class PatientMainPage extends UiBase {
             System.out.println(consentString);
             boolean validInput = false;
             while (!validInput) {
-                System.out.println("Do you wish to proceed with this appointment? (Y/N)");
-                String s = scanner.nextLine();
+                String s = InputValidator.getValidStringInput("Do you wish to proceed with this appointment? (Y/N) ");
                 if (s.equalsIgnoreCase("Y")) {
                     validInput = true;
                     AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "CONSENT ACCEPTED", "SYSTEM", "SUCCESS", "PATIENT");

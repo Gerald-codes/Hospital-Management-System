@@ -1,10 +1,6 @@
 package org.lucas.models;
 import org.lucas.models.enums.DoctorType;
 import org.lucas.util.ObjectBase;
-import org.lucas.core.*;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 /**
  * Represents a doctor in a healthcare system, extending the User class with additional medical-specific details.
@@ -14,11 +10,11 @@ import java.util.Objects;
  */
 public class Doctor extends User implements ObjectBase {
     private String specialisation;
-    private DoctorType type;
-    private String licenseNumber;
+    private final String licenseNumber;
     private DoctorType doctorType;
-    private final List<Alert> alertList;
-    private final List<ClinicalGuideline> clinicalGuidelines;
+    private boolean isSurgicalApproved;           // Indicates if the doctor is approved to perform surgeries
+    private boolean canPrescribeMedication;             // Indicates if the doctor can prescribe medications
+
     /**
      * Constructs a new Doctor with specified details.
      * @param id Unique identifier for the doctor.
@@ -31,27 +27,47 @@ public class Doctor extends User implements ObjectBase {
      * @param type The type of medical practice the doctor is involved in.
      * @param licenseNumber Doctor's medical license number.
      */
-    public Doctor(String id, String loginName, String name, String password, String email, String gender, String specialisation, DoctorType type, String licenseNumber, String phoneNumber) {
+    public Doctor(String id, String loginName, String name, String password, String email, String gender, String specialisation,
+                  DoctorType type, String licenseNumber, String phoneNumber, boolean isSurgicalApproved,boolean canPrescribeMedication) {
         super(id, loginName, name, password, email, gender, phoneNumber);
         this.specialisation = specialisation;
-        this.type = type;
+        this.doctorType = type;
         this.licenseNumber = licenseNumber;
-        this.alertList = new ArrayList<>();
-        this.clinicalGuidelines = new ArrayList<>();
+        this.isSurgicalApproved = isSurgicalApproved;
+        this.canPrescribeMedication = canPrescribeMedication;
     }
 
-    @Override
-    public String toString() {
-        return super.toString()+ " Doctor{" +
-                "specialisation='" + specialisation + '\'' +
-                ", type=" + type +
-                ", licenseNumber='" + licenseNumber + '\'' +
-                '}';
+    public String getSpecialisation() {
+        return specialisation;
     }
 
-    public DoctorType getType() {return type;}
+    public void setSpecialisation(String specialisation) {
+        this.specialisation = specialisation;
+    }
 
-    public void setType(DoctorType type) {this.type = type;}
+    public String getLicenseNumber() {
+        return licenseNumber;
+    }
+
+    public DoctorType getDoctorType() {return doctorType;}
+
+    public void setDoctorType(DoctorType doctorType) {this.doctorType = doctorType;}
+
+    public boolean isCanPrescribeMedication() {
+        return canPrescribeMedication;
+    }
+
+    public void setCanPrescribeMedication(boolean canPrescribeMedication ) {
+        this.canPrescribeMedication = canPrescribeMedication;
+    }
+
+    public boolean isSurgicalApproved() {
+        return isSurgicalApproved;
+    }
+
+    public void setSurgicalApproved(boolean surgicalApproved) {
+        isSurgicalApproved = surgicalApproved;
+    }
 
     public void diagnosePatient(Patient patient, String diagnosis) {
         patient.getEHR().setDiagnosis(diagnosis);
@@ -71,11 +87,20 @@ public class Doctor extends User implements ObjectBase {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Doctor doctor = (Doctor) o;
-        return Objects.equals(specialisation, doctor.specialisation) && type == doctor.type && Objects.equals(licenseNumber, doctor.licenseNumber) && doctorType == doctor.doctorType;
+        return Objects.equals(specialisation, doctor.specialisation) && Objects.equals(licenseNumber, doctor.licenseNumber) && doctorType == doctor.doctorType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(specialisation, type, licenseNumber, doctorType);
+        return Objects.hash(specialisation, doctorType, licenseNumber, doctorType);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\nDoctor {" +
+                "\n  Specialisation         : '" + specialisation + '\'' +
+                ",\n  Doctor Type            : " + doctorType +
+                ",\n  License Number         : '"+ licenseNumber + '\'' +
+                "\n}";
     }
 }

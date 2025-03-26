@@ -4,7 +4,6 @@ import org.lucas.Emergency.EmergencyCase;
 import org.lucas.Emergency.enums.PatientStatus;
 import org.lucas.Globals;
 import org.lucas.audit.AuditManager;
-import org.lucas.controllers.MedicationController;
 import org.lucas.controllers.UserController;
 import org.lucas.core.*;
 import org.lucas.models.*;
@@ -13,10 +12,7 @@ import org.lucas.ui.framework.*;
 import org.lucas.ui.framework.views.ListView;
 import org.lucas.ui.framework.views.TextView;
 import org.lucas.util.InputValidator;
-
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Represents the patient actions page for nurses in the Telemedicine Integration System.
@@ -27,7 +23,7 @@ public class NursePatientActionsPage extends UiBase {
     private static Patient patient;
     private ListView listView;
     private static EmergencyCase emergencyCase;
-    private static List<ClinicalGuideline> clinicalGuidelines = List.copyOf(ClinicalGuideline.generateClinicalGuideLine());
+    private static final List<ClinicalGuideline> clinicalGuidelines = List.copyOf(ClinicalGuideline.generateClinicalGuideLine());
     final private static List<Alert> alertList = List.copyOf(Alert.generateAlert());
     public static void setPatient(Patient p) {
         patient = p;
@@ -58,9 +54,7 @@ public class NursePatientActionsPage extends UiBase {
             refreshUi();
         });
 
-        lv.attachUserInput("Check Medication Alert History", str -> {
-            Nurse.showMedicationAlertHistory(patient);
-        });
+        lv.attachUserInput("Check Medication Alert History", str -> Nurse.showMedicationAlertHistory(patient));
 
         lv.attachUserInput("Enter Outcome Monitoring", str -> {
             enterOutcomeMonitoring(nurse, patient);
@@ -70,8 +64,8 @@ public class NursePatientActionsPage extends UiBase {
 
         lv.attachUserInput("End Administration", str -> {
             ToPage(Globals.nurseMenuPage);
-            ToPage(new NurseEmergencyMenuPage());
             OnBackPressed();
+
         });
 
         lv.attachUserInput("Discharge Patient", str -> {
@@ -206,30 +200,48 @@ public class NursePatientActionsPage extends UiBase {
 
     public static void administerMedication(Nurse nurse, Alert alert,
                                             ClinicalGuideline clinicalGuideline, Patient patient) {
-        alert.displayAlertForPatient();  // Display any alerts before administration
-        String outcomeResponse;
-        AuditManager.getInstance().logAction(nurse.getId(), "ADMINISTER MEDICATION", "Patient: " + patient.getId(), "OVERRIDDEN", "NURSE");
-        while (true) {
-            int systolicBP = InputValidator.getValidIntInput("Please enter Systolic BP: ");
-            if (systolicBP <= clinicalGuideline.getBloodPressureSystolicThreshHold()) {
-                // Prompt for override if systolic BP is too low
-                if (InputValidator.getValidStringInput("Systolic BP is too low, would you like to override? (Yes/No): ")
-                        .equalsIgnoreCase("Yes")) {
-                    systolicBP = InputValidator.getValidIntInput("Please enter Systolic BP again: ");
-                    outcomeResponse = InputValidator.getValidStringWithSpaceInput("Please enter override reason: ");
-                    alert.setOverrideReason(outcomeResponse);
-                    AuditManager.getInstance().logAction(nurse.getId(), "USER ENTERED:" + outcomeResponse, "Override reason", "SUCCESS", "NURSE");
-                } else {
-                    return;  // Abort medication administration if override is not approved
-                }
+
+        alert.displayAlertForPatient();
+
+        AuditManager.getInstance().logAction(
+                nurse.getId(),
+                "ADMINISTER MEDICATION",
+                "Patient: " + patient.getId(),
+                "OVERRIDDEN",
+                "NURSE"
+        );
+
+
+        int systolicBP = InputValidator.getValidIntInput("Please enter Systolic BP: ");
+        if (systolicBP <= clinicalGuideline.getBloodPressureSystolicThreshHold()) {
+            String overrideDecision = InputValidator.getValidStringInput(
+                    "Systolic BP is too low, would you like to override? (Yes/No): ");
+
+            if (!overrideDecision.equalsIgnoreCase("Yes")) {
+                return;  // Abort if override not approved
             }
 
-            int diastolicBP = InputValidator.getValidIntInput("Please enter Diastolic BP before proceeding: ");
-            nurse.updatePatientBloodPressure(patient, systolicBP, diastolicBP);  // Update patient's blood pressure
+            systolicBP = InputValidator.getValidIntInput("Please enter Systolic BP again: ");
+            String overrideReason = InputValidator.getValidStringWithSpaceInput("Please enter override reason: ");
+            alert.setOverrideReason(overrideReason);
 
-            return;  // Exit after successful medication administration
+            AuditManager.getInstance().logAction(
+                    nurse.getId(),
+                    "USER ENTERED: " + overrideReason,
+                    "Override reason",
+                    "SUCCESS",
+                    "NURSE"
+            );
         }
+
+
+        int diastolicBP = InputValidator.getValidIntInput("Please enter Diastolic BP before proceeding: ");
+        nurse.updatePatientBloodPressure(patient, systolicBP, diastolicBP);
+
+
+        System.out.println("Medication administered successfully.");
     }
+
     public static void enterOutcomeMonitoring(Nurse nurse, Patient patient) {
         System.out.println("\nEnter outcome monitoring for patient: " + patient.getName());
 

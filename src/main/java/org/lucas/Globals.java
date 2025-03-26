@@ -8,9 +8,8 @@ import org.lucas.controllers.UserController;
 import org.lucas.pages.LandingPage;
 import org.lucas.pages.LoginPage;
 import org.lucas.pages.nurse.*;
-import org.lucas.pages.pharmacy.PharmacyPage;
+import org.lucas.pages.pharmacy.*;
 import org.lucas.pages.doctor.*;
-import org.lucas.pages.pharmacy.MedicationPage;
 import org.lucas.util.DurationTypeAdapter;
 import org.lucas.util.LocalDateTimeTypeAdapter;
 
@@ -27,11 +26,12 @@ public class Globals {
     public static PatientInfoPage patientInfoPage = new PatientInfoPage();
     public static DoctorMainPage mainPage = new DoctorMainPage();
     public static LoginPage loginPage = new LoginPage();
-    public static TeleconsultPage teleconsultPage = new TeleconsultPage();
+    public static TeleconsultationPage teleconsultationPage = new TeleconsultationPage();
     public static ViewAppointmentsPage viewAppointmentsPage = new ViewAppointmentsPage();
     public static LandingPage landingPage = new LandingPage();
     public static PharmacyPage pharmacyPage = new PharmacyPage();
     public static MedicationPage medicationPage = new MedicationPage();
+    public static DispensaryPage dispensaryPage = new DispensaryPage();
     public static FeedbackPage feedbackPage = new FeedbackPage();
     public static NurseMenuPage nurseMenuPage = new NurseMenuPage();
     public static NursePatientActionsPage nursePatientActionsPage = new NursePatientActionsPage();

@@ -12,7 +12,6 @@ import org.lucas.ui.framework.views.ListView;
 import org.lucas.ui.framework.views.ListViewOrientation;
 import org.lucas.ui.framework.views.TextView;
 
-import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,12 +90,12 @@ public class DispensaryPage extends UiBase {
                     medicationsString.substring(0, medicationsWidth - 3) + "..." :
                     medicationsString);
             String formattedDateColumn = String.format("%-" + dateWidth + "s", formattedDate);
-            String formattedisPaid = String.format("%-" + isPaidWidth + "s", isPaid);
+            String formattedPaid = String.format("%-" + isPaidWidth + "s", isPaid);
 
             String status = appointment.getAppointmentStatus().toString();
 
             String displayText = String.format("%s | %s | %s | %s | %s |",
-                    formattedIndex, formattedName, formattedmedicationsString, formattedDateColumn, formattedisPaid);
+                    formattedIndex, formattedName, formattedmedicationsString, formattedDateColumn, formattedPaid);
 
             Color itemColor = getItemColor(appointment.getAppointmentStatus());
 
@@ -136,7 +135,7 @@ public class DispensaryPage extends UiBase {
     /**
      * Processes the billing for the selected appointment by dispensing
      * prescribed medications and updating the inventory.
-     *
+     * <p>
      * This method:
      * - Retrieves billing and prescription information
      * - Finds each medication in inventory
@@ -177,7 +176,7 @@ public class DispensaryPage extends UiBase {
             // Check if there is stock available.
             if (availableMed.getStockAvailable() > 0) {
                 // Deduct (or the required amount) from the stock.
-                int newStock = availableMed.getStockAvailable() - requiredMed.getStockAvailable();;
+                int newStock = availableMed.getStockAvailable() - requiredMed.getStockAvailable();
                 availableMed.setStockAvailable(newStock);
                 System.out.println("Dispensed: " + availableMed.getMedicationName());
             } else {
@@ -198,13 +197,10 @@ public class DispensaryPage extends UiBase {
     }
     // Helper method to get item color for the appointment status
     private Color getItemColor(AppointmentStatus status) {
-        switch (status) {
-            case DECLINED:
-                return Color.RED;
-            case PENDING:
-                return Color.CYAN;
-            default:
-                return Color.GREEN;
-        }
+        return switch (status) {
+            case DECLINED -> Color.RED;
+            case PENDING -> Color.CYAN;
+            default -> Color.GREEN;
+        };
     }
 }

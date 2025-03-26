@@ -36,7 +36,6 @@ public class ViewAppointmentSummaryPage extends UiBase {
 
     @Override
     public void OnViewCreated(View parentView) {
-        ListView lv = (ListView) parentView;
         refreshUi();
     }
 

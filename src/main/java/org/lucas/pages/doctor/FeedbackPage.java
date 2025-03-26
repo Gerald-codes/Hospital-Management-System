@@ -12,41 +12,22 @@ import org.lucas.util.InputValidator;
 import org.lucas.util.TextSplitter;
 import org.lucas.audit.*;
 
-
 import java.util.List;
 
-/** Represents the main page of the Telemedicine Integration System.
- * This page displays a menu of options for the user to navigate to different sections of the application.
- * It extends {@link UiBase} and uses a {@link ListView} to present the menu items.*/
 public class FeedbackPage extends UiBase {
-    private static List<ClinicalGuideline> clinicalGuidelines = List.copyOf(ClinicalGuideline.generateClinicalGuideLine());
-    /** Called when the main page's view is created.
-     * Creates a {@link ListView} to hold the main menu options.
-     * Sets the title header to "Main".
-     * @return A new {@link ListView} instance representing the main page's view.
-     * @Override*/
+    private static final List<ClinicalGuideline> clinicalGuidelines = List.copyOf(ClinicalGuideline.generateClinicalGuideLine());
 
     @Override
     public View OnCreateView() {
-        ListView lv = new ListView(this.canvas, Color.GREEN);
-        lv.setTitleHeader("Feedback Page");
-        return lv;
+        return new ListView(this.canvas, Color.GREEN);
     }
 
-    /**Called after the view has been created and attached to the UI.
-     * Populates the view with the main menu options, such as "View List of Patient", and "View Appointment".
-     * Attaches user input handlers to each menu option to navigate to the corresponding pages.
-     * @param parentView The parent {@link View} to which the main page's UI elements are added. This should be a ListView.
-     * @Override */
     @Override
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
-        lv.setTitleHeader("Give your feedback  ");
+        lv.setTitleHeader("Feedback Page");
 
-        lv.attachUserInput("Give your feedback", str -> {
-
-            createFeedbackMechanism(clinicalGuidelines);
-        }); // Attach the user input to the list view
+        lv.attachUserInput("Give your feedback", str -> createFeedbackMechanism(clinicalGuidelines)); // Attach the user input to the list view
         canvas.setRequireRedraw(true);
     }
 

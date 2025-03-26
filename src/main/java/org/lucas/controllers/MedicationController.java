@@ -4,6 +4,7 @@ import java.util.*;
 import com.google.gson.reflect.TypeToken;
 import org.lucas.Globals;
 import org.lucas.models.*;
+import org.lucas.util.InputValidator;
 import org.lucas.util.JarLocation;
 import org.lucas.util.Util;
 
@@ -255,46 +256,33 @@ public class MedicationController {
      */
     // Method to collect user input and add a new medication to the list of available medications
     public static void collectUserInputAndAddMedication() {
-        Scanner scan = new Scanner(System.in);
 
-        System.out.println("Enter Medicine Name :");
-        String medicationName = scan.nextLine();
+        String medicationName = InputValidator.getValidStringInput("Enter Medicine Name : ");
+        
+        String guidelineId = InputValidator.getValidStringInput("Key in a Guideline ID :     Latest ID: " + getLatestGuidelineId());
 
-        System.out.println("Key in a Guideline ID :     Latest ID: " + getLatestGuidelineId());
-        String guidelineId = scan.nextLine();
+        String medicationID = InputValidator.getValidStringInput("Key in a Medication ID :     Latest ID: " + getLatestMedicationId());
 
-        System.out.println("Key in a Medication ID :     Latest ID: " + getLatestMedicationId());
-        String medicationID = scan.nextLine();
+        String dosage = InputValidator.getValidStringInput("Enter dosage : ");
 
-        System.out.println("Enter dosage :");
-        String dosage = scan.nextLine();
+        String sideEffects = InputValidator.getValidStringInput("Describe Side Effects :");
 
-        System.out.println("Describe Side Effects :");
-        String sideEffects = scan.nextLine();
+        String brandName = InputValidator.getValidStringInput("Enter the Brand Name : ");
 
-        System.out.println("Enter the Brand Name :");
-        String brandName = scan.nextLine();
 
-        System.out.println("Enter stock amount to be added :");
-        int stockAvailable = Integer.parseInt(scan.nextLine());
+        int stockAvailable = Integer.parseInt(InputValidator.getValidStringInput("Enter stock amount to be added : "));
 
-        System.out.println("Is this a controlled substance? (Yes/No) :");
-        boolean controlledSubstance = scan.nextLine().equalsIgnoreCase("Yes");
+        boolean controlledSubstance = InputValidator.getValidStringInput("Is this a controlled substance? (Yes/No) : ").equalsIgnoreCase("Yes");
 
-        System.out.println("Enter the Manufacturer Name :");
-        String manufactureName = scan.nextLine();
+        String manufactureName = InputValidator.getValidStringInput("Enter the Manufacturer Name : ");
 
-        System.out.println("Enter the Batch Number :    Latest Batch Number: " + getLatestBatchNumber());
-        String batchNumber = scan.nextLine();
+        String batchNumber = InputValidator.getValidStringInput("Enter the Batch Number :    Latest Batch Number: " + getLatestBatchNumber());
 
-        System.out.println("Enter the Manufacture Date :");
-        String manufactureDate = scan.nextLine();
+        String manufactureDate = InputValidator.getValidStringInput("Enter the Manufacture Date : ");
 
-        System.out.println("Enter the Expiry Date :");
-        String expiryDate = scan.nextLine();
+        String expiryDate = InputValidator.getValidStringInput("Enter the Expiry Date : ");
 
-        System.out.println("Enter the standard pricing of this medicine :");
-        double medicationPrice = Double.parseDouble(scan.nextLine());
+        double medicationPrice = Double.parseDouble(InputValidator.getValidStringInput("Enter the standard pricing of this medicine : "));
 
         addNewMedication(medicationName, guidelineId, medicationID, dosage, sideEffects, brandName, stockAvailable, controlledSubstance, manufactureName, batchNumber, manufactureDate, expiryDate, medicationPrice);
     }
@@ -304,10 +292,8 @@ public class MedicationController {
      */
     //method to remove stock from total stock
     public static void removeStockfromMedication(){
-        Scanner scan = new Scanner(System.in);
 
-        System.out.println("Enter the Medication ID of the stock you wish to deduct from :   Example: M001");
-        String medicationID = scan.nextLine();
+        String medicationID = InputValidator.getValidStringInput("Enter the Medication ID of the stock you wish to deduct from :   Example: M001");
 
         Medication medication = findAvailableMedicationByID(medicationID);
         if (medication == null) {
@@ -315,12 +301,11 @@ public class MedicationController {
             return;
         }
 
-        System.out.println("Enter the amount you wish to deduct :   Current Stock: " + medication.getStockAvailable());
-        int stocktoRemove = Integer.parseInt(scan.nextLine());
+        int stockRemove = Integer.parseInt(InputValidator.getValidStringInput("Enter the amount you wish to deduct :   Current Stock: " + medication.getStockAvailable()));
         int currentStock = medication.getStockAvailable();
-        int newStock = currentStock - stocktoRemove;
+        int newStock = currentStock - stockRemove;
 
-        if (stocktoRemove <= currentStock) {
+        if (stockRemove <= currentStock) {
             medication.setStockAvailable(newStock);
             saveMedicationToFile();
             System.out.println("Total amount has been successfully deducted. Current balance is " + newStock);
@@ -338,10 +323,8 @@ public class MedicationController {
      * Allows modification of various attributes such as name, dosage, side effects, etc.
      */
     public static void editMedicineDetails(){
-        Scanner scan = new Scanner(System.in);
 
-        System.out.println("Enter Medicine ID of the medicine you wish to find :    Example: M001");
-        String medicationID1 = scan.nextLine();
+        String medicationID1 = InputValidator.getValidStringInput("Enter Medicine ID of the medicine you wish to find :    Example: M001\n");
 
         Medication medication = findAvailableMedicationByID(medicationID1);
         if (medication == null) {
@@ -350,7 +333,6 @@ public class MedicationController {
         }
 
         printMedicationDetails(medication);
-
 
         System.out.println("1. Medicine Name");
         System.out.println("2. Guideline ID");
@@ -364,58 +346,45 @@ public class MedicationController {
         System.out.println("10. Manufacture Date");
         System.out.println("11. Expiry Date");
         System.out.println("12. Medication Price");
-        System.out.println("Enter the index number of the detail you wish to edit:     Example: 1 ");
 
-        int choice = Integer.parseInt(scan.nextLine());
+        int choice = Integer.parseInt(InputValidator.getValidStringInput("Enter the index number of the detail you wish to edit:     Example: 1 "));
 
         switch (choice) {
             case 1:
-                System.out.println("Enter new Medicine Name:");
-                medication.setMedicationName(scan.nextLine());
+                medication.setMedicationName(InputValidator.getValidStringInput("Enter new Medicine Name: "));
                 break;
             case 2:
-                System.out.println("Enter new Guideline ID:");
-                medication.setGuidelineId(scan.nextLine());
+                medication.setGuidelineId(InputValidator.getValidStringInput("Enter new Guideline ID: "));
                 break;
             case 3:
-                System.out.println("Enter new Dosage:");
-                medication.setDosage(scan.nextLine());
+                medication.setDosage(InputValidator.getValidStringInput("Enter new Dosage: "));
                 break;
             case 4:
-                System.out.println("Enter new Side Effects:");
-                medication.setSideEffects(scan.nextLine());
+                medication.setSideEffects(InputValidator.getValidStringInput("Enter new Side Effects: "));
                 break;
             case 5:
-                System.out.println("Enter new Brand Name:");
-                medication.setBrandName(scan.nextLine());
+                medication.setBrandName(InputValidator.getValidStringInput("Enter new Brand Name: "));
                 break;
             case 6:
-                System.out.println("Enter new Stock Available:");
-                medication.setStockAvailable(Integer.parseInt(scan.nextLine()));
+                medication.setStockAvailable(Integer.parseInt(InputValidator.getValidStringInput("Enter new Stock Available: ")));
                 break;
             case 7:
-                System.out.println("Is this a controlled substance? (Yes/No):");
-                medication.setControlledSubstance(scan.nextLine().equalsIgnoreCase("Yes"));
+                medication.setControlledSubstance(InputValidator.getValidStringInput("Is this a controlled substance? (Yes/No): ").equalsIgnoreCase("Yes"));
                 break;
             case 8:
-                System.out.println("Enter new Manufacturer Name:");
-                medication.setManufactureName(scan.nextLine());
+                medication.setManufactureName(InputValidator.getValidStringInput("Enter new Manufacturer Name: "));
                 break;
             case 9:
-                System.out.println("Enter new Batch Number:");
-                medication.setBatchNumber(scan.nextLine());
+                medication.setBatchNumber(InputValidator.getValidStringInput("Enter new Batch Number: "));
                 break;
             case 10:
-                System.out.println("Enter new Manufacture Date:");
-                medication.setManufactureDate(scan.nextLine());
+                medication.setManufactureDate(InputValidator.getValidStringInput("Enter new Manufacture Date: "));
                 break;
             case 11:
-                System.out.println("Enter new Expiry Date:");
-                medication.setExpiryDate(scan.nextLine());
+                medication.setExpiryDate(InputValidator.getValidStringInput("Enter new Expiry Date: "));
                 break;
             case 12:
-                System.out.println("Enter new Medication Price:");
-                medication.setMedicationPrice(Double.parseDouble(scan.nextLine()));
+                medication.setMedicationPrice(Double.parseDouble(InputValidator.getValidStringInput("Enter new Medication Price: ")));
                 break;
             default:
                 System.out.println("Invalid choice");

@@ -219,7 +219,17 @@ public class Nurse extends User{
 //        System.out.println("Nursing License Number: " + nursingLicenseNumber);
 //    }
 
-
+    @Override
+    public String toString() {
+        return super.toString() + "\nNurse {" +
+                "\n  Department               : '" + department + '\'' +
+                ",\n  Role                    : '" + role + '\'' +
+                ",\n  Assigned Ward           : '" + assignedWard + '\'' +
+                ",\n  Can Administer Medication: " + (canAdministerMedication ? "Yes" : "No") +
+                ",\n  Nursing License Number  : '" + nursingLicenseNumber + '\'' +
+                ",\n  Alerts                  : " + alertList.size() +
+                "\n}";
+    }
 
 }
 

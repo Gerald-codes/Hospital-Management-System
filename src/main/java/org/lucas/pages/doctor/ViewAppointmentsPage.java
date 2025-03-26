@@ -94,8 +94,8 @@ public class ViewAppointmentsPage extends UiBase {
                 ToPage(Globals.patientInfoPage);
                 break;
             case 4:
-                TeleconsultPage.setAppointment(selectedAppointment);
-                ToPage(Globals.teleconsultPage);
+                TeleconsultationPage.setAppointment(selectedAppointment);
+                ToPage(Globals.teleconsultationPage);
                 break;
         }
 

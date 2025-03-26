@@ -11,7 +11,6 @@ import org.lucas.ui.framework.views.ListViewOrientation;
 import org.lucas.ui.framework.views.TextView;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class BillingPage extends UiBase {
     public static List<Appointment> appointments;
@@ -39,8 +38,6 @@ public class BillingPage extends UiBase {
                     AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "PAID BILL", "SYSTEM", "SUCCESS", "PATIENT");
                     System.out.println("Payment success!!");
                     System.out.println("Press Enter to exit...");
-                    Scanner scanner = new Scanner(System.in);
-                    scanner.nextLine();
                     refreshUi(listView);
                     break;
                 case 2:
@@ -55,8 +52,6 @@ public class BillingPage extends UiBase {
                     AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "GENERATED BILL", "SYSTEM", "SUCCESS", "PATIENT");
                     System.out.println(bill);
                     System.out.println("Press Enter to exit...");
-                    scanner = new Scanner(System.in);
-                    scanner.nextLine();
                     break;
             }
         });

@@ -33,21 +33,6 @@ public class EmergencyCase {
     private LocalDateTime screeningDateTime;
     private boolean isUrgent;
 
-    // standard triage levels used in the emergency department
-
-    // helper method to check if the triage level is valid
-    public static boolean isValidTriageLevel(String triageLevel) {
-        for (TriageLevel level : TriageLevel.values()) {
-            // Compare using the enum's name or description as needed
-            if (level.name().equalsIgnoreCase(triageLevel) || level.getDescription().equalsIgnoreCase(triageLevel)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-
     /**
      * Constructor for EmergencyCase
      * @param caseID - unique identifier for the case
@@ -87,7 +72,6 @@ public class EmergencyCase {
     public EmergencyCase(int caseID, Patient patient, String chiefComplaint, String arrivalMode,
                          PatientStatus patientStatus, boolean isUrgent) {
         this.caseID = caseID;
-        // this.patient = patient;
         this.patient = patient;
         this.chiefComplaint = chiefComplaint; // reason for patient's visit
         this.arrivalMode = arrivalMode;
@@ -106,7 +90,6 @@ public class EmergencyCase {
      * Set Method to set the arrival date time for the patient
      * @param time
      */
-
 
     public void SetArrivalDateTime(LocalDateTime time) {
         arrivalDateTime = time;
@@ -199,77 +182,12 @@ public class EmergencyCase {
     }
 
     /**
-     * Set method for the treatment of the patient and update the patient's location,
-     * screening doctor, triage level, and emergency procedures based on the urgency of the treatment
-     * @param isUrgent  - boolean value to indicate if the treatment is urgent
-     * @param staffMember - staff member object
-     * @param procedures - emergency procedures performed on the patient
-     */
-//    public void setTreatment(boolean isUrgent, User staffMember, String procedures) {
-//        this.isUrgent = isUrgent;
-//        if (isUrgent) { // true
-//            location = "Emergency room - Trauma Room"; // update patient location
-//            screeningdoctor = new ArrayList<>(); // Initialize if null
-//            screeningdoctor.add(staffMember);
-////            triageLevel = TRIAGE_LEVELS[0]; // update triage level
-//            emergencyProcedures.add(procedures); // add emergency procedures
-//        } else {
-//            location = "Emergency room - Observation Unit";
-//            initialScreeningNurse = new ArrayList<>(); // Initialize if null
-//            initialScreeningNurse.add(staffMember);
-////            triageLevel = TRIAGE_LEVELS[3];
-//            emergencyProcedures.add(procedures);
-//        }
-//        this.dateAndTimeOfScreening = LocalDateTime.now();
-//    }
-
-    /**
      * Get method for the urgency of the treatment
      * @return boolean value indicating if the treatment is urgent
      */
     public boolean isUrgent() {
         return this.isUrgent;
     }
-
-    /**
-     * Get method for the urgency of the treatment
-     * @return boolean value indicating if the treatment is urgent
-     */
-    public boolean isUrgentTreatment() {
-        return "PRIORITY 1: CRITICALLY-ILL".equals(this.triageLevel);
-    }
-
-    /**
-     * Update the initial screening of the patient by a staff member
-     * @param staffMember - staff member object
-     * @param triageLevel - triage level of the patient
-     * @param vitalSigns - vital signs of the patient
-     * @throws IllegalArgumentException if the triage level is invalid
-     */
-//    public void updateInitialScreening(User staffMember, String triageLevel, String vitalSigns) {
-//        if (!isValidTriageLevel(triageLevel)) {
-//            throw new IllegalArgumentException(
-//                    "Invalid triage level. Valid levels are: " + String.join(", ", TRIAGE_LEVELS));
-//        }
-//        setTriageLevel(triageLevel); // This will automatically update location
-////        this.patient.setEHR(.vitalSigns);
-//        ;
-//        this.initialScreeningNurse = new ArrayList<>();
-//        this.initialScreeningNurse.add(staffMember);
-//        this.dateAndTimeOfScreening = LocalDateTime.now();
-//        this.isUrgentTreatment = triageLevel.equals("PRIORITY 1: CRITICALLY-ILL");
-//
-//        System.out.println("Initial Screening Completed:");
-//        System.out.println("Staff Member: " + staffMember.getName());
-//        System.out.println("Triage Level: " + triageLevel);
-//        System.out.println("Vital Signs: " + vitalSigns);
-//        System.out.println("Patient Location: " + location);
-//    }
-//
-//
-//    public void setInitialScreeningNurses(List<User> nurses) {
-//        this.initialScreeningNurse = nurses;
-//    }
 
     /**
      * Get the initial screening nurses

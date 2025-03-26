@@ -20,10 +20,6 @@ import org.lucas.util.InputValidator;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
-/** Represents the main page of the Telemedicine Integration System.
- * This page displays a menu of options for the user to navigate to different sections of the application.
- * It extends {@link UiBase} and uses a {@link ListView} to present the menu items.*/
 public class NurseEmergencyMenuPage extends UiBase {
     private ListView listView;
 
@@ -85,12 +81,12 @@ public class NurseEmergencyMenuPage extends UiBase {
     }
 
     private void viewAllEmergencyCases() {
-        List<EmergencyCase> allcases = ESController.getAllCases();
+        List<EmergencyCase> allCases = ESController.getAllCases();
         AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "VIEW ALL EMERGENCY CASE", "EMERGENCY CASE" , "SUCCESS", "NURSE");
         listView.clear();
         listView.addItem(new TextView(this.canvas, "============ ALL EMERGENCY CASE ============ ", Color.CYAN, TextStyle.BOLD));
 
-        for (EmergencyCase ec : allcases) {
+        for (EmergencyCase ec : allCases) {
             listView.addItem(new TextView(this.canvas, "---------------------------------", Color.CYAN, TextStyle.BOLD));
             listView.addItem(new TextView(this.canvas, "Case ID: " + ec.getCaseID(), Color.CYAN));
             listView.addItem(new TextView(this.canvas, "Patient Name: " + ec.getPatient().getName(), Color.CYAN));

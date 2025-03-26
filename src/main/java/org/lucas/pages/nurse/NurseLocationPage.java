@@ -87,6 +87,8 @@ public class NurseLocationPage extends UiBase {
         NursePatientActionsPage.setPatient(selectedCase.getPatient());
         NursePatientActionsPage.setEmergencyCase(selectedCase);
         ToPage(Globals.nursePatientActionsPage);
+
+        refreshUi("Patient Discharged!");
     }
     public void refreshUi(String string){
         listView.clear();

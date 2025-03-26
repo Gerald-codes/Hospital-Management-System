@@ -17,17 +17,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class TeleconsultPage extends UiBase {
+public class TeleconsultationPage extends UiBase {
     private static Appointment appointment;
-    private static Doctor doctor;
     private ListView listView;
-    private static List<ClinicalGuideline> clinicalGuidelines = List.copyOf(ClinicalGuideline.generateClinicalGuideLine());
+    private static final List<ClinicalGuideline> clinicalGuidelines = List.copyOf(ClinicalGuideline.generateClinicalGuideLine());
 
     public static void setAppointment(Appointment appointment) {
-        TeleconsultPage.appointment = appointment;
+        TeleconsultationPage.appointment = appointment;
     }
 
     @Override
@@ -36,16 +34,14 @@ public class TeleconsultPage extends UiBase {
                 this.canvas,
                 Color.CYAN
         );
-        listView.setTitleHeader("Teleconsult");
+        listView.setTitleHeader("Teleconsultation");
         return listView;
     }
 
     @Override
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView;
-        lv.attachUserInput("Set Doctor Notes", str -> {
-            setDoctorNotes();
-        });
+        lv.attachUserInput("Set Doctor Notes", str -> setDoctorNotes());
 
         lv.attachUserInput("Edit Prescription", str -> {
             System.out.println("Prescription Options:");
@@ -53,17 +49,17 @@ public class TeleconsultPage extends UiBase {
             System.out.println("2. Edit Existing Prescription");
             System.out.println("3. Remove Prescription");
             System.out.println("4. Cancel");
-            int prescriptionchoice = InputHelper.getValidIndex("Select option:", 1, 4);
+            int prescriptionChoice = InputHelper.getValidIndex("Select option:", 1, 4);
 
-            switch (prescriptionchoice) {
+            switch (prescriptionChoice) {
                 case 1: // Add a New Medication (In Database or Not, the function will handle it)
                     AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "PRESCRIBED MEDICATION", "Patient: " + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
-                    setPrescribeMeds(-1);
+                    prescribeMedication(-1);
                     break;
                 case 2: // Edit Existing Medication
                     int editIndex = selectMedicationIndexPrompt();
                     if (editIndex != -1) {
-                        setPrescribeMeds(editIndex);
+                        prescribeMedication(editIndex);
                     }
                     AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "EDITED MEDICATION", "Patient: " + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
                     break;
@@ -97,15 +93,12 @@ public class TeleconsultPage extends UiBase {
 
             if (choice == 1) {
                 // Add or Edit Medical Certificate - using your existing code
-                Scanner scanner;
                 // according to official government policy, MOM allocates mandatory 14 days MC. Above that, most companies consider it
                 // hospitalisation leave. Therefore, telemedicine should not usually provide more than a few days of MC
                 // 14 is a very reasonable upper limit to set here. Anymore and they should be inpatient/physical consult.
                 int days = InputHelper.getValidIndex("Medical Certificate No. Days * incl today:", 1, 14);
 
-                scanner = new Scanner(System.in);
-                System.out.println("Medical Certificate Remarks: ");
-                String remarks = scanner.nextLine();
+                String remarks = InputValidator.getValidStringInput("Medical Certificate Remarks: ");
 
                 LocalDate today = LocalDate.now();
                 LocalDate endDay = today.plusDays(days - 1);
@@ -133,7 +126,7 @@ public class TeleconsultPage extends UiBase {
             this.OnBackPressed();
         });
         lv.attachUserInput("Refer Patient to Emergency", str -> {
-            System.out.println("Refering...");
+            System.out.println("Referring...");
             appointment.referEmergency(appointment.getDoctorNotes());
             Globals.appointmentController.saveAppointmentsToFile();
             int caseID = 1;
@@ -163,17 +156,11 @@ public class TeleconsultPage extends UiBase {
      *
      * @param index -1 when adding, otherwise, specifying index will add a new medicine
      */
-    private void setPrescribeMeds(int index) {
-        Scanner scanner = new Scanner(System.in);
+    private void prescribeMedication(int index) {
+        String medicationName = InputValidator.getValidStringInput("Enter the drug name: ").trim().toUpperCase();
 
-        System.out.println("Enter the drug name: ");
-        // always use upper case
-        String medicationName = scanner.nextLine().trim().toUpperCase();
+        int medicineAmount = InputValidator.getValidIntInput("Enter the amount: ");
 
-        System.out.println("Enter the amount: ");
-        int medicineAmount = scanner.nextInt();
-        // somehow creating a new scanner prevents errors where it may just skip the scanner.
-        scanner = new Scanner(System.in);
         Prescription prescription = appointment.getBilling().getPrescription();
 
         // if the medicine is in the database, automatically fill in the dosage
@@ -187,8 +174,7 @@ public class TeleconsultPage extends UiBase {
                 AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "DOCTOR PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
             }
         } else {
-            System.out.println("Enter the dosage/instructions: ");
-            String dosage = scanner.nextLine();
+            String dosage = InputValidator.getValidStringInput("Enter the dosage/instructions: ");
 
             if (index == -1) {
                 prescription.addMedication(medicationName, medicineAmount, dosage);
@@ -208,7 +194,7 @@ public class TeleconsultPage extends UiBase {
             return;
         }
         // Get the last symptom
-        Symptoms lastSymptom = symptoms.get(symptoms.size() - 1);
+        Symptoms lastSymptom = symptoms.getLast();
         List<String> cdssDiagnosis = cdssAnalyzeSymptoms(lastSymptom);
         System.out.println("CDSS Suggests: ");
         String outcome = "SUCCESS";
@@ -256,20 +242,17 @@ public class TeleconsultPage extends UiBase {
     }
 
     private void setDoctorNotes() {
-        System.out.println("Enter Doctor Notes :");
-        Scanner scanner = new Scanner(System.in);
-        String newNotes = scanner.nextLine();
+        String newNotes = InputValidator.getValidStringInput("Enter Doctor Notes : ");
 
         // Set the doctor notes at the appointment level
         appointment.setDoctorNotes(newNotes);
         AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "ENTERED DOC NOTES" + newNotes, "Patient: " + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
 
-
         // Clear any existing doctor notes from symptoms
         List<Symptoms> symptomsList = appointment.getPatient().getEHR().getSymptoms();
         if (!symptomsList.isEmpty()) {
             // Only set the notes on the first symptom, leave others empty
-            symptomsList.get(0).setDoctorNotes(newNotes);
+            symptomsList.getFirst().setDoctorNotes(newNotes);
 
             // Clear notes from other symptoms to avoid duplication
             for (int i = 1; i < symptomsList.size(); i++) {

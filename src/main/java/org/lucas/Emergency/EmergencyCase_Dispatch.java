@@ -1,21 +1,12 @@
 package org.lucas.Emergency;
 
 import org.lucas.audit.AuditManager;
-import org.lucas.models.Nurse;
 import org.lucas.models.Patient;
-import org.lucas.controllers.UserController;
-import org.lucas.models.enums.TriageLevel;
-import org.lucas.util.InputValidator;
 import org.lucas.Emergency.enums.PatientStatus;
-import org.lucas.models.Patient;
-import org.lucas.Emergency.EmergencyCase;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * A class that inherits from base EmergencyCase class.

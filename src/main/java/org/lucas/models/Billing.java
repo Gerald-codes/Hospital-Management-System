@@ -52,10 +52,10 @@ public class Billing implements ObjectBase {
      */
 
     public void initialBill(Doctor doctor){
-        if(doctor.getType()== DoctorType.GENERAL_PRACTICE){
+        if(doctor.getDoctorType()== DoctorType.GENERAL_PRACTICE){
             this.billAmount = 20.0;
         }
-        if(doctor.getType() == DoctorType.SPECIALIST){
+        if(doctor.getDoctorType() == DoctorType.SPECIALIST){
             this.billAmount = 50.0;
         }
         isReCalculateBillAmount = true;
