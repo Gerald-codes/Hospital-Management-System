@@ -38,6 +38,15 @@ tasks.jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.withType<JavaCompile> {
+    options.release.set(21)
+}
+
 // Create the runJar task
 tasks.register<JavaExec>("runJar") {
     dependsOn(tasks.jar) // build the jar

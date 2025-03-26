@@ -1,6 +1,5 @@
 package org.groupJ.pages;
 
-<<<<<<< HEAD:src/main/java/org/groupJ/pages/LoginPage.java
 import org.groupJ.Globals;
 import org.groupJ.audit.AuditManager;
 import org.groupJ.controllers.ESController;
@@ -14,23 +13,9 @@ import org.groupJ.ui.framework.View;
 import org.groupJ.ui.framework.views.ListView;
 import org.groupJ.ui.framework.views.TextView;
 import org.groupJ.util.InputValidator;
-=======
-import org.lucas.audit.AuditManager;
-import org.lucas.controllers.UserController;
-import org.lucas.models.enums.UserType;
-import org.lucas.pages.doctor.DoctorMainPage;
-import org.lucas.pages.nurse.NurseMenuPage;
-import org.lucas.pages.patient.PatientMainPage;
-import org.lucas.ui.framework.Color;
-import org.lucas.ui.framework.UiBase;
-import org.lucas.ui.framework.View;
-import org.lucas.ui.framework.views.ListView;
-import org.lucas.ui.framework.views.TextView;
-import org.lucas.util.InputValidator;
->>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/pages/LoginPage.java
 
 /**
- * Represents the login page of the Telemedicine Integration System.
+ * Represents the login page of the Hospital Management System.
  * This class extends {@link UiBase} and provides the UI elements and logic for user authentication.*/
 public class LoginPage extends UiBase { // This is the class that represents the login page
 
@@ -39,6 +24,12 @@ public class LoginPage extends UiBase { // This is the class that represents the
      * This field is static, meaning there's only one UserController shared across all LoginPage instances.*/
     public static UserController userController = new UserController();
 
+//    private String loginMessage;
+//
+//    public LoginPage(String loginMessage) {
+//        this.loginMessage = loginMessage;
+//    }
+
     /**
      * Called when the login page's view is created.
      * Creates a {@link ListView} to hold the login page's UI elements.
@@ -46,8 +37,8 @@ public class LoginPage extends UiBase { // This is the class that represents the
      * @Override*/
     @Override
     public View OnCreateView() { // This is the method that is called when the view is created
-        ListView lv = new ListView(this.canvas, Color.GREEN); // Create a new list view with the canvas and color
-        return lv; // Return the list view
+        // Create a new list view with the canvas and color
+        return new ListView(this.canvas, Color.GREEN); // Return the list view
     }
 
     /**
@@ -60,8 +51,11 @@ public class LoginPage extends UiBase { // This is the class that represents the
 
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
         lv.setTitleHeader("Welcome to the Hospital Management System "); // Set the title header of the list view
+//        lv.addItem(new TextView(this.canvas, loginMessage, Color.GREEN));
         lv.addItem(new TextView(this.canvas, "To use our system, please kindly login by pressing 1", Color.GREEN)); // Create a new text view with the message
         AuditManager auditManager = new AuditManager();
+        ESController.loadEmergencyCaseFromFile();
+        ESController.loadEmergencyDispatchCaseFromFile();
         lv.attachUserInput("Login ", x -> { // Attach the user input to the list view
             String username = InputValidator.getValidStringInput("Enter your username: ");
             String password = InputValidator.getValidStringInput("Enter your password: ");
@@ -75,19 +69,14 @@ public class LoginPage extends UiBase { // This is the class that represents the
                 ToPage(Globals.nurseMenuPage);
             } else if (UserType.PATIENT == userController.authenticate(username, password)) {
                 System.out.println("Login successful!");
-<<<<<<< HEAD:src/main/java/org/groupJ/pages/LoginPage.java
                 ToPage(Globals.patientMainPage);
             } else if (UserType.PARAMEDIC == userController.authenticate(username, password)){
                 System.out.println("Login successful");
                 ToPage(Globals.paramedicMenuPage);
             }else { System.out.println("Invalid username or password!"); }
-=======
-                ToPage(new PatientMainPage());
-            } else { System.out.println("Invalid username or password!"); }
->>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/pages/LoginPage.java
 
             canvas.setRequireRedraw(true);
-            });
+        });
         canvas.setRequireRedraw(true);
     }
 

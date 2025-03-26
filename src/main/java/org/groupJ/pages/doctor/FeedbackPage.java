@@ -38,14 +38,15 @@ public class FeedbackPage extends UiBase {
 
     public void createFeedbackMechanism(List<ClinicalGuideline> clinicalGuidelines) {
         String activeUserId;
-        String activeUserName;
+        String activeUserRole;
 
         if (UserController.getActiveUserType()== UserType.DOCTOR){
             activeUserId = UserController.getActiveDoctor().getId();
-            activeUserName = UserController.getActiveDoctor().getName();
+            activeUserRole = "DOCTOR";
         } else if (UserController.getActiveUserType()== UserType.NURSE) {
             activeUserId = UserController.getActiveNurse().getId();
-            activeUserName = UserController.getActiveNurse().getName();
+            activeUserRole = "NURSE";
+
         } else {
             System.out.println("No active user found");
             return;
@@ -73,7 +74,7 @@ public class FeedbackPage extends UiBase {
                 matchClinicalGuideline.saveFeedbackToFile(feedback);
 
                 System.out.println("✅ Thank you for your feedback! It has been successfully recorded.");
-                AuditManager.getInstance().logAction(activeUserId, "Feedback given", "Guideline ID: " + selectedClinicalID, "Patient Feedback Administered", activeUserName);
+                AuditManager.getInstance().logAction(activeUserId, "FEEDBACK GIVEN", "Guideline ID: " + selectedClinicalID, "SUCCESS", activeUserRole);
                 ToPage(new DoctorMainPage());
                 break;  // Exit feedback loop after successful submission
             }
@@ -92,49 +93,49 @@ public class FeedbackPage extends UiBase {
      * @param clinicalGuidelines List of clinical guidelines to display.
      */
     public static void displayGuidelineList(List<ClinicalGuideline> clinicalGuidelines) {
-        // Adjusted header with fine-tuned column widths for proper alignment
-        System.out.printf("%-6s %-15s %-30s %-45s %-10s %-35s %-40s %-12s %-10s %-40s %n",
+        if (clinicalGuidelines.isEmpty()) {
+            System.out.println("No clinical guidelines available.");
+            return;
+        }
+
+        // Adjusted printf for precise alignment
+        System.out.printf("%-4s | %-10s | %-40s | %-50s | %-10s | %-30s | %-20s | %-10s | %-8s | %-50s%n",
                 "ID",
                 "Type",
                 "Description",
-                "Supporting Evidence",
-                "BP Threshold",
-                "Authoring Committee",
-                "Reference Document",
+                "Evidence",
+                "BP Thresh",
+                "Authoring Comm.",
+                "Ref. Document",
                 "Updated",
                 "Priority",
-                "Follow-up Recommendation");
+                "Follow-up Rec.");
 
-        // Line separator for better visual distinction
-        System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        // Separator line with consistent width
+        System.out.println("-".repeat(240));
 
         // Iterate and print each guideline
         for (ClinicalGuideline guideline : clinicalGuidelines) {
-            // Split long text for Supporting Evidence and Follow-up Recommendation
-            List<String> evidenceLines = TextSplitter.splitText(guideline.getSupportingEvidence(), 50);
-            List<String> followUpLines = TextSplitter.splitText(guideline.getFollowUpRecommendation(), 50);
-
-            // Determine the maximum number of lines needed
-            int maxLines = Math.max(evidenceLines.size(), followUpLines.size());
-
-            // Print each line, aligning columns properly
-            for (int i = 0; i < maxLines; i++) {
-                System.out.printf("%-6s %-15s %-30s %-45s %-10s %-35s %-40s %-12s %-10s %-40s %n",
-                        i == 0 ? guideline.getGuidelineId() : "",       // Only print on first line
-                        i == 0 ? guideline.getGuideLineType() : "",
-                        i == 0 ? guideline.getGuideDescription() : "",
-                        i < evidenceLines.size() ? evidenceLines.get(i) : "",
-                        i == 0 ? guideline.getBloodPressureSystolicThreshHold() : "",
-                        i == 0 ? guideline.getAuthoringCommittee() : "",
-                        i == 0 ? guideline.getReferenceDocuments() : "",
-                        i == 0 ? guideline.getLastUpdated() : "",
-                        i == 0 ? guideline.getPriorityLevel() : "",
-                        i < followUpLines.size() ? followUpLines.get(i) : "");
-            }
-
-            // Add a blank line between entries for readability
-            System.out.println();
+            System.out.printf("%-4s | %-10s | %-40s | %-50s | %-10s | %-30s | %-20s | %-10s | %-8s | %-50s%n",
+                    guideline.getGuidelineId(),
+                    guideline.getGuideLineType(),
+                    truncate(guideline.getGuideDescription(), 40),
+                    truncate(guideline.getSupportingEvidence(), 50),
+                    guideline.getBloodPressureSystolicThreshHold(),
+                    truncate(guideline.getAuthoringCommittee(), 30),
+                    truncate(guideline.getReferenceDocuments(), 20),
+                    guideline.getLastUpdated(),
+                    guideline.getPriorityLevel(),
+                    truncate(guideline.getFollowUpRecommendation(), 50));
         }
+    }
+
+    // Utility method to truncate text
+    private static String truncate(String text, int maxLength) {
+        if (text == null) return "";
+        return text.length() > maxLength
+                ? text.substring(0, maxLength - 3) + "..."
+                : text;
     }
 
 }

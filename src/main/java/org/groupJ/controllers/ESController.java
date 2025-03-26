@@ -1,7 +1,6 @@
 package org.groupJ.controllers;
 
 import com.google.gson.reflect.TypeToken;
-<<<<<<< HEAD:src/main/java/org/groupJ/controllers/ESController.java
 import org.groupJ.Emergency.EmergencyCase;
 import org.groupJ.Emergency.EmergencyCase_Dispatch;
 import org.groupJ.Emergency.enums.PatientLocation;
@@ -14,24 +13,7 @@ import org.groupJ.models.enums.TriageLevel;
 import org.groupJ.util.InputValidator;
 import org.groupJ.util.JarLocation;
 import org.groupJ.util.Util;
-=======
-import org.lucas.Emergency.EmergencyCase;
-import org.lucas.Emergency.EmergencyCase_Dispatch;
-import org.lucas.Emergency.enums.PatientLocation;
-import org.lucas.Emergency.enums.PatientStatus;
-import org.lucas.Globals;
-import org.lucas.audit.AuditManager;
-import org.lucas.models.Doctor;
-import org.lucas.models.Nurse;
-import org.lucas.models.Patient;
-import org.lucas.models.User;
-import org.lucas.models.enums.TriageLevel;
-import org.lucas.util.InputValidator;
-import org.lucas.util.JarLocation;
-import org.lucas.util.Util;
->>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/controllers/ESController.java
 
-import javax.print.Doc;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -44,18 +26,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ESController {
-//    private static List<EmergencyCase> emergencyCases = new ArrayList<>();
-//    private static List<EmergencyCase_Dispatch> emergencyCaseDispatch = new ArrayList<>();
     private static List<EmergencyCase> allCases = new ArrayList<>();
+    private static List<EmergencyCase_Dispatch> allDispatchCases = new ArrayList<>();
     private static final String fileName = "emergency_cases.txt";
-<<<<<<< HEAD:src/main/java/org/groupJ/controllers/ESController.java
     private static final String fileNameDispatch = "emergency_dispatch_cases.txt";
     private static final List<ClinicalGuideline> clinicalGuidelines = List.copyOf(ClinicalGuideline.generateClinicalGuideLine());
-=======
->>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/controllers/ESController.java
 
+    public static List<EmergencyCase_Dispatch> getAllDispatchCases() {
+        return allDispatchCases;
+    }
 
-<<<<<<< HEAD:src/main/java/org/groupJ/controllers/ESController.java
     public static void printDispatchCaseInfo(int caseID) {
         for (EmergencyCase_Dispatch ec : allDispatchCases) {
             if (ec.getCaseID() == caseID) {
@@ -79,8 +59,6 @@ public class ESController {
             System.out.println(c.printIncidentReport());
         }
     }
-=======
->>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/controllers/ESController.java
 
     /**
      * Adds an emergency case to the list of all cases.
@@ -96,27 +74,13 @@ public class ESController {
 //        emergencyCases.sort(): //sort by triage level
 //    }
 
-    /**
-     * Adds a new emergency case dispatch to the list of all cases, if it's not a duplicate.
-     *
-     * @param newCase_Dispatch The new emergency case dispatch to be added.
-     */
-    public static void addEmergencyCaseDispatch(EmergencyCase_Dispatch newCase_Dispatch) {
-        if (!allCases.contains(newCase_Dispatch)) {
-            allCases.add(newCase_Dispatch); // add the new case dispatch
-        } else {
-            System.out.println("Duplicate emergency case dispatch-not added: " + newCase_Dispatch); // print the error
-            // message if the
-            // case dispatch
-            // already exists
-        }
+    public static List<EmergencyCase> getAllCases() {
+        return allCases;
+    }
 
-<<<<<<< HEAD:src/main/java/org/groupJ/controllers/ESController.java
     public static void addEmergencyCaseDispatch(EmergencyCase_Dispatch newDispatchCase) {
 
         allDispatchCases.add(newDispatchCase);
-=======
->>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/controllers/ESController.java
     }
 
     /**
@@ -147,11 +111,12 @@ public class ESController {
     /**
      * Prints all emergency cases that are currently in the examination room.
      */
-    public static void printAllEmergencyCaseInExaminationRoom() {
-        // Filter and print all emergency cases in the Examination Room
+    public static void printAllEmergencyCaseInTraumaRoom() {
+        // Filter and print all emergency cases in the Trauma Room
         for (EmergencyCase emergencyCase : allCases) {
-            if (PatientLocation.EMERGENCY_ROOM_EXAMINATION_ROOM.equals(emergencyCase.getLocation())) {
-                System.out.println(emergencyCase);  // Or use emergencyCase.toString() if defined
+            if (PatientLocation.EMERGENCY_ROOM_TRAUMA_ROOM.equals(emergencyCase.getLocation()) &&
+                    emergencyCase.getPatientStatus().equals(PatientStatus.WAITING)) {
+                emergencyCase.displayCase();
             }
         }
     }
@@ -191,18 +156,10 @@ public class ESController {
                     sb.append(line);
                 }
 
-<<<<<<< HEAD:src/main/java/org/groupJ/controllers/ESController.java
                 Type listType = new TypeToken<List<EmergencyCase>>() {
                 }.getType();
                 allCases = Util.fromJsonString(sb.toString(), listType);
             }
-=======
-            //System.out.println("File contents: " + sb.toString());
-
-            Type listType = new TypeToken<List<EmergencyCase>>() {
-            }.getType();
-            allCases = Util.fromJsonString(sb.toString(), listType);
->>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/controllers/ESController.java
         } catch (IOException e) {
             AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "EXCEPTION OCCURRED", e.getMessage(),
                     "FAILURE", UserController.getActiveUserType().toString());
@@ -232,7 +189,7 @@ public class ESController {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
             if (allCases.isEmpty()) {
-                writer.write("No emergency cases available.\n");
+                writer.write("[]");
             } else {
                 // Write the JSON representation of all cases
                 writer.write(json);
@@ -244,7 +201,6 @@ public class ESController {
         }
     }
 
-<<<<<<< HEAD:src/main/java/org/groupJ/controllers/ESController.java
     public static void loadEmergencyDispatchCaseFromFile() {
         allDispatchCases.clear();
         StringBuilder sb = new StringBuilder();
@@ -321,8 +277,6 @@ public class ESController {
         }
     }
 
-=======
->>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/controllers/ESController.java
     /**
      * Selects an emergency case by its ID.
      *
@@ -347,7 +301,6 @@ public class ESController {
      * @param emergencyCase The emergency case to be screened.
      */
     public static void nurseInitialScreening(EmergencyCase emergencyCase) {
-<<<<<<< HEAD:src/main/java/org/groupJ/controllers/ESController.java
         System.out.println("----------------------------------------------");
         System.out.println("                 CASE DETAILS                 ");
 
@@ -355,8 +308,6 @@ public class ESController {
         emergencyCase.displayCase();
 
         AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "PROCEED WITH INITIAL SCREENING", String.valueOf(emergencyCase.getCaseID()), "ONGOING", UserController.getActiveUserType().toString());
-=======
->>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/controllers/ESController.java
         // Print all TriageLevel enum values and prompt the user to choose one
         System.out.println("======= Select Patient's Triage Level =======");
 
@@ -487,39 +438,10 @@ public class ESController {
         }
     }
 
-//    public static void doctorScreening(EmergencyCase emergencyCase){
-//        Patient patient =  emergencyCase.getPatient();
-//        Doctor doctor = emergencyCase.getScreeningDoctor();
-//        patient.setAssignedDoctor(doctor.getId());
-//        patient.displayPatientInfo();
-//        auditManager.logAction(doctor.getId(), "VIEW PATIENT RECORD",
-//                "Patient: " + selectedPatient.getPatientID(), "SUCCESS");
-//        while (true){
-//            showDoctorPatientOption();
-//            int doctorInput = InputValidator.getValidIntInput("Enter your choice: ");
-//
-//            switch (doctorInput) {
-//                case 0:
-//                    return;  // Go back to patient list
-//                case 1:
-//                    updatePatientVitalSigns(patient, doctor, auditManager);  // Update vital signs
-//                    continue;
-//                case 2:
-//                    updatePatientSymptoms(selectedPatient, doctor, auditManager);  // Update symptoms
-//                    continue;
-//                case 3:
-//                    diagnosePatient(selectedPatient, doctor, auditManager);  // Diagnose patient
-//                    continue;
-//                case 4:
-//                    prescribeMedications(selectedPatient, doctor, auditManager);  // Prescribe medications
-//                    continue;
-//                default:
-//                    System.out.println("Invalid choice! Please try again.");
-//            }
-//        }
-//    }
+    public static void doctorScreening(EmergencyCase emergencyCase) {
+        Patient patient = emergencyCase.getPatient();
+        Doctor doctor = emergencyCase.getScreeningDoctor();
 
-<<<<<<< HEAD:src/main/java/org/groupJ/controllers/ESController.java
         // Assign the doctor to the patient
         patient.setAssignedDoctor(doctor.getId());
 
@@ -570,29 +492,19 @@ public class ESController {
 
     private static void showDoctorPatientOption() {
         System.out.println("\n========== Doctor Options ==========");
-=======
-    /**
-     * Displays the options available to a doctor when interacting with a patient's case.
-     */
-    public static void showDoctorPatientOption(){
-        System.out.println("\n===== Doctor Options =====");
->>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/controllers/ESController.java
         System.out.println("1. Update Patient Vital Signs");
         System.out.println("2. Update Patient Symptoms");
         System.out.println("3. Diagnose Patient");
         System.out.println("4. Prescribe Medications");
-        System.out.println("0. Back");
+        System.out.println("0. End Consultation");
     }
 
     /**
-     * Updates the vital signs of a patient. This method is intended to be used by a doctor
-     * to update a patient's vital signs record. (Currently commented out)
+     * Updates the vital signs of the selected patient.
      *
-     * @param patient      The patient whose vital signs are to be updated.
+     * @param patient      The patient whose vital signs are being updated.
      * @param doctor       The doctor performing the update.
-     * @param auditManager The audit manager to log the action.
      */
-<<<<<<< HEAD:src/main/java/org/groupJ/controllers/ESController.java
 
     private static void updatePatientVitalSigns(Patient patient, Doctor doctor) {
         AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "UPDATE PATIENT VITAL SIGNS", patient.getId(), "ONGOING", "DOCTOR");
@@ -925,31 +837,4 @@ public class ESController {
         AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "ADD DISPATCH CASE TO EMERGENCY CASE FILE" , String.valueOf(dc.getCaseID()),"SUCCESS", "PARAMEDIC");
     }
 
-=======
-    public static void updatePatientVitalSigns(Patient patient, Doctor doctor, AuditManager auditManager) {
-//        System.out.println("========== Update Patient Vital Signs ==========");
-//        System.out.println("Printing " + patient.getPatientName() + "'s current vital signs...");
-//        System.out.println(patient.getEHR().getVitalSigns().toString());  // Display current vital signs
-//        auditManager.logAction(doctor.getId(), "UPDATE PATIENT RECORD", "Patient: " + patient.getPatientID(), "SUCCESS");
-//
-//        // Prompt for new vital sign values
-//        double temperature = InputValidator.getValidDoubleInput("Please enter the temperature: ");
-//        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ temperature, "Patient: " + patient.getPatientID() + "'s temperature", "SUCCESS");
-//        int hr = InputValidator.getValidIntInput("Please enter the heart rate: ");
-//        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ hr, "Patient: " + patient.getPatientID() + "'s heart rate", "SUCCESS");
-//        int sysBloodPressure = InputValidator.getValidIntInput("Please enter the systolic blood pressure: ");
-//        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ sysBloodPressure, "Patient: " + patient.getPatientID() + "'s systolic blood pressure", "SUCCESS");
-//        int diaBloodPressure = InputValidator.getValidIntInput("Please enter the diastolic blood pressure: ");
-//        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ diaBloodPressure, "Patient: " + patient.getPatientID() + "'s diastolic blood pressure", "SUCCESS");
-//        int respiratory = InputValidator.getValidIntInput("Please enter the respiratory rate: ");
-//        auditManager.logAction(doctor.getId(), "USER ENTERED: "+ respiratory, "Patient: " + patient.getPatientID() + "'s respiratory rate", "SUCCESS");
-//
-//        // Update patient's vital signs
-//        patient.getEHR().setVitalSigns(new VitalSigns(temperature, hr, sysBloodPressure, diaBloodPressure, respiratory));
-//
-//        System.out.println(patient.getPatientName() + "'s vital signs have been updated.");
-
-    }
->>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/controllers/ESController.java
 }
-

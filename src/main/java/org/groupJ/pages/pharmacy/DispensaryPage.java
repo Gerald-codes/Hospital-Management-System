@@ -151,7 +151,7 @@ public class DispensaryPage extends UiBase {
         Billing billing = appointment.getBilling();
         if (billing == null) {
             System.out.println("No billing information available.");
-            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "RETRIEVE BILLING", UserController.getActivePatient().getId(), "FAILED", "NURSE");
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "USER RETRIEVED", appointment.getPatient().getId() + "'s BILLING", "FAILED", "NURSE");
             return;
         }
 
@@ -159,7 +159,7 @@ public class DispensaryPage extends UiBase {
         Prescription prescription = billing.getPrescription();
         if (prescription == null) {
             System.out.println("No prescription found in billing.");
-            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "RETRIEVE PRESCRIPTION", UserController.getActivePatient().getId(), "FAILED", "NURSE");
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "USER RETRIEVED", appointment.getPatient().getId() + "'s PRESCRIPTION", "FAILED", "NURSE");
             return;
         }
 
@@ -178,7 +178,20 @@ public class DispensaryPage extends UiBase {
                 // Deduct (or the required amount) from the stock.
                 int newStock = availableMed.getStockAvailable() - requiredMed.getStockAvailable();
                 availableMed.setStockAvailable(newStock);
-                System.out.println("Dispensed: " + availableMed.getMedicationName());
+                //Debugging
+                String logMessage = String.format(
+                        "DISPENSED - Medication: %s, Quantity: %d",
+                        requiredMed.getMedicationName(),
+                        requiredMed.getStockAvailable()
+                );
+                System.out.println(logMessage);
+                AuditManager.getInstance().logAction(
+                        UserController.getActiveNurse().getId(),
+                        logMessage,
+                        appointment.getPatient().getId(),
+                        "SUCCESS",
+                        "NURSE"
+                );
             } else {
                 System.out.println("Out of stock: " + availableMed.getMedicationName());
             }
@@ -189,11 +202,10 @@ public class DispensaryPage extends UiBase {
 
         // Mark the billing as processed.
         System.out.println("Billing processed: medications have been dispensed.");
-        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "DISPENSED MEDICATION ", "SYSTEM", "SUCCESS", "NURSE");
         System.out.println("Press 0 to continue");
         appointment.setAppointmentStatus(AppointmentStatus.DISPENSED);
         //Uncomment this once ready
-        //Globals.appointmentController.saveAppointmentsToFile();
+        Globals.appointmentController.saveAppointmentsToFile();
     }
     // Helper method to get item color for the appointment status
     private Color getItemColor(AppointmentStatus status) {
