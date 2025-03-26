@@ -3,6 +3,7 @@ package org.lucas.pages.doctor;
 import org.lucas.Emergency.EmergencyCase;
 import org.lucas.Emergency.enums.PatientLocation;
 import org.lucas.Emergency.enums.PatientStatus;
+import org.lucas.Globals;
 import org.lucas.audit.AuditManager;
 import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
@@ -70,7 +71,7 @@ public class DoctorLocationPage extends UiBase {
         selectedCase.setPatientStatus(selectedPatientStatus);
         ESController.saveEmergencyCasesToFile();
 
-        ToPage( new DoctorLocationPage());
+        ToPage(Globals.doctorLocationPage);
     }
 
     public void proceedWithImmediateResponse(){
@@ -89,7 +90,7 @@ public class DoctorLocationPage extends UiBase {
         selectedCase.setPatientStatus(PatientStatus.DONE);
         ESController.saveEmergencyCasesToFile();
 
-        ToPage( new DoctorLocationPage());
+        ToPage(Globals.doctorLocationPage);
     }
 
 }

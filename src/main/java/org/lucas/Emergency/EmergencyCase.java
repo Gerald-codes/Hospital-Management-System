@@ -25,7 +25,7 @@ public class EmergencyCase {
     private LocalDateTime arrivalDateTime;
     private TriageLevel triageLevel; // Enum or String based on severity
     private Nurse initialScreeningNurse; // list of either nurse, doctor, paramedic etc // Connect to staff
-    private Doctor asssignedDoctor; // staff member ID
+    private Doctor assignedDoctor; // staff member ID
     private PatientLocation location; // Current location of the patient (e.g., Waiting Room, Treatment Room)
 
     private PatientStatus patientStatus; // Admitted, Discharged, etc.
@@ -284,14 +284,14 @@ public class EmergencyCase {
     }
 
     public void setAssignedDoctor(Doctor doctor) {
-        this.asssignedDoctor = doctor;
+        this.assignedDoctor = doctor;
     }
     /**
      * Get the screening doctors
      * @return a list of staff members who performed the screening
      */
     public Doctor getScreeningDoctor() {
-        return this.asssignedDoctor;
+        return this.assignedDoctor;
     }
 
     /**
@@ -370,10 +370,10 @@ public class EmergencyCase {
          * Handle screening doctor
          * If the screening doctor is not null and not empty, print the doctor's name and ID
          */
-        if (asssignedDoctor != null ) {
+        if (assignedDoctor != null ) {
             report.append("Attending Doctor: ")
-                    .append(asssignedDoctor.getName())
-                    .append(" (ID: ").append(asssignedDoctor.getId()).append(")\n"); // print the attending doctor
+                    .append(assignedDoctor.getName())
+                    .append(" (ID: ").append(assignedDoctor.getId()).append(")\n"); // print the attending doctor
         }
 
         /**
@@ -406,7 +406,7 @@ public class EmergencyCase {
                 ", arrivalDateTime=" + arrivalDateTime +
                 ", triageLevel='" + triageLevel + '\'' +
                 ", initialScreeningNurse=" + initialScreeningNurse +
-                ", assignedDoctor=" + asssignedDoctor +
+                ", assignedDoctor=" + assignedDoctor +
                 ", location='" + location + '\'' +
                 ", patientStatus=" + patientStatus +
                 ", emergencyProcedures=" + emergencyProcedures +
@@ -450,6 +450,6 @@ public class EmergencyCase {
             System.out.printf("Response Time: %s\n", dispatchCase.getResponseTime().toMinutes() + " minutes");
         }
 
-        System.out.println("---------------------------------");
+        System.out.println("----------------------------------------------");
     }
 }

@@ -80,6 +80,9 @@ public class NurseMainPage extends UiBase {
                 ToPage(Globals.nursePatientActionsPage);
             }
         });
+
+        lv.attachUserInput("Feedback Mechanism", str -> {
+            ToPage(Globals.feedbackPage);});
         canvas.setRequireRedraw(true);
     }
 }

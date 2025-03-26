@@ -166,6 +166,7 @@ public class PatientInfoPage extends UiBase {
             lv.addItem(new TextView(this.canvas, "===========================================================================", Color.RED));
         }
     }
+
     private void displayAllPatients(List<Patient> patients, ListView lv) {
         lv.clear();
         lv.setTitleHeader("All Patients Information");

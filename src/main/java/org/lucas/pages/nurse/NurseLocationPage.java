@@ -3,6 +3,7 @@ package org.lucas.pages.nurse;
 import org.lucas.Emergency.EmergencyCase;
 import org.lucas.Emergency.enums.PatientLocation;
 import org.lucas.Emergency.enums.PatientStatus;
+import org.lucas.Globals;
 import org.lucas.audit.AuditManager;
 import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
@@ -21,18 +22,17 @@ public class NurseLocationPage extends UiBase {
     @Override
     public View OnCreateView() {
         listView = new ListView(this.canvas, Color.GREEN);
-        listView.setTitleHeader("Nurse Location Menu");
         listView.addItem(new TextView(this.canvas, "1. Triage Room - Proceed With Initial Screening", Color.GREEN));
-        listView.addItem(new TextView(this.canvas, "2. Observation Room - Linked to CDSS", Color.GREEN));
+        listView.addItem(new TextView(this.canvas, "2. Observation Room - Proceed With Patient Monitoring & Care Tasks", Color.GREEN));
         return listView;
     }
 
     @Override
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
-        lv.setTitleHeader("Nurse Location Menu1"); // Set the title header of the list view
+        lv.setTitleHeader("Nurse Location Menu"); // Set the title header of the list view
         lv.attachUserInput("Triage Room", str -> proceedWithInitialScreening() );
-        lv.attachUserInput("Observation Room", str -> ToPage(new NurseMainPage()));
+        lv.attachUserInput("Observation Room", str -> proceedToObservationRoom());
     }
 
     public void proceedWithInitialScreening() {
@@ -41,6 +41,7 @@ public class NurseLocationPage extends UiBase {
         do {
             ESController.printAllEmergencyCaseInWaitingRoom();
             int caseId = InputValidator.getValidIntInput("Enter Case ID : ");
+
             selectedCase = ESController.selectCase(caseId);
         } while(selectedCase == null);
 
@@ -64,11 +65,33 @@ public class NurseLocationPage extends UiBase {
         refreshUi("Patient Initial Screening Completed!");
     }
 
+    public void proceedToObservationRoom(){
+        EmergencyCase selectedCase = null;
+        do {
+            ESController.printAllEmergencyCaseInObservationRoom();
+            int caseId = InputValidator.getValidIntInput("Enter Case ID : ");
+
+            selectedCase = ESController.selectCase(caseId);
+        } while(selectedCase == null);
+
+        Nurse nurse = UserController.getActiveNurse();
+        selectedCase.setInitialScreeningNurse(nurse);
+
+        selectedCase.setLocation(PatientLocation.EMERGENCY_ROOM_OBSERVATION_ROOM);
+        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "UPDATE LOCATION TO OBSERVATION ROOM", String.valueOf(selectedCase.getCaseID()), "SUCCESS", "NURSE");
+
+        selectedCase.setPatientStatus(PatientStatus.ADMITTED);
+        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "UPDATE PATIENT STATUS TO ONGOING", String.valueOf(selectedCase.getCaseID()), "SUCCESS", "NURSE");
+
+        NursePatientActionsPage.setPatient(selectedCase.getPatient());
+        NursePatientActionsPage.setEmergencyCase(selectedCase);
+        ToPage(Globals.nursePatientActionsPage);
+    }
     public void refreshUi(String string){
         listView.clear();
         listView.setTitleHeader("Nurse Location Menu");
         listView.addItem(new TextView(this.canvas, "1. Triage Room - Proceed With Initial Screening", Color.GREEN));
-        listView.addItem(new TextView(this.canvas, "2. Observation Room - Linked to CDSS", Color.GREEN));
+        listView.addItem(new TextView(this.canvas, "2. Observation Room - Proceed With Patient Monitoring & Care Tasks", Color.GREEN));
         listView.addItem(new TextView(this.canvas, string, Color.GREEN));
 
         canvas.setRequireRedraw(true);

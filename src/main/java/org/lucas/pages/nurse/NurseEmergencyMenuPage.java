@@ -2,6 +2,7 @@ package org.lucas.pages.nurse;
 
 import org.lucas.Emergency.EmergencyCase;
 import org.lucas.Emergency.EmergencyCase_Dispatch;
+import org.lucas.Globals;
 import org.lucas.audit.AuditManager;
 import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
@@ -31,7 +32,6 @@ public class NurseEmergencyMenuPage extends UiBase {
         listView= new ListView(this.canvas, Color.GREEN);
         listView.addItem(new TextView(this.canvas, "1. Create New Emergency Case - To enter and proceed with Action  ", Color.GREEN));
         listView.addItem(new TextView(this.canvas, "2. Locations - To enter and proceed with Action  ", Color.GREEN));
-//        listView.addItem(new TextView(this.canvas, "3. View Dispatch Menu", Color.GREEN));
         listView.addItem(new TextView(this.canvas, "3. View All Emergency Cases", Color.GREEN));
         return listView;
     }
@@ -41,9 +41,8 @@ public class NurseEmergencyMenuPage extends UiBase {
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
         lv.setTitleHeader("Nurse Emergency Menu"); // Set the title header of the list view
         lv.attachUserInput("Create New Emergency Case ", str -> createNewEmergencyCase());
-        lv.attachUserInput("Location ", str -> ToPage(new NurseLocationPage()));
+        lv.attachUserInput("Location ", str -> ToPage(Globals.nurseLocationPage));
         lv.attachUserInput("View All Emergency Cases ", str -> viewAllEmergencyCases());
-//        lv.attachUserInput("View Dispatch Menu ", str -> ToPage(new NurseDispatchMenuPage()));
         canvas.setRequireRedraw(true);
     }
 

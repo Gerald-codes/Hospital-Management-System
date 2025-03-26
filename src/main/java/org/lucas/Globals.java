@@ -4,14 +4,12 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.lucas.controllers.AppointmentController;
-import org.lucas.controllers.ESController;
 import org.lucas.controllers.UserController;
 import org.lucas.pages.LandingPage;
 import org.lucas.pages.LoginPage;
+import org.lucas.pages.nurse.*;
 import org.lucas.pages.pharmacy.PharmacyPage;
 import org.lucas.pages.doctor.*;
-import org.lucas.pages.nurse.NurseMenuPage;
-import org.lucas.pages.nurse.NursePatientActionsPage;
 import org.lucas.pages.pharmacy.MedicationPage;
 import org.lucas.util.DurationTypeAdapter;
 import org.lucas.util.LocalDateTimeTypeAdapter;
@@ -37,7 +35,10 @@ public class Globals {
     public static FeedbackPage feedbackPage = new FeedbackPage();
     public static NurseMenuPage nurseMenuPage = new NurseMenuPage();
     public static NursePatientActionsPage nursePatientActionsPage = new NursePatientActionsPage();
-
+    public static NurseLocationPage nurseLocationPage = new NurseLocationPage();
+    public static NurseMainPage nurseMainPage = new NurseMainPage();
+    public static NurseEmergencyMenuPage nurseEmergencyMenuPage = new NurseEmergencyMenuPage();
+    public static DoctorLocationPage doctorLocationPage = new DoctorLocationPage();
     // Controllers
     public static AppointmentController appointmentController = new AppointmentController();
     public static UserController userController = new UserController();

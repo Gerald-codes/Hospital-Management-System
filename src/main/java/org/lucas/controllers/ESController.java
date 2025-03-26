@@ -131,6 +131,17 @@ public class ESController {
         }
     }
 
+    public static void printAllEmergencyCaseInObservationRoom() {
+        // Filter and print all emergency cases in the Trauma Room
+        for (EmergencyCase emergencyCase : allCases) {
+            // get patient in EMERGENCY_ROOM_TRAUMA_ROOM and patient status is done
+            if (PatientLocation.EMERGENCY_ROOM_TRAUMA_ROOM.equals(emergencyCase.getLocation()) &&
+                    emergencyCase.getPatientStatus().equals(PatientStatus.DONE)) {
+                emergencyCase.displayCase();
+            }
+        }
+    }
+
     /**
      * Prints all emergency cases, regardless of their location or status.
      */

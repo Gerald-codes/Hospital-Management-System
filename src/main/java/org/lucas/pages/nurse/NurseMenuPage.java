@@ -1,5 +1,6 @@
 package org.lucas.pages.nurse;
 
+import org.lucas.Globals;
 import org.lucas.controllers.UserController;
 import org.lucas.pages.doctor.FeedbackPage;
 
@@ -45,10 +46,10 @@ public class NurseMenuPage extends UiBase {
         lv.addItem(new TextView(this.canvas, "3. Pharmacy", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "4. Emergency ", Color.GREEN));
 
-        lv.attachUserInput("View List of Patient", str -> ToPage(new NurseMainPage()));
-        lv.attachUserInput("Feedback Mechanism", str -> ToPage(new FeedbackPage()));
-        lv.attachUserInput("Pharmacy ", str -> ToPage(new PharmacyPage()));
-        lv.attachUserInput("Emergency", str -> ToPage(new NurseEmergencyMenuPage()));
+        lv.attachUserInput("View List of Patient", str -> ToPage(Globals.nurseMainPage));
+        lv.attachUserInput("Feedback Mechanism", str -> ToPage(Globals.feedbackPage));
+        lv.attachUserInput("Pharmacy ", str -> ToPage(Globals.pharmacyPage));
+        lv.attachUserInput("Emergency", str -> ToPage(Globals.nurseEmergencyMenuPage));
 
         canvas.setRequireRedraw(true);
     }
