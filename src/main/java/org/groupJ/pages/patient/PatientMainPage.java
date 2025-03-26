@@ -22,7 +22,7 @@ import java.util.*;
 import static org.groupJ.Globals.appointmentController;
 
 
-/** Represents the main page of the Telemedicine Integration System.
+/** Represents the patient main page of the Telemedicine Integration System.
  * This page displays a menu of options for the user to navigate to different sections of the application.
  * It extends {@link UiBase} and uses a {@link ListView} to present the menu items.*/
 public class PatientMainPage extends UiBase {
@@ -42,7 +42,7 @@ public class PatientMainPage extends UiBase {
     }
 
     /**Called after the view has been created and attached to the UI.
-     * Populates the view with the main menu options, such as "View List of Patient", and "View Appointment".
+     * Populates the view with the main menu options, such as "Book Appointment", and "View Billing".
      * Attaches user input handlers to each menu option to navigate to the corresponding pages.
      * @param parentView The parent {@link View} to which the main page's UI elements are added. This should be a ListView.
      */
@@ -63,11 +63,17 @@ public class PatientMainPage extends UiBase {
 
         canvas.setRequireRedraw(true);
     }
-
+    /**
+     * Prompts the user to book an appointment by entering the necessary details.
+     * This includes the reason for the consultation, medical history, appointment date, and time slot.
+     * Also handles patient consent for telemedicine.
+     */
     private void bookAppointmentPrompt(){
         appointmentController.getAppointments();
         String reason = InputValidator.getValidStringInput("Enter reason to consult: ");
+        AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "USER ENTERED: " + reason, "Patient: " + UserController.getActivePatient().getId() + "'s REASON FOR CONSULTATION", "SUCCESS", "PATIENT");
         String history = InputValidator.getValidStringInput("Do you have any Medical History?: ");
+        AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "USER ENTERED: " + history, "Patient: " + UserController.getActivePatient().getId() + "'s MEDICAL HISTORY", "SUCCESS", "PATIENT");
 
         LocalDate date = null; // safe to initialise as null, as it will never be null after the prompt.
         boolean validDate = false;
@@ -127,7 +133,7 @@ public class PatientMainPage extends UiBase {
         int selectedSlot = InputHelper.getValidIndex("Select your appointment timeslot", 1, dateTimeDictionary.size());
 
         LocalDateTime selectedDateTime = dateTimeDictionary.get(selectedSlot);
-        AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "REQUESTED APPOINTMENT", "SYSTEM", "SUCCESS", "PATIENT");
+        AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "USER REQUESTED APPOINTMENT ON" + formatter.format(selectedDateTime) , "SYSTEM", "SUCCESS", "PATIENT");
         System.out.println("You have requested for an appointment on " + formatter.format(selectedDateTime) + " at index " + selectedSlot);
         Appointment appointment = new Appointment(UserController.getActivePatient(), reason, selectedDateTime, AppointmentStatus.PENDING, "");
         // check if consent is already given before asking.
@@ -148,11 +154,11 @@ public class PatientMainPage extends UiBase {
                 String s = InputValidator.getValidStringInput("Do you wish to proceed with this appointment? (Y/N) ");
                 if (s.equalsIgnoreCase("Y")) {
                     validInput = true;
-                    AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "CONSENT ACCEPTED", "SYSTEM", "SUCCESS", "PATIENT");
+                    AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "USER CONSENT ACCEPTED", "SYSTEM", "SUCCESS", "PATIENT");
 
                 } else if (s.equalsIgnoreCase("N")) {
                     System.out.println("Consent not recieved, terminating session. Your information will not be saved.");
-                    AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "CONSENT REJECTED", "SYSTEM", "FAILED", "PATIENT");
+                    AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "USER CONSENT REJECTED", "SYSTEM", "FAILED", "PATIENT");
                     canvas.setRequireRedraw(true);
                     return;
                 }
@@ -162,7 +168,7 @@ public class PatientMainPage extends UiBase {
         }
         appointment.setHistory(history);
         appointmentController.addAppointment(appointment);
-        AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "APPOINTMENT BOOKED", "SYSTEM", "SUCCESS", "PATIENT");
+        AuditManager.getInstance().logAction(UserController.getActivePatient().getId(), "USER APPOINTMENT BOOKED", "SYSTEM", "SUCCESS", "PATIENT");
         appointmentController.saveAppointmentsToFile();
         canvas.setRequireRedraw(true);
     }

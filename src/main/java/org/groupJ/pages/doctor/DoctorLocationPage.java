@@ -36,6 +36,9 @@ public class DoctorLocationPage extends UiBase {
     public void proceedWithDoctorScreening() {
 
         EmergencyCase selectedCase;
+        if (ESController.checkForDoneEmergencyCaseInTriageRoom() == 0){
+            refreshUi("Currently, There is not patient that is ready for screening.");
+        }
         do {
             ESController.printAllDoneEmergencyCaseInTriageRoom();
             int caseId = InputValidator.getValidIntInput("Enter Case ID : ");

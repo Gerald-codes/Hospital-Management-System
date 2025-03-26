@@ -257,7 +257,7 @@ public class MedicationController {
     public static void collectUserInputAndAddMedication() {
 
         String medicationName = InputValidator.getValidStringInput("Enter Medicine Name : ");
-        
+
         String guidelineId = InputValidator.getValidStringInput("Key in a Guideline ID :     Latest ID: " + getLatestGuidelineId());
 
         String medicationID = InputValidator.getValidStringInput("Key in a Medication ID :     Latest ID: " + getLatestMedicationId());
@@ -313,10 +313,6 @@ public class MedicationController {
             System.out.println("Invalid amount given. Please enter a valid amount that can be deducted from the total" + currentStock);
         }
     }
-
-
-
-
     /**
      * Edits the details of a specific medication identified by its ID.
      * Allows modification of various attributes such as name, dosage, side effects, etc.

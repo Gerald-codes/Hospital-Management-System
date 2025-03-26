@@ -6,6 +6,8 @@ import org.groupJ.models.*;
 import org.groupJ.models.enums.AppointmentStatus;
 import org.groupJ.util.JarLocation;
 import org.groupJ.util.Util;
+import org.groupJ.util.InputValidator;
+import org.groupJ.core.ClinicalGuideline;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,10 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Manages the storage and retrieval of {@link Appointment} objects.
@@ -30,6 +29,7 @@ import java.util.Random;
 public class AppointmentController {
     private static List<Appointment> appointments = new ArrayList<>();
     private static final String fileName = "appointments.txt";
+    private static List<ClinicalGuideline> clinicalGuidelines = List.copyOf(ClinicalGuideline.generateClinicalGuideLine());
 
     /**
      * Adds a new appointment to the list and sorts the list of appointments.
@@ -135,7 +135,6 @@ public class AppointmentController {
             String json = Globals.gsonPrettyPrint.toJson(appointments);
             writer.write(json);
             System.out.println("Appointments saved to " + fileName);
-            System.out.println("Press 0 to continue");
         } catch (IOException e) {
             AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "EXCEPTION OCCURRED", e.getMessage(),
                     "FAILURE", UserController.getActiveUserType().toString());
@@ -182,5 +181,144 @@ public class AppointmentController {
 
         saveAppointmentsToFile();
     }
+    /**
+     * Diagnoses a patient based on their symptoms.
+     * This method retrieves the symptoms of the patient associated with the given appointment and uses a Clinical Decision Support System (CDSS) to suggest possible diagnoses.
+     * The doctor can then confirm or override the CDSS diagnosis.
+     *
+     * @param appointment the appointment for which the diagnosis is being made
+     */
+    public void diagnosePatient(Appointment appointment){
+        System.out.println("Diagnose patient in progress");
+        List<Symptoms> symptoms = appointment.getPatient().getEHR().getSymptoms();
+        if (symptoms == null || symptoms.isEmpty()) {
+            System.out.println("No symptoms recorded for this patient.");
+            return;
+        }
+        // Get the last symptom
+        Symptoms lastSymptom = symptoms.get(symptoms.size() - 1);
+        List<String> cdssDiagnosis = cdssAnalyzeSymptoms(lastSymptom);
+        System.out.println("CDSS Suggests: ");
+        String outcome = "SUCCESS";
+        for (int i = 0; i < cdssDiagnosis.size(); i++) {
+            System.out.println((i+1) + ". " + cdssDiagnosis.get(i));
+            if (i == cdssDiagnosis.size()-1){
+                while (true){
+                    String doctorConfirmation = InputValidator.getValidStringInput("Doctor " + appointment.getDoctor().getName() +
+                            ", do you agree with the CDSS diagnosis? (yes/no): ");
 
+                    AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "USER ENTERED: "+ doctorConfirmation, "CDSS diagnosis", "SUCCESS", "DOCTOR");
+                    if (doctorConfirmation.equalsIgnoreCase("no")) {
+                        System.out.println("===== Override CDSS Diagnosis =====");
+                        String diagnosis = InputValidator.getValidStringWithSpaceInput("Enter your diagnosis: ");
+                        appointment.setDiagnosis(diagnosis);
+                        outcome = "OVERRIDDEN";
+                        AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "USER DIAGNOSED PATIENT", "Patient: " + appointment.getPatient().getId(), outcome,"DOCTOR");
+                        AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "USER ENTERED: "+ diagnosis, "Patient: " + appointment.getPatient().getId() + "'s override diagnosis", "SUCCESS", "DOCTOR");
+                        break;
+                    } else if (doctorConfirmation.equalsIgnoreCase("yes")) {
+                        int choice = InputValidator.getValidRangeIntInput("Enter choice of Diagnosis: ", cdssDiagnosis.size());
+                        appointment.setDiagnosis(cdssDiagnosis.get(choice-1));  // Accept CDSS diagnosis
+                        AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "USER DIAGNOSED PATIENT", "Patient: " + appointment.getPatient().getId(), outcome,"DOCTOR");
+                        break;
+                    }else{
+                        System.out.println("Invalid Input!\n");
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Analyzes symptoms using the Clinical Decision Support System (CDSS).
+     * This method compares the given symptom against clinical guidelines to generate a list of possible diagnoses.
+     *
+     * @param symptom the symptom to be analyzed
+     * @return a list of possible diagnoses based on the symptom
+     */
+    public static List<String> cdssAnalyzeSymptoms(Symptoms symptom) {
+        List<String> CDSSDiagnosis = new ArrayList<>();
+        for (ClinicalGuideline guidelineSymptom : clinicalGuidelines) {
+            if (guidelineSymptom.getGuideLineType().equals("Symptom") &&
+                    guidelineSymptom.getSupportingEvidence().contains(symptom.getSymptomName())) {
+                CDSSDiagnosis.add(guidelineSymptom.getGuideDescription());
+            }
+        }
+        if (CDSSDiagnosis.isEmpty()) {
+            CDSSDiagnosis.add("Diagnosis Unclear - Further Tests Required");
+        }
+        // Return possible Diagnosis
+        return CDSSDiagnosis;
+    }
+    /**
+     * Sets the medicine, either at the index or add a new medicine when index = -1
+     *
+     * @param index -1 when adding, otherwise, specifying index will add a new medicine
+     * @param appointment the appointment for which the medication is being prescribed
+     */
+    public void prescribeMedication(int index, Appointment appointment) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the drug name: ");
+        // always use upper case
+        String medicationName = scanner.nextLine().trim().toUpperCase();
+
+        System.out.println("Enter the amount: ");
+        int medicineAmount = scanner.nextInt();
+        // somehow creating a new scanner prevents errors where it may just skip the scanner.
+        scanner = new Scanner(System.in);
+        Prescription prescription = appointment.getBilling().getPrescription();
+
+        // if the medicine is in the database, automatically fill in the dosage
+        // otherwise prompt for the dosage and instructions.
+        if (MedicationController.findAvailableMedicationByName(medicationName) != null) {
+            if (index == -1) {
+                prescription.addMedication(medicationName, medicineAmount, "");
+                AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "USER PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
+            } else {
+                prescription.setMedicationAtIndex(medicationName, medicineAmount, "", index);
+                AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "USER PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
+            }
+        } else {
+            System.out.println("Enter the dosage/instructions: ");
+            String dosage = scanner.nextLine();
+
+            if (index == -1) {
+                prescription.addMedication(medicationName, medicineAmount, dosage);
+                AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "USER PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
+            } else {
+                prescription.setMedicationAtIndex(medicationName, medicineAmount, dosage, index);
+                AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "USER PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
+            }
+        }
+    }
+
+    /**
+     * Sets the doctor notes for the given appointment.
+     * This method prompts the user for doctor notes and updates the appointment and associated symptoms with the new notes.
+     *
+     * @param appointment the appointment for which the doctor notes are being set
+     */
+    public void setDoctorNotes(Appointment appointment) {
+        System.out.println("Enter Doctor Notes :");
+        Scanner scanner = new Scanner(System.in);
+        String newNotes = scanner.nextLine();
+
+        // Set the doctor notes at the appointment level
+        appointment.setDoctorNotes(newNotes);
+        AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "USER ENTERED: " + newNotes, "Patient: " + appointment.getPatient().getId() +"'s DOC NOTES", "SUCCESS", "DOCTOR");
+
+
+        // Clear any existing doctor notes from symptoms
+        List<Symptoms> symptomsList = appointment.getPatient().getEHR().getSymptoms();
+        if (!symptomsList.isEmpty()) {
+            // Only set the notes on the first symptom, leave others empty
+            symptomsList.get(0).setDoctorNotes(newNotes);
+
+            // Clear notes from other symptoms to avoid duplication
+            for (int i = 1; i < symptomsList.size(); i++) {
+                symptomsList.get(i).setDoctorNotes("");
+            }
+        }
+    }
 }

@@ -28,7 +28,7 @@ public class DoctorMainPage extends UiBase {
     @Override
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
-        lv.setTitleHeader("Welcome to Telemedicine Integration System | Welcome Back " + UserController.getActiveDoctor().getName()); // Set the title header of the list view
+        lv.setTitleHeader("Welcome to Hospital Management System | Welcome Back " + UserController.getActiveDoctor().getName()); // Set the title header of the list view
         lv.addItem(new TextView(this.canvas, "1. View List of Patient - To view patient information ", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "2. View Appointment - To view new / scheduled appointments for teleconsultation ", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "3. Locations - To enter and proceed with Action  ", Color.GREEN));

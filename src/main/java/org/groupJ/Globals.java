@@ -26,7 +26,7 @@ public class Globals {
 
     // add your pages here
     public static LandingPage landingPage = new LandingPage();
-    public static LoginPage loginPage = new LoginPage();
+//    public static LoginPage loginPage = new LoginPage();
     public static PatientMainPage patientMainPage = new PatientMainPage();
     public static PatientInfoPage patientInfoPage = new PatientInfoPage();
     public static DoctorMainPage doctorMainPage = new DoctorMainPage();

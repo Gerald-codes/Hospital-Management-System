@@ -108,6 +108,17 @@ public class ESController {
         }
     }
 
+    public static int checkForDoneEmergencyCaseInTriageRoom() {
+        int count = 0;
+        // Filter and print all emergency cases in the Triage Room
+        for (EmergencyCase emergencyCase : allCases) {
+            if (PatientLocation.EMERGENCY_ROOM_WAITING_ROOM.equals(emergencyCase.getLocation()) &&
+                    emergencyCase.getPatientStatus().equals(PatientStatus.DONE)) {
+                count++;
+            }
+        }
+        return count;
+    }
     /**
      * Prints all emergency cases that are currently in the examination room.
      */
