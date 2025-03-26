@@ -1,5 +1,6 @@
 package org.groupJ.pages.nurse;
 
+<<<<<<< HEAD:src/main/java/org/groupJ/pages/nurse/NurseEmergencyMenuPage.java
 import org.groupJ.Emergency.EmergencyCase;
 import org.groupJ.Emergency.EmergencyCase_Dispatch;
 import org.groupJ.Globals;
@@ -16,39 +17,72 @@ import org.groupJ.ui.framework.View;
 import org.groupJ.ui.framework.views.ListView;
 import org.groupJ.ui.framework.views.TextView;
 import org.groupJ.util.InputValidator;
+=======
+import org.lucas.Emergency.EmergencyCase;
+import org.lucas.Emergency.EmergencySystem;
+import org.lucas.controllers.ESController;
+import org.lucas.controllers.UserController;
+import org.lucas.models.Patient;
+
+import org.lucas.ui.framework.Color;
+import org.lucas.ui.framework.UiBase;
+import org.lucas.ui.framework.View;
+import org.lucas.ui.framework.views.ListView;
+import org.lucas.util.InputValidator;
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/pages/nurse/NurseEmergencyMenuPage.java
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class NurseEmergencyMenuPage extends UiBase {
-    private ListView listView;
 
     @Override
     public View OnCreateView() {
+<<<<<<< HEAD:src/main/java/org/groupJ/pages/nurse/NurseEmergencyMenuPage.java
         listView= new ListView(this.canvas, Color.GREEN);
         listView.addItem(new TextView(this.canvas, "1. Create New Emergency Case - To enter and proceed with Action  ", Color.GREEN));
         listView.addItem(new TextView(this.canvas, "2. Locations - To enter and proceed with Action  ", Color.GREEN));
         listView.addItem(new TextView(this.canvas, "3. View All Emergency Cases", Color.GREEN));
         return listView;
+=======
+        ListView lv = new ListView(this.canvas, Color.GREEN);
+        lv.setTitleHeader("NurseEmergencyMenuPage");
+        ESController.loadEmergencyCaseFromFile();
+        return lv;
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/pages/nurse/NurseEmergencyMenuPage.java
     }
 
     @Override
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
         lv.setTitleHeader("Nurse Emergency Menu"); // Set the title header of the list view
+<<<<<<< HEAD:src/main/java/org/groupJ/pages/nurse/NurseEmergencyMenuPage.java
         lv.attachUserInput("Create New Emergency Case ", str -> createNewEmergencyCase());
         lv.attachUserInput("Location ", str -> ToPage(Globals.nurseLocationPage));
         lv.attachUserInput("View All Emergency Cases ", str -> viewAllEmergencyCases());
+=======
+        lv.attachUserInput("Create New Emergency Case\n", str -> createNewEmergencyCase());
+        lv.attachUserInput("Location\n", str -> ToPage(new NurseLocationPage()));
+        lv.attachUserInput("View All Emergency Cases\n", str -> viewAllEmergencyCases());
+        lv.attachUserInput("View Dispatch Menu\n", str -> ToPage(new NurseDispatchMenuPage()));
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/pages/nurse/NurseEmergencyMenuPage.java
         canvas.setRequireRedraw(true);
     }
 
     private void createNewEmergencyCase() {
+        EmergencySystem ECsystem = new EmergencySystem();
         System.out.println("\n=========== Register New Emergency Case ===========");
+<<<<<<< HEAD:src/main/java/org/groupJ/pages/nurse/NurseEmergencyMenuPage.java
 
         int caseID = ESController.setCaseID(); // Auto-incremented CaseId
         AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "CREATE NEW EMERGENCY CASE", String.valueOf(caseID), "ONGOING", "NURSE");
 
         Patient patient = UserController.checkOrCreatePatient(UserController.getActiveNurse());
+=======
+        int caseID = ECsystem.setCaseID(); // Auto-incremented CaseId
+
+        String enteredPatientID = InputValidator.getValidStringInput("Enter Patient ID: ");
+        Patient patient = UserController.checkOrCreatePatient(enteredPatientID);
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/pages/nurse/NurseEmergencyMenuPage.java
 
         String chiefComplaint = "";
         while (chiefComplaint.isBlank()) {
@@ -73,13 +107,19 @@ public class NurseEmergencyMenuPage extends UiBase {
         AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "CREATE NEW EMERGENCY CASE", patient.getId(), "COMPLETED", "NURSE");
         ESController.addEmergencyCases(newCase);
 
-        String string = "\nNew Case Registered | Case ID: " + caseID + " | Patient: " + patient.getName();
+        System.out.println("\nNew Case Registered | Case ID: " + caseID + " | Patient: " + patient.getName());
         ESController.saveEmergencyCasesToFile();
+<<<<<<< HEAD:src/main/java/org/groupJ/pages/nurse/NurseEmergencyMenuPage.java
         AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "SAVE EMERGENCY CASE TO FILE", patient.getId(), "SUCCESS", "NURSE");
         refreshUi(string);
+=======
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/pages/nurse/NurseEmergencyMenuPage.java
 
+        // After creating the emergency case, navigate back to the NurseEmergencyMenuPage
+        ToPage(new NurseEmergencyMenuPage());
     }
 
+<<<<<<< HEAD:src/main/java/org/groupJ/pages/nurse/NurseEmergencyMenuPage.java
     private void viewAllEmergencyCases() {
         List<EmergencyCase> allCases = ESController.getAllCases();
         AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "VIEW ALL EMERGENCY CASE", "EMERGENCY CASE" , "SUCCESS", "NURSE");
@@ -133,6 +173,12 @@ public class NurseEmergencyMenuPage extends UiBase {
         listView.addItem(new TextView(this.canvas, string, Color.GREEN));
 
         canvas.setRequireRedraw(true);
+=======
+    private void viewAllEmergencyCases(){
+        ESController.printAllEmergencyCase();
+//        listView.addItem(new TextView(this.canvas, doctorNotes + "\n", Color.GREEN));
+        ToPage(new NurseEmergencyMenuPage());
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/pages/nurse/NurseEmergencyMenuPage.java
     }
 
 }

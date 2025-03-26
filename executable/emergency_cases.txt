@@ -3,6 +3,7 @@
     "case_i_d": 1,
     "patient": {
       "alert_history": [],
+<<<<<<< HEAD
       "electronic_health_record": {
         "allergies": [],
         "current_medications": [
@@ -309,29 +310,14 @@
     "case_i_d": 4,
     "patient": {
       "alert_history": [],
+=======
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS)
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
-          "Dust",
-          "Pollen",
           "Peanuts"
         ],
         "current_medications": [
-          {
-            "medication_name": "Metformin",
-            "guideline_id": "C007",
-            "medication_id": "M007",
-            "dosage": "850mg, Once Daily",
-            "side_effects": "Stomach Upset, Lactic Acidosis (Rare)",
-            "brand_name": "Glucophage",
-            "stock_available": 120,
-            "controlled_substance": false,
-            "manufacture_name": "Merck",
-            "batch_number": "B004",
-            "manufacture_date": "10-09-2023",
-            "expiry_date": "11-11-2025",
-            "medication_price": 5.75
-          },
           {
             "medication_name": "Ibuprofen",
             "guideline_id": "C008",
@@ -348,79 +334,205 @@
             "medication_price": 6.49
           },
           {
-            "medication_name": "Furosemide",
-            "guideline_id": "C003",
-            "medication_id": "M003",
+            "medication_name": "Loperamide",
+            "guideline_id": "C005",
+            "medication_id": "M005",
             "dosage": "325mg, Once a Week",
-            "side_effects": "Frequent Urination",
-            "brand_name": "Lasix",
+            "side_effects": "Constipation, Dry Mouth",
+            "brand_name": "Imodium",
             "stock_available": 80,
-            "controlled_substance": true,
-            "manufacture_name": "Sanofi",
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
             "batch_number": "B002",
             "manufacture_date": "12-12-2025",
             "expiry_date": "04-04-2026",
-            "medication_price": 10.1
+            "medication_price": 3.33
+          },
+          {
+            "medication_name": "Diphenhydramine",
+            "guideline_id": "C004",
+            "medication_id": "M004",
+            "dosage": "200mg, Once a Week",
+            "side_effects": "Drowsiness, Sleepiness",
+            "brand_name": "HealthA2Z Sleep Aid",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 14.69
           }
         ],
         "medical_history": [
+          "Diabetes",
           "Obesity",
+          "Hypertension",
           "Arthritis"
         ],
         "vital_signs": {
-          "temperature": 37.3,
-          "heart_rate": 77,
+          "temperature": 37.2,
+          "heart_rate": 78,
           "blood_pressure_systolic": 132,
-          "blood_pressure_diastolic": 67,
-          "respiratory_rate": 17
+          "blood_pressure_diastolic": 72,
+          "respiratory_rate": 14
         },
         "lab_results": [
+          "CBC: Normal",
           "Blood Glucose: High",
-          "Thyroid: Normal",
           "Hemoglobin: Low",
-          "CBC: Normal"
+          "Thyroid: Normal",
+          "Lipid Panel: Elevated"
         ],
-        "imaging_records": [
-          "PET Scan"
-        ],
-        "clinical_notes": "No significant issues.",
+        "imaging_records": [],
+        "clinical_notes": "Patient complains of headache.",
         "symptoms": [
           {
-            "symptom_name": "severe abdominal pain",
-            "symptom_id": "SYM-151",
-            "severity": 9,
-            "duration": 2,
-            "doctor_notes": "Possible appendicitis or pancreatitis."
-          },
-          {
-            "symptom_name": "sore throat",
-            "symptom_id": "SYM-142",
-            "severity": 4,
-            "duration": 3,
-            "doctor_notes": "Recommend warm fluids and throat lozenges."
-          },
-          {
-            "symptom_name": "difficulty breathing",
-            "symptom_id": "SYM-145",
-            "severity": 9,
+            "symptom_name": "nausea and vomiting",
+            "symptom_id": "SYM-050",
+            "severity": 5,
             "duration": 1,
-            "doctor_notes": "Emergency! Consider asthma attack, pneumonia, or COVID-19."
+            "doctor_notes": "Test"
+          },
+          {
+            "symptom_name": "fever, chills, body aches",
+            "symptom_id": "SYM-041",
+            "severity": 6,
+            "duration": 5,
+            "doctor_notes": ""
+          },
+          {
+            "symptom_name": "joint pain and swelling",
+            "symptom_id": "SYM-059",
+            "severity": 6,
+            "duration": 5,
+            "doctor_notes": ""
           }
         ],
         "diagnosis": "Nil",
         "outcome_monitoring_records": [],
         "past_surgeries": [
-          "Gallbladder Removal",
-          "Appendectomy",
-          "Knee Replacement",
-          "Cataract Surgery",
           "Hernia Repair"
+        ],
+        "vaccination_record": [
+          "COVID-19 Vaccine",
+          "Measles, Mumps, Rubella (MMR) Vaccine"
+        ]
+      },
+      "patient_specific_factor": "Asthmatic",
+      "assigned_nurse": "N002",
+      "assigned_doctor": "D002",
+      "height": 158.0,
+      "weight": 55.0,
+      "blood_type": "B+",
+      "house_address": "789 Pine St, TX",
+      "emergency_contact_number": 76543210,
+      "occupation": "Nurse",
+      "ethnicity": "Hispanic",
+      "healthcare_department": "Pulmonology",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P003",
+      "login_name": "BobBrown",
+      "name": "Bob Brown",
+      "password": "password123",
+      "email": "BobBrown@example.com",
+      "gender": "Male",
+      "phone_number": "87654321"
+    },
+    "chief_complaint": "Test",
+    "arrival_mode": "Referred",
+    "arrival_date_time": "2025-03-24T13:00:29.7384103",
+    "triage_level": "PRIORITY_1_CRITICAL",
+    "location": "EMERGENCY_ROOM_TRAUMA_ROOM",
+    "patient_status": "WAITING",
+    "emergency_procedures": [],
+    "is_urgent": true
+  },
+  {
+    "case_i_d": 1,
+    "patient": {
+      "alert_history": [],
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [
+          "Penicillin",
+          "Shellfish",
+          "Peanuts"
+        ],
+        "current_medications": [
+          {
+            "medication_name": "Atorvastatin",
+            "guideline_id": "C009",
+            "medication_id": "M009",
+            "dosage": "10mg, Once Daily",
+            "side_effects": "Muscle Pain, Liver Enzyme Changes",
+            "brand_name": "Lipitor",
+            "stock_available": 90,
+            "controlled_substance": false,
+            "manufacture_name": "Pfizer",
+            "batch_number": "B006",
+            "manufacture_date": "28-02-2024",
+            "expiry_date": "15-05-2026",
+            "medication_price": 12.99
+          }
+        ],
+        "medical_history": [
+          "Arthritis"
+        ],
+        "vital_signs": {
+          "temperature": 36.9,
+          "heart_rate": 86,
+          "blood_pressure_systolic": 137,
+          "blood_pressure_diastolic": 82,
+          "respiratory_rate": 12
+        },
+        "lab_results": [
+          "Hemoglobin: Low",
+          "Thyroid: Normal",
+          "Lipid Panel: Elevated"
+        ],
+        "imaging_records": [
+          "X-Ray",
+          "CT Scan",
+          "PET Scan",
+          "MRI",
+          "Ultrasound"
+        ],
+        "clinical_notes": "Patient complains of headache.",
+        "symptoms": [
+          {
+            "symptom_name": "extreme fatigue",
+            "symptom_id": "SYM-155",
+            "severity": 5,
+            "duration": 7,
+            "doctor_notes": "Patient is DYing"
+          },
+          {
+            "symptom_name": "skin rash or itching",
+            "symptom_id": "SYM-158",
+            "severity": 4,
+            "duration": 3,
+            "doctor_notes": ""
+          }
+        ],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [
+          "Knee Replacement",
+          "Hernia Repair",
+          "Gallbladder Removal",
+          "Cataract Surgery",
+          "Appendectomy"
         ],
         "vaccination_record": [
           "Influenza Vaccine",
           "Measles, Mumps, Rubella (MMR) Vaccine",
           "Tetanus Booster",
-          "COVID-19 Vaccine"
+          "COVID-19 Vaccine",
+          "Hepatitis B Vaccine"
         ]
       },
       "patient_specific_factor": "Pregnant",
@@ -446,28 +558,26 @@
       "gender": "Male",
       "phone_number": "81234567"
     },
-    "chief_complaint": "sick",
-    "arrival_mode": "Walk-In",
-    "arrival_date_time": "2025-03-25T14:17:56.672502",
-    "triage_level": "PRIORITY_4_NON_EMERGENCY",
-    "location": "EMERGENCY_ROOM_WAITING_ROOM",
+    "chief_complaint": "Patient is DYing",
+    "arrival_mode": "Referred",
+    "arrival_date_time": "2025-03-24T13:02:18.562493",
+    "triage_level": "PRIORITY_1_CRITICAL",
+    "location": "EMERGENCY_ROOM_TRAUMA_ROOM",
     "patient_status": "WAITING",
     "emergency_procedures": [],
-    "is_urgent": false
+    "is_urgent": true
   },
   {
+<<<<<<< HEAD
     "case_i_d": 6,
+=======
+    "case_i_d": 1,
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS)
     "patient": {
       "alert_history": [],
       "date_of_birth": "15-08-1990",
       "electronic_health_record": {
         "allergies": [
-          "Gluten",
-          "Penicillin",
-          "Shellfish",
-          "Pollen",
-          "Latex",
-          "Dust",
           "Peanuts"
         ],
         "current_medications": [
@@ -487,19 +597,19 @@
             "medication_price": 6.49
           },
           {
-            "medication_name": "Furosemide",
-            "guideline_id": "C003",
-            "medication_id": "M003",
+            "medication_name": "Loperamide",
+            "guideline_id": "C005",
+            "medication_id": "M005",
             "dosage": "325mg, Once a Week",
-            "side_effects": "Frequent Urination",
-            "brand_name": "Lasix",
+            "side_effects": "Constipation, Dry Mouth",
+            "brand_name": "Imodium",
             "stock_available": 80,
-            "controlled_substance": true,
-            "manufacture_name": "Sanofi",
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
             "batch_number": "B002",
             "manufacture_date": "12-12-2025",
             "expiry_date": "04-04-2026",
-            "medication_price": 10.1
+            "medication_price": 3.33
           },
           {
             "medication_name": "Diphenhydramine",
@@ -518,90 +628,207 @@
           }
         ],
         "medical_history": [
+          "Diabetes",
+          "Obesity",
           "Hypertension",
-          "Diabetes"
+          "Arthritis"
         ],
         "vital_signs": {
-          "temperature": 37.3,
-          "heart_rate": 70,
-          "blood_pressure_systolic": 90,
-          "blood_pressure_diastolic": 87,
-          "respiratory_rate": 12
+          "temperature": 37.2,
+          "heart_rate": 78,
+          "blood_pressure_systolic": 132,
+          "blood_pressure_diastolic": 72,
+          "respiratory_rate": 14
         },
         "lab_results": [
-          "Lipid Panel: Elevated",
-          "Thyroid: Normal",
-          "Hemoglobin: Low",
+          "CBC: Normal",
           "Blood Glucose: High",
-          "CBC: Normal"
+          "Hemoglobin: Low",
+          "Thyroid: Normal",
+          "Lipid Panel: Elevated"
         ],
-        "imaging_records": [
-          "MRI"
-        ],
-        "clinical_notes": "Patient is recovering well.",
+        "imaging_records": [],
+        "clinical_notes": "Patient complains of headache.",
         "symptoms": [
           {
-            "symptom_name": "severe abdominal pain",
-            "symptom_id": "SYM-111",
-            "severity": 9,
-            "duration": 2,
-            "doctor_notes": "Possible appendicitis or pancreatitis."
+            "symptom_name": "nausea and vomiting",
+            "symptom_id": "SYM-050",
+            "severity": 5,
+            "duration": 1,
+            "doctor_notes": "Patient Needs to Go hospital ASAP"
           },
           {
-            "symptom_name": "sore throat",
-            "symptom_id": "SYM-102",
-            "severity": 4,
-            "duration": 3,
-            "doctor_notes": "Recommend warm fluids and throat lozenges."
+            "symptom_name": "fever, chills, body aches",
+            "symptom_id": "SYM-041",
+            "severity": 6,
+            "duration": 5,
+            "doctor_notes": ""
+          },
+          {
+            "symptom_name": "joint pain and swelling",
+            "symptom_id": "SYM-059",
+            "severity": 6,
+            "duration": 5,
+            "doctor_notes": ""
           }
         ],
         "diagnosis": "Nil",
         "outcome_monitoring_records": [],
         "past_surgeries": [
-          "Appendectomy",
-          "Gallbladder Removal",
-          "Knee Replacement",
-          "Cataract Surgery",
           "Hernia Repair"
         ],
         "vaccination_record": [
-          "Hepatitis B Vaccine",
           "COVID-19 Vaccine",
-          "Tetanus Booster",
           "Measles, Mumps, Rubella (MMR) Vaccine"
         ]
       },
-      "patient_specific_factor": "Pregnant",
-      "assigned_nurse": "N003",
+      "patient_specific_factor": "Asthmatic",
+      "assigned_nurse": "N002",
       "assigned_doctor": "D002",
-      "height": 160.0,
-      "weight": 58.0,
-      "blood_type": "A+",
-      "house_address": "753 Cedar St, WA",
-      "emergency_contact_number": 43210987,
-      "occupation": "Artist",
-      "ethnicity": "Asian",
-      "healthcare_department": "Obstetrics",
+      "height": 158.0,
+      "weight": 55.0,
+      "blood_type": "B+",
+      "house_address": "789 Pine St, TX",
+      "emergency_contact_number": 76543210,
+      "occupation": "Nurse",
+      "ethnicity": "Hispanic",
+      "healthcare_department": "Pulmonology",
       "patient_consent": {
         "consent_given": false,
         "consent_terms": ""
       },
-      "id": "P006",
-      "login_name": "DianaEvans",
-      "name": "Diana Evans",
+      "id": "P003",
+      "login_name": "BobBrown",
+      "name": "Bob Brown",
       "password": "password123",
-      "email": "dianae@example.com",
-      "gender": "Female",
-      "phone_number": "81234567"
+      "email": "BobBrown@example.com",
+      "gender": "Male",
+      "phone_number": "87654321"
     },
-    "chief_complaint": "sick",
-    "arrival_mode": "Ambulance",
-    "arrival_date_time": "2025-03-25T15:31:43.2338159",
+    "chief_complaint": "Patient Needs to Go hospital ASAP",
+    "arrival_mode": "Referred",
+    "arrival_date_time": "2025-03-24T20:51:07.2602838",
+    "triage_level": "PRIORITY_1_CRITICAL",
+    "location": "EMERGENCY_ROOM_TRAUMA_ROOM",
+    "patient_status": "WAITING",
+    "emergency_procedures": [],
+    "is_urgent": true
+  },
+  {
+    "case_i_d": 1,
+    "patient": {
+      "alert_history": [],
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [],
+        "current_medications": [
+          {
+            "medication_name": "Loperamide",
+            "guideline_id": "C005",
+            "medication_id": "M005",
+            "dosage": "325mg, Once a Week",
+            "side_effects": "Constipation, Dry Mouth",
+            "brand_name": "Imodium",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 3.33
+          },
+          {
+            "medication_name": "Diphenhydramine",
+            "guideline_id": "C004",
+            "medication_id": "M004",
+            "dosage": "200mg, Once a Week",
+            "side_effects": "Drowsiness, Sleepiness",
+            "brand_name": "HealthA2Z Sleep Aid",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 14.69
+          }
+        ],
+        "medical_history": [
+          "Arthritis",
+          "Obesity",
+          "Hypertension"
+        ],
+        "vital_signs": {
+          "temperature": 37.5,
+          "heart_rate": 80,
+          "blood_pressure_systolic": 98,
+          "blood_pressure_diastolic": 70,
+          "respiratory_rate": 12
+        },
+        "lab_results": [
+          "Lipid Panel: Elevated"
+        ],
+        "imaging_records": [
+          "Ultrasound",
+          "X-Ray",
+          "PET Scan",
+          "CT Scan",
+          "MRI"
+        ],
+        "clinical_notes": "Monitor blood pressure closely.",
+        "symptoms": [
+          {
+            "symptom_name": "nausea and vomiting",
+            "symptom_id": "SYM-070",
+            "severity": 5,
+            "duration": 1,
+            "doctor_notes": "Check for food poisoning or stomach flu."
+          },
+          {
+            "symptom_name": "dizziness, light headedness",
+            "symptom_id": "SYM-068",
+            "severity": 6,
+            "duration": 1,
+            "doctor_notes": "Check for dehydration or inner ear issues."
+          }
+        ],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [],
+        "vaccination_record": [
+          "Hepatitis B Vaccine"
+        ]
+      },
+      "patient_specific_factor": "Asthmatic",
+      "assigned_nurse": "N002",
+      "assigned_doctor": "D002",
+      "height": 170.0,
+      "weight": 58.0,
+      "blood_type": "B+",
+      "house_address": "159 Maple St, AZ",
+      "emergency_contact_number": 76543210,
+      "occupation": "Nurse",
+      "ethnicity": "Hispanic",
+      "healthcare_department": "Pulmonology",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P004",
+      "login_name": "CharlieDavis",
+      "name": "Charlie Davis",
+      "password": "password123",
+      "email": "charlied@example.com",
+      "gender": "Male",
+      "phone_number": "87654321"
+    },
+    "chief_complaint": "Dying",
+    "arrival_mode": "Walk-In",
+    "arrival_date_time": "2025-03-24T20:55:12.5377401",
     "triage_level": "PRIORITY_4_NON_EMERGENCY",
     "location": "EMERGENCY_ROOM_WAITING_ROOM",
     "patient_status": "WAITING",
     "emergency_procedures": [],
-    "screening_date_time": "2025-03-25T14:18:40.6556604",
     "is_urgent": false
   },
   {

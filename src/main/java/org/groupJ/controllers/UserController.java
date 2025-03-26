@@ -33,12 +33,14 @@ public class UserController {
     private static List<Nurse> generateNurses = new ArrayList<>();
     private static List<Doctor> allDoctors = new ArrayList<>();
     private static List<Nurse> allNurses = new ArrayList<>();
+<<<<<<< HEAD:src/main/java/org/groupJ/controllers/UserController.java
     private static List<Paramedic> allParamedics = new ArrayList<>();
 
+=======
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/controllers/UserController.java
     private static final String doctorFileName = "doctor_data.txt";
     private static final String patientFileName = "patient_data.txt";
     private static final String nurseFileName = "nurse_data.txt";
-    private static final String paramedicFileName = "paramedics_data.txt";
 
     /**
      * the active doctor that is currently logged in.
@@ -53,8 +55,6 @@ public class UserController {
      */
     private static Patient activePatient;
 
-    private static Paramedic activeParamedic;
-
     private static UserType activeUserType;
 
     /**
@@ -64,7 +64,6 @@ public class UserController {
      * The files are expected to contain JSON representations of lists of {@link Patient} and {@link Doctor} objects, respectively.
      * If a file does not exist or an error occurs during reading or parsing, an error message is logged, and loading from that file is skipped.
      * Note: This method replaces the entire existing list of users.*/
-
     public static void loadPatientsFromFile() {
         allpatients.clear();
         StringBuilder sb = new StringBuilder();
@@ -88,7 +87,6 @@ public class UserController {
      * specified by {@code doctorFileName}. It assumes the file contains a JSON representation of a list of
      * {@link Doctor} objects.
      */
-
     private static void loadDoctorsFromFile() {
         allDoctors.clear();
         StringBuilder sb = new StringBuilder();
@@ -112,7 +110,6 @@ public class UserController {
      * specified by {@code nurseFileName}. It assumes the file contains a JSON representation of a list of
      * {@link Nurse} objects.
      */
-
     public static void loadNursesFromFile() {
         allNurses.clear();
         StringBuilder sb = new StringBuilder();
@@ -134,7 +131,6 @@ public class UserController {
      * This method serializes the {@code generatePatients} list to a JSON string using Gson's pretty printing feature
      * and writes it to the file specified by {@code patientFileName}.
      */
-
     public static void savePatientsToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(patientFileName))) {
             String json = Globals.gsonPrettyPrint.toJson(generatePatients);
@@ -146,6 +142,7 @@ public class UserController {
         }
     }
 
+<<<<<<< HEAD:src/main/java/org/groupJ/controllers/UserController.java
     public static void loadParamedicFromFile() {
         allParamedics.clear();
         StringBuilder sb = new StringBuilder();
@@ -163,12 +160,13 @@ public class UserController {
         }
     }
 
+=======
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/controllers/UserController.java
     /**
      * Saves the list of generated nurses to a file.
      * This method serializes the {@code generateNurses} list to a JSON string using Gson's pretty printing feature
      * and writes it to the file specified by {@code nurseFileName}.
      */
-
     public static void saveNurseToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nurseFileName))) {
             String json = Globals.gsonPrettyPrint.toJson(generateNurses);
@@ -186,7 +184,6 @@ public class UserController {
      *
      * @return A list of {@link Patient} objects.
      */
-
     public static List<Patient> getAvailablePatients() {
         if (allpatients.isEmpty()) {
             loadPatientsFromFile();
@@ -200,7 +197,6 @@ public class UserController {
      *
      * @return A list of {@link Doctor} objects.
      */
-
     public static List<Doctor> getAvailableDoctors() {
         if (allDoctors.isEmpty()) {
             loadDoctorsFromFile();
@@ -214,7 +210,6 @@ public class UserController {
      *
      * @return A list of {@link Nurse} objects.
      */
-
     public static List<Nurse> getAvailableNurses() {
         if (allNurses.isEmpty()) {
             loadNursesFromFile();
@@ -231,8 +226,12 @@ public class UserController {
      * @see #loadUsersFromFile()
      * @see Patient
      */
+<<<<<<< HEAD:src/main/java/org/groupJ/controllers/UserController.java
 
     private void loadUsersFromFile() {
+=======
+    private void loadUsersFromFile(){
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/controllers/UserController.java
         users.clear();
         StringBuilder sb = new StringBuilder();
         String basePath = "";
@@ -286,6 +285,7 @@ public class UserController {
             AuditManager.getInstance().logAction(
                     "SYSTEM", "LOAD NURSE FILE FAILED", e.getMessage(), "FAILURE", "SYSTEM");
         }
+<<<<<<< HEAD:src/main/java/org/groupJ/controllers/UserController.java
 
         // Load Paramedics
         sb = new StringBuilder();
@@ -300,6 +300,8 @@ public class UserController {
             AuditManager.getInstance().logAction(
                     "SYSTEM", "LOAD PARAMEDIC FILE FAILED", e.getMessage(), "FAILURE", "SYSTEM");
         }
+=======
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/controllers/UserController.java
     }
 
     /**
@@ -308,7 +310,6 @@ public class UserController {
      *
      * @return A list of {@link Patient} objects.
      */
-
     public List<Patient> getPatients(){
         if(users.isEmpty()){
             loadUsersFromFile();
@@ -316,7 +317,7 @@ public class UserController {
         // get the users which are instanceof patient, then map and cast them all to Patients
         return users.stream().filter(usr->usr instanceof Patient).map(usr->(Patient)usr).toList();
     }
-
+    
     /**
      * Saves a list of users to a JSON file.
      * This method serializes the given list of users to JSON format using a pretty-printing Gson instance
@@ -329,7 +330,6 @@ public class UserController {
      * @see User
      * @throws IllegalArgumentException if the file name is null or empty.
      */
-
     private static <T extends User> void saveUsersToFile(List<Patient> users, String fileName) {
         String basePath = "";
         // get the jar location
@@ -389,12 +389,6 @@ public class UserController {
             AuditManager.getInstance().logAction(activeNurse.getId(), "LOGIN", "System", "SUCCESS", "NURSE");
             return UserType.NURSE;
         }
-        if(authenticated.getFirst() instanceof Paramedic){
-            activeParamedic = (Paramedic) authenticated.getFirst();
-            activeUserType = UserType.PARAMEDIC;
-            AuditManager.getInstance().logAction(activeParamedic.getId(), "LOGIN", "System", "SUCCESS", "PARAMEDIC");
-            return UserType.PARAMEDIC;
-        }
         if(authenticated.getFirst() instanceof Patient){
             activePatient = (Patient)authenticated.getFirst();
             activeUserType = UserType.PATIENT;
@@ -440,7 +434,6 @@ public class UserController {
      *
      * @return A byte array representing the generated salt.
      */
-
     public static byte[] generateRandomPasswordSalt(){
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
@@ -466,13 +459,10 @@ public class UserController {
         return activeNurse;
     }
 
-    public static Paramedic getActiveParamedic() {
-        return activeParamedic;
-    }
-
     /**Gets the active patient.
      * @return the active {@link Patient}, or null if no patient is active.*/
     public static Patient getActivePatient() { return activePatient;}
+
 
     public static void generateDummyNurses(){
         List<Nurse> dummyNurses = new ArrayList<>();
@@ -790,33 +780,30 @@ public class UserController {
         return list != null && !list.isEmpty() ? String.join(", ", list) : "None";
     }
 
+<<<<<<< HEAD:src/main/java/org/groupJ/controllers/UserController.java
     public static Patient checkOrCreatePatient(User user) {
+=======
+    public static Patient checkOrCreatePatient(String patientID) {
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/controllers/UserController.java
         List<Patient> allPatients = getAvailablePatients();
-        String patientID = ""; // Keep prompting until patientID contains "P" (ignoring case)
-        while (true) {
-            patientID = InputValidator.getValidStringInput("Enter Patient ID: ");
-            if (patientID.toUpperCase().contains("P")) {
-                break;
-            } else {
-                System.out.println("Invalid ID. The Patient ID must contain the letter 'P'. Please try again.");
-            }
-        }
-        // Check if patient exists in our list
         for (Patient p : allPatients) {
-            if (p.getId().equalsIgnoreCase(patientID)) {
+            if (p.getId().equals(patientID)) {
                 System.out.println("\nExisting patient found: " + p.getName());
                 AuditManager.getInstance().logAction(user.getId(), "GET EXISTING PATIENT", patientID, "SUCCESS", UserController.getActiveUserType().toString());
                 return p;
             }
         }
-
-// If patient does not exist, create a new one
+        // If patient does not exist, create a new one
         System.out.println("No existing patient found. Registering a new patient...");
         Patient newPatient = createEmergencyPatient(patientID);
+<<<<<<< HEAD:src/main/java/org/groupJ/controllers/UserController.java
         AuditManager.getInstance().logAction(user.getId(), "CREATE NEW PATIENT", patientID, "SUCCESS", UserController.getActiveUserType().toString());
         allPatients.add((newPatient));
         savePatientsToFile();
         AuditManager.getInstance().logAction(user.getId(), "SAVE PATIENT TO FILE", patientID, "SUCCESS", UserController.getActiveUserType().toString());
+=======
+//        savePatientDataToFile(allPatients);
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/controllers/UserController.java
         return newPatient;
     }
 
@@ -827,7 +814,7 @@ public class UserController {
         List<Nurse> allNurse = getAvailableNurses();
         while (foundNurse == null) {
             for (Nurse n : allNurse) {
-                if (n.getId().equalsIgnoreCase(nurseID) && n.getRole().equalsIgnoreCase(role)) {
+                if (n.getId().equals(nurseID) && n.getRole().equalsIgnoreCase(role)) {
                     System.out.println("\nExisting nurse found: " + n.getName());
                     foundNurse = n;
                     return n;

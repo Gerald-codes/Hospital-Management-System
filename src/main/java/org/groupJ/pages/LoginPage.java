@@ -1,5 +1,6 @@
 package org.groupJ.pages;
 
+<<<<<<< HEAD:src/main/java/org/groupJ/pages/LoginPage.java
 import org.groupJ.Globals;
 import org.groupJ.audit.AuditManager;
 import org.groupJ.controllers.ESController;
@@ -13,6 +14,20 @@ import org.groupJ.ui.framework.View;
 import org.groupJ.ui.framework.views.ListView;
 import org.groupJ.ui.framework.views.TextView;
 import org.groupJ.util.InputValidator;
+=======
+import org.lucas.audit.AuditManager;
+import org.lucas.controllers.UserController;
+import org.lucas.models.enums.UserType;
+import org.lucas.pages.doctor.DoctorMainPage;
+import org.lucas.pages.nurse.NurseMenuPage;
+import org.lucas.pages.patient.PatientMainPage;
+import org.lucas.ui.framework.Color;
+import org.lucas.ui.framework.UiBase;
+import org.lucas.ui.framework.View;
+import org.lucas.ui.framework.views.ListView;
+import org.lucas.ui.framework.views.TextView;
+import org.lucas.util.InputValidator;
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/pages/LoginPage.java
 
 /**
  * Represents the login page of the Telemedicine Integration System.
@@ -47,8 +62,6 @@ public class LoginPage extends UiBase { // This is the class that represents the
         lv.setTitleHeader("Welcome to the Hospital Management System "); // Set the title header of the list view
         lv.addItem(new TextView(this.canvas, "To use our system, please kindly login by pressing 1", Color.GREEN)); // Create a new text view with the message
         AuditManager auditManager = new AuditManager();
-        ESController.loadEmergencyCaseFromFile();
-        ESController.loadEmergencyDispatchCaseFromFile();
         lv.attachUserInput("Login ", x -> { // Attach the user input to the list view
             String username = InputValidator.getValidStringInput("Enter your username: ");
             String password = InputValidator.getValidStringInput("Enter your password: ");
@@ -62,11 +75,16 @@ public class LoginPage extends UiBase { // This is the class that represents the
                 ToPage(Globals.nurseMenuPage);
             } else if (UserType.PATIENT == userController.authenticate(username, password)) {
                 System.out.println("Login successful!");
+<<<<<<< HEAD:src/main/java/org/groupJ/pages/LoginPage.java
                 ToPage(Globals.patientMainPage);
             } else if (UserType.PARAMEDIC == userController.authenticate(username, password)){
                 System.out.println("Login successful");
                 ToPage(Globals.paramedicMenuPage);
             }else { System.out.println("Invalid username or password!"); }
+=======
+                ToPage(new PatientMainPage());
+            } else { System.out.println("Invalid username or password!"); }
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/pages/LoginPage.java
 
             canvas.setRequireRedraw(true);
             });

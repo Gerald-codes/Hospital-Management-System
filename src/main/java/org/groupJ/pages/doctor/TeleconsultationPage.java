@@ -1,5 +1,6 @@
 package org.groupJ.pages.doctor;
 
+<<<<<<< HEAD:src/main/java/org/groupJ/pages/doctor/TeleconsultationPage.java
 import org.groupJ.Emergency.EmergencyCase;
 import org.groupJ.Globals;
 import org.groupJ.audit.AuditManager;
@@ -11,6 +12,20 @@ import org.groupJ.util.InputValidator;
 import org.groupJ.ui.framework.*;
 import org.groupJ.ui.framework.views.ListView;
 import org.groupJ.ui.framework.views.TextView;
+=======
+import org.lucas.Emergency.EmergencyCase;
+import org.lucas.Emergency.EmergencySystem;
+import org.lucas.Globals;
+import org.lucas.audit.AuditManager;
+import org.lucas.controllers.ESController;
+import org.lucas.controllers.MedicationController;
+import org.lucas.core.ClinicalGuideline;
+import org.lucas.models.*;
+import org.lucas.util.InputValidator;
+import org.lucas.ui.framework.*;
+import org.lucas.ui.framework.views.ListView;
+import org.lucas.ui.framework.views.TextView;
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/pages/doctor/TeleconsultPage.java
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -1,5 +1,6 @@
 package org.groupJ.pages.doctor;
 
+<<<<<<< HEAD:src/main/java/org/groupJ/pages/doctor/DoctorLocationPage.java
 import org.groupJ.Emergency.EmergencyCase;
 import org.groupJ.Emergency.enums.PatientLocation;
 import org.groupJ.Emergency.enums.PatientStatus;
@@ -13,6 +14,20 @@ import org.groupJ.ui.framework.View;
 import org.groupJ.ui.framework.views.ListView;
 import org.groupJ.ui.framework.views.TextView;
 import org.groupJ.util.InputValidator;
+=======
+import org.lucas.Emergency.EmergencyCase;
+import org.lucas.Emergency.enums.PatientLocation;
+import org.lucas.Emergency.enums.PatientStatus;
+import org.lucas.controllers.ESController;
+import org.lucas.controllers.UserController;
+import org.lucas.models.Doctor;
+import org.lucas.pages.nurse.NurseLocationPage;
+import org.lucas.ui.framework.Color;
+import org.lucas.ui.framework.UiBase;
+import org.lucas.ui.framework.View;
+import org.lucas.ui.framework.views.ListView;
+import org.lucas.util.InputValidator;
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/pages/doctor/DoctorLocationPage.java
 
 public class DoctorLocationPage extends UiBase {
     private ListView listView;
@@ -25,12 +40,16 @@ public class DoctorLocationPage extends UiBase {
     @Override
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
+<<<<<<< HEAD:src/main/java/org/groupJ/pages/doctor/DoctorLocationPage.java
         lv.addItem(new TextView(this.canvas, "1. Examination Room - Proceed With Doctor Screening ", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "2. Trauma Room - Proceed With Immediate Response ", Color.GREEN));
 
+=======
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/pages/doctor/DoctorLocationPage.java
         lv.setTitleHeader("Doctor Location Menu"); // Set the title header of the list view
-        lv.attachUserInput("Examination Room", str -> proceedWithDoctorScreening() );
-        lv.attachUserInput("Trauma Room", str -> proceedWithImmediateResponse());
+        lv.attachUserInput("Examination Room - Proceed With Doctor Screening\n", str -> proceedWithDoctorScreening() );
+        lv.attachUserInput("Trauma Room - Proceed With Immediate Response\n", str -> proceedWithImmediateResponse());
+        lv.attachUserInput("Back\n", str -> ToPage(new DoctorMainPage()));
     }
 
     public void proceedWithDoctorScreening() {
@@ -39,17 +58,23 @@ public class DoctorLocationPage extends UiBase {
         do {
             ESController.printAllDoneEmergencyCaseInTriageRoom();
             int caseId = InputValidator.getValidIntInput("Enter Case ID : ");
+            System.out.println("Entered caseID: " + caseId);
             selectedCase = ESController.selectCase(caseId);
         } while(selectedCase == null);
 
         Doctor doctor = UserController.getActiveDoctor();
+<<<<<<< HEAD:src/main/java/org/groupJ/pages/doctor/DoctorLocationPage.java
         selectedCase.setAssignedDoctor(doctor);
         AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "UPDATE ASSIGNED DOCTOR", String.valueOf(selectedCase.getCaseID()), "SUCCESS", "DOCTOR");
 
+=======
+        selectedCase.setScreeningDoctor(doctor);
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/pages/doctor/DoctorLocationPage.java
         selectedCase.setLocation(PatientLocation.EMERGENCY_ROOM_EXAMINATION_ROOM);
         AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "UPDATE PATIENT LOCATION TO EXAMINATION ROOM", String.valueOf(selectedCase.getCaseID()), "SUCCESS", "DOCTOR");
 
         selectedCase.setPatientStatus(PatientStatus.ONGOING);
+<<<<<<< HEAD:src/main/java/org/groupJ/pages/doctor/DoctorLocationPage.java
         AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "UPDATE PATIENT STATUS TO ONGOING", String.valueOf(selectedCase.getCaseID()), "SUCCESS", "DOCTOR");
 
         ESController.doctorScreening(selectedCase);
@@ -102,6 +127,15 @@ public class DoctorLocationPage extends UiBase {
         listView.addItem(new TextView(this.canvas, string, Color.GREEN));
 
         canvas.setRequireRedraw(true);
+=======
+//        ESController.doctorScreening(selectedCase);
+        selectedCase.setPatientStatus(PatientStatus.DONE);
+        ESController.saveEmergencyCasesToFile();
+        ToPage( new DoctorLocationPage());
     }
 
+    public void proceedWithImmediateResponse(){
+
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/pages/doctor/DoctorLocationPage.java
+    }
 }

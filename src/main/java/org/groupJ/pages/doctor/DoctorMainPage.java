@@ -1,5 +1,6 @@
 package org.groupJ.pages.doctor;
 
+<<<<<<< HEAD:src/main/java/org/groupJ/pages/doctor/DoctorMainPage.java
 import org.groupJ.Emergency.EmergencyCase;
 import org.groupJ.Emergency.EmergencyCase_Dispatch;
 import org.groupJ.Globals;
@@ -18,11 +19,32 @@ import java.util.List;
 public class DoctorMainPage extends UiBase {
 
     private ListView listView;
+=======
+import org.lucas.controllers.UserController;
+import org.lucas.ui.framework.Color;
+import org.lucas.ui.framework.UiBase;
+import org.lucas.ui.framework.View;
+import org.lucas.ui.framework.views.ListView;
+import org.lucas.ui.framework.views.TextView;
+
+
+/** Represents the main page of the Telemedicine Integration System.
+ * This page displays a menu of options for the user to navigate to different sections of the application.
+ * It extends {@link UiBase} and uses a {@link ListView} to present the menu items.*/
+public class DoctorMainPage extends UiBase {
+
+    /** Called when the main page's view is created.
+     * Creates a {@link ListView} to hold the main menu options.
+     * Sets the title header to "Main".
+     * @return A new {@link ListView} instance representing the main page's view.
+     * @Override*/
+
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/pages/doctor/DoctorMainPage.java
     @Override
     public View OnCreateView() {
-        listView = new ListView(this.canvas, Color.GREEN);
-        listView.setTitleHeader("Main");
-        return listView;
+        ListView lv = new ListView(this.canvas, Color.GREEN);
+        lv.setTitleHeader("Main");
+        return lv;
     }
 
     @Override
@@ -31,6 +53,7 @@ public class DoctorMainPage extends UiBase {
         lv.setTitleHeader("Welcome to Telemedicine Integration System | Welcome Back " + UserController.getActiveDoctor().getName()); // Set the title header of the list view
         lv.addItem(new TextView(this.canvas, "1. View List of Patient - To view patient information ", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "2. View Appointment - To view new / scheduled appointments for teleconsultation ", Color.GREEN));
+<<<<<<< HEAD:src/main/java/org/groupJ/pages/doctor/DoctorMainPage.java
         lv.addItem(new TextView(this.canvas, "3. Locations - To enter and proceed with Action  ", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "4. View All Emergency Cases", Color.GREEN));
         lv.addItem(new TextView(this.canvas, "5. Feedback Mechanism - Provide your feedback on Clinical Guidelines  ", Color.GREEN));
@@ -83,6 +106,16 @@ public class DoctorMainPage extends UiBase {
 
             listView.addItem(new TextView(this.canvas, "---------------------------------\n", Color.CYAN, TextStyle.BOLD));
         }
+=======
+        lv.addItem(new TextView(this.canvas, "3. Feedback Mechanism - Provide your feedback on Clinical Guidelines  ", Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "4. Locations - View the locations of doctor ", Color.GREEN));
+
+        lv.attachUserInput("View List of Patient", str -> ToPage(new PatientInfoPage()));
+        lv.attachUserInput("View Appointment", str -> ToPage(new ViewAppointmentsPage()));
+        lv.attachUserInput("Feedback Mechanism", str -> ToPage(new FeedbackPage()));
+        lv.attachUserInput("Locations", str -> ToPage(new DoctorLocationPage()));
+
+>>>>>>> parent of 830013f (Merge pull request #6 from Gerald-codes/CDSS):src/main/java/org/lucas/pages/doctor/DoctorMainPage.java
         canvas.setRequireRedraw(true);
     }
 }

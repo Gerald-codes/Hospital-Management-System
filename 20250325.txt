@@ -1,6 +1,0 @@
-Audit Log - [AuditID: 20250325143203586001, UserID: NIL, Action: LOGIN, Target: System, Timestamp: 2025-03-25T14:32:03.590905, Outcome: FAILED, Device: PC1, Role: ]
-Audit Log - [AuditID: 20250325143203605002, UserID: NIL, Action: LOGIN, Target: System, Timestamp: 2025-03-25T14:32:03.605682700, Outcome: FAILED, Device: PC1, Role: ]
-Audit Log - [AuditID: 20250325143203609003, UserID: NIL, Action: LOGIN, Target: System, Timestamp: 2025-03-25T14:32:03.609705200, Outcome: FAILED, Device: PC1, Role: ]
-Audit Log - [AuditID: 20250325143211093004, UserID: NIL, Action: LOGIN, Target: System, Timestamp: 2025-03-25T14:32:11.095098800, Outcome: FAILED, Device: PC1, Role: ]
-Audit Log - [AuditID: 20250325143211099005, UserID: NIL, Action: LOGIN, Target: System, Timestamp: 2025-03-25T14:32:11.099122400, Outcome: FAILED, Device: PC1, Role: ]
-Audit Log - [AuditID: 20250325143211108006, UserID: NIL, Action: LOGIN, Target: System, Timestamp: 2025-03-25T14:32:11.110331200, Outcome: FAILED, Device: PC1, Role: ]

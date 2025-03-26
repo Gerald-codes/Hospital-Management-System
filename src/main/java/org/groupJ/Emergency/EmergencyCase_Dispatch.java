@@ -21,6 +21,10 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
      * @param arrivalMode     - mode of arrival (e.g., Ambulance, Helicopter, Walk-in)
      * @param arrivalDateTime - date and time of arrival
      */
+    private static EmergencySystem ECsystem;
+    private static Scanner scanner;
+    private static List<Patient> allPatients;
+    private static List<Nurse> allNurses;
 
     public EmergencyCase_Dispatch(int caseID, Patient patient, String chiefComplaint, String arrivalMode, LocalDateTime arrivalDateTime, boolean isUrgent) {
         super(caseID, patient, chiefComplaint, arrivalMode, arrivalDateTime,isUrgent );
@@ -51,23 +55,24 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
 
         this.dispatchInfo = dispatchInfo;
         this.timeOfCall = LocalDateTime.now(); // Set the time of call be the current time
-        this.dispatchArrivalTime = LocalDateTime.now();
-        this.setScreeningDateTime(LocalDateTime.now());
-        this.setArrivalDateTime(LocalDateTime.now());
+        ECsystem = new EmergencySystem();
+        scanner = new Scanner(System.in);
+        allPatients = UserController.getAvailablePatients();
+        allNurses = UserController.getAvailableNurses();
     }
 
-//    public static void printAllNurses() {
-//        // Print the header
-//        System.out.printf("%-5s | %-20s | %-10s | %-10s\n", "No.", "Name", "ID", "Role");
-//        System.out.println("-----------------------------------------------");
-//
-//        // Print each nurse's information
-//        int counter = 1;
-//        for (Nurse nurse : allNurses) {
-//            System.out.printf("%-5d | %-20s | %-10s | %-10s\n", counter, nurse.getName(), nurse.getId(), nurse.getRole());
-//            counter++;
-//        }
-//    }
+    public static void printAllNurses() {
+        // Print the header
+        System.out.printf("%-5s | %-20s | %-10s | %-10s\n", "No.", "Name", "ID", "Role");
+        System.out.println("-----------------------------------------------");
+
+        // Print each nurse's information
+        int counter = 1;
+        for (Nurse nurse : allNurses) {
+            System.out.printf("%-5d | %-20s | %-10s | %-10s\n", counter, nurse.getName(), nurse.getId(), nurse.getRole());
+            counter++;
+        }
+    }
 
     /**
      * Updates the dispatch case state to have the medivac team arrive to patient's location.
@@ -184,7 +189,7 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
      */
     @Override public String printIncidentReport(){
         String report = "\n----------Incident Report----------\n";
-        report += super.printIncidentReport();
+//        report += super.printIncidentReport();
         report += "\n----------Dispatch Info----------\n";
         report += dispatchInfo.getInfo();
         report += "\n----------Response Info----------\n";

@@ -1,3 +1,0 @@
-Audit Log - [AuditID: 20250324121803218001, UserID: NIL, Action: LOGIN, Target: System, Timestamp: 2025-03-24T12:18:03.218849400, Outcome: FAILED, Device: PC1, Role: ]
-Audit Log - [AuditID: 20250324121803222002, UserID: NIL, Action: LOGIN, Target: System, Timestamp: 2025-03-24T12:18:03.222506700, Outcome: FAILED, Device: PC1, Role: ]
-Audit Log - [AuditID: 20250324121803222003, UserID: NIL, Action: LOGIN, Target: System, Timestamp: 2025-03-24T12:18:03.222506700, Outcome: FAILED, Device: PC1, Role: ]
