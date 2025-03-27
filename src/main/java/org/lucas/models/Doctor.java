@@ -67,9 +67,23 @@ public class Doctor extends User implements ObjectBase {
      */
     public void setType(DoctorType type) {this.type = type;}
 
+    public void diagnosePatient(Patient patient, String diagnosis) {
+        patient.getEHR().setDiagnosis(diagnosis);
+    }
+
+    @Override
+    public void setPatientSymptoms(Symptoms symptoms, Patient patient) {
+        patient.getEHR().addSymptom(symptoms);
+    }
+
+    @Override
+    public void prescribeMedication(Patient patient, Medication medicine){
+        patient.getEHR().addCurrentMedications(medicine);
+    }
+
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * Standard java override method.
      * @param o the reference object with which to compare.
      * @return true if this object is the same as the obj argument; false otherwise.
      */

@@ -192,6 +192,41 @@ public class Patient extends User{
     public String getDateOfBirth() { return this.dateOfBirth; }
 
     /**
+     * Sets the date of birth for the patient.
+     *
+     * @param dateOfBirth the LocalDate representing the patient's date of birth.
+     */
+    public void setDateOfBirth(String dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+
+    /**
+     * Retrieves the name of the doctor assigned to the patient.
+     *
+     * @return the assigned doctor's name as a String.
+     */
+    public String getAssignedDoctor() { return this.assignedDoctor; }
+
+    /**
+     * Sets the name of the doctor assigned to the patient.
+     *
+     * @param assignedDoctor the name of the assigned doctor to be set.
+     */
+    public void setAssignedDoctor(String assignedDoctor) { this.assignedDoctor = assignedDoctor; }
+
+    /**
+     * Retrieves the name of the nurse assigned to the patient.
+     *
+     * @return the assigned nurse's name as a String.
+     */
+    public String getAssignedNurse() { return this.assignedNurse; }
+
+    /**
+     * Sets the name of the nurse assigned to the patient.
+     *
+     * @param assignedNurse the name of the assigned nurse to be set.
+     */
+    public void setAssignedNurse(String assignedNurse) { this.assignedNurse = assignedNurse; }
+
+    /**
      * Retrieves patient-specific factors that might influence care.
      *
      * @return the patient-specific factors as a String.
@@ -321,5 +356,4 @@ public class Patient extends User{
     public void updatePatientVitalSigns(double temperature, int heartRate, int systolic, int diastolic, int respiratoryRate){
         electronicHealthRecord.updateVitalSigns(temperature, heartRate, systolic, diastolic, respiratoryRate);
     }
-
 }
