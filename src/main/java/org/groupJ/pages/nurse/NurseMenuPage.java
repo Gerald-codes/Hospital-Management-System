@@ -41,11 +41,13 @@ public class NurseMenuPage extends UiBase {
      * @Override */
     @Override
     public void OnViewCreated(View parentView) {
+        listView.clear();
         listView = (ListView) parentView; // Cast the parent view to a list view
-        refreshUI(); // Initial UI setup
+        listView.setTitleHeader("Welcome to the Hospital Management System | Welcome Back " + UserController.getActiveNurse().getName());
+        listView.addItem(new TextView(this.canvas, "1. Pharmacy", Color.GREEN));
+        listView.addItem(new TextView(this.canvas, "2. Emergency ", Color.GREEN));
+        listView.addItem(new TextView(this.canvas, "3. Feedback Mechanism ", Color.GREEN));
 
-        listView.attachUserInput("View List of Patient", str -> ToPage(Globals.nurseMainPage));
-        listView.attachUserInput("Feedback Mechanism", str -> ToPage(Globals.feedbackPage));
         listView.attachUserInput("Pharmacy", str -> {
             if (!Objects.equals(UserController.getActiveNurse().getDepartment(), "Pharmacy")) {
                 setErrorMessage("Current Nurse is not AUTHORIZED to access this page");
@@ -64,6 +66,7 @@ public class NurseMenuPage extends UiBase {
                 ToPage(Globals.nurseEmergencyMenuPage);
             }
         });
+        listView.attachUserInput("Feedback Mechanism", str -> ToPage(Globals.feedbackPage));
     }
 
     /**

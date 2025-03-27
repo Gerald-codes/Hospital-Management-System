@@ -38,7 +38,6 @@ public class Globals {
     public static MedicationPage medicationPage = new MedicationPage();
     public static DispensaryPage dispensaryPage = new DispensaryPage();
     public static NurseMenuPage nurseMenuPage = new NurseMenuPage();
-    public static NurseMainPage nurseMainPage = new NurseMainPage();
     public static NursePatientActionsPage nursePatientActionsPage = new NursePatientActionsPage();
     public static NurseLocationPage nurseLocationPage = new NurseLocationPage();
     public static NurseEmergencyMenuPage nurseEmergencyMenuPage = new NurseEmergencyMenuPage();
