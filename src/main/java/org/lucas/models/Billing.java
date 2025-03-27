@@ -30,12 +30,29 @@ public class Billing implements ObjectBase {
         this.prescription = new Prescription();
     }
 
+    /**
+     * Retrieves the unique billing ID.
+     *
+     * @return The billing ID.
+     */
     public String getBillingID() {
         return billingID;
     } //getter for billingID
+
+    /**
+     * Checks if the bill has been paid.
+     *
+     * @return True if paid, false otherwise.
+     */
     public boolean isPaid() {
         return isPaid;
     } //check if paid
+
+    /**
+     * Sets the payment status of the bill.
+     *
+     * @param isPaid True if the bill is paid, false otherwise.
+     */
     public void setPaid(boolean isPaid) {
         this.isPaid = isPaid;
     } //set payment status
@@ -61,7 +78,9 @@ public class Billing implements ObjectBase {
         isReCalculateBillAmount = true;
     }
 
-
+    /**
+     * Calculates the total bill amount by summing up the cost of prescribed medications.
+     */
     private void calculateBillAmount() {
         for (Medication medication : prescription.getMedication()) {
             this.billAmount += medication.getMedicationPrice() * medication.getStockAvailable();
@@ -80,6 +99,11 @@ public class Billing implements ObjectBase {
         return billAmount;
     }
 
+    /**
+     * Retrieves the prescription associated with this billing.
+     *
+     * @return The prescription object.
+     */
     public Prescription getPrescription(){
         return this.prescription;
     }
@@ -110,6 +134,11 @@ public class Billing implements ObjectBase {
         return billDetails.toString();
     }
 
+    /**
+     * Returns a string representation of the Billing object.
+     *
+     * @return A string containing billing details.
+     */
     @Override
     public String toString() {
         return "Billing{" +

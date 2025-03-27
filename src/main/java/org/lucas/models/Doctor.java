@@ -40,6 +40,10 @@ public class Doctor extends User implements ObjectBase {
         this.clinicalGuidelines = new ArrayList<>();
     }
 
+    /**
+     * Returns a string representation of the Doctor object, including user details and doctor-specific information.
+     * @return A string representation of the Doctor object.
+     */
     @Override
     public String toString() {
         return super.toString()+ " Doctor{" +
@@ -49,8 +53,18 @@ public class Doctor extends User implements ObjectBase {
                 '}';
     }
 
+    /**
+     * Returns the doctor's type (e.g., General Practitioner, Specialist).
+     *
+     * @return The doctor's type.
+     */
     public DoctorType getType() {return type;}
 
+    /**
+     * Sets the doctor's type.
+     *
+     * @param type The doctor's type to set.
+     */
     public void setType(DoctorType type) {this.type = type;}
 
     public void diagnosePatient(Patient patient, String diagnosis) {
@@ -67,6 +81,12 @@ public class Doctor extends User implements ObjectBase {
         patient.getEHR().addCurrentMedications(medicine);
     }
 
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     * Standard java override method.
+     * @param o the reference object with which to compare.
+     * @return true if this object is the same as the obj argument; false otherwise.
+     */
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -74,6 +94,11 @@ public class Doctor extends User implements ObjectBase {
         return Objects.equals(specialisation, doctor.specialisation) && type == doctor.type && Objects.equals(licenseNumber, doctor.licenseNumber) && doctorType == doctor.doctorType;
     }
 
+    /**
+     * Returns a hash code value for the object.
+     *
+     * @return A hash code value for this object.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(specialisation, type, licenseNumber, doctorType);
