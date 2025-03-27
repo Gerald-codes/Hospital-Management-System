@@ -27,9 +27,6 @@ public class Medication {
     private String dosage;                 // Dosage amount in mg
     private String sideEffects;            // Potential side effects of the medication
     private String brandName;              // Brand name of the medication
-    //private int dosageStrength;            // Strength of the dosage in mg
-    //private String frequency;              // Frequency of administration (e.g., once daily)
-    //private String maximumDailyDosage;     // Maximum allowed daily dosage
     private int stockAvailable;            // Available stock in units
     private boolean controlledSubstance;   // Indicates if the medication is a controlled substance
     private String manufactureName;        // Name of the manufacturer
@@ -37,25 +34,6 @@ public class Medication {
     private String manufactureDate;     // Date of manufacture
     private String expiryDate;          // Expiry date of the medication
     private double medicationPrice;
-
-     //Default constructor initializing all fields to default values
-//    public Medication() {
-//        this.medicationName = "";
-//        this.guidelineId = "";
-//        this.medicationId = "";
-//        this.dosage = "";
-//        this.sideEffects = "";
-//        this.brandName = "";
-//        this.dosageStrength = 0;
-//        this.frequency = "";
-//        this.maximumDailyDosage = "";
-//        this.stockAvailable = 0;
-//        this.controlledSubstance = false;
-//        this.manufactureName = "";
-//        this.batchNumber = "";
-//        this.manufactureDate = null;
-//        this.expiryDate = null;
-//    }
 
     /**
      * Parameterized constructor for the medications class.
@@ -85,9 +63,6 @@ public class Medication {
         this.dosage = dosage;
         this.sideEffects = sideEffects;
         this.brandName = brandName;
-        //this.dosageStrength = dosageStrength;
-        //this.frequency = frequency;
-        //this.maximumDailyDosage = maximumDailyDosage;
         this.stockAvailable = stockAvailable;
         this.controlledSubstance = controlledSubstance;
         this.manufactureName = manufactureName;
@@ -344,4 +319,23 @@ public class Medication {
         this.medicationPrice = medicationPrice;
     }
 
+    public void displayMedicationInfo() {
+        System.out.println("===================================");
+        System.out.println("         MEDICATION DETAILS        ");
+        System.out.println("===================================");
+        System.out.printf("%-20s: %s%n", "Medication Name", medicationName);
+        System.out.printf("%-20s: %s%n", "Guideline ID", guidelineId);
+        System.out.printf("%-20s: %s%n", "Medication ID", medicationId);
+        System.out.printf("%-20s: %s%n", "Dosage", dosage);
+        System.out.printf("%-20s: %s%n", "Side Effects", sideEffects);
+        System.out.printf("%-20s: %s%n", "Brand Name", brandName);
+        System.out.printf("%-20s: %d units%n", "Stock Available", stockAvailable);
+        System.out.printf("%-20s: %s%n", "Controlled Substance", controlledSubstance ? "Yes" : "No");
+        System.out.printf("%-20s: %s%n", "Manufacturer", manufactureName);
+        System.out.printf("%-20s: %s%n", "Batch Number", batchNumber);
+        System.out.printf("%-20s: %s%n", "Manufacture Date", manufactureDate);
+        System.out.printf("%-20s: %s%n", "Expiry Date", expiryDate);
+        System.out.printf("%-20s: $%.2f%n", "Medication Price", medicationPrice);
+        System.out.println("===================================");
+    }
 }

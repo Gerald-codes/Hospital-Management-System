@@ -159,4 +159,22 @@ public class Appointment implements ObjectBase {
                 ", doctorNotes='" + doctorNotes + '\'' +
                 '}';
     }
+
+    public void displayAppointmentInfo() {
+        System.out.println("=======================================");
+        System.out.println("         APPOINTMENT DETAILS           ");
+        System.out.println("=======================================");
+        System.out.printf("%-20s: %s%n", "Patient Name", patient != null ? patient.getName() : "N/A");
+        System.out.printf("%-20s: %s%n", "Doctor Name", doctor != null ? doctor.getName() : "N/A");
+        System.out.printf("%-20s: %s%n", "Appointment Time", appointmentTime != null ? appointmentTime.toString() : "N/A");
+        System.out.printf("%-20s: %s%n", "Reason", reason);
+        System.out.printf("%-20s: %s%n", "History", history);
+        System.out.printf("%-20s: %s%n", "Status", appointmentStatus != null ? appointmentStatus.name() : "N/A");
+        System.out.printf("%-20s: %s%n", "Doctor Notes", doctorNotes);
+        System.out.printf("%-20s: %s%n", "Diagnosis", diagnosis);
+        System.out.printf("%-20s: %s%n", "Session", session != null ? session.toString() : "N/A");
+        System.out.printf("%-20s: %s%n", "Billing", billing != null ? billing.toString() : "N/A");
+        System.out.printf("%-20s: %s%n", "Medical Cert", mc != null ? mc.toString() : "N/A");
+        System.out.println("=======================================");
+    }
 }

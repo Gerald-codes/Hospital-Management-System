@@ -62,7 +62,7 @@ public class AppointmentController {
      *
      * @return a list of appointments; never null but may be empty if no appointments are available or if loading from the file fails.
      */
-    public List<Appointment> getAppointments(){
+    public static List<Appointment> getAppointments(){
         if(appointments.isEmpty()){
             loadAppointmentFromFile();
         }
@@ -77,7 +77,7 @@ public class AppointmentController {
      * Note: This method assumes that the file format is JSON and that it correctly represents a list of Appointment objects.
      * Ensure the file path and format are correct to prevent runtime errors or data corruption.
      */
-    private void loadAppointmentFromFile() {
+    private static void loadAppointmentFromFile() {
         appointments.clear();
         StringBuilder sb = new StringBuilder();
         String basePath;

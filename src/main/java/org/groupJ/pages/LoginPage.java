@@ -37,8 +37,8 @@ public class LoginPage extends UiBase { // This is the class that represents the
      * @Override*/
     @Override
     public View OnCreateView() { // This is the method that is called when the view is created
-        ListView lv = new ListView(this.canvas, Color.GREEN); // Create a new list view with the canvas and color
-        return lv; // Return the list view
+        // Create a new list view with the canvas and color
+        return new ListView(this.canvas, Color.GREEN); // Return the list view
     }
 
     /**
@@ -53,7 +53,6 @@ public class LoginPage extends UiBase { // This is the class that represents the
         lv.setTitleHeader("Welcome to the Hospital Management System "); // Set the title header of the list view
         lv.addItem(new TextView(this.canvas, loginMessage, Color.GREEN));
         lv.addItem(new TextView(this.canvas, "To use our system, please kindly login by pressing 1", Color.GREEN)); // Create a new text view with the message
-        AuditManager auditManager = new AuditManager();
         ESController.loadEmergencyCaseFromFile();
         ESController.loadEmergencyDispatchCaseFromFile();
         lv.attachUserInput("Login ", x -> { // Attach the user input to the list view
