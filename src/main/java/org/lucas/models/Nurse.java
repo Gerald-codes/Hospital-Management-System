@@ -6,6 +6,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Represents a nurse in the hospital management system.
+ * This class extends the User class and includes additional nurse-specific information
+ * such as department, role, assigned ward, medication administration authorization, and nursing license number.
+ * It also provides methods for managing patient-related tasks, although some actions like updating symptoms
+ * are restricted for nurses.
+ */
 public class Nurse extends User{
     private String department;
     private String role;

@@ -49,57 +49,168 @@ public class Appointment implements ObjectBase {
     }
 
 
+    /**
+     * Retrieves the session associated with this appointment.
+     *
+     * @return The session object.
+     */
     public Session getSession() {return session;};
+
+    /**
+     * Sets the session for this appointment.
+     *
+     * @param session The session object to be set.
+     */
     public void setSession(Session session) {this.session = session;};
+
+    /**
+     * Gets the current status of the appointment.
+     *
+     * @return The appointment status.
+     */
     public AppointmentStatus getAppointmentStatus() {return this.appointmentStatus;}
+
+    /**
+     * Sets the status of the appointment.
+     *
+     * @param appointmentStatus The status to be set.
+     */
     public void setAppointmentStatus(AppointmentStatus appointmentStatus) {this.appointmentStatus= appointmentStatus;};
+
+    /**
+     * Gets the doctor assigned to the appointment.
+     *
+     * @return The doctor object.
+     */
     public Doctor getDoctor(){return doctor;}
+
+    /**
+     * Gets the doctor's notes for the appointment.
+     *
+     * @return The doctor's notes.
+     */
     public String getDoctorNotes(){return doctorNotes;}
+
+    /**
+     * Sets the doctor's notes for the appointment.
+     *
+     * @param doctorNotes The doctor's notes to be set.
+     */
     public void setDoctorNotes(String doctorNotes){this.doctorNotes= doctorNotes;}
+
+    /**
+     * Sets the doctor for the appointment.
+     *
+     * @param doctor The doctor object to be set.
+     */
     public void setDoctor(Doctor doctor){
         this.doctor = doctor;
     }
+
+    /**
+     * Gets the patient associated with the appointment.
+     *
+     * @return The patient object.
+     */
     public Patient getPatient() {
         return patient;
     }
+
+    /**
+     * Sets the patient for the appointment.
+     *
+     * @param patient The patient object to be set.
+     */
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
+
+    /**
+     * Gets the reason for the appointment.
+     *
+     * @return The reason for the appointment.
+     */
     public String getReason() {
         return reason;
     }
+
+    /**
+     * Sets the reason for the appointment.
+     *
+     * @param reason The reason to be set.
+     */
     public void setReason(String reason) {
         this.reason = reason;
     }
+
+    /**
+     * Gets the scheduled time of the appointment.
+     *
+     * @return The appointment time.
+     */
     public LocalDateTime getAppointmentTime() {
         return appointmentTime;
     }
 
+   /**
+     * Sets the history for the appointment.
+     *
+     * @param history The history to be set.
+     */
     public void setHistory(String history) {
         this.history = history;
     }
 
+    /**
+     * Gets the history of the appointment.
+     *
+     * @return The appointment history.
+     */
     public String getHistory() {
         return history;
     }
 
+    /**
+     * Sets the scheduled time of the appointment.
+     *
+     * @param appointmentTime The time to be set.
+     */
     public void setAppointmentTime(LocalDateTime appointmentTime) {
         this.appointmentTime = appointmentTime;
     }
 
-
+    /**
+     * Gets the billing information for the appointment.
+     *
+     * @return The billing object.
+     */
     public Billing getBilling() {
         return billing;
     }
 
+    /**
+     * Sets the billing information for the appointment.
+     *
+     * @param billing The billing object to be set.
+     */
     public void setBilling(Billing billing) {
         this.billing = billing;
     }
 
+    /**
+     * Gets the diagnosis for the appointment.
+     *
+     * @return The diagnosis.
+     */
     public String getDiagnosis() {
         return diagnosis;
     }
 
+    /**
+     * Sets the diagnosis for the appointment.
+     *
+     * @param diagnosis The diagnosis to be set.
+     */
     public void setDiagnosis(String diagnosis) {
         this.diagnosis = diagnosis;
     }
@@ -132,24 +243,48 @@ public class Appointment implements ObjectBase {
         this.doctorNotes = doctorNotes;
         this.appointmentStatus = AppointmentStatus.COMPLETED;
     }
+
+    /**
+     * Refers the patient to emergency services, ending the session and updating notes.
+     *
+     * @param doctorNotes Notes from the doctor regarding the emergency referral.
+     */
     public void referEmergency(String doctorNotes){
         this.session.endSession();
         this.doctorNotes = doctorNotes;
         this.appointmentStatus = AppointmentStatus.EMERGENCY;
     }
 
+    /**
+     * Sets the medical certificate for the appointment.
+     *
+     * @param mc The medical certificate to be set.
+     */
     public void setMedicalCertificate(MedicalCertificate mc){
         this.mc = mc;
     }
 
+    /**
+     * Gets the medical certificate associated with the appointment.
+     *
+     * @return The medical certificate.
+     */
     public MedicalCertificate getMc() {
         return mc;
     }
 
+    /**
+     * Prints the appointment details in a pretty JSON format.
+     */
     public void print() {
         System.out.println(this.toPrettyJsonString());
     }
 
+    /**
+     * Returns a string representation of the Appointment object.
+     *
+     * @return A string containing appointment details.
+     */
     @Override
     public String toString() {
         return "Appointment{" +
