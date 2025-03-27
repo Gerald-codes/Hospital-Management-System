@@ -211,16 +211,17 @@ public class Nurse extends User{
      * Displays detailed information about the nurse, including role, assigned ward,
      * and permissions for administering medication.
      */
-//    public void displayNurseInfo() {
-//        System.out.println("Nurse ID: " + User.getId());
-//        System.out.println("Name: " + getName());
-//        System.out.println("Age: " + getAge());
-//        System.out.println("Department: " + getDepartment());
-//        System.out.println("Role: " + role);
-//        System.out.println("Assigned Ward: " + assignedWard);
-//        System.out.println("Can Administer Medication: " + (canAdministerMedication ? "Yes" : "No"));
-//        System.out.println("Nursing License Number: " + nursingLicenseNumber);
-//    }
+    public void displayNurseInfo() {
+        System.out.println("Nurse ID: " + getId());
+        System.out.println("Name: " + getName());
+        System.out.println("Gender: " + getGender());
+        System.out.println("Email: " + getEmail());
+        System.out.println("Department: " + getDepartment());
+        System.out.println("Role: " + role);
+        System.out.println("Assigned Ward: " + assignedWard);
+        System.out.println("Can Administer Medication: " + (canAdministerMedication ? "Yes" : "No"));
+        System.out.println("Nursing License Number: " + nursingLicenseNumber);
+    }
 
     @Override
     public String toString() {

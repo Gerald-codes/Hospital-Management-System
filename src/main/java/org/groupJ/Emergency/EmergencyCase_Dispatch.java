@@ -56,18 +56,6 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
         this.setArrivalDateTime(LocalDateTime.now());
     }
 
-//    public static void printAllNurses() {
-//        // Print the header
-//        System.out.printf("%-5s | %-20s | %-10s | %-10s\n", "No.", "Name", "ID", "Role");
-//        System.out.println("-----------------------------------------------");
-//
-//        // Print each nurse's information
-//        int counter = 1;
-//        for (Nurse nurse : allNurses) {
-//            System.out.printf("%-5d | %-20s | %-10s | %-10s\n", counter, nurse.getName(), nurse.getId(), nurse.getRole());
-//            counter++;
-//        }
-//    }
 
     /**
      * Updates the dispatch case state to have the medivac team arrive to patient's location.
@@ -203,28 +191,22 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
         return this.dispatchArrivalTime;
     }
 
+    public void displayDispatchEmergencyCaseInfo() {
+        // Call the base EmergencyCase display method if available
+        displayEmergencyCaseInfo(); // You must inherit or copy this method from EmergencyCase
 
-    // For testing
-//    public static void main(String[] args) {
-//        Patient testPatient = new Patient(2222, "Adli");
-//        List<HealthcareProfessional> testDispatchMember = new ArrayList<HealthcareProfessional>();
-//
-//        testDispatchMember.add(new HealthcareProfessional("Adli",8888,"Driver"));
-//        testDispatchMember.add(new HealthcareProfessional("Bdli",8887,"Driver2"));
-//        testDispatchMember.add(new HealthcareProfessional("Cdli",8886,"Driver3"));
-//
-//
-//        List<String> testDispatchEquipment = new ArrayList<String>();
-//
-//        testDispatchEquipment.add("Nintendo Switch");
-//
-//        DispatchInfo testDispatch = new DispatchInfo(4444, testDispatchMember,testDispatchEquipment);
-//        com.oop.ECSystem.EmergencyCase_Dispatch testCase = new com.oop.ECSystem.EmergencyCase_Dispatch(9999, testPatient, "Hello", "Helicopter", PatientStatus.ONDISPATCHED, testDispatch);
-//
-//        testCase.setDispatchTeamArrivalTime(LocalDateTime.now().plusHours(1));
-//        testCase.SetArrivalDateTime(LocalDateTime.now().plusHours(2));
-//        testCase.printDispatchDetails();
-//
-//        System.out.println(testCase.printIncidentReport());
-//    }
+        System.out.println("\n-------- DISPATCH DETAILS --------");
+        System.out.printf("%-25s: %s%n", "Dispatch Info", dispatchInfo != null ? dispatchInfo.toString() : "N/A");
+        System.out.printf("%-25s: %s%n", "Time of Call", timeOfCall != null ? timeOfCall.toString() : "N/A");
+        System.out.printf("%-25s: %s%n", "Dispatch Arrival", dispatchArrivalTime != null ? dispatchArrivalTime.toString() : "N/A");
+        System.out.printf("%-25s: %s%n", "Response Time", responseTime != null ? formatDuration(responseTime) : "N/A");
+        System.out.println("===================================");
+    }
+
+    // Optional helper method to format Duration
+    private String formatDuration(Duration duration) {
+        long minutes = duration.toMinutes();
+        long seconds = duration.minusMinutes(minutes).getSeconds();
+        return String.format("%d min, %d sec", minutes, seconds);
+    }
 }

@@ -113,4 +113,20 @@ public class Prescription implements ObjectBase {
 
         medication.remove(index);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n  Prescription ID : ").append(prescriptionID);
+
+        sb.append("\n  Medications     : ");
+        if (medication != null && !medication.isEmpty()) {
+            for (Medication med : medication) {
+                sb.append("\n    - ").append(med.getMedicationName());
+            }
+        } else {
+            sb.append("None");
+        }
+        return sb.toString();
+    }
 }

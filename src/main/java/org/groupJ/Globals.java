@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.groupJ.controllers.AppointmentController;
 import org.groupJ.controllers.UserController;
+import org.groupJ.pages.EntitiesPage;
 import org.groupJ.pages.LandingPage;
 import org.groupJ.pages.LoginPage;
 import org.groupJ.pages.nurse.*;
@@ -43,7 +44,7 @@ public class Globals {
     public static NurseEmergencyMenuPage nurseEmergencyMenuPage = new NurseEmergencyMenuPage();
     public static ParamedicMenuPage paramedicMenuPage = new ParamedicMenuPage();
     public static FeedbackPage feedbackPage = new FeedbackPage();
-
+    public static EntitiesPage entitiesPage = new EntitiesPage();
     // Controllers
     public static AppointmentController appointmentController = new AppointmentController();
     public static UserController userController = new UserController();

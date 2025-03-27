@@ -519,31 +519,6 @@ public class ClinicalGuideline {
     }
 
     /* DISPLAY METHODS **/
-    /**
-     * Displays a brief version of the guideline.
-     */
-    public void displayGuideline() {
-        System.out.println("Clinical Guideline ID: " + guidelineId);
-        System.out.println("Guideline: " + guideDescription);
-    }
-
-    /**
-     * Displays detailed information of the guideline.
-     */
-    public void displayClinicalGuideline() {
-        System.out.println("\n===== Clinical Guideline =====");
-        System.out.println("ID: " + this.getGuidelineId());
-        System.out.println("Type: " + this.getGuideLineType());
-        System.out.println("Description: " + this.getGuideDescription());
-        System.out.println("Supporting Evidence: " + this.getSupportingEvidence());
-        System.out.println("Blood Pressure Threshold: " + this.getBloodPressureSystolicThreshHold());
-        System.out.println("Authoring Committee: " + this.getAuthoringCommittee());
-        System.out.println("Reference Document: " + this.getReferenceDocuments());
-        System.out.println("Last Updated: " + this.getLastUpdated());
-        System.out.println("Priority Level: " + this.getPriorityLevel());
-        System.out.println("Follow-up Recommendation: " + this.getFollowUpRecommendation());
-        System.out.println("====================================\n");
-    }
 
     /**
      * Displays guideline.
@@ -553,16 +528,23 @@ public class ClinicalGuideline {
         System.out.println("\u26A0\uFE0F Warning: " + supportingEvidence);
     }
 
-    /**
-     * Displays a list of clinical guidelines.
-     * @param clinicalGuidelines List of clinical guidelines to be displayed.
-     */
-    public static void displayGuidelineList(List<ClinicalGuideline> clinicalGuidelines) {
-        System.out.printf("%-20s %-45s %-55s %n", "Clinical Guideline ID", "Clinical Guideline Description", "Supporting Evidence");
-        System.out.println("--------------------------------------------------------------------------------------------------------------");
-        for (ClinicalGuideline clinicalGuideline : clinicalGuidelines) {
-            clinicalGuideline.displayClinicalGuideline();
-        }
+    public void displayClinicalGuidelineInfo() {
+        System.out.println("==========================================");
+        System.out.println("          CLINICAL GUIDELINE INFO         ");
+        System.out.println("==========================================");
+        System.out.printf("%-25s: %s%n", "Guideline Type", guideLineType);
+        System.out.printf("%-25s: %s%n", "Guideline ID", guidelineId);
+        System.out.printf("%-25s: %s%n", "Description", guideDescription);
+        System.out.printf("%-25s: %s%n", "Supporting Evidence", supportingEvidence);
+        System.out.printf("%-25s: %d mmHg%n", "Systolic BP Threshold", bloodPressureSystolicThreshHold);
+        System.out.printf("%-25s: %s%n", "Authoring Committee", authoringCommittee);
+        System.out.printf("%-25s: %s%n", "Reference Documents", referenceDocuments);
+        System.out.printf("%-25s: %s%n", "Last Updated", lastUpdated);
+        System.out.printf("%-25s: %s%n", "Follow-up Recommendation", followUpRecommendation);
+        System.out.printf("%-25s: %s%n", "Priority Level", priorityLevel);
+        System.out.printf("%-25s: %s%n", "Medication Name", medicationName);
+        System.out.printf("%-25s: %s%n", "Symptom Name", symptomName);
+        System.out.println("==========================================");
     }
 
     /* FILE OPERATIONS **/
@@ -593,4 +575,6 @@ public class ClinicalGuideline {
         }
         return null;  // Return null if no guideline matches
     }
+
+
 }

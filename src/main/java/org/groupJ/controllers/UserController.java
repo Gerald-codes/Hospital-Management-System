@@ -221,6 +221,21 @@ public class UserController {
         }
         return new ArrayList<>(allNurses); // Return a *copy*
     }
+
+    /**
+     * Retrieves a list of available doctors.
+     * If the list of doctors is empty, it attempts to load doctors from file first.
+     *
+     * @return A list of {@link Doctor} objects.
+     */
+
+    public static List<Paramedic> getAvailableParamedics() {
+        if (allParamedics.isEmpty()) {
+            loadParamedicFromFile();
+        }
+        return new ArrayList<>(allParamedics); // Return a *copy*
+    }
+
     /**
      * Retrieves a list of patients from the loaded users.
      * If the users list is empty, it first attempts to load users from the file using {@link #loadUsersFromFile()}.

@@ -12,6 +12,7 @@ import java.util.*;
  * providing methods to manage and record session activities effectively.
  */
 public class Session implements ObjectBase {
+
     private String id;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -75,5 +76,18 @@ public class Session implements ObjectBase {
     }
     public void print() {
         System.out.println(this.toPrettyJsonString());
+    }
+
+    @Override
+    public String toString() {
+        return
+                "\n  ID                  : " + id +
+                "\n  Start Time          : " + (startTime != null ? startTime : "N/A") +
+                "\n  End Time            : " + (endTime != null ? endTime : "N/A") +
+                "\n  Remarks             : " + remarks +
+                "\n  Connectivity Issues : " + connectivityIssues +
+                "\n  Zoom Link           : " + zoomLink +
+                "\n  Status              : " + (sessionStatus != null ? sessionStatus.name() : "N/A")
+                ;
     }
 }

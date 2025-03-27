@@ -81,5 +81,34 @@ public class DispatchInfo {
         return output;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("\n  %-20s: %d\n", "Vehicle ID", vehicleId));
+        sb.append(String.format("  %-20s: %s\n", "Dispatch Location", dispatchLocation));
+
+        sb.append(String.format("  %-20s: ", "Medivac Members"));
+        if (medivacMembers != null && !medivacMembers.isEmpty()) {
+            sb.append("\n");
+            for (Nurse nurse : medivacMembers) {
+                sb.append(String.format("    - %s\n", nurse.getName()));
+            }
+        } else {
+            sb.append("None\n");
+        }
+
+        sb.append(String.format("  %-20s: ", "Equipment"));
+        if (equipment != null && !equipment.isEmpty()) {
+            sb.append("\n");
+            for (String item : equipment) {
+                sb.append(String.format("    - %s\n", item));
+            }
+        } else {
+            sb.append("None\n");
+        }
+
+        return sb.toString();
+    }
+
 }
 

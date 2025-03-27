@@ -266,7 +266,7 @@ public class Patient extends User{
         System.out.printf("%-20s: %s%n", "Consent", this.patientConsent.isConsentGiven());
 
         System.out.println("\n---------------------------------------");
-        System.out.println("          ELECTRONIC HEALTH RECORD     ");
+        System.out.println("        ELECTRONIC HEALTH RECORD       ");
         System.out.println("---------------------------------------");
         System.out.printf("%-20s: %s%n", "Allergies", formatList(this.electronicHealthRecord.getAllergies()));
         System.out.printf("%-20s: %s%n", "Medical History", formatList(this.electronicHealthRecord.getMedicalHistory()));

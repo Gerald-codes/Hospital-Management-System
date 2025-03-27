@@ -112,11 +112,11 @@ public class Billing implements ObjectBase {
 
     @Override
     public String toString() {
-        return "Billing{" +
-                "billAmount=" + billAmount +
-                ", billingID='" + billingID + '\'' +
-                ", isPaid=" + isPaid +
-                ", prescription=" + prescription +
-                '}';
+        return
+                "\n  Billing ID       : " + billingID +
+                "\n  Bill Amount      : $" + String.format("%.2f", billAmount) +
+                "\n  Paid             : " + (isPaid ? "Yes" : "No") +
+                "\n  Recalculation    : " + (isReCalculateBillAmount ? "Enabled" : "Disabled") +
+                "\n  Prescription     : " + (prescription != null ? prescription.toString() : "None");
     }
 }

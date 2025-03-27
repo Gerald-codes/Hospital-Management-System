@@ -370,4 +370,33 @@ public class EmergencyCase {
 
         System.out.println("----------------------------------------------");
     }
+
+    public void displayEmergencyCaseInfo() {
+        System.out.println("========================================");
+        System.out.println("            EMERGENCY CASE INFO         ");
+        System.out.println("========================================");
+        System.out.printf("%-25s: %d%n", "Case ID", caseID);
+        System.out.printf("%-25s: %s%n", "Patient Name", patient != null ? patient.getName() : "N/A");
+        System.out.printf("%-25s: %s%n", "Chief Complaint", chiefComplaint);
+        System.out.printf("%-25s: %s%n", "Arrival Mode", arrivalMode);
+        System.out.printf("%-25s: %s%n", "Arrival Date & Time", arrivalDateTime != null ? arrivalDateTime.toString() : "N/A");
+        System.out.printf("%-25s: %s%n", "Triage Level", triageLevel != null ? triageLevel.name() : "N/A");
+        System.out.printf("%-25s: %s%n", "Initial Nurse", initialScreeningNurse != null ? initialScreeningNurse.getName() : "N/A");
+        System.out.printf("%-25s: %s%n", "Assigned Doctor", assignedDoctor != null ? assignedDoctor.getName() : "N/A");
+        System.out.printf("%-25s: %s%n", "Patient Location", location != null ? location.name() : "N/A");
+        System.out.printf("%-25s: %s%n", "Patient Status", patientStatus != null ? patientStatus.name() : "N/A");
+        System.out.printf("%-25s: %s%n", "Urgent", isUrgent ? "Yes" : "No");
+        System.out.printf("%-25s: %s%n", "Screening Time", screeningDateTime != null ? screeningDateTime.toString() : "N/A");
+
+        System.out.println("\nEmergency Procedures:");
+        if (emergencyProcedures != null && !emergencyProcedures.isEmpty()) {
+            for (String procedure : emergencyProcedures) {
+                System.out.println("  - " + procedure);
+            }
+        } else {
+            System.out.println("  None");
+        }
+
+        System.out.println("========================================");
+    }
 }

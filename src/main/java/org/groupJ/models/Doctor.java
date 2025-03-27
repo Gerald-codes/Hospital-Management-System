@@ -103,4 +103,19 @@ public class Doctor extends User implements ObjectBase {
                 ",\n  License Number         : '"+ licenseNumber + '\'' +
                 "\n}";
     }
+
+    /**
+     * Displays detailed information about the doctor.
+     */
+    public void displayDoctorInfo() {
+        System.out.println("Doctor ID: " + getId());
+        System.out.println("Name: " + getName());
+        System.out.println("Gender: " + getGender());
+        System.out.println("Email: " + getEmail());
+        System.out.println("Medical License: " + licenseNumber);
+        System.out.println("Specialisation: " + specialisation);
+        System.out.println("Doctor Type: " + doctorType);
+        System.out.println("Surgical Approval: " + (isSurgicalApproved ? "Yes" : "No"));
+        System.out.println("Can Prescribe Medication: " + (canPrescribeMedication ? "Yes" : "No"));
+    }
 }
