@@ -1,9 +1,9 @@
 package org.groupJ.pages.paramedic;
 
-import org.groupJ.Emergency.DispatchInfo;
-import org.groupJ.Emergency.EmergencyCase_Dispatch;
-import org.groupJ.Emergency.enums.PatientLocation;
-import org.groupJ.Emergency.enums.PatientStatus;
+import org.groupJ.models.DispatchInfo;
+import org.groupJ.models.EmergencyCase_Dispatch;
+import org.groupJ.models.enums.PatientLocation;
+import org.groupJ.models.enums.PatientStatus;
 import org.groupJ.audit.AuditManager;
 import org.groupJ.controllers.ESController;
 import org.groupJ.controllers.UserController;

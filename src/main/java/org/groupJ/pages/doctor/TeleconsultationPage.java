@@ -1,11 +1,9 @@
 package org.groupJ.pages.doctor;
 
-import org.groupJ.Emergency.EmergencyCase;
+import org.groupJ.models.EmergencyCase;
 import org.groupJ.Globals;
 import org.groupJ.audit.AuditManager;
 import org.groupJ.controllers.ESController;
-import org.groupJ.controllers.AppointmentController;
-import org.groupJ.controllers.MedicationController;
 import org.groupJ.core.ClinicalGuideline;
 import org.groupJ.models.*;
 import org.groupJ.util.InputValidator;
@@ -16,7 +14,6 @@ import org.groupJ.ui.framework.views.TextView;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

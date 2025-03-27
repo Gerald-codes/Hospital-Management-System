@@ -1,7 +1,7 @@
-package org.groupJ.Emergency;
+package org.groupJ.models;
 
-import org.groupJ.models.*;
-import org.groupJ.Emergency.enums.*;
+import org.groupJ.models.enums.PatientLocation;
+import org.groupJ.models.enums.PatientStatus;
 import org.groupJ.models.enums.TriageLevel;
 
 import java.time.LocalDateTime;

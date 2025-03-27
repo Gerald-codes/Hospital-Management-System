@@ -1,8 +1,5 @@
-package org.groupJ.Emergency;
+package org.groupJ.models;
 
-
-import org.groupJ.models.Nurse;
-import org.groupJ.models.User;
 
 import java.util.List;
 

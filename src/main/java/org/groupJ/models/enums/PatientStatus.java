@@ -1,4 +1,4 @@
-package org.groupJ.Emergency.enums;
+package org.groupJ.models.enums;
 
 // Enum to track the current status of a patient in the emergency system
 public enum PatientStatus {

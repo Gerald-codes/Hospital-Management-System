@@ -1,8 +1,8 @@
 package org.groupJ.pages.nurse;
 
-import org.groupJ.Emergency.EmergencyCase;
-import org.groupJ.Emergency.enums.PatientLocation;
-import org.groupJ.Emergency.enums.PatientStatus;
+import org.groupJ.models.EmergencyCase;
+import org.groupJ.models.enums.PatientLocation;
+import org.groupJ.models.enums.PatientStatus;
 import org.groupJ.Globals;
 import org.groupJ.audit.AuditManager;
 import org.groupJ.controllers.ESController;

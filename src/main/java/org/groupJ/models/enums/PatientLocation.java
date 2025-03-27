@@ -1,4 +1,4 @@
-package org.groupJ.Emergency.enums;
+package org.groupJ.models.enums;
 
 
 public enum PatientLocation {

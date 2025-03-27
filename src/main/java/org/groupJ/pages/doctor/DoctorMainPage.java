@@ -1,7 +1,7 @@
 package org.groupJ.pages.doctor;
 
-import org.groupJ.Emergency.EmergencyCase;
-import org.groupJ.Emergency.EmergencyCase_Dispatch;
+import org.groupJ.models.EmergencyCase;
+import org.groupJ.models.EmergencyCase_Dispatch;
 import org.groupJ.Globals;
 import org.groupJ.controllers.ESController;
 import org.groupJ.controllers.UserController;
