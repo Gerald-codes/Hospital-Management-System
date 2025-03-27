@@ -29,13 +29,11 @@ public class DoctorMainPage extends UiBase {
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
         lv.setTitleHeader("Welcome to Hospital Management System | Welcome Back " + UserController.getActiveDoctor().getName()); // Set the title header of the list view
-        lv.addItem(new TextView(this.canvas, "1. View List of Patient - To view patient information ", Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "2. View Appointment - To view new / scheduled appointments for teleconsultation ", Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "3. Locations - To enter and proceed with Action  ", Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "4. View All Emergency Cases", Color.GREEN));
-        lv.addItem(new TextView(this.canvas, "5. Feedback Mechanism - Provide your feedback on Clinical Guidelines  ", Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "1. View Appointment - To view new / scheduled appointments for teleconsultation ", Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "2. Locations - To enter and proceed with Action  ", Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "3. View All Emergency Cases", Color.GREEN));
+        lv.addItem(new TextView(this.canvas, "4. Feedback Mechanism - Provide your feedback on Clinical Guidelines  ", Color.GREEN));
 
-        lv.attachUserInput("View List of Patient", str -> ToPage(Globals.patientInfoPage));
         lv.attachUserInput("View Appointment", str -> ToPage(Globals.viewAppointmentsPage));
         lv.attachUserInput("Locations", str -> ToPage(Globals.doctorLocationPage));
         lv.attachUserInput("View All Emergency Cases ", str -> viewAllEmergencyCases());
