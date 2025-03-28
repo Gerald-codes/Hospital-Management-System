@@ -1,14 +1,11 @@
 package org.groupJ.pages.paramedic;
 
-import org.groupJ.models.DispatchInfo;
-import org.groupJ.models.EmergencyCase_Dispatch;
+import org.groupJ.models.*;
 import org.groupJ.models.enums.PatientLocation;
 import org.groupJ.models.enums.PatientStatus;
 import org.groupJ.audit.AuditManager;
 import org.groupJ.controllers.ESController;
 import org.groupJ.controllers.UserController;
-import org.groupJ.models.Nurse;
-import org.groupJ.models.Patient;
 
 import org.groupJ.ui.framework.Color;
 import org.groupJ.ui.framework.UiBase;
@@ -103,12 +100,12 @@ public class ParamedicMenuPage extends UiBase {
 
 
         //Dispatched paramedic nurse
-        List<Nurse> paramedicNurses = new ArrayList<>();
-        String nurseID = InputValidator.getValidStringInput("Enter dispatched paramedic nurse ID: ");
-        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "ENTER PARAMEDIC ID",nurseID, "SUCCESS", "PARAMEDIC");
+        List<Paramedic> paramedics= new ArrayList<>();
+        String paramedicID = InputValidator.getValidStringInput("Enter dispatched paramedic nurse ID: ");
+        AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "ENTER PARAMEDIC ID",paramedicID, "SUCCESS", "PARAMEDIC");
 
-        Nurse paramedicNurse = UserController.checkParamedicNurse(nurseID);
-        paramedicNurses.add(paramedicNurse);
+        Paramedic paramedic = UserController.checkParamedic(paramedicID);
+        paramedics.add(paramedic);
         AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "CREATE NEW DISPATCH CASE", patient.getId(), "SUCCESS", "PARAMEDIC");
 
         //Add more staff members
@@ -122,10 +119,10 @@ public class ParamedicMenuPage extends UiBase {
                 addMoreStaff = false;
             } else {
                 // Get staff ID with validation
-                nurseID = InputValidator.getValidStringInput("Enter dispatched paramedic nurse ID: ");
-                AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "ENTER PARAMEDIC ID",nurseID, "SUCCESS", "PARAMEDIC");
-                paramedicNurse= UserController.checkParamedicNurse(nurseID);
-                paramedicNurses.add(paramedicNurse);
+                paramedicID = InputValidator.getValidStringInput("Enter dispatched paramedic nurse ID: ");
+                AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "ENTER PARAMEDIC ID",paramedicID, "SUCCESS", "PARAMEDIC");
+                paramedic= UserController.checkParamedic(paramedicID);
+                paramedics.add(paramedic);
             }
         }
 
@@ -154,7 +151,7 @@ public class ParamedicMenuPage extends UiBase {
         AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "ENTERING DISPATCH LOCATION",dispatchLocation, "SUCCESS", "PARAMEDIC");
 
 
-        DispatchInfo dispatchInfo = new DispatchInfo(ambulanceID, paramedicNurses, equipmentList, dispatchLocation);
+        DispatchInfo dispatchInfo = new DispatchInfo(ambulanceID, paramedics, equipmentList, dispatchLocation);
 
         EmergencyCase_Dispatch newDispatchCase = new EmergencyCase_Dispatch(caseID, patient, chiefComplaint, arrivalMode, patientStatus, dispatchInfo, isUrgent);
         ESController.addEmergencyCaseDispatch(newDispatchCase);

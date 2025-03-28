@@ -353,8 +353,8 @@ public class EmergencyCase {
             System.out.println("=== Dispatch Info ===");
             System.out.printf("Vehicle ID: %d\n", dispatchCase.getDispatchInfo().getVehicleId());
             System.out.println("Medivac Members:");
-            for (Nurse nurse : dispatchCase.getDispatchInfo().getMedivacMembers()) {
-                System.out.println("  - " + nurse.getName()); // Assuming Nurse has a getName() method
+            for (Paramedic paramedic : dispatchCase.getDispatchInfo().getMedivacMembers()) {
+                System.out.println("  - " + paramedic.getName()); // Assuming Nurse has a getName() method
             }
 
             System.out.println("Equipment:");

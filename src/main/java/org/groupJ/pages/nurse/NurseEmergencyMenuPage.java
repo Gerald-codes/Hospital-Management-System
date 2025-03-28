@@ -1,13 +1,10 @@
 package org.groupJ.pages.nurse;
 
-import org.groupJ.models.EmergencyCase;
-import org.groupJ.models.EmergencyCase_Dispatch;
+import org.groupJ.models.*;
 import org.groupJ.Globals;
 import org.groupJ.audit.AuditManager;
 import org.groupJ.controllers.ESController;
 import org.groupJ.controllers.UserController;
-import org.groupJ.models.Nurse;
-import org.groupJ.models.Patient;
 
 import org.groupJ.ui.framework.Color;
 import org.groupJ.ui.framework.TextStyle;
@@ -103,8 +100,8 @@ public class NurseEmergencyMenuPage extends UiBase {
                 listView.addItem(new TextView(this.canvas, "Vehicle ID: " + dispatchCase.getDispatchInfo().getVehicleId(), Color.BLUE));
 
                 listView.addItem(new TextView(this.canvas, "Medevac Members:", Color.BLUE));
-                for (Nurse nurse : dispatchCase.getDispatchInfo().getMedivacMembers()) {
-                    listView.addItem(new TextView(this.canvas, "  - " + nurse.getName(), Color.CYAN));
+                for (Paramedic paramedic : dispatchCase.getDispatchInfo().getMedivacMembers()) {
+                    listView.addItem(new TextView(this.canvas, "  - " + paramedic.getName(), Color.CYAN));
                 }
 
                 listView.addItem(new TextView(this.canvas, "Equipment:", Color.BLUE));
