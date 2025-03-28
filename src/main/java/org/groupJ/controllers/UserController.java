@@ -802,21 +802,21 @@ public class UserController {
         return newPatient;
     }
 
-    public static Nurse checkParamedicNurse(String nurseID) {
+    public static Paramedic checkParamedic(String paramedicID) {
         Scanner scanner = new Scanner(System.in);
-        Nurse foundNurse = null;
+        Paramedic foundNurse = null;
         String role = "paramedic nurse";
-        List<Nurse> allNurse = getAvailableNurses();
+        List<Paramedic> allParamedic = getAvailableParamedics();
         while (foundNurse == null) {
-            for (Nurse n : allNurse) {
-                if (n.getId().equalsIgnoreCase(nurseID) && n.getRole().equalsIgnoreCase(role)) {
-                    System.out.println("\nExisting nurse found: " + n.getName());
-                    foundNurse = n;
-                    return n;
+            for (Paramedic p : allParamedic) {
+                if (p.getId().equalsIgnoreCase(paramedicID)) {
+                    System.out.println("\nExisting nurse found: " + p.getName());
+                    foundNurse = p;
+                    return p;
                 }
             }
             System.out.println("No existing paramedic nurse found. Please enter a valid paramedic nurse ID: ");
-            nurseID = scanner.nextLine();
+            paramedicID = scanner.nextLine();
         }
         return foundNurse;
     }

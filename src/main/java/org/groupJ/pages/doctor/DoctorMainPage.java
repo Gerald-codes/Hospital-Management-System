@@ -6,6 +6,7 @@ import org.groupJ.Globals;
 import org.groupJ.controllers.ESController;
 import org.groupJ.controllers.UserController;
 import org.groupJ.models.Nurse;
+import org.groupJ.models.Paramedic;
 import org.groupJ.ui.framework.Color;
 import org.groupJ.ui.framework.TextStyle;
 import org.groupJ.ui.framework.UiBase;
@@ -64,8 +65,8 @@ public class DoctorMainPage extends UiBase {
                 listView.addItem(new TextView(this.canvas, "Vehicle ID: " + dispatchCase.getDispatchInfo().getVehicleId(), Color.BLUE));
 
                 listView.addItem(new TextView(this.canvas, "Medivac Members:", Color.BLUE));
-                for (Nurse nurse : dispatchCase.getDispatchInfo().getMedivacMembers()) {
-                    listView.addItem(new TextView(this.canvas, "  - " + nurse.getName(), Color.CYAN));
+                for (Paramedic paramedic : dispatchCase.getDispatchInfo().getMedivacMembers()) {
+                    listView.addItem(new TextView(this.canvas, "  - " + paramedic.getName(), Color.CYAN));
                 }
 
                 listView.addItem(new TextView(this.canvas, "Equipment:", Color.BLUE));
