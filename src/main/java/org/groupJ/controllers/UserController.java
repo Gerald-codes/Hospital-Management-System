@@ -5,6 +5,7 @@ import org.groupJ.audit.*;
 import org.groupJ.core.Alert;
 import org.groupJ.core.ClinicalGuideline;
 import org.groupJ.models.*;
+import org.groupJ.models.enums.DoctorType;
 import org.groupJ.models.enums.UserType;
 import org.groupJ.util.InputValidator;
 import org.groupJ.util.JarLocation;
@@ -502,6 +503,13 @@ public class UserController {
         generateNurses.add(dummyNurses.get(1));
         generateNurses.add(dummyNurses.get(2));
         saveNurseToFile();
+    }
+    public static void generateDummyDoctors(){
+        List<Doctor> dummyDoctors = new ArrayList<>();
+        dummyDoctors.add(new Doctor("D001", "limtzekai", "Lim Tze Kai", "password123", "limtzekai@gmail.com ", "Male", "GP",
+                DoctorType.GENERAL_PRACTICE, "L12345", "87654321", true, true));
+        dummyDoctors.add(new Doctor("D001", "limtzekai", "Lim Tze Kai", "password123", "limtzekai@gmail.com ", "Male", "Cardiology",
+                DoctorType.SPECIALIST, "L67890", "87654333", true, true));
     }
     // method used for generating patients.
     public static void generateDummyUsers() {
