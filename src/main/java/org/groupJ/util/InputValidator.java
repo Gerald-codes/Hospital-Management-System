@@ -107,6 +107,13 @@ public class InputValidator {
             return input;
         }
     }
+    public static String getAllStringInput(String prompt) {
+        while (true) {
+            String input = printTrimAndCheckSpaces(prompt);
+            if (input == null) continue;
+            return input;
+        }
+    }
 
     /**
      * Validates and returns an integer input within a specified range.

@@ -14,12 +14,12 @@ import java.util.List;
 public class DispatchInfo {
 
     private int vehicleId;
-    private List<Nurse> medivacMembers;
+    private List<Paramedic> medivacMembers;
     private List<String> equipment;
 
     private String dispatchLocation;
 
-    public DispatchInfo(int ambulanceId, List<Nurse> dispatchMembersList, List<String> equipmentList, String dispatchLocation) {
+    public DispatchInfo(int ambulanceId, List<Paramedic> dispatchMembersList, List<String> equipmentList, String dispatchLocation) {
         this.vehicleId = ambulanceId;
         this.medivacMembers = dispatchMembersList;
         this.equipment = equipmentList;
@@ -36,12 +36,12 @@ public class DispatchInfo {
         this.vehicleId = ambulanceId;
     }
 
-    public List<Nurse> getMedivacMembers() {
+    public List<Paramedic> getMedivacMembers() {
         return medivacMembers;
     }
 
 
-    public void setMedivacMembers(List<Nurse> medivacMembers) {
+    public void setMedivacMembers(List<Paramedic> medivacMembers) {
         this.medivacMembers = medivacMembers;
     }
 
@@ -87,8 +87,8 @@ public class DispatchInfo {
         sb.append(String.format("  %-20s: ", "Medivac Members"));
         if (medivacMembers != null && !medivacMembers.isEmpty()) {
             sb.append("\n");
-            for (Nurse nurse : medivacMembers) {
-                sb.append(String.format("    - %s\n", nurse.getName()));
+            for (Paramedic paramedic : medivacMembers) {
+                sb.append(String.format("    - %s\n", paramedic.getName()));
             }
         } else {
             sb.append("None\n");

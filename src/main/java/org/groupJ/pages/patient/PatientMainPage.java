@@ -79,7 +79,7 @@ public class PatientMainPage extends UiBase {
         boolean validDate = false;
         String appointmentDate;
         while (!validDate) {
-            appointmentDate = InputValidator.getValidStringInput("Select your appointment date in this format (DD-MM-YYYY): ");
+            appointmentDate = InputValidator.getAllStringInput("Select your appointment date in this format (DD-MM-YYYY): ");
             try {
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 date = LocalDate.parse(appointmentDate, dateFormatter);

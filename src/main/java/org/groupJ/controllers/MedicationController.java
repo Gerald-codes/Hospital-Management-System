@@ -294,32 +294,32 @@ public class MedicationController {
     // Method to collect user input and add a new medication to the list of available medications
     public static void collectUserInputAndAddMedication() {
 
-        String medicationName = InputValidator.getValidStringInput("Enter Medicine Name : ");
+        String medicationName = InputValidator.getValidStringInput("Enter Medicine Name : \n");
 
-        String guidelineId = InputValidator.getValidStringInput("Key in a Guideline ID :     Latest ID: " + getLatestGuidelineId());
+        String guidelineId = InputValidator.getValidStringInput("Key in a Guideline ID :     Latest ID: " + getLatestGuidelineId() + "\n");
 
-        String medicationID = InputValidator.getValidStringInput("Key in a Medication ID :     Latest ID: " + getLatestMedicationId());
+        String medicationID = InputValidator.getValidStringInput("Key in a Medication ID :     Latest ID: " + getLatestMedicationId() + "\n");
 
-        String dosage = InputValidator.getValidStringInput("Enter dosage : ");
+        String dosage = InputValidator.getValidStringInput("Enter dosage : \n");
 
-        String sideEffects = InputValidator.getValidStringInput("Describe Side Effects :");
+        String sideEffects = InputValidator.getValidStringInput("Describe Side Effects :\n");
 
-        String brandName = InputValidator.getValidStringInput("Enter the Brand Name : ");
+        String brandName = InputValidator.getValidStringInput("Enter the Brand Name : \n");
 
 
-        int stockAvailable = Integer.parseInt(InputValidator.getValidStringInput("Enter stock amount to be added : "));
+        int stockAvailable = Integer.parseInt(InputValidator.getValidStringInput("Enter stock amount to be added : \n"));
 
-        boolean controlledSubstance = InputValidator.getValidStringInput("Is this a controlled substance? (Yes/No) : ").equalsIgnoreCase("Yes");
+        boolean controlledSubstance = InputValidator.getValidStringInput("Is this a controlled substance? (Yes/No) : \n").equalsIgnoreCase("Yes");
 
-        String manufactureName = InputValidator.getValidStringInput("Enter the Manufacturer Name : ");
+        String manufactureName = InputValidator.getValidStringInput("Enter the Manufacturer Name : \n");
 
-        String batchNumber = InputValidator.getValidStringInput("Enter the Batch Number :    Latest Batch Number: " + getLatestBatchNumber());
+        String batchNumber = InputValidator.getValidStringInput("Enter the Batch Number :    Latest Batch Number: " + getLatestBatchNumber() + "\n");
 
-        String manufactureDate = InputValidator.getValidStringInput("Enter the Manufacture Date : ");
+        String manufactureDate = InputValidator.getValidStringInput("Enter the Manufacture Date : \n");
 
-        String expiryDate = InputValidator.getValidStringInput("Enter the Expiry Date : ");
+        String expiryDate = InputValidator.getAllStringInput("Enter the Expiry Date : \n");
 
-        double medicationPrice = Double.parseDouble(InputValidator.getValidStringInput("Enter the standard pricing of this medicine : "));
+        double medicationPrice = Double.parseDouble(InputValidator.getValidStringInput("Enter the standard pricing of this medicine : \n"));
 
         addNewMedication(medicationName, guidelineId, medicationID, dosage, sideEffects, brandName, stockAvailable, controlledSubstance, manufactureName, batchNumber, manufactureDate, expiryDate, medicationPrice);
     }
@@ -330,7 +330,7 @@ public class MedicationController {
     //method to remove stock from total stock
     public static void removeStockfromMedication(){
 
-        String medicationID = InputValidator.getValidStringInput("Enter the Medication ID of the stock you wish to deduct from :   Example: M001");
+        String medicationID = InputValidator.getValidStringInput("Enter the Medication ID of the stock you wish to deduct from :   Example: M001\n");
 
         Medication medication = findAvailableMedicationByID(medicationID);
         if (medication == null) {
@@ -338,14 +338,14 @@ public class MedicationController {
             return;
         }
 
-        int stockRemove = Integer.parseInt(InputValidator.getValidStringInput("Enter the amount you wish to deduct :   Current Stock: " + medication.getStockAvailable()));
+        int stockRemove = Integer.parseInt(InputValidator.getValidStringInput("Enter the amount you wish to deduct :   Current Stock: " + medication.getStockAvailable() + "\n"));
         int currentStock = medication.getStockAvailable();
         int newStock = currentStock - stockRemove;
 
         if (stockRemove <= currentStock) {
             medication.setStockAvailable(newStock);
             saveMedicationToFile();
-            System.out.println("Total amount has been successfully deducted. Current balance is " + newStock);
+            System.out.println("Total amount has been successfully deducted. Current balance is " + newStock );
         }
         else {
             System.out.println("Invalid amount given. Please enter a valid amount that can be deducted from the total" + currentStock);
@@ -380,7 +380,7 @@ public class MedicationController {
         System.out.println("11. Expiry Date");
         System.out.println("12. Medication Price");
 
-        int choice = Integer.parseInt(InputValidator.getValidStringInput("Enter the index number of the detail you wish to edit:     Example: 1 "));
+        int choice = Integer.parseInt(InputValidator.getValidStringInput("Enter the index number of the detail you wish to edit:     Example: 1 \n"));
 
         switch (choice) {
             case 1:

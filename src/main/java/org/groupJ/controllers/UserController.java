@@ -5,6 +5,7 @@ import org.groupJ.audit.*;
 import org.groupJ.core.Alert;
 import org.groupJ.core.ClinicalGuideline;
 import org.groupJ.models.*;
+import org.groupJ.models.enums.DoctorType;
 import org.groupJ.models.enums.UserType;
 import org.groupJ.util.InputValidator;
 import org.groupJ.util.JarLocation;
@@ -504,6 +505,13 @@ public class UserController {
         generateNurses.add(dummyNurses.get(2));
         saveNurseToFile();
     }
+    public static void generateDummyDoctors(){
+        List<Doctor> dummyDoctors = new ArrayList<>();
+        dummyDoctors.add(new Doctor("D001", "limtzekai", "Lim Tze Kai", "password123", "limtzekai@gmail.com ", "Male", "GP",
+                DoctorType.GENERAL_PRACTICE, "L12345", "87654321", true, true));
+        dummyDoctors.add(new Doctor("D001", "limtzekai", "Lim Tze Kai", "password123", "limtzekai@gmail.com ", "Male", "Cardiology",
+                DoctorType.SPECIALIST, "L67890", "87654333", true, true));
+    }
     // method used for generating patients.
     public static void generateDummyUsers() {
 
@@ -803,21 +811,21 @@ public class UserController {
         return newPatient;
     }
 
-    public static Nurse checkParamedicNurse(String nurseID) {
+    public static Paramedic checkParamedic(String paramedicID) {
         Scanner scanner = new Scanner(System.in);
-        Nurse foundNurse = null;
+        Paramedic foundNurse = null;
         String role = "paramedic nurse";
-        List<Nurse> allNurse = getAvailableNurses();
+        List<Paramedic> allParamedic = getAvailableParamedics();
         while (foundNurse == null) {
-            for (Nurse n : allNurse) {
-                if (n.getId().equalsIgnoreCase(nurseID) && n.getRole().equalsIgnoreCase(role)) {
-                    System.out.println("\nExisting nurse found: " + n.getName());
-                    foundNurse = n;
-                    return n;
+            for (Paramedic p : allParamedic) {
+                if (p.getId().equalsIgnoreCase(paramedicID)) {
+                    System.out.println("\nExisting nurse found: " + p.getName());
+                    foundNurse = p;
+                    return p;
                 }
             }
             System.out.println("No existing paramedic nurse found. Please enter a valid paramedic nurse ID: ");
-            nurseID = scanner.nextLine();
+            paramedicID = scanner.nextLine();
         }
         return foundNurse;
     }

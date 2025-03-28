@@ -64,7 +64,7 @@ public class BillingPage extends UiBase {
         appointments = Globals.appointmentController.getAppointments()
                 .stream()
                 .filter(appointment -> appointment.getPatient().getId().equals(UserController.getActivePatient().getId()))
-                .filter(appointment -> appointment.getAppointmentStatus() == AppointmentStatus.COMPLETED)
+                .filter(appointment -> appointment.getAppointmentStatus() == AppointmentStatus.COMPLETED || appointment.getAppointmentStatus() == AppointmentStatus.DISPENSED)
                 .toList();
 
         if (appointments.isEmpty()) {
