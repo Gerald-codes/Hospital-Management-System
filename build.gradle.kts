@@ -1,9 +1,10 @@
 plugins {
+    kotlin("jvm") version "1.9.22"
     id("java")
     id("application")
 }
 
-group = "org.lucas"
+group = "org.groupJ"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -14,11 +15,12 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     implementation("com.google.code.gson:gson:2.12.1")
-    implementation ("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("com.google.code.gson:gson:2.10.1")
 }
 
 application { // Configure the main class for the application plugin
-    mainClass.set("org.lucas.Main")
+    mainClass.set("org.groupJ.Main")
 }
 
 tasks.test {
@@ -27,7 +29,7 @@ tasks.test {
 
 tasks.jar {
     manifest {
-        attributes["Main-Class"] = "org.lucas.Main" // Only needed for executable JAR
+        attributes["Main-Class"] = "org.groupJ.Main" // Only needed for executable JAR
     }
     // This line is necessary to include all dependencies into the jar file
     from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
@@ -41,7 +43,7 @@ tasks.jar {
 tasks.register<JavaExec>("runJar") {
     dependsOn(tasks.jar) // build the jar
     classpath = files(tasks.jar.get().outputs.files) // set classpath
-    mainClass.set("org.lucas.Main") // Specify the main class
+    mainClass.set("org.groupJ.Main") // Specify the main class
 
     // Optional: Set JVM arguments if needed
     // jvmArgs = listOf("-Xmx256m")
