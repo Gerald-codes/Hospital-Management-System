@@ -101,7 +101,7 @@ public class ESController {
     public static void printAllDoneEmergencyCaseInTriageRoom() {
         // Filter and print all emergency cases in the Triage Room
         for (EmergencyCase emergencyCase : allCases) {
-            if (PatientLocation.EMERGENCY_ROOM_WAITING_ROOM.equals(emergencyCase.getLocation()) &&
+            if (PatientLocation.EMERGENCY_ROOM_TRIAGE_ROOM.equals(emergencyCase.getLocation()) &&
                     emergencyCase.getPatientStatus().equals(PatientStatus.DONE)) {
                 emergencyCase.displayCase();
             }
@@ -112,7 +112,7 @@ public class ESController {
         int count = 0;
         // Filter and print all emergency cases in the Triage Room
         for (EmergencyCase emergencyCase : allCases) {
-            if (PatientLocation.EMERGENCY_ROOM_WAITING_ROOM.equals(emergencyCase.getLocation()) &&
+            if (PatientLocation.EMERGENCY_ROOM_TRIAGE_ROOM.equals(emergencyCase.getLocation()) &&
                     emergencyCase.getPatientStatus().equals(PatientStatus.DONE)) {
                 count++;
             }
@@ -136,13 +136,22 @@ public class ESController {
         // Filter and print all emergency cases in the Trauma Room
         for (EmergencyCase emergencyCase : allCases) {
             // get patient in EMERGENCY_ROOM_TRAUMA_ROOM and patient status is done
-            if (PatientLocation.EMERGENCY_ROOM_TRAUMA_ROOM.equals(emergencyCase.getLocation()) &&
-                    emergencyCase.getPatientStatus().equals(PatientStatus.DONE)) {
+            if (emergencyCase.getPatientStatus().equals(PatientStatus.ADMITTED)) {
                 emergencyCase.displayCase();
             }
         }
     }
 
+    public static int checkForAdmittedEmergencyCaseInObservationRoom() {
+        int count = 0;
+        // Filter and print all emergency cases in the Triage Room
+        for (EmergencyCase emergencyCase : allCases) {
+            if (emergencyCase.getPatientStatus().equals(PatientStatus.ADMITTED)) {
+                count++;
+            }
+        }
+        return count;
+    }
     /**
      * Loads emergency cases from a file.
      */
@@ -468,9 +477,9 @@ public class ESController {
             // Show doctor options
             showDoctorPatientOption();
             int doctorInput = InputValidator.getValidIntInput("Enter your choice: ");
-            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(),"SELECT OPTIONS" + doctorInput, String.valueOf(doctorInput),"SUCCESS", UserController.getActiveUserType().toString());
+            AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(),"SELECT OPTIONS" + doctorInput, String.valueOf(doctorInput),"SUCCESS", UserController.getActiveUserType().toString());
 
-
+            doctor.displayDoctorInfo();
             switch (doctorInput) {
                 case 0:
                     return; // Done screening, go back to patient list
@@ -491,12 +500,12 @@ public class ESController {
                     if(doctor.isCanPrescribeMedication()){
                         prescribeMedications(patient, doctor); // Prescribe Medication
                     }else{
-                        System.out.println("Doctor is unable to prescribe medication.");
+                        System.out.println("\nDoctor is unable to prescribe medication.\n");
                     }
                     break;
 
                 default:
-                    System.out.println("Invalid choice! Please try again.");
+                    System.out.println("\nInvalid choice! Please try again.");
             }
         }
     }

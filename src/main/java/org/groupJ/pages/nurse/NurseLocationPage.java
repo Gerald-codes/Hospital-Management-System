@@ -1,6 +1,7 @@
 package org.groupJ.pages.nurse;
 
 import org.groupJ.models.EmergencyCase;
+import org.groupJ.models.Symptoms;
 import org.groupJ.models.enums.PatientLocation;
 import org.groupJ.models.enums.PatientStatus;
 import org.groupJ.Globals;
@@ -44,7 +45,7 @@ public class NurseLocationPage extends UiBase {
             ESController.printAllEmergencyCaseInWaitingRoom();
             int caseId = InputValidator.getValidIntInput("Enter Case ID : ");
 
-            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "ENTER CASE ID", String.valueOf(selectedCase.getCaseID()), "SUCCESS", "NURSE");
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "ENTER CASE ID", "123", "SUCCESS", "NURSE");
             selectedCase = ESController.selectCase(caseId);
         } while(selectedCase == null);
 
@@ -70,27 +71,30 @@ public class NurseLocationPage extends UiBase {
 
     public void proceedToObservationRoom(){
         EmergencyCase selectedCase = null;
-        do {
-            ESController.printAllEmergencyCaseInObservationRoom();
-            int caseId = InputValidator.getValidIntInput("Enter Case ID : ");
+        int caseCount = ESController.checkForAdmittedEmergencyCaseInObservationRoom();
 
-            selectedCase = ESController.selectCase(caseId);
-        } while(selectedCase == null);
+        if (caseCount > 0) {
+            do {
+                ESController.printAllEmergencyCaseInObservationRoom();
+                int caseId = InputValidator.getValidIntInput("Enter Case ID : ");
 
-        Nurse nurse = UserController.getActiveNurse();
-        selectedCase.setInitialScreeningNurse(nurse);
+                selectedCase = ESController.selectCase(caseId);
+            } while (selectedCase == null);
 
-        selectedCase.setLocation(PatientLocation.EMERGENCY_ROOM_OBSERVATION_ROOM);
-        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "UPDATE LOCATION TO OBSERVATION ROOM", String.valueOf(selectedCase.getCaseID()), "SUCCESS", "NURSE");
 
-        selectedCase.setPatientStatus(PatientStatus.ADMITTED);
-        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "UPDATE PATIENT STATUS TO ONGOING", String.valueOf(selectedCase.getCaseID()), "SUCCESS", "NURSE");
+            Nurse nurse = UserController.getActiveNurse();
+            selectedCase.setInitialScreeningNurse(nurse);
 
-        NursePatientActionsPage.setPatient(selectedCase.getPatient());
-        NursePatientActionsPage.setEmergencyCase(selectedCase);
-        ToPage(Globals.nursePatientActionsPage);
+            selectedCase.setLocation(PatientLocation.EMERGENCY_ROOM_OBSERVATION_ROOM);
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "UPDATE LOCATION TO OBSERVATION ROOM", String.valueOf(selectedCase.getCaseID()), "SUCCESS", "NURSE");
 
-        refreshUi("Patient Discharged!");
+            NursePatientActionsPage.setPatient(selectedCase.getPatient());
+            NursePatientActionsPage.setEmergencyCase(selectedCase);
+
+            ToPage(Globals.nursePatientActionsPage);
+        }
+
+        refreshUi("There is no admitted patients.");
     }
 
     public void refreshUi(String string){

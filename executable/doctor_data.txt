@@ -9,7 +9,9 @@
     "password": "docpass",
     "email": "limtzekai@clinic.com",
     "gender": "Male",
-    "phone_number": "9876 5432"
+    "phone_number": "9876 5432",
+    "is_surgical_approved": true,
+    "can_prescribe_medication": true
   },
   {
     "specialisation": "Cardiology",
@@ -21,6 +23,8 @@
     "password": "securedoc",
     "email": "kieransim@clinic.com",
     "gender": "Male",
-    "phone_number": "8345 6789"
+    "phone_number": "8345 6789",
+    "is_surgical_approved": true,
+    "can_prescribe_medication": false
   }
 ]

@@ -4,7 +4,7 @@ package org.groupJ.models.enums;
 public enum PatientStatus {
     DISCHARGED,
     ADMITTED,
-    REFFERED,
+    REFERRED,
     ONGOING,
     WAITING,
     DONE,

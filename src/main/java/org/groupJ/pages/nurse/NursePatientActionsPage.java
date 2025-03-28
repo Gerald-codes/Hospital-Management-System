@@ -1,5 +1,6 @@
 package org.groupJ.pages.nurse;
 
+import org.groupJ.controllers.ESController;
 import org.groupJ.models.EmergencyCase;
 import org.groupJ.models.enums.PatientStatus;
 import org.groupJ.audit.AuditManager;
@@ -73,6 +74,10 @@ public class NursePatientActionsPage extends UiBase {
 
         lv.attachUserInput("Discharge Patient", str -> {
             emergencyCase.setPatientStatus(PatientStatus.DISCHARGED);
+            ESController.saveEmergencyCasesToFile();
+            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "SAVE EMERGENCY CASE TO FILE",
+                    String.valueOf(emergencyCase.getCaseID()), "SUCCESS", "NURSE");
+
             OnBackPressed();
             canvas.setRequireRedraw(true);
         });

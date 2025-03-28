@@ -101,6 +101,7 @@ public class UserController {
             Type listType = new TypeToken<List<Doctor>>() {
             }.getType();
             allDoctors = Util.fromJsonString(sb.toString(), listType);
+            System.out.println("ALLDOCTORS" + allDoctors.toString());
         } catch (IOException e) {
             AuditManager.getInstance().logAction(UserController.getActiveDoctor().getId(), "EXCEPTION OCCURRED", e.getMessage(),
                     "FAILURE", UserController.getActiveUserType().toString());
