@@ -132,4 +132,21 @@ public class InputValidator {
             }
         }
     }
+    public static boolean getYesNo(String prompt) {
+        while (true) {
+            System.out.print(prompt + " (Y/N): "); String input = scanner.nextLine().trim();
+            if (input.equalsIgnoreCase("Y") || input.equalsIgnoreCase("YES"))
+            {
+                return true;
+            }
+            else if (input.equalsIgnoreCase("N") || input.equalsIgnoreCase("NO"))
+            {
+                return false;
+            }
+            else
+            {
+                System.out.println("\u274C Invalid input! Please enter Y for yes or N for no.");
+            }
+        }
+    }
 }

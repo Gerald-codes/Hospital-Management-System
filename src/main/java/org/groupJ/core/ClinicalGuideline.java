@@ -1,11 +1,14 @@
 package org.groupJ.core;
 
+import org.groupJ.models.Medication;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import static org.groupJ.controllers.MedicationController.getAvailableMedications;
 
 /**
  * Represents a clinical guideline with associated metadata and functionalities.
@@ -518,6 +521,52 @@ public class ClinicalGuideline {
         return clinicalGuidelines;
     }
 
+    /**
+     * A mapping between symptom descriptions and their corresponding recommended medications.
+     * This map is populated on-demand when {@link #getSymptomToMedication()} is first called.
+     * Each key represents a symptom (e.g., "Fever, chills, body aches") and maps to a list
+     * of {@code Medication} objects that are recommended for that symptom.
+     */
+    public static Map<String, List<Medication>> symptomToMedications = new HashMap<>();
+    /**
+     * Retrieves the mapping of symptoms to recommended medications.
+     * If the mapping is empty, this method populates it using the list of available medications
+     * obtained from getAvailableMedications(). For each predefined symptom, a list of
+     * recommended medications is added to the mapping.
+     * @return a {@code Map<String, List<Medication>>} mapping symptom descriptions to their recommended medications.
+     */
+    public static Map<String, List<Medication>> getSymptomToMedication() {
+        if (symptomToMedications.isEmpty()) {
+            List<Medication> availableMedication = getAvailableMedications();
+            // Make sure the list is not empty
+            if (availableMedication == null || availableMedication.isEmpty()) {
+                throw new IllegalStateException("Available medications list is empty");
+            }
+            symptomToMedications.put("Fever, chills, body aches", Arrays.asList(availableMedication.get(0), availableMedication.get(7))); // Paracetamol, Ibuprofen
+            symptomToMedications.put("Sore Throat", Arrays.asList(availableMedication.get(3), availableMedication.get(5))); // Diphenhydramine, Amoxicillin
+            symptomToMedications.put("Runny Nose, Nasal Congestion", Arrays.asList(availableMedication.get(3), availableMedication.get(4))); // Diphenhydramine, Loperamide
+            symptomToMedications.put("Chest Pain", Arrays.asList(availableMedication.get(2), availableMedication.get(1))); // Furosemide, Aspirin
+            symptomToMedications.put("Difficulty Breathing", Arrays.asList(availableMedication.get(6), availableMedication.get(2))); // Metformin, Furosemide
+            symptomToMedications.put("Chronic Cough", Arrays.asList(availableMedication.get(3), availableMedication.get(5))); // Diphenhydramine, Amoxicillin
+            symptomToMedications.put("Severe Headache", Arrays.asList(availableMedication.get(7), availableMedication.get(0))); // Ibuprofen, Paracetamol
+            symptomToMedications.put("Dizziness, Light headedness", Arrays.asList(availableMedication.get(3))); // Diphenhydramine
+            symptomToMedications.put("Loss of Consciousness", Arrays.asList(availableMedication.get(1))); // Aspirin
+            symptomToMedications.put("Nausea and Vomiting", Arrays.asList(availableMedication.get(3), availableMedication.get(4))); // Diphenhydramine, Loperamide
+            symptomToMedications.put("Severe Abdominal Pain", Arrays.asList(availableMedication.get(2), availableMedication.get(7))); // Furosemide, Ibuprofen
+            symptomToMedications.put("Constipation", Arrays.asList(availableMedication.get(4))); // Loperamide
+            symptomToMedications.put("Rapid or Irregular Heartbeat", Arrays.asList(availableMedication.get(6), availableMedication.get(8))); // Metformin, Atorvastatin
+            symptomToMedications.put("Swelling in Legs and Ankles", Arrays.asList(availableMedication.get(2))); // Furosemide
+            symptomToMedications.put("Extreme Fatigue", Arrays.asList(availableMedication.get(9))); // Levothyroxine
+            symptomToMedications.put("Loss of Taste and Smell", Arrays.asList(availableMedication.get(5))); // Amoxicillin
+            symptomToMedications.put("Persistent Dry Cough", Arrays.asList(availableMedication.get(3))); // Diphenhydramine
+            symptomToMedications.put("Skin Rash or Itching", Arrays.asList(availableMedication.get(3), availableMedication.get(8))); // Diphenhydramine, Atorvastatin
+            symptomToMedications.put("Joint Pain and Swelling", Arrays.asList(availableMedication.get(7))); // Ibuprofen
+            symptomToMedications.put("Muscle Weakness", Arrays.asList(availableMedication.get(6), availableMedication.get(9))); // Metformin, Levothyroxine
+            symptomToMedications.put("High Cholesterol", Arrays.asList(availableMedication.get(8))); // Atorvastatin
+            symptomToMedications.put("Thyroid Issues", Arrays.asList(availableMedication.get(9))); // Levothyroxine
+        }
+        return symptomToMedications;
+    }
     /* DISPLAY METHODS **/
 
     /**

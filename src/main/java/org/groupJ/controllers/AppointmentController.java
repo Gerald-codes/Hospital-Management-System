@@ -257,17 +257,33 @@ public class AppointmentController {
      * @param appointment the appointment for which the medication is being prescribed
      */
     public void prescribeMedication(int index, Appointment appointment) {
+        Prescription prescription = appointment.getBilling().getPrescription();
         Scanner scanner = new Scanner(System.in);
-
         System.out.println("Enter the drug name: ");
         // always use upper case
         String medicationName = scanner.nextLine().trim().toUpperCase();
+        // Check if the medication already exists in the patient's prescription.
+        boolean alreadyExists = false;
+        for (Medication med : appointment.getPatient().getMedications()) {
+            if (med.getMedicationName().equalsIgnoreCase(medicationName)) {
+                alreadyExists = true;
+                break;
+            }
+        }
 
+        // If medication already exists, ask the doctor if they wish to proceed.
+        if (alreadyExists) {
+            boolean confirm = InputValidator.getYesNo("The patient already has " + medicationName + ". Do you want to add it again?");
+            if (!confirm) {
+                System.out.println("Medication addition cancelled.");
+                return;
+            }
+        }
         System.out.println("Enter the amount: ");
         int medicineAmount = scanner.nextInt();
         // somehow creating a new scanner prevents errors where it may just skip the scanner.
         scanner = new Scanner(System.in);
-        Prescription prescription = appointment.getBilling().getPrescription();
+
 
         // if the medicine is in the database, automatically fill in the dosage
         // otherwise prompt for the dosage and instructions.

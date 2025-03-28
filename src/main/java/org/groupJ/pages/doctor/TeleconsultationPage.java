@@ -1,5 +1,6 @@
 package org.groupJ.pages.doctor;
 
+import org.groupJ.controllers.MedicationController;
 import org.groupJ.models.EmergencyCase;
 import org.groupJ.Globals;
 import org.groupJ.audit.AuditManager;
@@ -49,7 +50,8 @@ public class TeleconsultationPage extends UiBase {
         });
 
         lv.attachUserInput("Edit Prescription", str -> {
-            System.out.println("Prescription Options:");
+            MedicationController.recommendMedication(appointment.getPatient().getEHR().getSymptoms());
+            System.out.println("\nPrescription Options:");
             System.out.println("1. Add New Prescription");
             System.out.println("2. Edit Existing Prescription");
             System.out.println("3. Remove Prescription");
@@ -170,7 +172,15 @@ public class TeleconsultationPage extends UiBase {
         listView.addItem(new TextView(this.canvas, "Patient Name: " + appointment.getPatient().getName(), Color.GREEN, TextStyle.ITALIC));
         listView.addItem(new TextView(this.canvas, "Appointment Time: " + appointment.getAppointmentTime().format(DateTimeFormatter.ofPattern("HH:mm")), Color.GREEN, TextStyle.ITALIC));
         listView.addItem(new TextView(this.canvas, "Zoom link: " + appointment.getSession().getZoomLink(), Color.GREEN, TextStyle.ITALIC));
-        listView.addItem(new TextView(this.canvas, "Reason: " + appointment.getReason() + "\n", Color.GREEN, TextStyle.ITALIC));
+        listView.addItem(new TextView(this.canvas, "Reason: " + appointment.getReason(), Color.GREEN, TextStyle.ITALIC));
+        List<Medication> patientsCurrentMedications = appointment.getPatient().getMedications();
+        String patientsCurrentMedicationString = "";
+        if (patientsCurrentMedications != null && !patientsCurrentMedications.isEmpty()){
+            patientsCurrentMedicationString = patientsCurrentMedications.stream()
+                    .map(Medication::getMedicationName)
+                    .collect(Collectors.joining(", "));
+        }
+        listView.addItem(new TextView(this.canvas, "Current Medications: " + patientsCurrentMedicationString + "\n", Color.GREEN, TextStyle.ITALIC));
         String MCString = "Medical Certificate not yet given.";
 
         // separate the editable items with different colours

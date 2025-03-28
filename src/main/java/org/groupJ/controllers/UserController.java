@@ -3,6 +3,7 @@ import com.google.gson.reflect.TypeToken;
 import org.groupJ.Globals;
 import org.groupJ.audit.*;
 import org.groupJ.core.Alert;
+import org.groupJ.core.ClinicalGuideline;
 import org.groupJ.models.*;
 import org.groupJ.models.enums.UserType;
 import org.groupJ.util.InputValidator;
@@ -652,51 +653,17 @@ public class UserController {
         return copyOfSymptoms.subList(0, count);
     }
 
-    private static Map<String, List<Medication>> symptomToMedications = new HashMap<>();
-    private static Map<String, List<Medication>> getSymptomToMedication() {
-        if (symptomToMedications.isEmpty()) {
-            List<Medication> availableMedication = getAvailableMedications();
-            // Make sure the list is not empty
-            if (availableMedication == null || availableMedication.isEmpty()) {
-                throw new IllegalStateException("Available medications list is empty");
-            }
-            symptomToMedications.put("Fever, chills, body aches", Arrays.asList(availableMedication.get(0), availableMedication.get(7))); // Paracetamol, Ibuprofen
-            symptomToMedications.put("Sore Throat", Arrays.asList(availableMedication.get(3), availableMedication.get(5))); // Diphenhydramine, Amoxicillin
-            symptomToMedications.put("Runny Nose, Nasal Congestion", Arrays.asList(availableMedication.get(3), availableMedication.get(4))); // Diphenhydramine, Loperamide
-            symptomToMedications.put("Chest Pain", Arrays.asList(availableMedication.get(2), availableMedication.get(1))); // Furosemide, Aspirin
-            symptomToMedications.put("Difficulty Breathing", Arrays.asList(availableMedication.get(6), availableMedication.get(2))); // Metformin, Furosemide
-            symptomToMedications.put("Chronic Cough", Arrays.asList(availableMedication.get(3), availableMedication.get(5))); // Diphenhydramine, Amoxicillin
-            symptomToMedications.put("Severe Headache", Arrays.asList(availableMedication.get(7), availableMedication.get(0))); // Ibuprofen, Paracetamol
-            symptomToMedications.put("Dizziness, Light headedness", Arrays.asList(availableMedication.get(3))); // Diphenhydramine
-            symptomToMedications.put("Loss of Consciousness", Arrays.asList(availableMedication.get(1))); // Aspirin
-            symptomToMedications.put("Nausea and Vomiting", Arrays.asList(availableMedication.get(3), availableMedication.get(4))); // Diphenhydramine, Loperamide
-            symptomToMedications.put("Severe Abdominal Pain", Arrays.asList(availableMedication.get(2), availableMedication.get(7))); // Furosemide, Ibuprofen
-            symptomToMedications.put("Constipation", Arrays.asList(availableMedication.get(4))); // Loperamide
-            symptomToMedications.put("Rapid or Irregular Heartbeat", Arrays.asList(availableMedication.get(6), availableMedication.get(8))); // Metformin, Atorvastatin
-            symptomToMedications.put("Swelling in Legs and Ankles", Arrays.asList(availableMedication.get(2))); // Furosemide
-            symptomToMedications.put("Extreme Fatigue", Arrays.asList(availableMedication.get(9))); // Levothyroxine
-            symptomToMedications.put("Loss of Taste and Smell", Arrays.asList(availableMedication.get(5))); // Amoxicillin
-            symptomToMedications.put("Persistent Dry Cough", Arrays.asList(availableMedication.get(3))); // Diphenhydramine
-            symptomToMedications.put("Skin Rash or Itching", Arrays.asList(availableMedication.get(3), availableMedication.get(8))); // Diphenhydramine, Atorvastatin
-            symptomToMedications.put("Joint Pain and Swelling", Arrays.asList(availableMedication.get(7))); // Ibuprofen
-            symptomToMedications.put("Muscle Weakness", Arrays.asList(availableMedication.get(6), availableMedication.get(9))); // Metformin, Levothyroxine
-            symptomToMedications.put("High Cholesterol", Arrays.asList(availableMedication.get(8))); // Atorvastatin
-            symptomToMedications.put("Thyroid Issues", Arrays.asList(availableMedication.get(9))); // Levothyroxine
-        }
-        return symptomToMedications;
-    }
-
     public static List<Medication> getMedicationsForSymptom(List<Symptoms> symptoms) {
         // Use a Set to automatically eliminate duplicates
-        if (symptomToMedications.isEmpty()) {
-            getSymptomToMedication();
+        if (ClinicalGuideline.symptomToMedications.isEmpty()) {
+            ClinicalGuideline.getSymptomToMedication();
         }
         Set<Medication> medicationSet = new HashSet<>();
 
         for (Symptoms symptom : symptoms) {
             String symptomName = symptom.getSymptomName();
             // Try case-insensitive lookup
-            for (Map.Entry<String, List<Medication>> entry : symptomToMedications.entrySet()) {
+            for (Map.Entry<String, List<Medication>> entry : ClinicalGuideline.symptomToMedications.entrySet()) {
                 String key = entry.getKey();
 
                 if (key.equalsIgnoreCase(symptomName)) {

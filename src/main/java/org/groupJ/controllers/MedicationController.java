@@ -4,6 +4,7 @@ import java.util.*;
 import com.google.gson.reflect.TypeToken;
 import org.groupJ.Globals;
 import org.groupJ.audit.AuditManager;
+import org.groupJ.core.ClinicalGuideline;
 import org.groupJ.models.*;
 import org.groupJ.util.InputValidator;
 import org.groupJ.util.Util;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.stream.Collectors;
 
 /**
  * Simple controller class that manages the storage of pre-populated medicine variables.
@@ -228,6 +230,42 @@ public class MedicationController {
             }
         }
         return latestGuidelineId;
+    }
+    /**
+     * Recommends medications based on the given symptoms.
+     *
+     * @param symptoms The list of symptoms to recommend medications for.
+     * @return A list of recommended medications.
+     */
+    public static List<Medication> recommendMedication(List<Symptoms> symptoms) {
+        Map<String, List<Medication>> mapping = ClinicalGuideline.getSymptomToMedication();
+        List<Medication> recommendations = new ArrayList<>();
+
+        for (Symptoms patientSymptom : symptoms) {
+            // Loop through each mapping entry.
+            String inputSymptom = patientSymptom.getSymptomName();
+            for (Map.Entry<String, List<Medication>> entry : mapping.entrySet()) {
+                // Check if the input symptom matches the mapping key (ignoring case).
+                if (entry.getKey().equalsIgnoreCase(inputSymptom)) {
+                    recommendations.addAll(entry.getValue());
+                }
+            }
+        }
+        // Remove duplicates
+        recommendations = recommendations.stream()
+                .distinct()
+                .collect(Collectors.toList());
+
+        // Print the results
+        if (recommendations.isEmpty()) {
+            System.out.println("No recommendations available for the given symptoms.");
+        } else {
+            System.out.println("CDSS Recommended Medications:");
+            for (Medication medication : recommendations) {
+                System.out.println(" - " +medication.getMedicationName());
+            }
+        }
+        return recommendations;
     }
 
     /**
