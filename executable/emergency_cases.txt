@@ -57,7 +57,7 @@
             "doctor_notes": "TESTING"
           }
         ],
-        "diagnosis": "Strep Throat",
+        "diagnosis": "Sepsis",
         "outcome_monitoring_records": [],
         "past_surgeries": [],
         "vaccination_record": []
@@ -96,8 +96,8 @@
     "assigned_doctor": {
       "specialisation": "GP",
       "license_number": "L12345",
-      "is_surgical_approved": false,
-      "can_prescribe_medication": false,
+      "is_surgical_approved": true,
+      "can_prescribe_medication": true,
       "id": "D001",
       "login_name": "limtzekai",
       "name": "Dr. Lim Tze Kai",
@@ -107,7 +107,7 @@
       "phone_number": "9876 5432"
     },
     "location": "EMERGENCY_ROOM_EXAMINATION_ROOM",
-    "patient_status": "DONE",
+    "patient_status": "ONGOING",
     "emergency_procedures": [
       "25-03-2025 02:07:59 - alsdkalksd",
       "25-03-2025 02:08:00 - asdlalskdlasd",
@@ -118,94 +118,6 @@
       "28-03-2025 22:55:18 - asd",
       "28-03-2025 22:55:18 - asd"
     ],
-    "is_urgent": false
-  },
-  {
-    "case_i_d": 1,
-    "patient": {
-      "alert_history": [],
-      "electronic_health_record": {
-        "allergies": [],
-        "current_medications": [],
-        "medical_history": [],
-        "vital_signs": {
-          "temperature": 0.0,
-          "heart_rate": 0,
-          "blood_pressure_systolic": 0,
-          "blood_pressure_diastolic": 0,
-          "respiratory_rate": 0
-        },
-        "lab_results": [],
-        "imaging_records": [],
-        "clinical_notes": "Nil",
-        "symptoms": [],
-        "diagnosis": "Nil",
-        "outcome_monitoring_records": [],
-        "past_surgeries": [],
-        "vaccination_record": []
-      },
-      "height": 0.0,
-      "weight": 0.0,
-      "emergency_contact_number": 0,
-      "patient_consent": {
-        "consent_given": false
-      },
-      "id": "ASD",
-      "name": "GERALD",
-      "gender": "MALE",
-      "phone_number": "192321"
-    },
-    "chief_complaint": "ASDKALD",
-    "arrival_mode": "Walk-In",
-    "arrival_date_time": "2025-03-24T21:40:19.126274",
-    "triage_level": "PRIORITY_1_CRITICAL",
-    "location": "EMERGENCY_ROOM_TRAUMA_ROOM",
-    "patient_status": "WAITING",
-    "emergency_procedures": [],
-    "is_urgent": true
-  },
-  {
-    "case_i_d": 1,
-    "patient": {
-      "alert_history": [],
-      "electronic_health_record": {
-        "allergies": [],
-        "current_medications": [],
-        "medical_history": [],
-        "vital_signs": {
-          "temperature": 0.0,
-          "heart_rate": 0,
-          "blood_pressure_systolic": 0,
-          "blood_pressure_diastolic": 0,
-          "respiratory_rate": 0
-        },
-        "lab_results": [],
-        "imaging_records": [],
-        "clinical_notes": "Nil",
-        "symptoms": [],
-        "diagnosis": "Nil",
-        "outcome_monitoring_records": [],
-        "past_surgeries": [],
-        "vaccination_record": []
-      },
-      "height": 0.0,
-      "weight": 0.0,
-      "emergency_contact_number": 0,
-      "patient_consent": {
-        "consent_given": false
-      },
-      "id": "asldklk",
-      "name": "laksdlkasd",
-      "gender": "lakdlkas",
-      "phone_number": "dlaksdlkasld"
-    },
-    "chief_complaint": "alkdlakd",
-    "arrival_mode": "Walk-In",
-    "arrival_date_time": "2025-03-24T22:16:58.038456",
-    "triage_level": "PRIORITY_4_NON_EMERGENCY",
-    "location": "EMERGENCY_ROOM_WAITING_ROOM",
-    "patient_status": "WAITING",
-    "emergency_procedures": [],
     "is_urgent": false
   },
   {
@@ -306,7 +218,7 @@
       "phone_number": "9876 5432"
     },
     "location": "EMERGENCY_ROOM_EXAMINATION_ROOM",
-    "patient_status": "DISCHARGED",
+    "patient_status": "ONGOING",
     "emergency_procedures": [],
     "is_urgent": false
   },
@@ -722,6 +634,7 @@
         "past_surgeries": [],
         "vaccination_record": []
       },
+      "assigned_doctor": "D001",
       "height": 0.0,
       "weight": 0.0,
       "emergency_contact_number": 0,
@@ -752,8 +665,21 @@
       "gender": "Female",
       "phone_number": "87654321"
     },
-    "location": "EMERGENCY_ROOM_TRIAGE_ROOM",
-    "patient_status": "DONE",
+    "assigned_doctor": {
+      "specialisation": "GP",
+      "license_number": "L12345",
+      "is_surgical_approved": true,
+      "can_prescribe_medication": true,
+      "id": "D001",
+      "login_name": "limtzekai",
+      "name": "Dr. Lim Tze Kai",
+      "password": "docpass",
+      "email": "limtzekai@clinic.com",
+      "gender": "Male",
+      "phone_number": "9876 5432"
+    },
+    "location": "EMERGENCY_ROOM_EXAMINATION_ROOM",
+    "patient_status": "ONGOING",
     "emergency_procedures": [],
     "is_urgent": false
   },
@@ -825,6 +751,7 @@
         "past_surgeries": [],
         "vaccination_record": []
       },
+      "assigned_doctor": "D001",
       "height": 0.0,
       "weight": 0.0,
       "emergency_contact_number": 0,
@@ -855,8 +782,21 @@
       "gender": "Female",
       "phone_number": "87654321"
     },
-    "location": "EMERGENCY_ROOM_TRIAGE_ROOM",
-    "patient_status": "DONE",
+    "assigned_doctor": {
+      "specialisation": "GP",
+      "license_number": "L12345",
+      "is_surgical_approved": true,
+      "can_prescribe_medication": true,
+      "id": "D001",
+      "login_name": "limtzekai",
+      "name": "Dr. Lim Tze Kai",
+      "password": "docpass",
+      "email": "limtzekai@clinic.com",
+      "gender": "Male",
+      "phone_number": "9876 5432"
+    },
+    "location": "EMERGENCY_ROOM_EXAMINATION_ROOM",
+    "patient_status": "ONGOING",
     "emergency_procedures": [],
     "screening_date_time": "2025-03-25T19:06:30.1877317",
     "is_urgent": false
@@ -885,6 +825,7 @@
         "past_surgeries": [],
         "vaccination_record": []
       },
+      "assigned_doctor": "D001",
       "height": 0.0,
       "weight": 0.0,
       "emergency_contact_number": 0,
@@ -915,8 +856,21 @@
       "gender": "Male",
       "phone_number": "87654221"
     },
-    "location": "EMERGENCY_ROOM_TRIAGE_ROOM",
-    "patient_status": "DONE",
+    "assigned_doctor": {
+      "specialisation": "GP",
+      "license_number": "L12345",
+      "is_surgical_approved": true,
+      "can_prescribe_medication": true,
+      "id": "D001",
+      "login_name": "limtzekai",
+      "name": "Dr. Lim Tze Kai",
+      "password": "docpass",
+      "email": "limtzekai@clinic.com",
+      "gender": "Male",
+      "phone_number": "9876 5432"
+    },
+    "location": "EMERGENCY_ROOM_EXAMINATION_ROOM",
+    "patient_status": "ONGOING",
     "emergency_procedures": [],
     "is_urgent": false
   },
@@ -1083,7 +1037,7 @@
       "phone_number": "9876 5432"
     },
     "location": "EMERGENCY_ROOM_EXAMINATION_ROOM",
-    "patient_status": "DISCHARGED",
+    "patient_status": "ONGOING",
     "emergency_procedures": [],
     "is_urgent": false
   },
@@ -1289,30 +1243,11 @@
       "phone_number": "9876 5432"
     },
     "location": "EMERGENCY_ROOM_OBSERVATION_ROOM",
-    "patient_status": "DISCHARGED",
+    "patient_status": "ONGOING",
     "emergency_procedures": [],
     "is_urgent": false
   },
   {
-    "dispatch_info": {
-      "vehicle_id": 9008,
-      "medivac_members": [
-        {
-          "id": "PA001",
-          "login_name": "mary",
-          "name": "Mary Jane",
-          "password": "password123",
-          "email": "maryjane@gmail",
-          "gender": "Female",
-          "phone_number": "12321412"
-        }
-      ],
-      "equipment": [],
-      "dispatch_location": "cck"
-    },
-    "dispatch_arrival_time": "2025-03-28T22:23:41.7880117",
-    "time_of_call": "2025-03-28T22:23:41.7880117",
-    "response_time": "PT0S",
     "case_i_d": 18,
     "patient": {
       "alert_history": [],
@@ -1462,5 +1397,978 @@
     "emergency_procedures": [],
     "screening_date_time": "2025-03-28T22:23:41.7880117",
     "is_urgent": false
+  },
+  {
+    "case_i_d": 19,
+    "patient": {
+      "alert_history": [],
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [],
+        "current_medications": [
+          {
+            "medication_name": "Ibuprofen",
+            "guideline_id": "C008",
+            "medication_id": "M008",
+            "dosage": "200mg, Every 6 Hours",
+            "side_effects": "Stomach Pain, Heartburn",
+            "brand_name": "Advil",
+            "stock_available": 150,
+            "controlled_substance": false,
+            "manufacture_name": "Pfizer",
+            "batch_number": "B005",
+            "manufacture_date": "01-03-2024",
+            "expiry_date": "02-07-2026",
+            "medication_price": 6.49
+          },
+          {
+            "medication_name": "Diphenhydramine",
+            "guideline_id": "C004",
+            "medication_id": "M004",
+            "dosage": "200mg, Once a Week",
+            "side_effects": "Drowsiness, Sleepiness",
+            "brand_name": "HealthA2Z Sleep Aid",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 14.69
+          },
+          {
+            "medication_name": "Amoxicillin",
+            "guideline_id": "C006",
+            "medication_id": "M006",
+            "dosage": "500mg, Twice a Day",
+            "side_effects": "Nausea, Diarrhea",
+            "brand_name": "Amoxil",
+            "stock_available": 100,
+            "controlled_substance": false,
+            "manufacture_name": "GlaxoSmithKline",
+            "batch_number": "B003",
+            "manufacture_date": "15-08-2024",
+            "expiry_date": "20-12-2025",
+            "medication_price": 8.99
+          }
+        ],
+        "medical_history": [
+          "Hypertension",
+          "Asthma",
+          "Obesity",
+          "Arthritis"
+        ],
+        "vital_signs": {
+          "temperature": 36.2,
+          "heart_rate": 96,
+          "blood_pressure_systolic": 107,
+          "blood_pressure_diastolic": 79,
+          "respiratory_rate": 16
+        },
+        "lab_results": [
+          "CBC: Normal",
+          "Hemoglobin: Low",
+          "Lipid Panel: Elevated"
+        ],
+        "imaging_records": [
+          "Ultrasound"
+        ],
+        "clinical_notes": "Patient complains of headache.",
+        "symptoms": [
+          {
+            "symptom_name": "chronic cough",
+            "symptom_id": "SYM-006",
+            "severity": 5,
+            "duration": 10,
+            "doctor_notes": "Check for tuberculosis or bronchitis."
+          },
+          {
+            "symptom_name": "loss of taste and smell",
+            "symptom_id": "SYM-016",
+            "severity": 4,
+            "duration": 14,
+            "doctor_notes": "Check for COVID-19 infection."
+          },
+          {
+            "symptom_name": "joint pain and swelling",
+            "symptom_id": "SYM-019",
+            "severity": 6,
+            "duration": 5,
+            "doctor_notes": "Possible arthritis or autoimmune disorder."
+          }
+        ],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [
+          "Gallbladder Removal",
+          "Appendectomy",
+          "Cataract Surgery",
+          "Hernia Repair",
+          "Knee Replacement"
+        ],
+        "vaccination_record": [
+          "COVID-19 Vaccine",
+          "Hepatitis B Vaccine",
+          "Measles, Mumps, Rubella (MMR) Vaccine",
+          "Influenza Vaccine"
+        ]
+      },
+      "patient_specific_factor": "Diabetic",
+      "assigned_nurse": "N001",
+      "assigned_doctor": "D003",
+      "height": 180.0,
+      "weight": 75.0,
+      "blood_type": "O+",
+      "house_address": "123 CDSS.Main.Main.CDSS.Main.Main St, NY",
+      "emergency_contact_number": 98765432,
+      "occupation": "Engineer",
+      "ethnicity": "Asian",
+      "healthcare_department": "Cardiology",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P001",
+      "login_name": "JohnDoe",
+      "name": "John Doe",
+      "password": "password123",
+      "email": "John Doe@example.com",
+      "gender": "Male",
+      "phone_number": "81234567"
+    },
+    "chief_complaint": "Dying",
+    "arrival_mode": "Walk-In",
+    "arrival_date_time": "2025-03-29T00:47:50.6037686",
+    "triage_level": "PRIORITY_4_NON_EMERGENCY",
+    "location": "EMERGENCY_ROOM_WAITING_ROOM",
+    "patient_status": "WAITING",
+    "emergency_procedures": [],
+    "is_urgent": false
+  },
+  {
+    "case_i_d": 20,
+    "patient": {
+      "alert_history": [],
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [
+          "Shellfish",
+          "Latex",
+          "Penicillin",
+          "Peanuts",
+          "Gluten"
+        ],
+        "current_medications": [
+          {
+            "medication_name": "Diphenhydramine",
+            "guideline_id": "C004",
+            "medication_id": "M004",
+            "dosage": "200mg, Once a Week",
+            "side_effects": "Drowsiness, Sleepiness",
+            "brand_name": "HealthA2Z Sleep Aid",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 14.69
+          },
+          {
+            "medication_name": "Amoxicillin",
+            "guideline_id": "C006",
+            "medication_id": "M006",
+            "dosage": "500mg, Twice a Day",
+            "side_effects": "Nausea, Diarrhea",
+            "brand_name": "Amoxil",
+            "stock_available": 100,
+            "controlled_substance": false,
+            "manufacture_name": "GlaxoSmithKline",
+            "batch_number": "B003",
+            "manufacture_date": "15-08-2024",
+            "expiry_date": "20-12-2025",
+            "medication_price": 8.99
+          }
+        ],
+        "medical_history": [
+          "Asthma",
+          "Hypertension"
+        ],
+        "vital_signs": {
+          "temperature": 100.0,
+          "heart_rate": 100,
+          "blood_pressure_systolic": 100,
+          "blood_pressure_diastolic": 100,
+          "respiratory_rate": 30
+        },
+        "lab_results": [],
+        "imaging_records": [
+          "Ultrasound",
+          "PET Scan",
+          "X-Ray"
+        ],
+        "clinical_notes": "Follow-up needed in 2 weeks.",
+        "symptoms": [
+          {
+            "symptom_name": "chronic cough",
+            "symptom_id": "SYM-026",
+            "severity": 5,
+            "duration": 10,
+            "doctor_notes": "Check for tuberculosis or bronchitis."
+          },
+          {
+            "symptom_name": "loss of taste and smell",
+            "symptom_id": "SYM-036",
+            "severity": 4,
+            "duration": 14,
+            "doctor_notes": "Check for COVID-19 infection."
+          }
+        ],
+        "diagnosis": "fever",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [
+          "Knee Replacement",
+          "Cataract Surgery",
+          "Gallbladder Removal",
+          "Hernia Repair"
+        ],
+        "vaccination_record": [
+          "Influenza Vaccine",
+          "Tetanus Booster"
+        ]
+      },
+      "patient_specific_factor": "Diabetic",
+      "assigned_nurse": "N001",
+      "assigned_doctor": "D001",
+      "height": 180.0,
+      "weight": 75.0,
+      "blood_type": "O+",
+      "house_address": "123 CDSS.Main.Main.CDSS.Main.Main St, NY",
+      "emergency_contact_number": 98765432,
+      "occupation": "Engineer",
+      "ethnicity": "Asian",
+      "healthcare_department": "Neurology",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P002",
+      "login_name": "JaneSmith",
+      "name": "Jane Smith",
+      "password": "password123",
+      "email": "janesmith@example.com",
+      "gender": "Female",
+      "phone_number": "81234567"
+    },
+    "chief_complaint": "Dying",
+    "arrival_mode": "Walk-In",
+    "arrival_date_time": "2025-03-29T00:48:01.3715346",
+    "triage_level": "PRIORITY_3_MINOR_EMERGENCIES",
+    "initial_screening_nurse": {
+      "department": "Emergency",
+      "role": "Emergency Nurse",
+      "assigned_ward": "ER",
+      "can_administer_medication": true,
+      "nursing_license_number": "RN-2020-00567",
+      "alert_list": [],
+      "id": "N002",
+      "login_name": "michael",
+      "name": "Michael Roberts",
+      "password": "password123",
+      "email": "MichaelRoberts@gmail",
+      "gender": "Male",
+      "phone_number": "87654221"
+    },
+    "assigned_doctor": {
+      "specialisation": "GP",
+      "license_number": "L12345",
+      "is_surgical_approved": true,
+      "can_prescribe_medication": true,
+      "id": "D001",
+      "login_name": "limtzekai",
+      "name": "Dr. Lim Tze Kai",
+      "password": "docpass",
+      "email": "limtzekai@clinic.com",
+      "gender": "Male",
+      "phone_number": "9876 5432"
+    },
+    "location": "EMERGENCY_ROOM_EXAMINATION_ROOM",
+    "patient_status": "ONGOING",
+    "emergency_procedures": [],
+    "is_urgent": false
+  },
+  {
+    "case_i_d": 21,
+    "patient": {
+      "alert_history": [],
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [],
+        "current_medications": [
+          {
+            "medication_name": "Ibuprofen",
+            "guideline_id": "C008",
+            "medication_id": "M008",
+            "dosage": "200mg, Every 6 Hours",
+            "side_effects": "Stomach Pain, Heartburn",
+            "brand_name": "Advil",
+            "stock_available": 150,
+            "controlled_substance": false,
+            "manufacture_name": "Pfizer",
+            "batch_number": "B005",
+            "manufacture_date": "01-03-2024",
+            "expiry_date": "02-07-2026",
+            "medication_price": 6.49
+          },
+          {
+            "medication_name": "Diphenhydramine",
+            "guideline_id": "C004",
+            "medication_id": "M004",
+            "dosage": "200mg, Once a Week",
+            "side_effects": "Drowsiness, Sleepiness",
+            "brand_name": "HealthA2Z Sleep Aid",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 14.69
+          },
+          {
+            "medication_name": "Amoxicillin",
+            "guideline_id": "C006",
+            "medication_id": "M006",
+            "dosage": "500mg, Twice a Day",
+            "side_effects": "Nausea, Diarrhea",
+            "brand_name": "Amoxil",
+            "stock_available": 100,
+            "controlled_substance": false,
+            "manufacture_name": "GlaxoSmithKline",
+            "batch_number": "B003",
+            "manufacture_date": "15-08-2024",
+            "expiry_date": "20-12-2025",
+            "medication_price": 8.99
+          }
+        ],
+        "medical_history": [
+          "Hypertension",
+          "Asthma",
+          "Obesity",
+          "Arthritis"
+        ],
+        "vital_signs": {
+          "temperature": 36.2,
+          "heart_rate": 96,
+          "blood_pressure_systolic": 107,
+          "blood_pressure_diastolic": 79,
+          "respiratory_rate": 16
+        },
+        "lab_results": [
+          "CBC: Normal",
+          "Hemoglobin: Low",
+          "Lipid Panel: Elevated"
+        ],
+        "imaging_records": [
+          "Ultrasound"
+        ],
+        "clinical_notes": "Patient complains of headache.",
+        "symptoms": [
+          {
+            "symptom_name": "chronic cough",
+            "symptom_id": "SYM-006",
+            "severity": 5,
+            "duration": 10,
+            "doctor_notes": "Check for tuberculosis or bronchitis."
+          },
+          {
+            "symptom_name": "loss of taste and smell",
+            "symptom_id": "SYM-016",
+            "severity": 4,
+            "duration": 14,
+            "doctor_notes": "Check for COVID-19 infection."
+          },
+          {
+            "symptom_name": "joint pain and swelling",
+            "symptom_id": "SYM-019",
+            "severity": 6,
+            "duration": 5,
+            "doctor_notes": "Possible arthritis or autoimmune disorder."
+          }
+        ],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [
+          "Gallbladder Removal",
+          "Appendectomy",
+          "Cataract Surgery",
+          "Hernia Repair",
+          "Knee Replacement"
+        ],
+        "vaccination_record": [
+          "COVID-19 Vaccine",
+          "Hepatitis B Vaccine",
+          "Measles, Mumps, Rubella (MMR) Vaccine",
+          "Influenza Vaccine"
+        ]
+      },
+      "patient_specific_factor": "Diabetic",
+      "assigned_nurse": "N001",
+      "assigned_doctor": "D003",
+      "height": 180.0,
+      "weight": 75.0,
+      "blood_type": "O+",
+      "house_address": "123 CDSS.Main.Main.CDSS.Main.Main St, NY",
+      "emergency_contact_number": 98765432,
+      "occupation": "Engineer",
+      "ethnicity": "Asian",
+      "healthcare_department": "Cardiology",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P001",
+      "login_name": "JohnDoe",
+      "name": "John Doe",
+      "password": "password123",
+      "email": "John Doe@example.com",
+      "gender": "Male",
+      "phone_number": "81234567"
+    },
+    "chief_complaint": "DYING",
+    "arrival_mode": "Walk-In",
+    "arrival_date_time": "2025-03-29T00:57:11.8121988",
+    "triage_level": "PRIORITY_4_NON_EMERGENCY",
+    "location": "EMERGENCY_ROOM_WAITING_ROOM",
+    "patient_status": "WAITING",
+    "emergency_procedures": [],
+    "is_urgent": false,
+    "prescribed_medications": [
+      {
+        "medication_name": "LEVOTHYROXINE",
+        "dosage": "",
+        "stock_available": 2,
+        "controlled_substance": false,
+        "medication_price": 0.0
+      },
+      {
+        "medication_name": "ATORVASTATIN",
+        "dosage": "",
+        "stock_available": 2,
+        "controlled_substance": false,
+        "medication_price": 12.99
+      },
+      {
+        "medication_name": "IBUPROFEN",
+        "dosage": "",
+        "stock_available": 3,
+        "controlled_substance": false,
+        "medication_price": 6.49
+      }
+    ]
+  },
+  {
+    "case_i_d": 22,
+    "patient": {
+      "alert_history": [],
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [
+          "Shellfish",
+          "Latex",
+          "Penicillin",
+          "Peanuts",
+          "Gluten"
+        ],
+        "current_medications": [
+          {
+            "medication_name": "Diphenhydramine",
+            "guideline_id": "C004",
+            "medication_id": "M004",
+            "dosage": "200mg, Once a Week",
+            "side_effects": "Drowsiness, Sleepiness",
+            "brand_name": "HealthA2Z Sleep Aid",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 14.69
+          },
+          {
+            "medication_name": "Amoxicillin",
+            "guideline_id": "C006",
+            "medication_id": "M006",
+            "dosage": "500mg, Twice a Day",
+            "side_effects": "Nausea, Diarrhea",
+            "brand_name": "Amoxil",
+            "stock_available": 100,
+            "controlled_substance": false,
+            "manufacture_name": "GlaxoSmithKline",
+            "batch_number": "B003",
+            "manufacture_date": "15-08-2024",
+            "expiry_date": "20-12-2025",
+            "medication_price": 8.99
+          }
+        ],
+        "medical_history": [
+          "Asthma",
+          "Hypertension"
+        ],
+        "vital_signs": {
+          "temperature": 37.2,
+          "heart_rate": 96,
+          "blood_pressure_systolic": 130,
+          "blood_pressure_diastolic": 71,
+          "respiratory_rate": 19
+        },
+        "lab_results": [],
+        "imaging_records": [
+          "Ultrasound",
+          "PET Scan",
+          "X-Ray"
+        ],
+        "clinical_notes": "Follow-up needed in 2 weeks.",
+        "symptoms": [
+          {
+            "symptom_name": "chronic cough",
+            "symptom_id": "SYM-026",
+            "severity": 5,
+            "duration": 10,
+            "doctor_notes": "Check for tuberculosis or bronchitis."
+          },
+          {
+            "symptom_name": "loss of taste and smell",
+            "symptom_id": "SYM-036",
+            "severity": 4,
+            "duration": 14,
+            "doctor_notes": "Check for COVID-19 infection."
+          }
+        ],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [
+          "Knee Replacement",
+          "Cataract Surgery",
+          "Gallbladder Removal",
+          "Hernia Repair"
+        ],
+        "vaccination_record": [
+          "Influenza Vaccine",
+          "Tetanus Booster"
+        ]
+      },
+      "patient_specific_factor": "Diabetic",
+      "assigned_nurse": "N001",
+      "assigned_doctor": "D003",
+      "height": 180.0,
+      "weight": 75.0,
+      "blood_type": "O+",
+      "house_address": "123 CDSS.Main.Main.CDSS.Main.Main St, NY",
+      "emergency_contact_number": 98765432,
+      "occupation": "Engineer",
+      "ethnicity": "Asian",
+      "healthcare_department": "Neurology",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P002",
+      "login_name": "JaneSmith",
+      "name": "Jane Smith",
+      "password": "password123",
+      "email": "janesmith@example.com",
+      "gender": "Female",
+      "phone_number": "81234567"
+    },
+    "chief_complaint": "DYING2",
+    "arrival_mode": "Walk-In",
+    "arrival_date_time": "2025-03-29T00:57:20.123848",
+    "triage_level": "PRIORITY_4_NON_EMERGENCY",
+    "location": "EMERGENCY_ROOM_WAITING_ROOM",
+    "patient_status": "DISCHARGED",
+    "emergency_procedures": [],
+    "is_urgent": false,
+    "prescribed_medications": [
+      {
+        "medication_name": "LEVOTHYROXINE",
+        "dosage": "",
+        "stock_available": 2,
+        "controlled_substance": false,
+        "medication_price": 0.0
+      },
+      {
+        "medication_name": "ATORVASTATIN",
+        "dosage": "",
+        "stock_available": 2,
+        "controlled_substance": false,
+        "medication_price": 12.99
+      },
+      {
+        "medication_name": "IBUPROFEN",
+        "dosage": "",
+        "stock_available": 3,
+        "controlled_substance": false,
+        "medication_price": 6.49
+      }
+    ]
+  },
+  {
+    "case_i_d": 23,
+    "patient": {
+      "alert_history": [],
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [
+          "Latex",
+          "Pollen",
+          "Gluten",
+          "Dust",
+          "Shellfish",
+          "Penicillin",
+          "Peanuts"
+        ],
+        "current_medications": [
+          {
+            "medication_name": "Loperamide",
+            "guideline_id": "C005",
+            "medication_id": "M005",
+            "dosage": "325mg, Once a Week",
+            "side_effects": "Constipation, Dry Mouth",
+            "brand_name": "Imodium",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 3.33
+          },
+          {
+            "medication_name": "Diphenhydramine",
+            "guideline_id": "C004",
+            "medication_id": "M004",
+            "dosage": "200mg, Once a Week",
+            "side_effects": "Drowsiness, Sleepiness",
+            "brand_name": "HealthA2Z Sleep Aid",
+            "stock_available": 80,
+            "controlled_substance": false,
+            "manufacture_name": "Bayer Pharmaceuticals",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 14.69
+          },
+          {
+            "medication_name": "Furosemide",
+            "guideline_id": "C003",
+            "medication_id": "M003",
+            "dosage": "325mg, Once a Week",
+            "side_effects": "Frequent Urination",
+            "brand_name": "Lasix",
+            "stock_available": 80,
+            "controlled_substance": true,
+            "manufacture_name": "Sanofi",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 10.1
+          }
+        ],
+        "medical_history": [
+          "Obesity",
+          "Asthma",
+          "Arthritis",
+          "Diabetes",
+          "Hypertension"
+        ],
+        "vital_signs": {
+          "temperature": 36.5,
+          "heart_rate": 68,
+          "blood_pressure_systolic": 104,
+          "blood_pressure_diastolic": 87,
+          "respiratory_rate": 14
+        },
+        "lab_results": [
+          "Hemoglobin: Low",
+          "Blood Glucose: High",
+          "CBC: Normal",
+          "Thyroid: Normal",
+          "Lipid Panel: Elevated"
+        ],
+        "imaging_records": [
+          "PET Scan",
+          "X-Ray"
+        ],
+        "clinical_notes": "No significant issues.",
+        "symptoms": [
+          {
+            "symptom_name": "nausea and vomiting",
+            "symptom_id": "SYM-050",
+            "severity": 5,
+            "duration": 1,
+            "doctor_notes": "Check for food poisoning or stomach flu."
+          },
+          {
+            "symptom_name": "dizziness, light headedness",
+            "symptom_id": "SYM-048",
+            "severity": 6,
+            "duration": 1,
+            "doctor_notes": "Check for dehydration or inner ear issues."
+          },
+          {
+            "symptom_name": "swelling in legs and ankles",
+            "symptom_id": "SYM-054",
+            "severity": 6,
+            "duration": 5,
+            "doctor_notes": "Check for heart failure or kidney disease."
+          }
+        ],
+        "diagnosis": "Nil",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [
+          "Cataract Surgery",
+          "Appendectomy",
+          "Knee Replacement",
+          "Gallbladder Removal",
+          "Hernia Repair"
+        ],
+        "vaccination_record": [
+          "COVID-19 Vaccine"
+        ]
+      },
+      "patient_specific_factor": "Asthmatic",
+      "assigned_nurse": "N002",
+      "assigned_doctor": "D002",
+      "height": 158.0,
+      "weight": 55.0,
+      "blood_type": "B+",
+      "house_address": "789 Pine St, TX",
+      "emergency_contact_number": 76543210,
+      "occupation": "Nurse",
+      "ethnicity": "Hispanic",
+      "healthcare_department": "Pulmonology",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P003",
+      "login_name": "BobBrown",
+      "name": "Bob Brown",
+      "password": "password123",
+      "email": "BobBrown@example.com",
+      "gender": "Male",
+      "phone_number": "87654321"
+    },
+    "chief_complaint": "MEOW",
+    "arrival_mode": "Walk-In",
+    "arrival_date_time": "2025-03-29T01:06:24.5318079",
+    "triage_level": "PRIORITY_4_NON_EMERGENCY",
+    "location": "EMERGENCY_ROOM_TRIAGE_ROOM",
+    "patient_status": "DISCHARGED",
+    "emergency_procedures": [],
+    "is_urgent": false,
+    "prescribed_medications": [
+      {
+        "medication_name": "LEVOTHYROXINE",
+        "dosage": "",
+        "stock_available": 2,
+        "controlled_substance": false,
+        "medication_price": 0.0
+      },
+      {
+        "medication_name": "ATORVASTATIN",
+        "dosage": "",
+        "stock_available": 2,
+        "controlled_substance": false,
+        "medication_price": 12.99
+      },
+      {
+        "medication_name": "IBUPROFEN",
+        "dosage": "",
+        "stock_available": 3,
+        "controlled_substance": false,
+        "medication_price": 6.49
+      }
+    ]
+  },
+  {
+    "case_i_d": 24,
+    "patient": {
+      "alert_history": [],
+      "date_of_birth": "15-08-1990",
+      "electronic_health_record": {
+        "allergies": [
+          "Latex",
+          "Shellfish",
+          "Peanuts",
+          "Gluten",
+          "Dust"
+        ],
+        "current_medications": [
+          {
+            "medication_name": "Metformin",
+            "guideline_id": "C007",
+            "medication_id": "M007",
+            "dosage": "850mg, Once Daily",
+            "side_effects": "Stomach Upset, Lactic Acidosis (Rare)",
+            "brand_name": "Glucophage",
+            "stock_available": 120,
+            "controlled_substance": false,
+            "manufacture_name": "Merck",
+            "batch_number": "B004",
+            "manufacture_date": "10-09-2023",
+            "expiry_date": "11-11-2025",
+            "medication_price": 5.75
+          },
+          {
+            "medication_name": "Ibuprofen",
+            "guideline_id": "C008",
+            "medication_id": "M008",
+            "dosage": "200mg, Every 6 Hours",
+            "side_effects": "Stomach Pain, Heartburn",
+            "brand_name": "Advil",
+            "stock_available": 150,
+            "controlled_substance": false,
+            "manufacture_name": "Pfizer",
+            "batch_number": "B005",
+            "manufacture_date": "01-03-2024",
+            "expiry_date": "02-07-2026",
+            "medication_price": 6.49
+          },
+          {
+            "medication_name": "Furosemide",
+            "guideline_id": "C003",
+            "medication_id": "M003",
+            "dosage": "325mg, Once a Week",
+            "side_effects": "Frequent Urination",
+            "brand_name": "Lasix",
+            "stock_available": 80,
+            "controlled_substance": true,
+            "manufacture_name": "Sanofi",
+            "batch_number": "B002",
+            "manufacture_date": "12-12-2025",
+            "expiry_date": "04-04-2026",
+            "medication_price": 10.1
+          }
+        ],
+        "medical_history": [
+          "Asthma"
+        ],
+        "vital_signs": {
+          "temperature": 36.3,
+          "heart_rate": 60,
+          "blood_pressure_systolic": 104,
+          "blood_pressure_diastolic": 76,
+          "respiratory_rate": 15
+        },
+        "lab_results": [
+          "Thyroid: Normal",
+          "Blood Glucose: High"
+        ],
+        "imaging_records": [],
+        "clinical_notes": "Patient complains of headache.",
+        "symptoms": [
+          {
+            "symptom_name": "severe abdominal pain",
+            "symptom_id": "SYM-091",
+            "severity": 9,
+            "duration": 2,
+            "doctor_notes": "Possible appendicitis or pancreatitis."
+          },
+          {
+            "symptom_name": "sore throat",
+            "symptom_id": "SYM-082",
+            "severity": 4,
+            "duration": 3,
+            "doctor_notes": "Recommend warm fluids and throat lozenges."
+          },
+          {
+            "symptom_name": "difficulty breathing",
+            "symptom_id": "SYM-085",
+            "severity": 9,
+            "duration": 1,
+            "doctor_notes": "Emergency! Consider asthma attack, pneumonia, or COVID-19."
+          }
+        ],
+        "diagnosis": "Asthma",
+        "outcome_monitoring_records": [],
+        "past_surgeries": [
+          "Hernia Repair"
+        ],
+        "vaccination_record": [
+          "Influenza Vaccine",
+          "COVID-19 Vaccine",
+          "Measles, Mumps, Rubella (MMR) Vaccine"
+        ]
+      },
+      "patient_specific_factor": "Asthmatic",
+      "assigned_nurse": "N003",
+      "assigned_doctor": "D001",
+      "height": 170.0,
+      "weight": 58.0,
+      "blood_type": "B+",
+      "house_address": "159 Maple St, AZ",
+      "emergency_contact_number": 76543210,
+      "occupation": "Nurse",
+      "ethnicity": "Hispanic",
+      "healthcare_department": "Pulmonology",
+      "patient_consent": {
+        "consent_given": false,
+        "consent_terms": ""
+      },
+      "id": "P005",
+      "login_name": "HannahLee",
+      "name": "Hannah Lee",
+      "password": "password123",
+      "email": "hannahl@example.com",
+      "gender": "Female",
+      "phone_number": "87654321"
+    },
+    "chief_complaint": "Dying",
+    "arrival_mode": "Walk-In",
+    "arrival_date_time": "2025-03-29T01:14:59.2936554",
+    "triage_level": "PRIORITY_1_CRITICAL",
+    "assigned_doctor": {
+      "specialisation": "GP",
+      "license_number": "L12345",
+      "is_surgical_approved": true,
+      "can_prescribe_medication": true,
+      "id": "D001",
+      "login_name": "limtzekai",
+      "name": "Dr. Lim Tze Kai",
+      "password": "docpass",
+      "email": "limtzekai@clinic.com",
+      "gender": "Male",
+      "phone_number": "9876 5432"
+    },
+    "location": "EMERGENCY_ROOM_EXAMINATION_ROOM",
+    "patient_status": "DISPENSED",
+    "emergency_procedures": [],
+    "is_urgent": true,
+    "prescribed_medications": [
+      {
+        "medication_name": "LEVOTHYROXINE",
+        "dosage": "",
+        "stock_available": 2,
+        "controlled_substance": false,
+        "medication_price": 0.0
+      },
+      {
+        "medication_name": "ATORVASTATIN",
+        "dosage": "",
+        "stock_available": 2,
+        "controlled_substance": false,
+        "medication_price": 12.99
+      },
+      {
+        "medication_name": "IBUPROFEN",
+        "dosage": "",
+        "stock_available": 3,
+        "controlled_substance": false,
+        "medication_price": 6.49
+      }
+    ]
   }
 ]

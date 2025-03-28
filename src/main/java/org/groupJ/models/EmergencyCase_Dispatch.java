@@ -22,7 +22,7 @@ public class EmergencyCase_Dispatch extends EmergencyCase {
      */
 
     public EmergencyCase_Dispatch(int caseID, Patient patient, String chiefComplaint, String arrivalMode, LocalDateTime arrivalDateTime, boolean isUrgent) {
-        super(caseID, patient, chiefComplaint, arrivalMode, arrivalDateTime,isUrgent );
+        super(caseID, patient, chiefComplaint, arrivalMode, arrivalDateTime,isUrgent,null );
     }
 
     // Variable to store the dispatch info

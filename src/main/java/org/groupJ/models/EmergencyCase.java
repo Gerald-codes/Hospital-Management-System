@@ -1,5 +1,6 @@
 package org.groupJ.models;
 
+import org.groupJ.controllers.MedicationController;
 import org.groupJ.models.enums.PatientLocation;
 import org.groupJ.models.enums.PatientStatus;
 import org.groupJ.models.enums.TriageLevel;
@@ -32,6 +33,8 @@ public class EmergencyCase {
     private List<String> emergencyProcedures; // List of emergency procedures done on patient
     private LocalDateTime screeningDateTime;
     private boolean isUrgent;
+    private List<Medication> prescribedMedications;
+
 
     /**
      * Constructor for EmergencyCase
@@ -43,7 +46,7 @@ public class EmergencyCase {
      */
 
     public EmergencyCase(int caseID, Patient patient, String chiefComplaint, String arrivalMode,
-                         LocalDateTime arrivalDateTime,boolean isUrgent) {
+                         LocalDateTime arrivalDateTime,boolean isUrgent, List<Medication> prescribedMedications) {
         this.caseID = caseID;
         this.patient = patient;
         this.chiefComplaint = chiefComplaint; // reason for patient's visit
@@ -56,6 +59,7 @@ public class EmergencyCase {
         this.location = isUrgent ? PatientLocation.EMERGENCY_ROOM_TRAUMA_ROOM : PatientLocation.EMERGENCY_ROOM_WAITING_ROOM ; // Set default location
         this.triageLevel = isUrgent ? TriageLevel.PRIORITY_1_CRITICAL : TriageLevel.PRIORITY_4_NON_EMERGENCY;
         this.isUrgent = isUrgent;
+        this.prescribedMedications = new ArrayList<>();
 
     }
     /**
@@ -230,6 +234,14 @@ public class EmergencyCase {
      */
     public LocalDateTime getScreeningDateTime() {
         return this.screeningDateTime;
+    }
+
+    public List<Medication> getPrescribedMedications() {
+        return prescribedMedications;
+    }
+
+    public void setPrescribedMedications(List<Medication> prescribedMedications) {
+        this.prescribedMedications = prescribedMedications;
     }
 
     /**

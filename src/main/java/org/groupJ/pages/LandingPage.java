@@ -7,9 +7,6 @@ import org.groupJ.ui.framework.View;
 import org.groupJ.ui.framework.views.ListView;
 import org.groupJ.ui.framework.views.TextView;
 
-/**
- * Represents the login page of the Hospital Management System.
- * This class extends {@link UiBase} and provides the UI elements and logic for user authentication.*/
 public class LandingPage extends UiBase {
 
     @Override

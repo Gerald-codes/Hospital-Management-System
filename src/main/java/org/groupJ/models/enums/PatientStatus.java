@@ -8,5 +8,6 @@ public enum PatientStatus {
     ONGOING,
     WAITING,
     DONE,
+    DISPENSED,
     ONDISPATCHED; // Added WAITING as initial status
 }

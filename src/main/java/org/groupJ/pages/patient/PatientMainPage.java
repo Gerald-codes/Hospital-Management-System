@@ -21,18 +21,8 @@ import java.util.*;
 
 import static org.groupJ.Globals.appointmentController;
 
-
-/** Represents the patient main page of the Telemedicine Integration System.
- * This page displays a menu of options for the user to navigate to different sections of the application.
- * It extends {@link UiBase} and uses a {@link ListView} to present the menu items.*/
 public class PatientMainPage extends UiBase {
     ListView listView;
-
-    /** Called when the main page's view is created.
-     * Creates a {@link ListView} to hold the main menu options.
-     * Sets the title header to "Main".
-     * @return A new {@link ListView} instance representing the main page's view.
-     */
 
     @Override
     public View OnCreateView() {
@@ -41,11 +31,6 @@ public class PatientMainPage extends UiBase {
         return lv;
     }
 
-    /**Called after the view has been created and attached to the UI.
-     * Populates the view with the main menu options, such as "Book Appointment", and "View Billing".
-     * Attaches user input handlers to each menu option to navigate to the corresponding pages.
-     * @param parentView The parent {@link View} to which the main page's UI elements are added. This should be a ListView.
-     */
     @Override
     public void OnViewCreated(View parentView) {
         ListView lv = (ListView) parentView; // Cast the parent view to a list view
@@ -63,11 +48,7 @@ public class PatientMainPage extends UiBase {
 
         canvas.setRequireRedraw(true);
     }
-    /**
-     * Prompts the user to book an appointment by entering the necessary details.
-     * This includes the reason for the consultation, medical history, appointment date, and time slot.
-     * Also handles patient consent for telemedicine.
-     */
+
     private void bookAppointmentPrompt(){
         appointmentController.getAppointments();
         String reason = InputValidator.getValidStringInput("Enter reason to consult: ");

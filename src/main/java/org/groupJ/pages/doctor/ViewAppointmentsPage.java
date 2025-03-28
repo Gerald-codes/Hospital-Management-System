@@ -47,11 +47,7 @@ public class ViewAppointmentsPage extends UiBase {
        listView.attachUserInput("Select Patient index", str-> selectAppointmentPrompt(appointments));
        refreshUi();
     }
-    /**
-     * Prompts the user to select an appointment and handles the selected option.
-     *
-     * @param appointments the list of appointments to choose from
-     */
+    // This method is called when the user selects an appointment
     private void selectAppointmentPrompt(List<Appointment> appointments) {
         int selectedIndex = InputHelper.getValidIndex("Select Patient index", appointments);
         Appointment selectedAppointment = appointments.get(selectedIndex);

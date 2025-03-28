@@ -24,6 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ESController {
     private static List<EmergencyCase> allCases = new ArrayList<>();
@@ -31,6 +32,7 @@ public class ESController {
     private static final String fileName = "emergency_cases.txt";
     private static final String fileNameDispatch = "emergency_dispatch_cases.txt";
     private static final List<ClinicalGuideline> clinicalGuidelines = List.copyOf(ClinicalGuideline.generateClinicalGuideLine());
+    private List<Medication> medication;
 
     public static List<EmergencyCase_Dispatch> getAllDispatchCases() {
         return allDispatchCases;
@@ -498,7 +500,8 @@ public class ESController {
 
                 case 4:
                     if(doctor.isCanPrescribeMedication()){
-                        prescribeMedications(patient, doctor); // Prescribe Medication
+                        //prescribeMedications(patient, doctor); // Prescribe Medication
+                        prescribeMedications(emergencyCase, doctor);
                     }else{
                         System.out.println("\nDoctor is unable to prescribe medication.\n");
                     }
@@ -672,104 +675,134 @@ public class ESController {
         return CDSSDiagnosis;
     }
 
-    private static void prescribeMedications(Patient patient, Doctor doctor) {
-        String diagnosis = patient.getEHR().getDiagnosis();
+//    private static void prescribeMedications(Patient patient, Doctor doctor) {
+//        String diagnosis = patient.getEHR().getDiagnosis();
+//
+//        if (diagnosis == null || diagnosis.isEmpty()) {
+//            System.out.println("⚠ Cannot prescribe medications without a diagnosis.");
+//            return;
+//        }
+//
+//        System.out.println("Diagnosis: " + diagnosis);
+//
+//        // Get CDSS recommendations
+//        List<Medication> cdssRecommendations = cdssAnalyzeDiagnosis(diagnosis);
+//        if (cdssRecommendations.isEmpty()) {
+//            System.out.println("No recommendations found from CDSS for: " + diagnosis);
+//            return;
+//        }
+//
+//        System.out.println("======= CDSS Medication Suggestions =======");
+//        for (int i = 0; i < cdssRecommendations.size(); i++) {
+//            Medication med = cdssRecommendations.get(i);
+//            System.out.printf("%d. %s (%s)\n", i + 1, med.getMedicationName(), med.getDosage());
+//        }
+//
+//        String outcome = "SUCCESS";
+//
+//        while (true) {
+//            String confirm = InputValidator.getValidStringInput("Doctor " + doctor.getName() +
+//                    ", do you want to accept a CDSS suggestion? (yes/no): ");
+//
+//            AuditManager.getInstance().logAction(doctor.getId(), "USER ENTERED: " + confirm, "CDSS prescription suggestion", "SUCCESS", "DOCTOR");
+//
+//            if (confirm.equalsIgnoreCase("yes")) {
+//                int choice = InputValidator.getValidRangeIntInput("Select medication to prescribe: ", cdssRecommendations.size());
+//                Medication selectedMed = cdssRecommendations.get(choice - 1);
+//
+//                doctor.prescribeMedication(patient, selectedMed);
+//
+//                AuditManager.getInstance().logAction(doctor.getId(), "PRESCRIBED MEDICATION", selectedMed.getMedicationName(), outcome, "DOCTOR");
+//                System.out.println("Medication prescribed: " + selectedMed.getMedicationName());
+//                break;
+//
+//            } else if (confirm.equalsIgnoreCase("no")) {
+//                System.out.println("======== Manual Prescription Entry ========");
+//
+//                String medName = InputValidator.getValidStringWithSpaceInput("Enter medication name: ");
+//                AuditManager.getInstance().logAction(doctor.getId(), "ENTER MEDICATION NAME", medName, outcome, "DOCTOR");
+//
+//                // Try to fetch from available medications
+//                Medication availableMed = MedicationController.findAvailableMedicationByName(medName);
+//                Medication customMed;
+//
+//                if (availableMed != null) {
+//                    System.out.println("Medication found: " + availableMed.getMedicationName() + " (" + availableMed.getDosage() + ")");
+//
+//                    String override = InputValidator.getValidStringInput("Use specific dosage/frequency? (yes/no): ");
+//                    AuditManager.getInstance().logAction(doctor.getId(), "ENTER SPECIFIC DOSAGE?", override, outcome, "DOCTOR");
+//
+//                    if (override.equalsIgnoreCase("yes")) {
+//                        String dosage = InputValidator.getValidStringInput("Enter dosage (e.g. 500mg): ");
+//                        AuditManager.getInstance().logAction(doctor.getId(), "ENTER DOSAGE", dosage, outcome, "DOCTOR");
+//
+//                        String frequency = InputValidator.getValidStringInput("Enter frequency (e.g. once daily): ");
+//                        AuditManager.getInstance().logAction(doctor.getId(), "ENTER FREQUENCY", frequency, outcome, "DOCTOR");
+//
+//                        String combined = dosage + ", " + frequency;
+//
+//                        // Create new med object with custom dosage/frequency
+//                        customMed = new Medication(
+//                                availableMed.getMedicationId(),
+//                                availableMed.getMedicationName(),
+//                                combined
+//                        );
+//                    } else {
+//                        customMed = availableMed;
+//                    }
+//
+//                } else {
+//                    // Full manual entry
+//                    System.out.println("Medication not found in system. Creating a custom medication record.");
+//                    String dosage = InputValidator.getValidStringInput("Enter dosage (e.g. 500mg): ");
+//                    AuditManager.getInstance().logAction(doctor.getId(), "ENTER DOSAGE", dosage, outcome, "DOCTOR");
+//                    String frequency = InputValidator.getValidStringInput("Enter frequency (e.g. once daily): ");
+//                    AuditManager.getInstance().logAction(doctor.getId(), "ENTER FREQUENCY", frequency, outcome, "DOCTOR");
+//                    String combined = dosage + ", " + frequency;
+//
+//                    customMed = new Medication(null, medName, combined);
+//                }
+//
+//                doctor.prescribeMedication(patient, customMed);
+//                AuditManager.getInstance().logAction(doctor.getId(), "PRESCRIBED MEDICATION", customMed.getMedicationName(), "OVERRIDDEN", UserController.getActiveUserType().toString());
+//
+//                System.out.println("Medication manually prescribed: " + customMed.getMedicationName());
+//                break;
+//            } else {
+//                System.out.println("Invalid input! Please type 'yes' or 'no'.");
+//            }
+//        }
+//    }
+    public static void prescribeMedications(EmergencyCase emergencyCase, Doctor doctor) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the drug name: ");
+        String medicationName = scanner.nextLine().trim().toUpperCase();
 
-        if (diagnosis == null || diagnosis.isEmpty()) {
-            System.out.println("⚠ Cannot prescribe medications without a diagnosis.");
-            return;
-        }
+        System.out.println("Enter the amount: ");
+        int medicineAmount = scanner.nextInt();
+        scanner = new Scanner(System.in);
 
-        System.out.println("Diagnosis: " + diagnosis);
+        Medication customMed;
 
-        // Get CDSS recommendations
-        List<Medication> cdssRecommendations = cdssAnalyzeDiagnosis(diagnosis);
-        if (cdssRecommendations.isEmpty()) {
-            System.out.println("No recommendations found from CDSS for: " + diagnosis);
-            return;
-        }
+        if (MedicationController.findAvailableMedicationByName(medicationName) != null) {
+            Medication availableMed = MedicationController.findAvailableMedicationByName(medicationName);
+            Double price = availableMed.getMedicationPrice();
+            double medicationPrice = (price != null) ? price : 0.0;
+            customMed = new Medication(medicationName, medicineAmount, "", medicationPrice);
+            emergencyCase.getPrescribedMedications().add(customMed);
+            AuditManager.getInstance().logAction(doctor.getId(), "USER PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + emergencyCase.getPatient().getId(), "SUCCESS", "DOCTOR");
+        } else {
+            System.out.println("Enter the dosage/instructions: ");
+            String dosage = scanner.nextLine();
+            System.out.println("Enter the price: ");
+            double price = scanner.nextDouble();
 
-        System.out.println("======= CDSS Medication Suggestions =======");
-        for (int i = 0; i < cdssRecommendations.size(); i++) {
-            Medication med = cdssRecommendations.get(i);
-            System.out.printf("%d. %s (%s)\n", i + 1, med.getMedicationName(), med.getDosage());
-        }
-
-        String outcome = "SUCCESS";
-
-        while (true) {
-            String confirm = InputValidator.getValidStringInput("Doctor " + doctor.getName() +
-                    ", do you want to accept a CDSS suggestion? (yes/no): ");
-
-            AuditManager.getInstance().logAction(doctor.getId(), "USER ENTERED: " + confirm, "CDSS prescription suggestion", "SUCCESS", "DOCTOR");
-
-            if (confirm.equalsIgnoreCase("yes")) {
-                int choice = InputValidator.getValidRangeIntInput("Select medication to prescribe: ", cdssRecommendations.size());
-                Medication selectedMed = cdssRecommendations.get(choice - 1);
-
-                doctor.prescribeMedication(patient, selectedMed);
-
-                AuditManager.getInstance().logAction(doctor.getId(), "PRESCRIBED MEDICATION", selectedMed.getMedicationName(), outcome, "DOCTOR");
-                System.out.println("Medication prescribed: " + selectedMed.getMedicationName());
-                break;
-
-            } else if (confirm.equalsIgnoreCase("no")) {
-                System.out.println("======== Manual Prescription Entry ========");
-
-                String medName = InputValidator.getValidStringWithSpaceInput("Enter medication name: ");
-                AuditManager.getInstance().logAction(doctor.getId(), "ENTER MEDICATION NAME", medName, outcome, "DOCTOR");
-
-                // Try to fetch from available medications
-                Medication availableMed = MedicationController.findAvailableMedicationByName(medName);
-                Medication customMed;
-
-                if (availableMed != null) {
-                    System.out.println("Medication found: " + availableMed.getMedicationName() + " (" + availableMed.getDosage() + ")");
-
-                    String override = InputValidator.getValidStringInput("Use specific dosage/frequency? (yes/no): ");
-                    AuditManager.getInstance().logAction(doctor.getId(), "ENTER SPECIFIC DOSAGE?", override, outcome, "DOCTOR");
-
-                    if (override.equalsIgnoreCase("yes")) {
-                        String dosage = InputValidator.getValidStringInput("Enter dosage (e.g. 500mg): ");
-                        AuditManager.getInstance().logAction(doctor.getId(), "ENTER DOSAGE", dosage, outcome, "DOCTOR");
-
-                        String frequency = InputValidator.getValidStringInput("Enter frequency (e.g. once daily): ");
-                        AuditManager.getInstance().logAction(doctor.getId(), "ENTER FREQUENCY", frequency, outcome, "DOCTOR");
-
-                        String combined = dosage + ", " + frequency;
-
-                        // Create new med object with custom dosage/frequency
-                        customMed = new Medication(
-                                availableMed.getMedicationId(),
-                                availableMed.getMedicationName(),
-                                combined
-                        );
-                    } else {
-                        customMed = availableMed;
-                    }
-
-                } else {
-                    // Full manual entry
-                    System.out.println("Medication not found in system. Creating a custom medication record.");
-                    String dosage = InputValidator.getValidStringInput("Enter dosage (e.g. 500mg): ");
-                    AuditManager.getInstance().logAction(doctor.getId(), "ENTER DOSAGE", dosage, outcome, "DOCTOR");
-                    String frequency = InputValidator.getValidStringInput("Enter frequency (e.g. once daily): ");
-                    AuditManager.getInstance().logAction(doctor.getId(), "ENTER FREQUENCY", frequency, outcome, "DOCTOR");
-                    String combined = dosage + ", " + frequency;
-
-                    customMed = new Medication(null, medName, combined);
-                }
-
-                doctor.prescribeMedication(patient, customMed);
-                AuditManager.getInstance().logAction(doctor.getId(), "PRESCRIBED MEDICATION", customMed.getMedicationName(), "OVERRIDDEN", UserController.getActiveUserType().toString());
-
-                System.out.println("Medication manually prescribed: " + customMed.getMedicationName());
-                break;
-            } else {
-                System.out.println("Invalid input! Please type 'yes' or 'no'.");
-            }
+            customMed = new Medication(medicationName, medicineAmount, dosage, price);
+            emergencyCase.getPrescribedMedications().add(customMed);
+            AuditManager.getInstance().logAction(doctor.getId(), "USER PRESCRIBED: x" + medicineAmount + " - " + medicationName, "MEDICINE(s) TO" + emergencyCase.getPatient().getId(), "SUCCESS", "DOCTOR");
         }
     }
+
 
     // Method to Analyze Diagnosis and Return Medication Suggestion
     private static List<Medication> cdssAnalyzeDiagnosis(String diagnosis) {

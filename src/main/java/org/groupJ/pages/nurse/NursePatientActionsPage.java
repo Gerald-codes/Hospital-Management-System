@@ -14,11 +14,10 @@ import org.groupJ.ui.framework.views.TextView;
 import org.groupJ.util.InputValidator;
 import java.util.List;
 
-/**
- * Represents the patient actions page for nurses in the Telemedicine Integration System.
- * This page allows nurses to perform various actions on a selected patient,
- * such as administering medication, viewing clinical guidelines, and updating patient information.
- */
+
+//Represents the patient actions page for nurses in the Telemedicine Integration System.
+//This page allows nurses to perform various actions on a selected patient,
+//such as administering medication, viewing clinical guidelines, and updating patient information.
 public class NursePatientActionsPage extends UiBase {
     private static Patient patient;
     private ListView listView;

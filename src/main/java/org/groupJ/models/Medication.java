@@ -78,8 +78,8 @@ public class Medication {
         this.medicationPrice = medicationPrice;
     }
 
-    public Medication(String medicationId, String medicationName, String combined) {
-    }
+//    public Medication(String medicationId, String medicationName, String combined) {
+//    }
     // Getters and Setters for all attributes
     /**
      * Retrieves the name of the medication.

@@ -42,11 +42,7 @@ public class MedicationPage extends UiBase{
             refreshUI();
         });
     }
-
-    /**
-     * Refreshes the UI by clearing and rebuilding the medication list view.
-     * Called after operations that modify medication data.
-     */
+    //refresh the UI
     private void refreshUI() {
         listView.clear();
         listView.setTitleHeader("List of Medicines");

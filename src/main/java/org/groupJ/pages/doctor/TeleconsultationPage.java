@@ -19,10 +19,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TeleconsultationPage extends UiBase {
-/**
- * Represents the teleconsultation page in the UI.
- * This class handles the creation and management of the teleconsultation page, including user inputs and UI updates.
- */
+    //Represents the teleconsultation page in the UI.
+   //This class handles the creation and management of the teleconsultation page, including user inputs and UI updates.
     private static Appointment appointment;
     private ListView listView;
     private static final List<ClinicalGuideline> clinicalGuidelines = List.copyOf(ClinicalGuideline.generateClinicalGuideLine());
@@ -140,7 +138,7 @@ public class TeleconsultationPage extends UiBase {
             appointment.referEmergency(appointment.getDoctorNotes());
             Globals.appointmentController.saveAppointmentsToFile();
             int caseID = 1;
-            EmergencyCase newCase = new EmergencyCase(caseID,appointment.getPatient(),appointment.getDoctorNotes(),"Referred",LocalDateTime.now(),true);
+            EmergencyCase newCase = new EmergencyCase(caseID,appointment.getPatient(),appointment.getDoctorNotes(),"Referred",LocalDateTime.now(),true, null);
             ESController.addEmergencyCases(newCase);
             System.out.println("\nNew Case Registered | Case ID: " + caseID + " | Patient: " + appointment.getPatient().getName());
             AuditManager.getInstance().logAction(appointment.getDoctor().getId(), "REFERRED PATIENT TO EMERGENCY", "Patient: " + appointment.getPatient().getId(), "SUCCESS", "DOCTOR");
@@ -150,11 +148,7 @@ public class TeleconsultationPage extends UiBase {
         });
         refreshUi();
     }
-    /**
-     * Prompts the user to select a medication index for editing.
-     *
-     * @return the selected medication index, or -1 if no medication is available
-     */
+    //Prompts the user to select a medication index for editing.
     private int selectMedicationIndexPrompt() {
         List<Medication> medication = appointment.getBilling().getPrescription().getMedication();
         if (medication == null || medication.isEmpty()) {
@@ -164,9 +158,8 @@ public class TeleconsultationPage extends UiBase {
         }
         return InputHelper.getValidIndex("Select medication index to edit", medication);
     }
-    /**
-     * Refreshes the UI by clearing and updating the list view with the latest appointment details.
-     */
+    //Refreshes the UI by clearing and updating the list view with the latest appointment details.
+
     private void refreshUi() {
         listView.clear();
         listView.addItem(new TextView(this.canvas, "Patient Name: " + appointment.getPatient().getName(), Color.GREEN, TextStyle.ITALIC));

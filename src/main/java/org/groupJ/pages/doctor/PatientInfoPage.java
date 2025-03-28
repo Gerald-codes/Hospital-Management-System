@@ -14,9 +14,7 @@ import org.groupJ.ui.framework.views.TextView;
 
 import java.util.List;
 
-/**
- * Dual-purpose page, can ask user to select multiple patients, or display a single patient
- */
+//Dual-purpose page, can ask user to select multiple patients, or display a single patient
 public class PatientInfoPage extends UiBase {
     public static UserController userController = new UserController();
     public static Patient patient;
@@ -73,12 +71,8 @@ public class PatientInfoPage extends UiBase {
                 }
         });
     }
-    /**
-     * Displays the information of a single patient.
-     *
-     * @param patient the patient whose information is to be displayed
-     * @param isPartOfList whether the patient is part of a list
-     */
+    //Displays the information of a single patient.
+
     private void displayPatient(Patient patient, ListView lv, boolean isPartOfList) {
         // Patient header (only if part of a list)
         if (isPartOfList) {
@@ -175,12 +169,7 @@ public class PatientInfoPage extends UiBase {
             lv.addItem(new TextView(this.canvas, "===========================================================================", Color.RED));
         }
     }
-    /**
-     * Displays the information of all patients.
-     *
-     * @param patients the patient whose information is to be displayed
-     */
-
+    //Displays the information of all patients.
     private void displayAllPatients(List<Patient> patients, ListView lv) {
         lv.clear();
         lv.setTitleHeader("All Patients Information");

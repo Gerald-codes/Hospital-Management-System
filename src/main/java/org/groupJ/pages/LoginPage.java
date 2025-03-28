@@ -14,14 +14,8 @@ import org.groupJ.ui.framework.views.ListView;
 import org.groupJ.ui.framework.views.TextView;
 import org.groupJ.util.InputValidator;
 
-/**
- * Represents the login page of the Hospital Management System.
- * This class extends {@link UiBase} and provides the UI elements and logic for user authentication.*/
 public class LoginPage extends UiBase { // This is the class that represents the login page
 
-    /**
-     * The {@link UserController} instance used for user authentication.
-     * This field is static, meaning there's only one UserController shared across all LoginPage instances.*/
     public static UserController userController = new UserController();
 
     private String loginMessage;
@@ -30,22 +24,12 @@ public class LoginPage extends UiBase { // This is the class that represents the
         this.loginMessage = loginMessage;
     }
 
-    /**
-     * Called when the login page's view is created.
-     * Creates a {@link ListView} to hold the login page's UI elements.
-     * @return A new {@link ListView} instance representing the login page's view.
-     * @Override*/
     @Override
     public View OnCreateView() { // This is the method that is called when the view is created
         // Create a new list view with the canvas and color
         return new ListView(this.canvas, Color.GREEN); // Return the list view
     }
 
-    /**
-     * Called after the view has been created and attached to the UI.
-     * Populates the view with UI elements such as the title header and login prompt with user input handling for the login process.
-     * @param parentView The parent {@link View} to which the login page's UI elements are added.  This should be a ListView.
-     * @Override */
     @Override
     public void OnViewCreated(View parentView) { // This is the method that is called when the view is created
 
