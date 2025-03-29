@@ -49,7 +49,7 @@ public class NurseEmergencyMenuPage extends UiBase {
 
         String chiefComplaint = "";
         while (chiefComplaint.isBlank()) {
-            chiefComplaint = InputValidator.getValidStringInput("Enter reason of patient's visit (Chief Complaint): ").trim();
+            chiefComplaint = InputValidator.getValidStringWithSpaceInput("Enter reason of patient's visit (Chief Complaint): ").trim();
             AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "ENTER REASON OF PATIENT'S VISIT", String.valueOf(caseID), "SUCCESS", "NURSE");
         }
 

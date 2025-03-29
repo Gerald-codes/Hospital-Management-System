@@ -51,7 +51,7 @@ public class ParamedicMenuPage extends UiBase {
         //Chief Complaint
         String chiefComplaint = "";
         while (chiefComplaint.isBlank()) {
-            chiefComplaint = InputValidator.getValidStringInput("Enter reason of patient's visit (Chief Complaint): ").trim();
+            chiefComplaint = InputValidator.getValidStringWithSpaceInput("Enter reason of patient's visit (Chief Complaint): ").trim();
         }
         AuditManager.getInstance().logAction(UserController.getActiveParamedic().getId(), "ENTER REASON OF PATIENT'S VISIT", chiefComplaint, "SUCCESS", "PARAMEDIC");
 
