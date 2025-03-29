@@ -309,9 +309,9 @@
       "equipment": [],
       "dispatch_location": "cik"
     },
-    "dispatch_arrival_time": "2025-03-25T18:59:56.3924078",
+    "dispatch_arrival_time": "2025-03-29T13:39:36.9319088",
     "time_of_call": "2025-03-25T15:32:41.4673235",
-    "response_time": "PT3H27M14.9250843S",
+    "response_time": "PT94H6M55.4645853S",
     "case_i_d": 7,
     "patient": {
       "alert_history": [],

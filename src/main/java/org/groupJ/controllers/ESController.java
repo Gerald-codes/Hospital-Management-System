@@ -329,7 +329,7 @@ public class ESController {
         //Display Case Detail
         emergencyCase.displayCase();
 
-        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "PROCEED WITH INITIAL SCREENING", String.valueOf(emergencyCase.getCaseID()), "ONGOING", UserController.getActiveUserType().toString());
+        AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()), "PROCEED WITH INITIAL SCREENING", String.valueOf(emergencyCase.getCaseID()), "ONGOING", UserController.getActiveUserType().toString());
         // Print all TriageLevel enum values and prompt the user to choose one
         System.out.println("======= Select Patient's Triage Level =======");
 
@@ -343,25 +343,25 @@ public class ESController {
         // Get the selected TriageLevel
         TriageLevel selectedTriageLevel = TriageLevel.values()[triageChoice - 1];
         System.out.println("Selected Triage Level: " + selectedTriageLevel);
-        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(),"ENTER TRIAGE LEVEL: "+ triageChoice,String.valueOf(emergencyCase.getCaseID()),"SUCCESS",UserController.getActiveUserType().toString() );
+        AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()),"ENTER TRIAGE LEVEL: "+ triageChoice,String.valueOf(emergencyCase.getCaseID()),"SUCCESS",UserController.getActiveUserType().toString() );
 
         // Ask for vital signs
         System.out.println("\n======= Enter Patient's Vital Signs =======");
         double temperature = InputValidator.getValidDoubleInput("Enter body temperature (°C): ");
-        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(),"ENTER BODY TEMPERATURE" + temperature,String.valueOf(emergencyCase.getCaseID()),"SUCCESS",UserController.getActiveUserType().toString());
+        AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()),"ENTER BODY TEMPERATURE" + temperature,String.valueOf(emergencyCase.getCaseID()),"SUCCESS",UserController.getActiveUserType().toString());
         int heartRate = InputValidator.getValidRangeIntInput("Enter heart rate (beats per minute): ", 200);
-        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(),"ENTER HEART RATE" + heartRate, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
+        AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()),"ENTER HEART RATE" + heartRate, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
         int bloodPressureSystolic = InputValidator.getValidRangeIntInput("Enter systolic blood pressure (mmHg): ", 200);
-        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(),"ENTER SYSTOLIC BLOOD PRESSURE" + bloodPressureSystolic, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
+        AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()),"ENTER SYSTOLIC BLOOD PRESSURE" + bloodPressureSystolic, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
         int bloodPressureDiastolic = InputValidator.getValidRangeIntInput("Enter diastolic blood pressure (mmHg): ", 120);
-        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(),"ENTER DIASTOLIC BLOOD PRESSURE" + bloodPressureDiastolic, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
+        AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()),"ENTER DIASTOLIC BLOOD PRESSURE" + bloodPressureDiastolic, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
         int respiratoryRate = InputValidator.getValidRangeIntInput("Enter respiratory rate (breaths per minute): ", 40); // Typical max RR is 40int respiratoryRate = InputValidator.getValidRangeIntInput("Enter diastolic blood pressure (mmHg): ", 120);
-        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(),"ENTER RESPIRATORY RATE" + respiratoryRate, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
+        AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()),"ENTER RESPIRATORY RATE" + respiratoryRate, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
 
 
         // Ask for allergies
         String allergies = InputValidator.getValidStringInput("Enter patient's allergies (if any, put NIL if none): ");
-        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(),"ENTER PATIENT ALLERGIES" + allergies, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
+        AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()),"ENTER PATIENT ALLERGIES" + allergies, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
 
 
         // Print summary of entered data for verification
@@ -376,7 +376,7 @@ public class ESController {
 
         // Ask for confirmation if the details are correct
         String confirmation = InputValidator.getValidStringInput("\nAre the details correct? (YES/NO): ");
-        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(),"CHECK IF DETAILS ARE CORRECT" + confirmation, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
+        AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()),"CHECK IF DETAILS ARE CORRECT" + confirmation, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
 
 
         if (confirmation.equalsIgnoreCase("NO")) {
@@ -394,7 +394,7 @@ public class ESController {
                 System.out.println("7. Finish Editing");
 
                 int editChoice = InputValidator.getValidRangeIntInput("Enter the number corresponding to the field you want to edit: ", 7);
-                AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(),"SELECTING OPTION" + editChoice, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
+                AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()),"SELECTING OPTION" + editChoice, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
 
                 switch (editChoice) {
                     case 1:
@@ -402,35 +402,35 @@ public class ESController {
                         triageChoice = InputValidator.getValidRangeIntInput("Enter the number corresponding to the patient's triage level: ", TriageLevel.values().length);
                         selectedTriageLevel = TriageLevel.values()[triageChoice - 1];
                         System.out.println("Updated Triage Level: " + selectedTriageLevel);
-                        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(),"ENTER TRIAGE LEVEL" + triageChoice, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
+                        AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()),"ENTER TRIAGE LEVEL" + triageChoice, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
 
                         break;
                     case 2:
                         // Edit Temperature
                         temperature = InputValidator.getValidDoubleInput("Enter body temperature (°C): ");
-                        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(),"ENTER BODY TEMPERATURE" + temperature,String.valueOf(emergencyCase.getCaseID()),"SUCCESS",UserController.getActiveUserType().toString());
+                        AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()),"ENTER BODY TEMPERATURE" + temperature,String.valueOf(emergencyCase.getCaseID()),"SUCCESS",UserController.getActiveUserType().toString());
                         break;
                     case 3:
                         // Edit Heart Rate
                         heartRate = InputValidator.getValidRangeIntInput("Enter Heart rate (beats per minute): ", 200);
-                        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(),"ENTER HEART RATE" + heartRate, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
+                        AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()),"ENTER HEART RATE" + heartRate, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
                         break;
                     case 4:
                         // Edit Blood Pressure
                         bloodPressureSystolic = InputValidator.getValidRangeIntInput("Enter systolic blood pressure (mmHg): ", 200);
-                        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(),"ENTER SYSTOLIC BLOOD PRESSURE" + bloodPressureSystolic, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
+                        AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()),"ENTER SYSTOLIC BLOOD PRESSURE" + bloodPressureSystolic, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
                         bloodPressureDiastolic = InputValidator.getValidRangeIntInput("Enter diastolic blood pressure (mmHg): ", 120);
-                        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(),"ENTER DIASTOLIC BLOOD PRESSURE" + bloodPressureDiastolic, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
+                        AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()),"ENTER DIASTOLIC BLOOD PRESSURE" + bloodPressureDiastolic, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
                         break;
                     case 5:
                         // Edit Respiratory Rate
                         respiratoryRate = InputValidator.getValidRangeIntInput("Enter respiratory rate (breaths per minute): ", 40);  // 40 breaths/min max
-                        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(),"ENTER RESPIRATORY RATE" + respiratoryRate, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
+                        AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()),"ENTER RESPIRATORY RATE" + respiratoryRate, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
                         break;
                     case 6:
                         // Edit Allergies
-                        allergies = InputValidator.getValidStringInput("Enter patient's allergies (if any): ");
-                        AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(),"ENTER PATIENT ALLERGIES" + allergies, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
+                        allergies = InputValidator.getValidStringInput("Enter patient's allergies (if any, put NIL if none): ");
+                        AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()),"ENTER PATIENT ALLERGIES" + allergies, String.valueOf(emergencyCase.getCaseID()),"SUCCESS", UserController.getActiveUserType().toString());
                         break;
                     case 7:
                         // Finish Editing
@@ -450,13 +450,13 @@ public class ESController {
             }
         } else {
             emergencyCase.setTriageLevel(selectedTriageLevel);
-            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "UPDATE EMERGENCY CASE TRIAGE LEVEL", String.valueOf(emergencyCase.getCaseID()), "SUCCESS", UserController.getActiveUserType().toString());
+            AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()), "UPDATE EMERGENCY CASE TRIAGE LEVEL", String.valueOf(emergencyCase.getCaseID()), "SUCCESS", UserController.getActiveUserType().toString());
 
             Patient patient = emergencyCase.getPatient();
             patient.updatePatientVitalSigns(temperature, heartRate, bloodPressureSystolic, bloodPressureDiastolic, respiratoryRate);
-            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "UPDATE PATIENT VITAL SIGNS", String.valueOf(patient.getId()), "SUCCESS", UserController.getActiveUserType().toString());
+            AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()), "UPDATE PATIENT VITAL SIGNS", String.valueOf(patient.getId()), "SUCCESS", UserController.getActiveUserType().toString());
             System.out.println("\nPatient Initial Screening Completed!");
-            AuditManager.getInstance().logAction(UserController.getActiveNurse().getId(), "PROCEED WITH INITIAL SCREENING", String.valueOf(emergencyCase.getCaseID()), "COMPLETED", UserController.getActiveUserType().toString());
+            AuditManager.getInstance().logAction(String.valueOf(UserController.getActiveUserType()), "PROCEED WITH INITIAL SCREENING", String.valueOf(emergencyCase.getCaseID()), "COMPLETED", UserController.getActiveUserType().toString());
         }
     }
 
