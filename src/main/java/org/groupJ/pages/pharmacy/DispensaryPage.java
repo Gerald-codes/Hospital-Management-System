@@ -24,6 +24,13 @@ public class DispensaryPage extends UiBase {
     List<Appointment> appointments;
     List<EmergencyCase> emergencyCases;
 
+    // Column width constants for consistent display
+    private static final int INDEX_WIDTH = 5;
+    private static final int NAME_WIDTH = 15;
+    private static final int MEDICATIONS_WIDTH = 35;
+    private static final int DATE_WIDTH = 10;
+    private static final int IS_PAID_WIDTH = 5;
+
 
     @Override
     public View OnCreateView() {
@@ -35,7 +42,7 @@ public class DispensaryPage extends UiBase {
             this.OnBackPressed();
             return lv;
         }
-        lv.setTitleHeader("Dispense Medication for Patients | " + UserController.getActiveNurse().getName());
+        lv.setTitleHeader("Dispense Medication for Patients | GREEN for Appointments & RED for Emergency");
 
         this.listView = lv;
         return lv;
@@ -218,10 +225,23 @@ public class DispensaryPage extends UiBase {
     //Refreshes the UI
     private void refreshUi() {
         listView.clear();
+        // Add headers
+        displayHeaders();
         displayAppointments();
         displayEmergencyCases();
         this.canvas.setRequireRedraw(true);
     }
+
+    private void displayHeaders() {
+        String headers = String.format("%-" + INDEX_WIDTH + "s | %-" + NAME_WIDTH + "s | %-" + MEDICATIONS_WIDTH + "s | %-" + DATE_WIDTH + "s | %-" + IS_PAID_WIDTH + "s |",
+                "Index", "Patient Name", "Prescribed Medications", "Date", "Paid");
+
+        ListView headerRow = new ListView(this.canvas, Color.CYAN, ListViewOrientation.HORIZONTAL);
+        headerRow.addItem(new TextView(this.canvas, headers, Color.CYAN, TextStyle.BOLD));
+        headerRow.addItem(new TextView(this.canvas, "Status", Color.CYAN, TextStyle.BOLD));
+        listView.addItem(headerRow);
+    }
+
     //Display Appointments
     private void displayAppointments() {
         for (int i = 0; i < appointments.size(); i++) {
@@ -239,21 +259,15 @@ public class DispensaryPage extends UiBase {
             if (appointment.getAppointmentStatus() == null) {
                 appointment.setAppointmentStatus(AppointmentStatus.PENDING);
             }
-            final int indexWidth = 3;
-            final int nameWidth = 10;
-            final int medicationsWidth = 35;
-            final int dateWidth = 10;
-            final int isPaidWidth = 5;
-
-            String formattedIndex = String.format("%-" + indexWidth + "d", i);
-            String formattedName = String.format("%-" + nameWidth + "s", patientName.length() > nameWidth ?
-                    patientName.substring(0, nameWidth - 3) + "..." :
+            String formattedIndex = String.format("%-" + INDEX_WIDTH + "d", i);
+            String formattedName = String.format("%-" + NAME_WIDTH + "s", patientName.length() > NAME_WIDTH ?
+                    patientName.substring(0, NAME_WIDTH - 3) + "..." :
                     patientName);
-            String formattedmedicationsString = String.format("%-" + medicationsWidth + "s", medicationsString.length() > medicationsWidth ?
-                    medicationsString.substring(0, medicationsWidth - 3) + "..." :
+            String formattedmedicationsString = String.format("%-" + MEDICATIONS_WIDTH + "s", medicationsString.length() > MEDICATIONS_WIDTH ?
+                    medicationsString.substring(0, MEDICATIONS_WIDTH - 3) + "..." :
                     medicationsString);
-            String formattedDateColumn = String.format("%-" + dateWidth + "s", formattedDate);
-            String formattedPaid = String.format("%-" + isPaidWidth + "s", isPaid);
+            String formattedDateColumn = String.format("%-" + DATE_WIDTH + "s", formattedDate);
+            String formattedPaid = String.format("%-" + IS_PAID_WIDTH + "s", isPaid);
 
             String status = appointment.getAppointmentStatus().toString();
 
@@ -281,23 +295,15 @@ public class DispensaryPage extends UiBase {
             String medicationsString = String.join(", ", medicationNames);
             String formattedDate = emergencyCase.getArrivalDateTime().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
 
-            final int indexWidth = 3;
-            final int nameWidth = 10;
-            final int medicationsWidth = 35;
-            final int dateWidth = 10;
-            final int isPaidWidth = 5;
-
-            String formattedIndex = String.format("%-" + indexWidth + "d", i);
-            String formattedName = String.format("%-" + nameWidth + "s", patientName.length() > nameWidth ?
-                    patientName.substring(0, nameWidth - 3) + "..." :
+            String formattedIndex = String.format("%-" + INDEX_WIDTH + "d", i);
+            String formattedName = String.format("%-" + NAME_WIDTH + "s", patientName.length() > NAME_WIDTH ?
+                    patientName.substring(0, NAME_WIDTH - 3) + "..." :
                     patientName);
-            String formattedmedicationsString = String.format("%-" + medicationsWidth + "s", medicationsString.length() > medicationsWidth ?
-                    medicationsString.substring(0, medicationsWidth - 3) + "..." :
+            String formattedmedicationsString = String.format("%-" + MEDICATIONS_WIDTH + "s", medicationsString.length() > MEDICATIONS_WIDTH ?
+                    medicationsString.substring(0, MEDICATIONS_WIDTH - 3) + "..." :
                     medicationsString);
-            String formattedDateColumn = String.format("%-" + dateWidth + "s", formattedDate);
-
-            String formattedPaid = String.format("%-" + isPaidWidth + "s");
-
+            String formattedDateColumn = String.format("%-" + DATE_WIDTH + "s", formattedDate);
+            String formattedPaid = String.format("%-" + IS_PAID_WIDTH + "s", "false");
             String status = emergencyCase.getPatientStatus().toString();
 
             String displayText = String.format("%s | %s | %s | %s | %s |",
@@ -316,8 +322,6 @@ public class DispensaryPage extends UiBase {
     // Helper method to get item color for the appointment status
     private Color getItemColor(AppointmentStatus status) {
         return switch (status) {
-            case DECLINED -> Color.RED;
-            case PENDING -> Color.CYAN;
             default -> Color.GREEN;
         };
     }
@@ -325,9 +329,7 @@ public class DispensaryPage extends UiBase {
     // Overloaded helper method to get item color for the patient status
     private Color getItemColor(PatientStatus status) {
         return switch (status) {
-            case DISCHARGED -> Color.RED;
-            case ONGOING -> Color.CYAN;
-            default -> Color.GREEN;
+            default -> Color.RED;
         };
     }
 }
